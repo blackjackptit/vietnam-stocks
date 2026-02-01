@@ -1,0 +1,12 @@
+{
+  "symbol": "CCL",
+  "price": 5820.0,
+  "change": 60.0,
+  "change_percent": 1.0416666666666665,
+  "volume": 59300,
+  "high": 5830.0,
+  "low": 5720.0,
+  "open": 5800.0,
+  "timestamp": "2026-02-01T01:31:20.267460",
+  "source": "vnstock/VCI"
+}

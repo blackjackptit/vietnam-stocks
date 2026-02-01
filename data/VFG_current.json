@@ -1,0 +1,12 @@
+{
+  "symbol": "VFG",
+  "price": 54900.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 1500,
+  "high": 54900.0,
+  "low": 54800.0,
+  "open": 54900.0,
+  "timestamp": "2026-02-01T09:03:06.493264",
+  "source": "vnstock/VCI"
+}

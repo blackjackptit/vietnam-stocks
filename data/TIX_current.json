@@ -1,0 +1,12 @@
+{
+  "symbol": "TIX",
+  "price": 41700.0,
+  "change": -1800.0,
+  "change_percent": -4.137931034482759,
+  "volume": 300,
+  "high": 41700.0,
+  "low": 41500.0,
+  "open": 41500.0,
+  "timestamp": "2026-02-01T09:01:15.023853",
+  "source": "vnstock/VCI"
+}

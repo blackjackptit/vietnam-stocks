@@ -1,0 +1,12 @@
+{
+  "symbol": "POM",
+  "price": 7400.0,
+  "change": -500.0,
+  "change_percent": -6.329113924050633,
+  "volume": 14863200,
+  "high": 9000.0,
+  "low": 6900.0,
+  "open": 9000.0,
+  "timestamp": "2026-02-01T08:56:17.876493",
+  "source": "vnstock/VCI"
+}

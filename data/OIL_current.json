@@ -1,0 +1,12 @@
+{
+  "symbol": "OIL",
+  "price": 16300.0,
+  "change": 1300.0,
+  "change_percent": 8.666666666666668,
+  "volume": 18431700,
+  "high": 17000.0,
+  "low": 15000.0,
+  "open": 15000.0,
+  "timestamp": "2026-02-01T08:55:10.599964",
+  "source": "vnstock/VCI"
+}

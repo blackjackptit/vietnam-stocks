@@ -1,0 +1,12 @@
+{
+  "symbol": "ASP",
+  "price": 4790.0,
+  "change": -40.0,
+  "change_percent": -0.8281573498964804,
+  "volume": 22000,
+  "high": 4800.0,
+  "low": 4700.0,
+  "open": 4800.0,
+  "timestamp": "2026-02-01T01:30:20.062668",
+  "source": "vnstock/VCI"
+}

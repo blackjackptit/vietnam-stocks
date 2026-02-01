@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Switcher Test</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/custom-dialogs.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #f8fafc;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        .top-nav {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+            gap: 16px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-text {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #c41c16;
+            text-decoration: none;
+        }
+
+        .page-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #64748b;
+            border-left: 2px solid #e5e7eb;
+            padding-left: 16px;
+        }
+
+        .nav-menu {
+            position: relative;
+        }
+
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #c41c16;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s;
+        }
+
+        .menu-btn:hover {
+            background: #991b1b;
+            transform: translateY(-1px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .test-section {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 24px;
+        }
+
+        .test-section h2 {
+            color: #1e293b;
+            margin-bottom: 16px;
+        }
+
+        .test-item {
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+
+        .test-item strong {
+            color: #c41c16;
+        }
+
+        button.test-btn {
+            padding: 10px 20px;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+        }
+
+        button.test-btn:hover {
+            background: #059669;
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="logo-section">
+                <a href="index.html" class="logo-text">📊 VNStock Analytics</a>
+                <span class="page-title">Language Test</span>
+            </div>
+            <div class="nav-menu">
+                <button class="menu-btn" onclick="window.location.href='dashboard.html'">
+                    📊 Back to Dashboard
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="test-section">
+            <h2>🌐 Language Switcher Test Page</h2>
+            <p>This page tests the language switching functionality. Click the EN/VI buttons above to switch languages.</p>
+            <p><strong>Current Language:</strong> <span id="currentLang" data-i18n="common.loading">Loading...</span></p>
+        </div>
+
+        <div class="test-section">
+            <h2>Navigation Translations</h2>
+            <div class="test-item">
+                <strong>Home:</strong> <span data-i18n="nav.home">Home</span>
+            </div>
+            <div class="test-item">
+                <strong>Dashboard:</strong> <span data-i18n="nav.dashboard">Main Dashboard</span>
+            </div>
+            <div class="test-item">
+                <strong>Settings:</strong> <span data-i18n="nav.settings">Settings</span>
+            </div>
+            <div class="test-item">
+                <strong>Menu:</strong> <span data-i18n="nav.menu">Menu</span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Common Translations</h2>
+            <div class="test-item">
+                <strong>Loading:</strong> <span data-i18n="common.loading">Loading...</span>
+            </div>
+            <div class="test-item">
+                <strong>Save:</strong> <span data-i18n="common.save">Save</span>
+            </div>
+            <div class="test-item">
+                <strong>Cancel:</strong> <span data-i18n="common.cancel">Cancel</span>
+            </div>
+            <div class="test-item">
+                <strong>Search:</strong> <span data-i18n="common.search">Search</span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Stock Categories</h2>
+            <div class="test-item">
+                <strong>Blue Chips:</strong> <span data-i18n="category.blue_chips">Blue Chips</span>
+            </div>
+            <div class="test-item">
+                <strong>Banks:</strong> <span data-i18n="category.banks">Banks</span>
+            </div>
+            <div class="test-item">
+                <strong>Technology:</strong> <span data-i18n="category.tech">Technology</span>
+            </div>
+            <div class="test-item">
+                <strong>Real Estate:</strong> <span data-i18n="category.real_estate">Real Estate</span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Dashboard Translations</h2>
+            <div class="test-item">
+                <strong>Real-Time Market Overview:</strong> <span data-i18n="dashboard.real_time">Real-Time Market Overview</span>
+            </div>
+            <div class="test-item">
+                <strong>Price Chart:</strong> <span data-i18n="dashboard.price_chart">Price Chart</span>
+            </div>
+            <div class="test-item">
+                <strong>Volume Analysis:</strong> <span data-i18n="dashboard.volume_analysis">Volume Analysis</span>
+            </div>
+            <div class="test-item">
+                <strong>Performance Metrics:</strong> <span data-i18n="dashboard.performance_metrics">Performance Metrics</span>
+            </div>
+            <div class="test-item">
+                <strong>Top Performers:</strong> <span data-i18n="dashboard.top_performers">Top Performers</span>
+            </div>
+            <div class="test-item">
+                <strong>Top Losers:</strong> <span data-i18n="dashboard.top_losers">Top Losers</span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Historical Analysis Translations</h2>
+            <div class="test-item">
+                <strong>Subtitle:</strong> <span data-i18n="history.subtitle">Analyze historical stock performance and trends</span>
+            </div>
+            <div class="test-item">
+                <strong>Last 7 Days:</strong> <span data-i18n="history.last_7_days">Last 7 Days</span>
+            </div>
+            <div class="test-item">
+                <strong>Last 30 Days:</strong> <span data-i18n="history.last_30_days">Last 30 Days</span>
+            </div>
+            <div class="test-item">
+                <strong>Last Year:</strong> <span data-i18n="history.last_year">Last Year</span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Price Forecast Translations</h2>
+            <div class="test-item">
+                <strong>Title:</strong> <span data-i18n="nav.forecast">Price Forecast</span>
+            </div>
+            <div class="test-item">
+                <strong>Subtitle:</strong> <span data-i18n="forecast.subtitle">Predict future stock prices using historical data</span>
+            </div>
+            <div class="test-item">
+                <strong>Forecast Period:</strong> <span data-i18n="forecast.forecast_period">Forecast Period</span>
+            </div>
+            <div class="test-item">
+                <strong>7 Days:</strong> <span data-i18n="forecast.7_days">7 Days</span>
+            </div>
+            <div class="test-item">
+                <strong>Price Prediction:</strong> <span data-i18n="forecast.prediction">Price Prediction</span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Portfolio Translations</h2>
+            <div class="test-item">
+                <strong>Title:</strong> <span data-i18n="portfolio.title">Portfolio Analytics</span>
+            </div>
+            <div class="test-item">
+                <strong>Subtitle:</strong> <span data-i18n="portfolio.subtitle">Advanced portfolio analysis and optimization</span>
+            </div>
+            <div class="test-item">
+                <strong>Enter Budget:</strong> <span data-i18n="portfolio.enter_budget">Enter Budget</span>
+            </div>
+            <div class="test-item">
+                <strong>Optimize Portfolio:</strong> <span data-i18n="portfolio.optimize">Optimize Portfolio</span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Alerts System Translations</h2>
+            <div class="test-item">
+                <strong>Title:</strong> <span data-i18n="nav.alerts">Alerts System</span>
+            </div>
+            <div class="test-item">
+                <strong>Subtitle:</strong> <span data-i18n="alerts.subtitle">Set up price alerts and notifications</span>
+            </div>
+            <div class="test-item">
+                <strong>Create Alert:</strong> <span data-i18n="alerts.create_alert">Create Alert</span>
+            </div>
+            <div class="test-item">
+                <strong>Target Price:</strong> <span data-i18n="alerts.target_price">Target Price</span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Trading Automation Translations</h2>
+            <div class="test-item">
+                <strong>Title:</strong> <span data-i18n="nav.automation">Trading Automation</span>
+            </div>
+            <div class="test-item">
+                <strong>Subtitle:</strong> <span data-i18n="automation.subtitle">Automate your trading strategies</span>
+            </div>
+            <div class="test-item">
+                <strong>Create Strategy:</strong> <span data-i18n="automation.create_strategy">Create Strategy</span>
+            </div>
+            <div class="test-item">
+                <strong>Risk Management:</strong> <span data-i18n="automation.risk_management">Risk Management</span>
+            </div>
+            <div class="test-item">
+                <strong>Stop Loss:</strong> <span data-i18n="automation.stop_loss">Stop Loss</span>
+            </div>
+            <div class="test-item">
+                <strong>Take Profit:</strong> <span data-i18n="automation.take_profit">Take Profit</span>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test Actions</h2>
+            <button class="test-btn" onclick="testSwitchToVietnamese()">Switch to Vietnamese</button>
+            <button class="test-btn" onclick="testSwitchToEnglish()">Switch to English</button>
+            <button class="test-btn" onclick="showCurrentLanguage()">Show Current Language</button>
+        </div>
+    </div>
+
+    <script>
+        // Update current language display
+        function updateCurrentLangDisplay() {
+            const lang = getCurrentLanguage();
+            const langName = lang === 'en' ? 'English' : 'Tiếng Việt';
+            document.getElementById('currentLang').textContent = `${lang.toUpperCase()} (${langName})`;
+        }
+
+        // Test functions
+        function testSwitchToVietnamese() {
+            console.log('Test: Switching to Vietnamese...');
+            switchLanguage('vi');
+            updateCurrentLangDisplay();
+        }
+
+        function testSwitchToEnglish() {
+            console.log('Test: Switching to English...');
+            switchLanguage('en');
+            updateCurrentLangDisplay();
+        }
+
+        function showCurrentLanguage() {
+            const lang = getCurrentLanguage();
+            const langName = lang === 'en' ? 'English' : 'Tiếng Việt';
+            if (typeof showInfo === 'function') {
+                showInfo(`Current language: ${langName}`);
+            } else {
+                alert(`Current language: ${langName}`);
+            }
+        }
+
+        // Update on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(updateCurrentLangDisplay, 500);
+        });
+    </script>
+</body>
+</html>

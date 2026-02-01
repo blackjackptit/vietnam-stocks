@@ -1,0 +1,12 @@
+{
+  "symbol": "STB",
+  "price": 63000.0,
+  "change": 200.0,
+  "change_percent": 0.3184713375796179,
+  "volume": 9372100,
+  "high": 65000.0,
+  "low": 62700.0,
+  "open": 62800.0,
+  "timestamp": "2026-02-01T01:33:15.920356",
+  "source": "vnstock/VCI"
+}

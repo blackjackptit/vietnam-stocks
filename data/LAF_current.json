@@ -1,0 +1,12 @@
+{
+  "symbol": "LAF",
+  "price": 18350.0,
+  "change": 150.0,
+  "change_percent": 0.8241758241758242,
+  "volume": 4800,
+  "high": 18350.0,
+  "low": 18150.0,
+  "open": 18250.0,
+  "timestamp": "2026-02-01T08:53:01.273163",
+  "source": "vnstock/VCI"
+}

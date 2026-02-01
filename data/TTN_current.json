@@ -1,0 +1,12 @@
+{
+  "symbol": "TTN",
+  "price": 17000.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 204000,
+  "high": 17200.0,
+  "low": 16900.0,
+  "open": 17000.0,
+  "timestamp": "2026-02-01T09:02:13.922585",
+  "source": "vnstock/VCI"
+}

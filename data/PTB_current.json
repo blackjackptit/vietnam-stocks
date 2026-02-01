@@ -1,0 +1,12 @@
+{
+  "symbol": "PTB",
+  "price": 53000.0,
+  "change": 1900.0,
+  "change_percent": 3.7181996086105675,
+  "volume": 451900,
+  "high": 53000.0,
+  "low": 51100.0,
+  "open": 51300.0,
+  "timestamp": "2026-02-01T08:56:37.199027",
+  "source": "vnstock/VCI"
+}

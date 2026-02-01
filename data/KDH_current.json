@@ -1,0 +1,12 @@
+{
+  "symbol": "KDH",
+  "price": 27500.0,
+  "change": 600.0,
+  "change_percent": 2.2304832713754648,
+  "volume": 11299600,
+  "high": 28000.0,
+  "low": 26850.0,
+  "open": 27100.0,
+  "timestamp": "2026-02-01T08:52:45.908240",
+  "source": "vnstock/VCI"
+}

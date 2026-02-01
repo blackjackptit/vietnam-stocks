@@ -1,0 +1,12 @@
+{
+  "symbol": "VIB",
+  "price": 17800.0,
+  "change": 300.0,
+  "change_percent": 1.7142857142857144,
+  "volume": 6710600,
+  "high": 17800.0,
+  "low": 17450.0,
+  "open": 17500.0,
+  "timestamp": "2026-02-01T09:03:44.309073",
+  "source": "vnstock/VCI"
+}

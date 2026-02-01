@@ -1,0 +1,12 @@
+{
+  "symbol": "CNG",
+  "price": 27000.0,
+  "change": 200.0,
+  "change_percent": 0.7462686567164178,
+  "volume": 63200,
+  "high": 27500.0,
+  "low": 26600.0,
+  "open": 27000.0,
+  "timestamp": "2026-02-01T01:31:51.703397",
+  "source": "vnstock/VCI"
+}

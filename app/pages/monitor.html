@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Monitor & Settings - VNStock Analytics</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+            color: #000000;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 2px solid #dc2626;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-container {
+            flex-shrink: 0;
+        }
+
+        .logo-link {
+            display: block;
+            text-decoration: none;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .logo-link:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+
+        .logo-img {
+            width: 64px;
+            height: 64px;
+            display: block;
+            cursor: pointer;
+        }
+
+        .header-content {
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            color: #000000;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header p {
+            color: #4b5563;
+            font-size: 16px;
+        }
+
+        .monitor-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #dc2626;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .status-bar {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-dot.online {
+            background: #dc2626;
+            box-shadow: 0 0 10px rgba(220, 38, 38, 0.5);
+        }
+
+        .status-dot.warning {
+            background: #f59e0b;
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+        }
+
+        .status-dot.offline {
+            background: #ef4444;
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .status-text {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .status-label {
+            font-size: 12px;
+            color: #718096;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .card-icon {
+            font-size: 28px;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #000000;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f7fafc;
+        }
+
+        .metric:last-child {
+            border-bottom: none;
+        }
+
+        .metric-label {
+            font-size: 14px;
+            color: #4a5568;
+        }
+
+        .metric-value {
+            font-size: 16px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .metric-value.success {
+            color: #dc2626;
+        }
+
+        .metric-value.warning {
+            color: #f59e0b;
+        }
+
+        .metric-value.error {
+            color: #ef4444;
+        }
+
+        .btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+        }
+
+        .btn-secondary {
+            background: #64748b;
+        }
+
+        .btn-secondary:hover {
+            background: #475569;
+        }
+
+        .btn-success {
+            background: #10b981;
+        }
+
+        .btn-success:hover {
+            background: #059669;
+        }
+
+        .btn-danger {
+            background: #ef4444;
+        }
+
+        .btn-danger:hover {
+            background: #dc2626;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .setting-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+
+        .setting-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .setting-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .setting-description {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 4px;
+        }
+
+        .setting-value {
+            font-size: 14px;
+            color: #4a5568;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            min-width: 120px;
+            text-align: right;
+        }
+
+        .toggle {
+            position: relative;
+            width: 48px;
+            height: 24px;
+            background: #cbd5e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle.active {
+            background: #dc2626;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+
+        .toggle.active .toggle-slider {
+            transform: translateX(24px);
+        }
+
+        .log-container {
+            background: #000000;
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 12px;
+            max-height: 400px;
+            overflow-y: auto;
+            line-height: 1.6;
+        }
+
+        .log-line {
+            margin-bottom: 8px;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .log-line.info {
+            background: rgba(220, 38, 38, 0.1);
+            border-left: 3px solid #dc2626;
+        }
+
+        .log-line.success {
+            background: rgba(220, 38, 38, 0.1);
+            border-left: 3px solid #dc2626;
+        }
+
+        .log-line.warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 3px solid #f59e0b;
+        }
+
+        .log-line.error {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 3px solid #ef4444;
+        }
+
+        .timestamp {
+            color: #9ca3af;
+            margin-right: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge.success {
+            background: #fee2e2;
+            color: #7f1d1d;
+        }
+
+        .badge.warning {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .badge.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .badge.info {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #718096;
+        }
+
+        .spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #dc2626;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .refresh-indicator {
+            font-size: 12px;
+            color: #9ca3af;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .refresh-dot {
+            width: 6px;
+            height: 6px;
+            background: #dc2626;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.3; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <a href="index.html" class="logo-link" title="Back to Home">
+                    <img src="favicon.svg" alt="VNStock Analytics Logo" class="logo-img">
+                </a>
+            </div>
+            <div class="header-content">
+                <h1>
+                    System Monitor & Settings
+                    <span class="monitor-badge">🔍 Live</span>
+                </h1>
+                <p>Real-time monitoring and configuration for Vietnamese Stock Analytics</p>
+            </div>
+        </div>
+
+        <div class="status-bar" id="statusBar">
+            <div class="loading">
+                <div class="spinner"></div>
+                Loading system status...
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- API Server Status -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-icon">🖥️</span>
+                    <h3 class="card-title">API Server</h3>
+                </div>
+                <div id="apiStatus">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Database Status -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-icon">🗄️</span>
+                    <h3 class="card-title">Database</h3>
+                </div>
+                <div id="databaseStatus">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Scheduler Status -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-icon">⏰</span>
+                    <h3 class="card-title">Scheduler</h3>
+                </div>
+                <div id="schedulerStatus">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Data Collection Status -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-icon">📡</span>
+                    <h3 class="card-title">Data Collection</h3>
+                </div>
+                <div id="dataCollectionStatus">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Collection Settings -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <span class="card-icon">⚙️</span>
+                    <h3 class="card-title">Collection Settings</h3>
+                </div>
+                <div id="settingsContent">
+                    <div class="loading">Loading settings...</div>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <span class="card-icon">⚡</span>
+                    <h3 class="card-title">Quick Actions</h3>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-success" onclick="collectStockData()">
+                        📈 Collect Stock Data Now
+                    </button>
+                    <button class="btn btn-success" onclick="collectMacroData()">
+                        🌍 Collect Macro Data Now
+                    </button>
+                    <button class="btn" onclick="viewSchedule()">
+                        📅 View Schedule
+                    </button>
+                    <button class="btn btn-secondary" onclick="viewLogs()">
+                        📋 View Logs
+                    </button>
+                    <button class="btn btn-secondary" onclick="editSettings()">
+                        🔧 Edit Settings
+                    </button>
+                    <button class="btn btn-danger" onclick="restartScheduler()">
+                        🔄 Restart Scheduler
+                    </button>
+                </div>
+            </div>
+
+            <!-- Recent Activity Log -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <span class="card-icon">📜</span>
+                    <h3 class="card-title">Recent Activity</h3>
+                    <div style="margin-left: auto;" class="refresh-indicator">
+                        <span class="refresh-dot"></span>
+                        Auto-refresh every 10s
+                    </div>
+                </div>
+                <div class="log-container" id="activityLog">
+                    <div class="log-line info">
+                        <span class="timestamp">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:5000'
+            : '';
+
+        // Check if API server is running
+        async function checkAPIServer() {
+            try {
+                const response = await fetch(`${API_BASE}/api/system-status`);
+                const data = await response.json();
+                return { running: true, data };
+            } catch (error) {
+                return { running: false, error: error.message };
+            }
+        }
+
+        // Load system status
+        async function loadSystemStatus() {
+            const result = await checkAPIServer();
+
+            if (!result.running) {
+                // API server is offline
+                document.getElementById('statusBar').innerHTML = `
+                    <div class="status-item">
+                        <div class="status-dot offline"></div>
+                        <div>
+                            <div class="status-text">System Offline</div>
+                            <div class="status-label">API Server is not running</div>
+                        </div>
+                    </div>
+                    <div style="margin-left: auto;">
+                        <button class="btn" onclick="startAPIServer()">Start API Server</button>
+                    </div>
+                `;
+
+                showOfflineStatus();
+                return;
+            }
+
+            const status = result.data;
+            const overallClass = status.overall === 'healthy' ? 'online' :
+                               status.overall === 'warning' ? 'warning' : 'offline';
+
+            // Update status bar
+            document.getElementById('statusBar').innerHTML = `
+                <div class="status-item">
+                    <div class="status-dot ${overallClass}"></div>
+                    <div>
+                        <div class="status-text">${status.overall === 'healthy' ? 'All Systems Operational' :
+                                                   status.overall === 'warning' ? 'System Warning' : 'System Error'}</div>
+                        <div class="status-label">Last updated: ${new Date(status.timestamp).toLocaleTimeString()}</div>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div style="font-size: 24px;">💾</div>
+                    <div>
+                        <div class="status-text">${status.database.stock_count} Stocks</div>
+                        <div class="status-label">Active in database</div>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div style="font-size: 24px;">📊</div>
+                    <div>
+                        <div class="status-text">${status.data_collection.stock_count_today} Updates</div>
+                        <div class="status-label">Today</div>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <div style="font-size: 24px;">${status.scheduler.status === 'running' ? '✅' : '⏸️'}</div>
+                    <div>
+                        <div class="status-text">${status.scheduler.status === 'running' ? 'Scheduler Active' : 'Scheduler Stopped'}</div>
+                        <div class="status-label">${status.scheduler.message}</div>
+                    </div>
+                </div>
+            `;
+
+            // Update API status
+            document.getElementById('apiStatus').innerHTML = `
+                <div class="metric">
+                    <span class="metric-label">Status</span>
+                    <span class="metric-value success">${status.api.status}</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Message</span>
+                    <span class="metric-value">${status.api.message}</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Endpoint</span>
+                    <span class="metric-value" style="font-size: 12px;">${API_BASE || 'localhost:5000'}</span>
+                </div>
+            `;
+
+            // Update database status
+            const dbStatusClass = status.database.status === 'connected' ? 'success' : 'error';
+            document.getElementById('databaseStatus').innerHTML = `
+                <div class="metric">
+                    <span class="metric-label">Connection</span>
+                    <span class="metric-value ${dbStatusClass}">${status.database.status}</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Active Stocks</span>
+                    <span class="metric-value">${status.database.stock_count}</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Message</span>
+                    <span class="metric-value" style="font-size: 12px;">${status.database.message}</span>
+                </div>
+            `;
+
+            // Update scheduler status
+            const schedulerClass = status.scheduler.status === 'running' ? 'success' :
+                                  status.scheduler.status === 'stopped' ? 'warning' : 'error';
+            document.getElementById('schedulerStatus').innerHTML = `
+                <div class="metric">
+                    <span class="metric-label">Status</span>
+                    <span class="metric-value ${schedulerClass}">${status.scheduler.status}</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Process ID</span>
+                    <span class="metric-value">${status.scheduler.pid || 'N/A'}</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Message</span>
+                    <span class="metric-value" style="font-size: 12px;">${status.scheduler.message}</span>
+                </div>
+                ${status.scheduler.status === 'stopped' ? `
+                <div class="actions" style="margin-top: 15px;">
+                    <button class="btn btn-success" onclick="startScheduler()">▶️ Start Scheduler</button>
+                </div>
+                ` : `
+                <div class="actions" style="margin-top: 15px;">
+                    <button class="btn btn-danger" onclick="stopScheduler()">⏹️ Stop Scheduler</button>
+                </div>
+                `}
+            `;
+
+            // Update data collection status
+            document.getElementById('dataCollectionStatus').innerHTML = `
+                <div class="metric">
+                    <span class="metric-label">Last Stock Update</span>
+                    <span class="metric-value">${status.data_collection.last_stock_update ?
+                        new Date(status.data_collection.last_stock_update).toLocaleString() : 'Never'}</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Last Index Update</span>
+                    <span class="metric-value">${status.data_collection.last_index_update ?
+                        new Date(status.data_collection.last_index_update).toLocaleString() : 'Never'}</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Last Macro Update</span>
+                    <span class="metric-value">${status.data_collection.last_macro_update ?
+                        new Date(status.data_collection.last_macro_update).toLocaleString() : 'Never'}</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Today's Updates</span>
+                    <span class="metric-value success">${status.data_collection.stock_count_today} stocks</span>
+                </div>
+            `;
+
+            // Load settings
+            loadSettings();
+
+            // Load activity log
+            loadActivityLog();
+        }
+
+        function showOfflineStatus() {
+            document.getElementById('apiStatus').innerHTML = `
+                <div class="metric">
+                    <span class="metric-label">Status</span>
+                    <span class="metric-value error">Offline</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Message</span>
+                    <span class="metric-value">API server is not running</span>
+                </div>
+            `;
+
+            document.getElementById('databaseStatus').innerHTML = `
+                <div class="metric">
+                    <span class="metric-label">Connection</span>
+                    <span class="metric-value error">Unknown</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Message</span>
+                    <span class="metric-value">Cannot check without API server</span>
+                </div>
+            `;
+
+            document.getElementById('schedulerStatus').innerHTML = `
+                <div class="metric">
+                    <span class="metric-label">Status</span>
+                    <span class="metric-value error">Unknown</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Message</span>
+                    <span class="metric-value">Cannot check without API server</span>
+                </div>
+            `;
+
+            document.getElementById('dataCollectionStatus').innerHTML = `
+                <div class="metric">
+                    <span class="metric-label">Status</span>
+                    <span class="metric-value error">Unknown</span>
+                </div>
+                <div class="metric">
+                    <span class="metric-label">Message</span>
+                    <span class="metric-value">Cannot check without API server</span>
+                </div>
+            `;
+
+            document.getElementById('settingsContent').innerHTML = `
+                <div style="text-align: center; padding: 20px; color: #718096;">
+                    API server is not running. Please start it to view settings.
+                </div>
+            `;
+        }
+
+        function loadSettings() {
+            // Since we don't have a settings API endpoint yet, show static info
+            document.getElementById('settingsContent').innerHTML = `
+                <div class="setting-item">
+                    <div class="setting-row">
+                        <div>
+                            <div class="setting-label">📈 Stock Data Collection</div>
+                            <div class="setting-description">Collect stock prices hourly during market hours</div>
+                        </div>
+                        <span class="badge success">Enabled</span>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-row">
+                        <div>
+                            <div class="setting-label">📊 Market Indices</div>
+                            <div class="setting-description">Update indices every 30 minutes</div>
+                        </div>
+                        <span class="badge success">Enabled</span>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-row">
+                        <div>
+                            <div class="setting-label">🌍 Macro Indicators</div>
+                            <div class="setting-description">Collect macro data hourly + daily at 6 AM</div>
+                        </div>
+                        <span class="badge success">Enabled</span>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-row">
+                        <div>
+                            <div class="setting-label">🕐 Market Hours</div>
+                            <div class="setting-description">Monday - Friday, 9:00 AM - 3:00 PM</div>
+                        </div>
+                        <span class="setting-value">9:00 - 15:00</span>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-row">
+                        <div>
+                            <div class="setting-label">⏱️ Stock Collection Interval</div>
+                            <div class="setting-description">How often to collect stock data</div>
+                        </div>
+                        <span class="setting-value">1 hour</span>
+                    </div>
+                </div>
+                <div class="setting-item">
+                    <div class="setting-row">
+                        <div>
+                            <div class="setting-label">🔌 Data Source</div>
+                            <div class="setting-description">Primary: VCI, Fallback: TCBS</div>
+                        </div>
+                        <span class="badge info">vnstock</span>
+                    </div>
+                </div>
+                <p style="margin-top: 20px; color: #718096; font-size: 14px;">
+                    💡 To change these settings, edit the <code>.env</code> file and restart the scheduler.
+                    <br>
+                    Run: <code>./jobs/manage_scheduler.sh settings</code> to view all settings in terminal.
+                </p>
+            `;
+        }
+
+        async function loadActivityLog() {
+            try {
+                const response = await fetch(`${API_BASE}/api/activity-log?limit=20`);
+                const data = await response.json();
+
+                if (data.success && data.logs && data.logs.length > 0) {
+                    const logHTML = data.logs.map(log => {
+                        const timestamp = new Date(log.timestamp);
+                        const statusClass = log.status || 'info';
+                        return `
+                            <div class="log-line ${statusClass}">
+                                <span class="timestamp">${timestamp.toLocaleTimeString()}</span>
+                                [${log.activity_type}] ${log.activity}
+                                ${log.details ? ` - ${log.details}` : ''}
+                            </div>
+                        `;
+                    }).join('');
+
+                    document.getElementById('activityLog').innerHTML = logHTML;
+                } else {
+                    // Fallback to default messages
+                    const now = new Date();
+                    document.getElementById('activityLog').innerHTML = `
+                        <div class="log-line info">
+                            <span class="timestamp">${now.toLocaleTimeString()}</span>
+                            No activity log available. Run database migration first.
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                const now = new Date();
+                document.getElementById('activityLog').innerHTML = `
+                    <div class="log-line warning">
+                        <span class="timestamp">${now.toLocaleTimeString()}</span>
+                        Cannot load activity log (API may be offline)
+                    </div>
+                `;
+            }
+        }
+
+        // Action functions
+        async function collectStockData() {
+            try {
+                const response = await fetch(`${API_BASE}/api/jobs/trigger`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ job_type: 'stock' })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('✅ Stock collection job triggered!\n\nThe job watcher will execute the collection shortly.\nCheck the activity log below for progress.');
+                    setTimeout(loadSystemStatus, 2000);
+                } else {
+                    alert('❌ Failed to trigger job:\n' + data.error);
+                }
+            } catch (error) {
+                alert('❌ Error: ' + error.message + '\n\nMake sure:\n1. API server is running\n2. Job watcher is running\n3. Database is connected');
+            }
+        }
+
+        async function collectMacroData() {
+            try {
+                const response = await fetch(`${API_BASE}/api/jobs/trigger`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ job_type: 'macro' })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    alert('✅ Macro collection job triggered!\n\nThe job watcher will execute the collection shortly.\nCheck the activity log below for progress.');
+                    setTimeout(loadSystemStatus, 2000);
+                } else {
+                    alert('❌ Failed to trigger job:\n' + data.error);
+                }
+            } catch (error) {
+                alert('❌ Error: ' + error.message + '\n\nMake sure:\n1. API server is running\n2. Job watcher is running\n3. Database is connected');
+            }
+        }
+
+        function viewSchedule() {
+            // Scroll to settings section which shows schedule info
+            const settingsSection = document.getElementById('settingsContent');
+            if (settingsSection) {
+                settingsSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                settingsSection.style.border = '2px solid #dc2626';
+                setTimeout(() => {
+                    settingsSection.style.border = '';
+                }, 2000);
+            }
+        }
+
+        function viewLogs() {
+            // Scroll to activity log section
+            const activityLog = document.getElementById('activityLog');
+            if (activityLog) {
+                activityLog.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                activityLog.parentElement.style.border = '2px solid #dc2626';
+                setTimeout(() => {
+                    activityLog.parentElement.style.border = '1px solid #e5e7eb';
+                }, 2000);
+            }
+        }
+
+        function editSettings() {
+            // Show modal or instructions for editing settings
+            const settingsInfo = `
+Settings Configuration:
+
+Current settings are displayed in the Settings section above.
+
+To modify settings:
+1. Edit the .env file in the project root
+2. Update desired values (intervals, hours, etc.)
+3. Restart the services to apply changes
+
+Key settings you can modify:
+• Collection intervals (in seconds)
+• Market hours (open/close times)
+• Enable/disable specific collections
+• Data source preferences
+
+Would you like to see the .env file location?
+            `.trim();
+
+            if (confirm(settingsInfo + '\n\nOpen .env file location instructions?')) {
+                alert('Edit .env file at:\n/Users/nghia.dinh/Projects/vietnam-stocks/.env\n\nThen restart services:\npkill -f api_server.py\npkill -f job_watcher.py\npython api_server.py &\npython jobs/job_watcher.py &');
+            }
+        }
+
+        function startScheduler() {
+            alert('To start scheduler, run:\n./jobs/manage_scheduler.sh start\n\nor\n./jobs/manage_scheduler.sh install');
+            setTimeout(loadSystemStatus, 2000);
+        }
+
+        function stopScheduler() {
+            alert('To stop scheduler, run:\n./jobs/manage_scheduler.sh stop');
+            setTimeout(loadSystemStatus, 2000);
+        }
+
+        function restartScheduler() {
+            const restartInfo = `
+Restart Services:
+
+The system uses these services:
+✓ API Server (port 5000)
+✓ Job Watcher (monitors triggers)
+✓ Database (PostgreSQL)
+
+To restart all services:
+
+1. Stop services:
+   pkill -f api_server.py
+   pkill -f job_watcher.py
+
+2. Start services:
+   cd /Users/nghia.dinh/Projects/vietnam-stocks
+   source venv/bin/activate
+   nohup python api_server.py > /tmp/api_server.log 2>&1 &
+   nohup python jobs/job_watcher.py > /tmp/job_watcher.log 2>&1 &
+
+This is typically needed after:
+• Updating .env configuration
+• Changing collection settings
+• Updating code
+
+Continue?
+            `.trim();
+
+            if (confirm(restartInfo)) {
+                alert('Copy these commands to your terminal:\n\npkill -f api_server.py && pkill -f job_watcher.py && cd /Users/nghia.dinh/Projects/vietnam-stocks && source venv/bin/activate && nohup python api_server.py > /tmp/api_server.log 2>&1 & nohup python jobs/job_watcher.py > /tmp/job_watcher.log 2>&1 &\n\nThen refresh this page in 5 seconds.');
+            }
+            setTimeout(loadSystemStatus, 2000);
+        }
+
+        function startAPIServer() {
+            alert('To start API server, run:\npython api_server.py\n\nOr in background:\nnohup python api_server.py > /tmp/api_server.log 2>&1 &');
+        }
+
+        // Initial load
+        loadSystemStatus();
+
+        // Auto-refresh every 10 seconds
+        setInterval(loadSystemStatus, 10000);
+    </script>
+</body>
+</html>

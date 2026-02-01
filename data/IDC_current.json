@@ -1,0 +1,12 @@
+{
+  "symbol": "IDC",
+  "price": 47900.0,
+  "change": 1600.0,
+  "change_percent": 3.455723542116631,
+  "volume": 9225400,
+  "high": 49800.0,
+  "low": 46100.0,
+  "open": 46300.0,
+  "timestamp": "2026-02-01T01:26:22.589741",
+  "source": "vnstock/VCI"
+}

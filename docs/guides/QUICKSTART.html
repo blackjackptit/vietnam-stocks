@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Quick Start Guide - Vietnamese Stock Monitor</title>
+<link rel="stylesheet" href="docs-style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head><body>
+<nav class="top-nav"><div class="nav-container">
+<a href="index.html" class="logo-text">📊 VNStock Analytics</a>
+<span class="page-title" data-i18n="footer.documentation">Documentation</span>
+</div></nav>
+<div class="container"><div class="content-card markdown-content">
+<h1>Quick Start Guide - Vietnamese Stock Monitor</h1>
+
+<p>Get started in 5 minutes!</p>
+
+<h2>Installation</h2>
+
+<pre><code>cd ~/projects/vietnam-stocks
+<p>pip install -r requirements.txt</code></pre></p>
+
+<h2>Test the Tool</h2>
+
+<h3>1. Check Available Stocks</h3>
+
+<pre><code>python monitor.py --list-stocks</code></pre>
+
+<p>You'll see stock categories like <code>blue_chips</code>, <code>banks</code>, <code>tech</code>, <code>affordable</code>, etc.</p>
+
+<h3>2. Run Your First Scan</h3>
+
+<pre><code>python monitor.py --scan-once --watchlist "VPB,FPT,STB"</code></pre>
+
+<p>This will:</p>
+<ul>
+<li>✅ Fetch real-time prices from VNDirect API</li>
+<li>✅ Calculate RSI, MACD, Moving Averages</li>
+<li>✅ Provide BUY/SELL recommendations</li>
+<li>✅ Suggest how to invest 10M VND</li>
+</ul>
+
+<strong>Expected Output:</strong>
+<pre><code>==========================================
+<p>STOCK SCAN - 2025-01-30 15:30:00</p>
+<p>==========================================</p>
+
+<p>Analyzing VPB...</p>
+<p>  Price: 23,500 VND (+2.50%)</p>
+<p>  🟢 Recommendation: BUY (Score: 25)</p>
+<p>  RSI: 45.2</p>
+<p>  🟢 Price above MA20 and MA50 (bullish)</p>
+
+<p>==========================================</p>
+<p>💰 INVESTMENT SUGGESTION FOR 10M VND</p>
+<p>==========================================</p>
+
+<p>  VPB</p>
+<p>    Price: 23,500 VND</p>
+<p>    Buy: 85 shares</p>
+<p>    Cost: 2,004,763 VND</p>
+<p>    Reason: BUY (Score: 25)</p>
+<p>...</code></pre></p>
+
+<h3>3. Start Continuous Monitoring</h3>
+
+<pre><code>python monitor.py --interval 15</code></pre>
+
+<p>The tool will scan every 15 minutes and log results.</p>
+
+<p>Press <code>Ctrl+C</code> to stop.</p>
+
+<h2>Common Use Cases</h2>
+
+<h3>Monitor Affordable Stocks (Default)</h3>
+
+<p>Perfect for 10M VND budget:</p>
+
+<pre><code>python monitor.py --scan-once</code></pre>
+
+<p>Monitors: VPB, STB, HDB, SHB, MBB, ACB, FPT, POW, DGC, GEX</p>
+
+<h3>Monitor Blue Chips</h3>
+
+<pre><code>python monitor.py --scan-once --watchlist blue_chips</code></pre>
+
+<p>Monitors: VCB, VHM, VIC, VNM, HPG, GAS, MSN, TCB, VPB, MBB</p>
+
+<h3>Monitor Tech Stocks</h3>
+
+<pre><code>python monitor.py --scan-once --watchlist tech</code></pre>
+
+<p>Monitors: FPT, CMG, VGI, SAM, ITD, ELC, SGT, ICT, DGW, CTR</p>
+
+<h3>Custom Watchlist</h3>
+
+<pre><code>python monitor.py --scan-once --watchlist "FPT,VNM,HPG,VCB"</code></pre>
+
+<h3>Different Budget</h3>
+
+<pre><code>python monitor.py --scan-once --budget 20000000  # 20M VND</code></pre>
+
+<h2>Understanding Results</h2>
+
+<h3>Recommendations</h3>
+
+<p>| Symbol | Meaning |</p>
+<p>|--------|---------|</p>
+<p>| 🟢🟢 | <strong>STRONG BUY</strong> - Multiple bullish signals |</p>
+<p>| 🟢 | <strong>BUY</strong> - Bullish trend detected |</p>
+<p>| ⚪ | <strong>HOLD</strong> - Mixed/neutral signals |</p>
+<p>| 🔴 | <strong>SELL</strong> - Bearish trend |</p>
+<p>| 🔴🔴 | <strong>STRONG SELL</strong> - Multiple bearish signals |</p>
+
+<h3>Key Indicators</h3>
+
+<strong>RSI (Relative Strength Index)</strong>
+<ul>
+<li>Below 30: Oversold → Potential buy</li>
+<li>30-70: Normal range</li>
+<li>Above 70: Overbought → Potential sell</li>
+</ul>
+
+<strong>Moving Averages</strong>
+<ul>
+<li>Price > MA20 > MA50: Strong uptrend 📈</li>
+<li>Price < MA20 < MA50: Strong downtrend 📉</li>
+</ul>
+
+<strong>Score System</strong>
+<ul>
+<li>40+: Strong buy territory</li>
+<li>20-40: Buy zone</li>
+<li>-20 to 20: Neutral</li>
+<li>Below -20: Sell zone</li>
+</ul>
+
+<h2>Files Generated</h2>
+
+<h3>Logs</h3>
+<pre><code>logs/monitor_20250130.log</code></pre>
+<p>Contains timestamped monitoring activity.</p>
+
+<h3>Scan Results</h3>
+<pre><code>output/scan_20250130_153000.json</code></pre>
+<p>JSON file with complete analysis data.</p>
+
+<h3>Portfolio</h3>
+<pre><code>data/portfolio.json</code></pre>
+<p>Your holdings and transactions (created after you simulate buying).</p>
+
+<h2>Troubleshooting</h2>
+
+<h3>API Connection Issues</h3>
+
+<p>If you see "Could not fetch data" errors:</p>
+
+<strong>Issue:</strong> VNDirect API may be blocked or down
+
+<strong>Solutions:</strong>
+<p>1. Check internet connection</p>
+<p>2. Try again in a few minutes (rate limiting)</p>
+<p>3. VNDirect API might require Vietnam IP address</p>
+
+<strong>Alternative:</strong> Use VPN with Vietnam server or try from Vietnam network.
+
+<h3>No Recommendations</h3>
+
+<p>If no stocks show BUY signals:</p>
+<ul>
+<li>Market might be overbought</li>
+<li>Try different watchlist</li>
+<li>Check individual stock details in logs</li>
+</ul>
+
+<h3>Permission Denied</h3>
+
+<pre><code>chmod +x monitor.py</code></pre>
+
+<h2>Next Steps</h2>
+
+<p>1. <strong>Learn Technical Analysis</strong> - Understand RSI, MACD, Bollinger Bands</p>
+<p>2. <strong>Paper Trading</strong> - Test strategies without real money</p>
+<p>3. <strong>Open Brokerage Account</strong> - SSI, VNDirect, TCBS, etc.</p>
+<p>4. <strong>Start Small</strong> - Begin with 1-2 stocks</p>
+<p>5. <strong>Set Stop-Loss</strong> - Protect against big losses (-10% to -15%)</p>
+
+<h2>Safety Tips</h2>
+
+<p>⚠️ <strong>Before You Invest:</strong></p>
+
+<p>1. <strong>This is NOT financial advice</strong> - Tool is educational only</p>
+<p>2. <strong>Do your research</strong> - Read company reports, financial news</p>
+<p>3. <strong>Diversify</strong> - Don't put all money in one stock</p>
+<p>4. <strong>Use stop-loss</strong> - Set exit points before buying</p>
+<p>5. <strong>Think long-term</strong> - Don't panic sell on red days</p>
+<p>6. <strong>Only invest what you can afford to lose</strong></p>
+
+<h2>Example Investment Strategy (10M VND)</h2>
+
+<p>Based on tool recommendations:</p>
+
+<p>1. <strong>Select 5 stocks</strong> with BUY or STRONG BUY ratings</p>
+<p>2. <strong>Allocate 2M VND each</strong> (20% per stock)</p>
+<p>3. <strong>Set stop-loss</strong> at -10% for each</p>
+<p>4. <strong>Review weekly</strong> using the monitor</p>
+<p>5. <strong>Rebalance monthly</strong> based on new signals</p>
+
+<h2>Getting Help</h2>
+
+<h3>View Full Documentation</h3>
+<pre><code>cat README.md</code></pre>
+
+<h3>Check Logs</h3>
+<pre><code>tail -f logs/monitor_$(date +%Y%m%d).log</code></pre>
+
+<h3>Test Individual Modules</h3>
+
+<pre><code># Test data fetcher
+<p>python src/stock_data.py</p>
+
+<h1>Test technical analysis</h1>
+<p>python src/technical_analysis.py</p>
+
+<h1>Test portfolio</h1>
+<p>python src/portfolio.py</code></pre></p>
+
+<h2>Advanced: Continuous Monitoring</h2>
+
+<p>Run the monitor as a background service:</p>
+
+<pre><code># Start monitoring in background
+<p>nohup python monitor.py --interval 15 > monitor.out 2>&1 &</p>
+
+<h1>Check if running</h1>
+<p>ps aux | grep monitor.py</p>
+
+<h1>Stop monitoring</h1>
+<p>pkill -f monitor.py</code></pre></p>
+
+<h2>What Makes This Tool Useful?</h2>
+
+<p>✅ <strong>Free & Open Source</strong> - No subscription fees</p>
+<p>✅ <strong>Real-time Data</strong> - From VNDirect API</p>
+<p>✅ <strong>Technical Analysis</strong> - RSI, MACD, MA, Bollinger Bands</p>
+<p>✅ <strong>Automated Scanning</strong> - Set and forget</p>
+<p>✅ <strong>Budget-Aware</strong> - Optimized for 10M VND</p>
+<p>✅ <strong>Actionable Advice</strong> - Specific buy recommendations</p>
+<p>✅ <strong>Risk Management</strong> - Shows when to avoid stocks</p>
+
+<p>---</p>
+
+<strong>Ready to start monitoring?</strong>
+
+<pre><code>python monitor.py --scan-once</code></pre>
+
+<p>Good luck and invest wisely! 📊💰</p>
+
+</div></div>
+<footer class="footer"><div class="footer-container">
+<p>© 2024 Vietnam Stock Analytics Platform</p>
+</div></footer>
+</body></html>

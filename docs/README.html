@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Vietnamese Stock Monitor & Analyzer</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="docs-style.css">
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head><body>
+<nav class="top-nav"><div class="nav-container">
+<a href="index.html" class="logo-text">📊 VNStock Analytics</a>
+<span class="page-title" data-i18n="footer.documentation">Documentation</span>
+</div></nav>
+<div class="container"><div class="content-card markdown-content">
+<h1>Vietnamese Stock Monitor & Analyzer</h1>
+
+<strong>Automated stock monitoring and technical analysis tool for Vietnamese stock markets (HSX, HNX, UPCOM)</strong>
+
+<p>⚠️ <strong>IMPORTANT: This is NOT financial advice. For educational purposes only.</strong></p>
+
+<h2 data-i18n="footer.features">Features</h2>
+
+<ul>
+<li>📊 <strong>Real-time Stock Data</strong> - Fetch live prices from VNDirect API</li>
+<li>📈 <strong>Technical Analysis</strong> - RSI, MACD, Moving Averages, Bollinger Bands</li>
+<li>💰 <strong>Portfolio Management</strong> - Track holdings, P&L, and budget</li>
+<li>🔔 <strong>Automated Monitoring</strong> - Scan stocks every 15 minutes</li>
+<li>🎯 <strong>Buy Recommendations</strong> - Algorithmic scoring and suggestions</li>
+<li>💵 <strong>Budget Allocation</strong> - Smart allocation for 10M VND budget</li>
+</ul>
+
+<h2>Quick Start</h2>
+
+<h3>1. Install Dependencies</h3>
+
+<pre><code>pip install -r requirements.txt</code></pre>
+
+<h3>2. Run a Single Scan</h3>
+
+<pre><code>python monitor.py --scan-once</code></pre>
+
+<p>This will:</p>
+<ul>
+<li>Analyze 10 affordable Vietnamese stocks</li>
+<li>Calculate technical indicators</li>
+<li>Provide BUY/SELL/HOLD recommendations</li>
+<li>Suggest optimal allocation for 10M VND budget</li>
+</ul>
+
+<h3>3. Continuous Monitoring (Every 15 Minutes)</h3>
+
+<pre><code>python monitor.py --interval 15</code></pre>
+
+<p>Press <code>Ctrl+C</code> to stop monitoring.</p>
+
+<h2>Usage Examples</h2>
+
+<h3>Basic Monitoring</h3>
+
+<pre><code># Scan once and exit
+<p>python monitor.py --scan-once</p>
+
+<h1>Monitor every 15 minutes (default)</h1>
+<p>python monitor.py</p>
+
+<h1>Monitor every 30 minutes</h1>
+<p>python monitor.py --interval 30</p>
+
+<h1>Custom budget</h1>
+<p>python monitor.py --budget 20000000  # 20M VND</code></pre></p>
+
+<h3>Custom Watchlist</h3>
+
+<pre><code># Use predefined list
+<p>python monitor.py --watchlist blue_chips</p>
+
+<h1>Custom symbols</h1>
+<p>python monitor.py --watchlist "VCB,VNM,HPG,FPT"</p>
+
+<h1>List available stock categories</h1>
+<p>python monitor.py --list-stocks</code></pre></p>
+
+<h3>Available Stock Lists</h3>
+
+<p>| Category | Stocks |</p>
+<p>|----------|--------|</p>
+<p>| <code>blue_chips</code> | VCB, VHM, VIC, VNM, HPG, GAS, MSN, TCB, VPB, MBB |</p>
+<p>| <code>banks</code> | VCB, TCB, MBB, VPB, CTG, BID, ACB, STB, HDB, TPB |</p>
+<p>| <code>real_estate</code> | VHM, VIC, NVL, PDR, DXG, KDH, BCM, DIG, HDG, NLG |</p>
+<p>| <code>tech</code> | FPT, CMG, VGI, SAM, ITD, ELC, SGT, ICT, DGW, CTR |</p>
+<p>| <code>consumer</code> | VNM, MSN, MWG, PNJ, SAB, VHC, DGC, KDC, FRT, DBC |</p>
+<p>| <code>industrial</code> | HPG, HSG, NKG, DCM, DPM, POW, PVD, VSH, GMD, AAA |</p>
+<p>| <code>affordable</code> | VPB, STB, HDB, SHB, MBB, ACB, FPT, POW, DGC, GEX |</p>
+
+<h2>Understanding the Output</h2>
+
+<h3>Recommendation Levels</h3>
+
+<p>| Emoji | Recommendation | Score Range | Meaning |</p>
+<p>|-------|---------------|-------------|---------|</p>
+<p>| 🟢🟢 | STRONG BUY | 40+ | Multiple bullish indicators |</p>
+<p>| 🟢 | BUY | 20-40 | Bullish trend |</p>
+<p>| ⚪ | HOLD | -20 to 20 | Neutral/mixed signals |</p>
+<p>| 🔴 | SELL | -40 to -20 | Bearish trend |</p>
+<p>| 🔴🔴 | STRONG SELL | < -40 | Multiple bearish indicators |</p>
+
+<h3>Technical Indicators</h3>
+
+<strong>RSI (Relative Strength Index)</strong>
+<ul>
+<li>< 30: Oversold (potential buy)</li>
+<li>30-70: Neutral</li>
+<li>> 70: Overbought (potential sell)</li>
+</ul>
+
+<strong>Moving Averages</strong>
+<ul>
+<li>Price > MA20 > MA50: Bullish trend</li>
+<li>Price < MA20 < MA50: Bearish trend</li>
+<li>MA20 crossing MA50: Trend change</li>
+</ul>
+
+<strong>MACD</strong>
+<ul>
+<li>Positive histogram: Bullish momentum</li>
+<li>Negative histogram: Bearish momentum</li>
+</ul>
+
+<strong>Bollinger Bands</strong>
+<ul>
+<li>Price near lower band: Oversold</li>
+<li>Price near upper band: Overbought</li>
+</ul>
+
+<h3>Sample Output</h3>
+
+<pre><code>==========================================
+<p>STOCK SCAN - 2025-01-30 15:00:00</p>
+<p>==========================================</p>
+
+<p>Analyzing VPB...</p>
+<p>  Price: 23,500 VND (+2.50%)</p>
+<p>  🟢 Recommendation: BUY (Score: 25)</p>
+<p>  RSI: 45.2</p>
+<p>  🟢 RSI neutral</p>
+<p>  🟢 Price above MA20 and MA50 (bullish)</p>
+<p>  🟢 MA20 above MA50 (golden cross area)</p>
+
+<p>==========================================</p>
+<p>RECOMMENDATIONS SUMMARY</p>
+<p>==========================================</p>
+
+<p>🟢🟢 STRONG BUY (2 stocks):</p>
+<p>  • VPB: 23,500 VND (Score: 35)</p>
+<p>  • STB: 28,300 VND (Score: 42)</p>
+
+<p>🟢 BUY (3 stocks):</p>
+<p>  • HDB: 19,200 VND (Score: 28)</p>
+<p>  • FPT: 118,500 VND (Score: 22)</p>
+<p>  • ACB: 26,800 VND (Score: 21)</p>
+
+<p>==========================================</p>
+<p>💰 INVESTMENT SUGGESTION FOR 10M VND BUDGET</p>
+<p>==========================================</p>
+
+<p>Available: 10,000,000 VND</p>
+
+<p>Suggested allocation:</p>
+
+<p>  VPB</p>
+<p>    Price: 23,500 VND</p>
+<p>    Buy: 85 shares</p>
+<p>    Cost: 2,004,763 VND</p>
+<p>    Reason: STRONG BUY (Score: 35)</p>
+
+<p>  STB</p>
+<p>    Price: 28,300 VND</p>
+<p>    Buy: 70 shares</p>
+<p>    Cost: 1,985,945 VND</p>
+<p>    Reason: STRONG BUY (Score: 42)</p>
+
+<p>  HDB</p>
+<p>    Price: 19,200 VND</p>
+<p>    Buy: 104 shares</p>
+<p>    Cost: 2,001,920 VND</p>
+<p>    Reason: BUY (Score: 28)</p>
+
+<p>  FPT</p>
+<p>    Price: 118,500 VND</p>
+<p>    Buy: 16 shares</p>
+<p>    Cost: 1,899,624 VND</p>
+<p>    Reason: BUY (Score: 22)</p>
+
+<p>  ACB</p>
+<p>    Price: 26,800 VND</p>
+<p>    Buy: 74 shares</p>
+<p>    Cost: 1,988,736 VND</p>
+<p>    Reason: BUY (Score: 21)</p>
+
+<p>Total: 9,880,988 VND</p>
+<p>Remaining: 119,012 VND</code></pre></p>
+
+<h2>Project Structure</h2>
+
+<pre><code>vietnam-stocks/
+<p>├── monitor.py              # Main monitoring script</p>
+<p>├── src/</p>
+<p>│   ├── stock_data.py       # Fetch stock data from VNDirect API</p>
+<p>│   ├── technical_analysis.py  # Technical indicators & analysis</p>
+<p>│   └── portfolio.py        # Portfolio management</p>
+<p>├── data/</p>
+<p>│   └── portfolio.json      # Your portfolio (holdings, transactions)</p>
+<p>├── logs/</p>
+<p>│   └── monitor_*.log       # Monitoring logs</p>
+<p>├── output/</p>
+<p>│   └── scan_*.json         # Scan results (JSON format)</p>
+<p>└── requirements.txt        # Python dependencies</code></pre></p>
+
+<h2>API Modules</h2>
+
+<h3>1. Stock Data (<code>src/stock_data.py</code>)</h3>
+
+<pre><code>from src.stock_data import VNStockData
+
+<p>fetcher = VNStockData()</p>
+
+<h1>Get current price</h1>
+<p>data = fetcher.get_stock_price('VCB')</p>
+<p>print(f"{data['symbol']}: {data['price']} VND")</p>
+
+<h1>Get multiple stocks</h1>
+<p>stocks = fetcher.get_multiple_stocks(['VCB', 'VNM', 'HPG'])</p>
+
+<h1>Search stocks</h1>
+<p>results = fetcher.search_stocks('Vinamilk')</p>
+
+<h1>Get historical data (60 days)</h1>
+<p>history = fetcher.get_historical_data('VCB', days=60)</code></pre></p>
+
+<h3>2. Technical Analysis (<code>src/technical_analysis.py</code>)</h3>
+
+<pre><code>from src.technical_analysis import TechnicalAnalyzer
+
+<p>analyzer = TechnicalAnalyzer()</p>
+
+<h1>Calculate RSI</h1>
+<p>prices = [100, 102, 105, 103, 108, ...]</p>
+<p>rsi = analyzer.calculate_rsi(prices, period=14)</p>
+
+<h1>Calculate Moving Averages</h1>
+<p>ma20 = analyzer.calculate_moving_average(prices, 20)</p>
+<p>ema12 = analyzer.calculate_ema(prices, 12)</p>
+
+<h1>Full analysis</h1>
+<p>historical_data = fetcher.get_historical_data('VCB')</p>
+<p>analysis = analyzer.analyze_stock(historical_data)</p>
+
+<p>print(f"Recommendation: {analysis['recommendation']}")</p>
+<p>print(f"Score: {analysis['score']}")</p>
+<p>print(f"RSI: {analysis['indicators']['rsi']}")</code></pre></p>
+
+<h3>3. Portfolio Management (<code>src/portfolio.py</code>)</h3>
+
+<pre><code>from src.portfolio import Portfolio
+
+<h1>Create portfolio with 10M VND</h1>
+<p>portfolio = Portfolio(budget=10_000_000)</p>
+
+<h1>Buy stocks</h1>
+<p>result = portfolio.buy_stock('VCB', price=90000, shares=50)</p>
+<p>if result['success']:</p>
+<p>    print(f"Bought! Remaining: {result['remaining_budget']}")</p>
+
+<h1>Sell stocks</h1>
+<p>result = portfolio.sell_stock('VCB', price=95000, shares=25)</p>
+<p>print(f"Profit: {result['profit_loss']} VND")</p>
+
+<h1>Get portfolio value</h1>
+<p>current_prices = {'VCB': 92000}</p>
+<p>valuation = portfolio.get_portfolio_value(current_prices)</p>
+<p>print(f"Total value: {valuation['total_value']} VND")</p>
+<p>print(f"P/L: {valuation['total_profit_loss_percent']}%")</p>
+
+<h1>Get allocation suggestion</h1>
+<p>allocation = portfolio.suggest_allocation(['VCB', 'VNM'], current_prices)</code></pre></p>
+
+<h2>Trading Strategy (Built-in Algorithm)</h2>
+
+<p>The tool uses a multi-factor scoring system:</p>
+
+<h3>Bullish Signals (+points)</h3>
+<ul>
+<li>RSI < 30 (oversold): +20</li>
+<li>Price > MA20 > MA50: +15</li>
+<li>MA20 > MA50 (golden cross): +10</li>
+<li>MACD positive: +10</li>
+<li>Price near lower Bollinger Band: +15</li>
+<li>High volume: +5</li>
+</ul>
+
+<h3>Bearish Signals (-points)</h3>
+<ul>
+<li>RSI > 70 (overbought): -20</li>
+<li>Price < MA20 < MA50: -15</li>
+<li>MA20 < MA50 (death cross): -10</li>
+<li>MACD negative: -10</li>
+<li>Price near upper Bollinger Band: -15</li>
+</ul>
+
+<strong>Total Score:</strong> -100 (very bearish) to +100 (very bullish)
+
+<h2>Data Source</h2>
+
+<ul>
+<li><strong>Primary API:</strong> VNDirect Financial Info API</li>
+<li><strong>Coverage:</strong> HSX, HNX, UPCOM exchanges</li>
+<li><strong>Update Frequency:</strong> Real-time (15-minute delay)</li>
+<li><strong>Historical Data:</strong> Up to 60 days</li>
+</ul>
+
+<h2>Limitations & Risks</h2>
+
+<p>⚠️ <strong>IMPORTANT DISCLAIMERS</strong></p>
+
+<p>1. <strong>Not Financial Advice</strong></p>
+<p>   - This tool is for educational and research purposes only</p>
+<p>   - Always consult a licensed financial advisor before investing</p>
+
+<p>2. <strong>Market Risks</strong></p>
+<p>   - Stock prices can go down as well as up</p>
+<p>   - Past performance does not predict future results</p>
+<p>   - You may lose some or all of your investment</p>
+
+<p>3. <strong>Technical Limitations</strong></p>
+<p>   - API data may have delays or inaccuracies</p>
+<p>   - Technical indicators are not foolproof</p>
+<p>   - No algorithm can predict market movements perfectly</p>
+
+<p>4. <strong>Trading Fees</strong></p>
+<p>   - Tool assumes 0.15% trading fee</p>
+<p>   - Actual fees may vary by broker</p>
+<p>   - Tax implications not included</p>
+
+<p>5. <strong>10M VND Budget Considerations</strong></p>
+<p>   - Diversification is limited with small budget</p>
+<p>   - Cannot buy expensive blue chips (VCB, VHM)</p>
+<p>   - Focus on affordable stocks (< 30,000 VND/share)</p>
+
+<h2>Investment Tips for Beginners</h2>
+
+<h3>Do's ✅</h3>
+<ul>
+<li>Start small and learn</li>
+<li>Diversify across 5-10 stocks</li>
+<li>Set stop-loss limits (e.g., -10%)</li>
+<li>Research company fundamentals</li>
+<li>Keep emergency fund separate</li>
+<li>Think long-term (6+ months)</li>
+<li>Use limit orders, not market orders</li>
+</ul>
+
+<h3>Don'ts ❌</h3>
+<ul>
+<li>Don't invest borrowed money</li>
+<li>Don't chase "hot tips"</li>
+<li>Don't panic sell on red days</li>
+<li>Don't put all money in one stock</li>
+<li>Don't day trade without experience</li>
+<li>Don't ignore fees and taxes</li>
+<li>Don't expect quick profits</li>
+</ul>
+
+<h2>Recommended Brokers in Vietnam</h2>
+
+<ul>
+<li><strong>SSI Securities</strong> - Low fees, good platform</li>
+<li><strong>VNDirect</strong> - Best research, mobile app</li>
+<li><strong>TCBS</strong> - Modern interface, fast execution</li>
+<li><strong>HSC</strong> - Good customer service</li>
+<li><strong>FPTS</strong> - FPT subsidiary, reliable</li>
+</ul>
+
+<h2>Advanced Usage</h2>
+
+<h3>Create Custom Analysis</h3>
+
+<pre><code>from src.stock_data import VNStockData
+<p>from src.technical_analysis import TechnicalAnalyzer</p>
+
+<p>fetcher = VNStockData()</p>
+<p>analyzer = TechnicalAnalyzer()</p>
+
+<h1>Analyze specific stock</h1>
+<p>symbol = 'FPT'</p>
+<p>historical = fetcher.get_historical_data(symbol, days=90)</p>
+<p>analysis = analyzer.analyze_stock(historical)</p>
+
+<h1>Custom logic</h1>
+<p>if analysis['indicators']['rsi'] < 35 and analysis['score'] > 20:</p>
+<p>    print(f"🟢 {symbol} looks promising!")</p>
+<p>    print(f"   RSI: {analysis['indicators']['rsi']}")</p>
+<p>    print(f"   Score: {analysis['score']}")</code></pre></p>
+
+<h3>Export Results to Excel</h3>
+
+<pre><code>import json
+<p>import csv</p>
+
+<h1>Load scan results</h1>
+<p>with open('output/scan_20250130_150000.json') as f:</p>
+<p>    data = json.load(f)</p>
+
+<h1>Export to CSV</h1>
+<p>with open('stocks_analysis.csv', 'w') as f:</p>
+<p>    writer = csv.writer(f)</p>
+<p>    writer.writerow(['Symbol', 'Price', 'Change%', 'RSI', 'Score', 'Recommendation'])</p>
+
+<p>    for symbol, stock in data['all_results'].items():</p>
+<p>        writer.writerow([</p>
+<p>            symbol,</p>
+<p>            stock['price'],</p>
+<p>            stock['change_percent'],</p>
+<p>            stock['analysis']['indicators']['rsi'],</p>
+<p>            stock['analysis']['score'],</p>
+<p>            stock['analysis']['recommendation']</p>
+<p>        ])</code></pre></p>
+
+<h2>Troubleshooting</h2>
+
+<h3>API Not Responding</h3>
+
+<pre><code># Test API connection
+<p>python -c "from src.stock_data import VNStockData; print(VNStockData().get_stock_price('VCB'))"</code></pre></p>
+
+<h3>No Data for Stock</h3>
+
+<ul>
+<li>Check symbol is correct (uppercase)</li>
+<li>Some small-cap stocks may not have data</li>
+<li>Try different stock from STOCK_LISTS</li>
+</ul>
+
+<h3>Insufficient Historical Data</h3>
+
+<ul>
+<li>Stock may be newly listed</li>
+<li>Try reducing analysis period</li>
+<li>Use stocks with > 60 days trading history</li>
+</ul>
+
+<h2>Future Enhancements</h2>
+
+<ul>
+<li>[ ] Web interface dashboard</li>
+<li>[ ] Email/Telegram alerts</li>
+<li>[ ] Fundamental analysis (P/E, EPS)</li>
+<li>[ ] Machine learning predictions</li>
+<li>[ ] Backtesting framework</li>
+<li>[ ] News sentiment analysis</li>
+<li>[ ] Multi-broker API support</li>
+</ul>
+
+<h2>Contributing</h2>
+
+<p>This is a personal project but improvements welcome:</p>
+<ul>
+<li>Better technical indicators</li>
+<li>More accurate API parsing</li>
+<li>Risk management features</li>
+<li>Performance optimizations</li>
+</ul>
+
+<h2>Legal & Compliance</h2>
+
+<ul>
+<li>Tool complies with VNDirect API terms of use</li>
+<li>No proprietary data redistribution</li>
+<li>Personal use only</li>
+<li>Check local securities laws before automated trading</li>
+</ul>
+
+<h2>Support</h2>
+
+<p>For issues or questions:</p>
+<p>1. Check logs in <code>logs/</code> directory</p>
+<p>2. Review API documentation</p>
+<p>3. Test with known working stock (e.g., VCB)</p>
+
+<p>---</p>
+
+<strong>Made with 📊 for Vietnamese retail investors</strong>
+
+<p>Remember: <strong>Invest wisely, diversify, and never risk more than you can afford to lose!</strong></p>
+
+</div></div>
+<footer class="footer"><div class="footer-container">
+<p>© 2024 Vietnam Stock Analytics Platform</p>
+</div></footer>
+</body></html>

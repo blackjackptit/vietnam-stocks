@@ -1,0 +1,12 @@
+{
+  "symbol": "DXG",
+  "price": 15400.0,
+  "change": 200.0,
+  "change_percent": 1.3157894736842104,
+  "volume": 11584600,
+  "high": 15600.0,
+  "low": 15150.0,
+  "open": 15250.0,
+  "timestamp": "2026-02-01T01:24:00.132464",
+  "source": "vnstock/VCI"
+}

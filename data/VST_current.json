@@ -1,0 +1,12 @@
+{
+  "symbol": "VST",
+  "price": 3200.0,
+  "change": -100.0,
+  "change_percent": -3.0303030303030303,
+  "volume": 102600,
+  "high": 3300.0,
+  "low": 3000.0,
+  "open": 3300.0,
+  "timestamp": "2026-02-01T09:05:04.726431",
+  "source": "vnstock/VCI"
+}

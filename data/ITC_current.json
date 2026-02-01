@@ -1,0 +1,12 @@
+{
+  "symbol": "ITC",
+  "price": 12950.0,
+  "change": -50.0,
+  "change_percent": -0.38461538461538464,
+  "volume": 53800,
+  "high": 13150.0,
+  "low": 12850.0,
+  "open": 13000.0,
+  "timestamp": "2026-02-01T08:52:24.095237",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "ITD",
+  "price": 16050.0,
+  "change": 50.0,
+  "change_percent": 0.3125,
+  "volume": 44600,
+  "high": 16900.0,
+  "low": 15650.0,
+  "open": 16900.0,
+  "timestamp": "2026-02-01T08:52:28.066400",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "KLF",
+  "price": 800.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 0,
+  "high": 800.0,
+  "low": 800.0,
+  "open": 800.0,
+  "timestamp": "2026-02-01T08:52:50.823647",
+  "source": "vnstock/VCI"
+}

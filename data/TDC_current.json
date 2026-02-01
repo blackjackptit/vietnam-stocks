@@ -1,0 +1,12 @@
+{
+  "symbol": "TDC",
+  "price": 11650.0,
+  "change": 50.0,
+  "change_percent": 0.43103448275862066,
+  "volume": 182800,
+  "high": 11650.0,
+  "low": 11400.0,
+  "open": 11600.0,
+  "timestamp": "2026-02-01T09:00:36.846862",
+  "source": "vnstock/VCI"
+}

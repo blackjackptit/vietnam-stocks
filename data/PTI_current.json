@@ -1,0 +1,12 @@
+{
+  "symbol": "PTI",
+  "price": 33400.0,
+  "change": 2400.0,
+  "change_percent": 7.741935483870968,
+  "volume": 500,
+  "high": 34100.0,
+  "low": 27900.0,
+  "open": 27900.0,
+  "timestamp": "2026-02-01T08:56:45.862602",
+  "source": "vnstock/VCI"
+}

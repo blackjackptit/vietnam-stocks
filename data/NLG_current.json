@@ -1,0 +1,12 @@
+{
+  "symbol": "NLG",
+  "price": 29450.0,
+  "change": 1000.0,
+  "change_percent": 3.5149384885764503,
+  "volume": 3032700,
+  "high": 29450.0,
+  "low": 28650.0,
+  "open": 28900.0,
+  "timestamp": "2026-02-01T08:54:36.805825",
+  "source": "vnstock/VCI"
+}

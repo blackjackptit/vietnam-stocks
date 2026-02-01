@@ -1,0 +1,12 @@
+{
+  "symbol": "ANV",
+  "price": 28550.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 1923800,
+  "high": 29250.0,
+  "low": 28400.0,
+  "open": 28600.0,
+  "timestamp": "2026-02-01T01:30:11.408027",
+  "source": "vnstock/VCI"
+}

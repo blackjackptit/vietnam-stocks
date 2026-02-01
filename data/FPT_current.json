@@ -1,0 +1,12 @@
+{
+  "symbol": "FPT",
+  "price": 104500.0,
+  "change": -1600.0,
+  "change_percent": -1.5080113100848256,
+  "volume": 10833200,
+  "high": 106400.0,
+  "low": 103900.0,
+  "open": 106400.0,
+  "timestamp": "2026-02-01T01:24:31.449069",
+  "source": "vnstock/VCI"
+}

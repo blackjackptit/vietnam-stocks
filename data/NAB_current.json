@@ -1,0 +1,12 @@
+{
+  "symbol": "NAB",
+  "price": 14150.0,
+  "change": 50.0,
+  "change_percent": 0.3546099290780142,
+  "volume": 1230700,
+  "high": 14250.0,
+  "low": 14100.0,
+  "open": 14150.0,
+  "timestamp": "2026-02-01T08:54:10.080936",
+  "source": "vnstock/VCI"
+}

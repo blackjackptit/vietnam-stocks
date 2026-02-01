@@ -1,0 +1,12 @@
+{
+  "symbol": "ITA",
+  "price": 2350.0,
+  "change": -50.0,
+  "change_percent": -2.083333333333333,
+  "volume": 10482200,
+  "high": 2400.0,
+  "low": 2240.0,
+  "open": 2240.0,
+  "timestamp": "2026-02-01T08:52:20.095724",
+  "source": "vnstock/VCI"
+}

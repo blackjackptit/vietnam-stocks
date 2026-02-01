@@ -1,0 +1,12 @@
+{
+  "symbol": "CMX",
+  "price": 6740.0,
+  "change": 440.0,
+  "change_percent": 6.984126984126984,
+  "volume": 360400,
+  "high": 6740.0,
+  "low": 6470.0,
+  "open": 6470.0,
+  "timestamp": "2026-02-01T01:31:47.404868",
+  "source": "vnstock/VCI"
+}

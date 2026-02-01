@@ -1,0 +1,12 @@
+{
+  "symbol": "TVN",
+  "price": 8700.0,
+  "change": -200.0,
+  "change_percent": -2.247191011235955,
+  "volume": 683600,
+  "high": 9000.0,
+  "low": 8700.0,
+  "open": 8900.0,
+  "timestamp": "2026-02-01T09:02:22.524530",
+  "source": "vnstock/VCI"
+}

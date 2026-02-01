@@ -1,0 +1,12 @@
+{
+  "symbol": "VCS",
+  "price": 44000.0,
+  "change": 100.0,
+  "change_percent": 0.22779043280182232,
+  "volume": 74900,
+  "high": 44700.0,
+  "low": 43600.0,
+  "open": 43900.0,
+  "timestamp": "2026-02-01T09:02:57.873868",
+  "source": "vnstock/VCI"
+}

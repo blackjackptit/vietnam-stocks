@@ -1,0 +1,12 @@
+{
+  "symbol": "SVT",
+  "price": 11200.0,
+  "change": -50.0,
+  "change_percent": -0.4444444444444444,
+  "volume": 11600,
+  "high": 11200.0,
+  "low": 11050.0,
+  "open": 11050.0,
+  "timestamp": "2026-02-01T08:59:47.481859",
+  "source": "vnstock/VCI"
+}

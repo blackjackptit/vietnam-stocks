@@ -1,0 +1,12 @@
+{
+  "symbol": "VOS",
+  "price": 13050.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 1480500,
+  "high": 13300.0,
+  "low": 13000.0,
+  "open": 13050.0,
+  "timestamp": "2026-02-01T09:04:39.843974",
+  "source": "vnstock/VCI"
+}

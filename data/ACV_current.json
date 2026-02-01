@@ -1,0 +1,12 @@
+{
+  "symbol": "ACV",
+  "price": 54800.0,
+  "change": 2200.0,
+  "change_percent": 4.182509505703422,
+  "volume": 3663100,
+  "high": 55900.0,
+  "low": 52400.0,
+  "open": 52600.0,
+  "timestamp": "2026-02-01T01:29:49.644872",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "PTL",
+  "price": 2740.0,
+  "change": 10.0,
+  "change_percent": 0.3663003663003663,
+  "volume": 35200,
+  "high": 2790.0,
+  "low": 2740.0,
+  "open": 2740.0,
+  "timestamp": "2026-02-01T08:56:50.462207",
+  "source": "vnstock/VCI"
+}

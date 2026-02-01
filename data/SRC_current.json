@@ -1,0 +1,12 @@
+{
+  "symbol": "SRC",
+  "price": 48600.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 2100,
+  "high": 48600.0,
+  "low": 45200.0,
+  "open": 46500.0,
+  "timestamp": "2026-02-01T08:59:30.256551",
+  "source": "vnstock/VCI"
+}

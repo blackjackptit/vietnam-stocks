@@ -1,0 +1,12 @@
+{
+  "symbol": "EIB",
+  "price": 20850.0,
+  "change": -100.0,
+  "change_percent": -0.47732696897374705,
+  "volume": 9228500,
+  "high": 21200.0,
+  "low": 20700.0,
+  "open": 21200.0,
+  "timestamp": "2026-02-01T01:24:08.999100",
+  "source": "vnstock/VCI"
+}

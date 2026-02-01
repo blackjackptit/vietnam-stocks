@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>🤖 Automated Trading Guide</title>
+<link rel="stylesheet" href="docs-style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head><body>
+<nav class="top-nav"><div class="nav-container">
+<a href="index.html" class="logo-text">📊 VNStock Analytics</a>
+<span class="page-title" data-i18n="footer.documentation">Documentation</span>
+</div></nav>
+<div class="container"><div class="content-card markdown-content">
+<h1>🤖 Automated Trading Guide</h1>
+
+<h2>Overview</h2>
+
+<p>The Automated Trading system allows you to configure buy/sell rules and let the platform execute trades on your behalf based on technical analysis indicators.</p>
+
+<h2>⚠️ IMPORTANT WARNINGS</h2>
+
+<strong>READ THIS BEFORE ENABLING AUTOMATED TRADING:</strong>
+
+<p>1. <strong>Risk of Loss</strong>: Automated trading can result in significant financial losses. Only trade with money you can afford to lose.</p>
+
+<p>2. <strong>Test First</strong>: ALWAYS run backtests and paper trading before enabling live trading.</p>
+
+<p>3. <strong>Monitor Regularly</strong>: Even with automation, you must monitor your positions and the system's performance.</p>
+
+<p>4. <strong>API Security</strong>: Your broker API keys are sensitive. Keep them secure and never share them.</p>
+
+<p>5. <strong>Not Financial Advice</strong>: This system is for educational purposes. Consult a licensed financial advisor.</p>
+
+<p>6. <strong>Market Conditions</strong>: Automated rules may not adapt well to unusual market conditions.</p>
+
+<h2>Access the System</h2>
+
+<pre><code>http://localhost:8888/trading_automation.html</code></pre>
+
+<p>Or click <strong>"🤖 Automated Trading"</strong> from any dashboard or the homepage.</p>
+
+<p>---</p>
+
+<h2 data-i18n="footer.features">Features</h2>
+
+<h3>1. <strong>API Configuration</strong></h3>
+
+<p>Connect to your broker's trading API:</p>
+
+<ul>
+<li><strong>Supported Brokers</strong>:</li>
+</ul>
+<p>  - VNDirect</p>
+<p>  - SSI Securities</p>
+<p>  - VPS Securities</p>
+<p>  - TCBS</p>
+<p>  - Custom API</p>
+
+<ul>
+<li><strong>Required Information</strong>:</li>
+</ul>
+<p>  - API Key (from your broker)</p>
+<p>  - API Secret (from your broker)</p>
+<p>  - Account Number</p>
+<p>  - API Endpoint (if custom)</p>
+
+<strong>How to Get API Keys:</strong>
+<p>1. Log in to your broker's website</p>
+<p>2. Go to Settings → API/Trading API</p>
+<p>3. Generate new API key pair</p>
+<p>4. Copy and save securely</p>
+<p>5. Enter in the platform</p>
+
+<h3>2. <strong>Trading Rules</strong></h3>
+
+<p>Configure automated buy/sell conditions:</p>
+
+<h4><strong>Rule Format:</strong></h4>
+<pre><code>[ACTION] IF [CONDITIONS] THEN [EXECUTION]</code></pre>
+
+<h4><strong>Examples:</strong></h4>
+
+<strong>Buy Rules:</strong>
+<pre><code>BUY IF RSI < 30 AND Score > 20 THEN 1000 shares
+<p>BUY IF Price > MA50 AND MACD > Signal THEN ₫5,000,000</p>
+<p>BUY IF MA20 crosses above MA50 THEN 50% of max position</code></pre></p>
+
+<strong>Sell Rules:</strong>
+<pre><code>SELL IF RSI > 70 OR Profit > 10% THEN 100%
+<p>SELL IF Price < MA20 AND Loss > 3% THEN All shares</p>
+<p>SELL IF MACD crosses below Signal THEN 50% of position</code></pre></p>
+
+<h4><strong>Available Conditions:</strong></h4>
+
+<strong>Price Indicators:</strong>
+<ul>
+<li><code>Price > MA20</code> - Price above 20-day moving average</li>
+<li><code>Price < MA50</code> - Price below 50-day moving average</li>
+<li><code>MA20 > MA50</code> - Golden cross area</li>
+<li><code>MA20 < MA50</code> - Death cross area</li>
+</ul>
+
+<strong>Momentum:</strong>
+<ul>
+<li><code>RSI < 30</code> - Oversold</li>
+<li><code>RSI > 70</code> - Overbought</li>
+<li><code>RSI between 40 and 60</code> - Neutral zone</li>
+</ul>
+
+<strong>MACD:</strong>
+<ul>
+<li><code>MACD > Signal</code> - Bullish</li>
+<li><code>MACD < Signal</code> - Bearish</li>
+<li><code>MACD crosses above Signal</code> - Buy signal</li>
+<li><code>MACD crosses below Signal</code> - Sell signal</li>
+</ul>
+
+<strong>Technical Score:</strong>
+<ul>
+<li><code>Score > 40</code> - Strong buy zone</li>
+<li><code>Score < -40</code> - Strong sell zone</li>
+<li><code>Score between -20 and 20</code> - Neutral</li>
+</ul>
+
+<strong>Position:</strong>
+<ul>
+<li><code>Profit > 10%</code> - Take profit condition</li>
+<li><code>Loss > 3%</code> - Stop loss condition</li>
+<li><code>Holding time > 30 days</code> - Time-based exit</li>
+</ul>
+
+<strong>Logical Operators:</strong>
+<ul>
+<li><code>AND</code> - Both conditions must be true</li>
+<li><code>OR</code> - Either condition must be true</li>
+<li><code>NOT</code> - Condition must be false</li>
+</ul>
+
+<h4><strong>Execution Options:</strong></h4>
+
+<strong>Fixed Shares:</strong>
+<ul>
+<li><code>1000 shares</code> - Buy/sell exactly 1000 shares</li>
+</ul>
+
+<strong>Fixed Amount:</strong>
+<ul>
+<li><code>₫5,000,000</code> - Invest exactly 5 million VND</li>
+</ul>
+
+<strong>Percentage:</strong>
+<ul>
+<li><code>50%</code> - Half of max position or current holding</li>
+<li><code>100%</code> - All available or all shares</li>
+</ul>
+
+<h3>3. <strong>Risk Management</strong></h3>
+
+<p>Critical safety settings:</p>
+
+<h4><strong>Position Limits:</strong></h4>
+<ul>
+<li><strong>Max Position Size</strong>: Maximum investment per trade (e.g., ₫10,000,000)</li>
+<li><strong>Max Open Positions</strong>: Maximum concurrent holdings (e.g., 5 stocks)</li>
+</ul>
+
+<h4><strong>Loss Protection:</strong></h4>
+<ul>
+<li><strong>Stop Loss %</strong>: Auto-sell if loss exceeds (e.g., 3%)</li>
+<li><strong>Max Daily Loss %</strong>: Stop all trading if daily loss exceeds (e.g., 5%)</li>
+</ul>
+
+<h4><strong>Profit Taking:</strong></h4>
+<ul>
+<li><strong>Take Profit %</strong>: Auto-sell when profit reaches (e.g., 10%)</li>
+</ul>
+
+<h4><strong>Cooldown:</strong></h4>
+<ul>
+<li><strong>Cooldown Period</strong>: Wait time between trades on same stock (e.g., 15 minutes)</li>
+</ul>
+
+<strong>Recommended Settings:</strong>
+<pre><code>Max Position Size: ₫10,000,000 (adjust based on capital)
+<p>Max Daily Loss: 5%</p>
+<p>Stop Loss: 3%</p>
+<p>Take Profit: 10%</p>
+<p>Max Open Positions: 5</p>
+<p>Cooldown Period: 15 minutes</code></pre></p>
+
+<h3>4. <strong>Backtesting</strong></h3>
+
+<p>Test your rules on historical data BEFORE going live:</p>
+
+<h4><strong>How to Backtest:</strong></h4>
+<p>1. Configure your trading rules</p>
+<p>2. Set risk management parameters</p>
+<p>3. Select backtesting period (30/60/90/180/365 days)</p>
+<p>4. Click <strong>"▶️ Run Backtest"</strong></p>
+<p>5. Review results</p>
+
+<h4><strong>Backtest Metrics:</strong></h4>
+<ul>
+<li><strong>Total Trades</strong>: Number of trades executed</li>
+<li><strong>Win Rate</strong>: Percentage of profitable trades</li>
+<li><strong>Profit/Loss</strong>: Total P&L in VND</li>
+<li><strong>Sharpe Ratio</strong>: Risk-adjusted return (>1 is good)</li>
+<li><strong>Max Drawdown</strong>: Largest peak-to-trough decline</li>
+</ul>
+
+<h4><strong>What to Look For:</strong></h4>
+<ul>
+<li>Win rate > 55%</li>
+<li>Sharpe ratio > 1.0</li>
+<li>Max drawdown < 20%</li>
+<li>Consistent performance across different periods</li>
+<li>Reasonable number of trades (not too many or too few)</li>
+</ul>
+
+<h3>5. <strong>Master Trading Switch</strong></h3>
+
+<p>The on/off control for the entire system:</p>
+
+<strong>OFF (Default):</strong>
+<ul>
+<li>Rules are configured but not active</li>
+<li>No trades are executed</li>
+<li>Safe mode for testing and configuration</li>
+</ul>
+
+<strong>ON (Live Trading):</strong>
+<ul>
+<li>Rules are active</li>
+<li>System monitors market every scan</li>
+<li>Trades are executed automatically</li>
+<li>⚠️ REAL MONEY AT RISK</li>
+</ul>
+
+<strong>Before Enabling:</strong>
+<p>1. ✅ API configured and tested</p>
+<p>2. ✅ Trading rules added and reviewed</p>
+<p>3. ✅ Risk management configured</p>
+<p>4. ✅ Backtest completed with good results</p>
+<p>5. ✅ You understand the risks</p>
+
+<p>---</p>
+
+<h2>Step-by-Step Setup</h2>
+
+<h3>Step 1: Configure API</h3>
+
+<p>1. Open: http://localhost:8888/trading_automation.html</p>
+<p>2. Select your broker</p>
+<p>3. Enter API Key and Secret</p>
+<p>4. Enter Account Number</p>
+<p>5. Click <strong>"🔍 Test Connection"</strong></p>
+<p>6. Verify connection successful</p>
+<p>7. Click <strong>"💾 Save Configuration"</strong></p>
+
+<h3>Step 2: Add Trading Rules</h3>
+
+<p>1. Click <strong>"➕ Add New Rule"</strong></p>
+<p>2. Enter rule in format: <code>[ACTION] IF [CONDITIONS] THEN [EXECUTION]</code></p>
+<p>3. Example: <code>BUY IF RSI < 30 AND Score > 20 THEN 1000 shares</code></p>
+<p>4. Verify rule is added to list</p>
+<p>5. Repeat for all desired rules</p>
+
+<strong>Recommended Starter Rules:</strong>
+<pre><code>BUY IF RSI < 30 AND Price > MA50 THEN 500 shares
+<p>SELL IF RSI > 70 THEN 100%</p>
+<p>SELL IF Loss > 3% THEN 100%</p>
+<p>SELL IF Profit > 10% THEN 100%</code></pre></p>
+
+<h3>Step 3: Set Risk Management</h3>
+
+<p>1. Set <strong>Max Position Size</strong>: ₫10,000,000</p>
+<p>2. Set <strong>Max Daily Loss</strong>: 5%</p>
+<p>3. Set <strong>Stop Loss</strong>: 3%</p>
+<p>4. Set <strong>Take Profit</strong>: 10%</p>
+<p>5. Set <strong>Max Open Positions</strong>: 5</p>
+<p>6. Set <strong>Cooldown Period</strong>: 15 minutes</p>
+<p>7. Click <strong>"💾 Save Risk Settings"</strong></p>
+
+<h3>Step 4: Backtest Your Strategy</h3>
+
+<p>1. Select backtesting period: 60 days</p>
+<p>2. Click <strong>"▶️ Run Backtest"</strong></p>
+<p>3. Wait for results</p>
+<p>4. Review metrics:</p>
+<p>   - Is win rate > 55%?</p>
+<p>   - Is Sharpe ratio > 1.0?</p>
+<p>   - Is max drawdown acceptable?</p>
+<p>5. If good, proceed. If not, adjust rules and retest.</p>
+
+<h3>Step 5: Paper Trading (Recommended)</h3>
+
+<p>Before live trading, test with paper trading:</p>
+<p>1. Keep master switch OFF</p>
+<p>2. Monitor what trades WOULD have been made</p>
+<p>3. Track paper performance for 1-2 weeks</p>
+<p>4. Verify system works as expected</p>
+
+<h3>Step 6: Enable Live Trading</h3>
+
+<strong>Final Checklist:</strong>
+<ul>
+<li>[ ] API tested and working</li>
+<li>[ ] Rules configured and reviewed</li>
+<li>[ ] Risk management set</li>
+<li>[ ] Backtest shows positive results</li>
+<li>[ ] Paper trading completed</li>
+<li>[ ] I understand I can lose money</li>
+<li>[ ] I'm ready to monitor the system</li>
+</ul>
+
+<strong>If all checked:</strong>
+<p>1. Toggle <strong>Master Trading Switch</strong> to ON</p>
+<p>2. Confirm the warning</p>
+<p>3. System is now LIVE</p>
+<p>4. Monitor regularly</p>
+
+<p>---</p>
+
+<h2>How It Works</h2>
+
+<h3>Monitoring Cycle</h3>
+
+<pre><code>Every 5 minutes:
+<p>1. Monitor scans stocks (already running)</p>
+<p>2. Technical analysis calculated</p>
+<p>3. Automation system checks rules</p>
+<p>4. If conditions met → Execute trade</p>
+<p>5. Record trade in log</p>
+<p>6. Update positions</p>
+<p>7. Check risk limits</code></pre></p>
+
+<h3>Trade Execution Flow</h3>
+
+<pre><code>1. Rule condition triggers
+<p>   ↓</p>
+<p>2. Check risk limits (position size, daily loss, etc.)</p>
+<p>   ↓</p>
+<p>3. If OK → Prepare order</p>
+<p>   ↓</p>
+<p>4. Send order to broker API</p>
+<p>   ↓</p>
+<p>5. Receive confirmation</p>
+<p>   ↓</p>
+<p>6. Log trade</p>
+<p>   ↓</p>
+<p>7. Update positions</p>
+<p>   ↓</p>
+<p>8. Apply cooldown period</code></pre></p>
+
+<h3>Risk Protection</h3>
+
+<p>The system has multiple safety layers:</p>
+
+<p>1. <strong>Pre-Trade Checks:</strong></p>
+<p>   - Is trading enabled?</p>
+<p>   - Is API connected?</p>
+<p>   - Within position limits?</p>
+<p>   - Within daily loss limit?</p>
+<p>   - Cooldown period passed?</p>
+
+<p>2. <strong>During Trade:</strong></p>
+<p>   - Order validation</p>
+<p>   - Price checks</p>
+<p>   - Quantity checks</p>
+
+<p>3. <strong>Post-Trade:</strong></p>
+<p>   - Stop loss monitoring</p>
+<p>   - Take profit monitoring</p>
+<p>   - Portfolio rebalancing</p>
+
+<p>---</p>
+
+<h2>Trading Scenarios</h2>
+
+<h3>Scenario 1: Oversold Buy</h3>
+
+<strong>Setup:</strong>
+<pre><code>Rule: BUY IF RSI < 30 AND Score > 20 THEN 1000 shares
+<p>Risk: Stop Loss 3%, Take Profit 10%</code></pre></p>
+
+<strong>What Happens:</strong>
+<p>1. Monitor detects VCB with RSI 28, Score 35</p>
+<p>2. Conditions met → Trigger buy rule</p>
+<p>3. Check: Position size OK? Daily loss OK? → YES</p>
+<p>4. Execute: Buy 1000 VCB shares</p>
+<p>5. Monitor position with 3% stop loss, 10% take profit</p>
+<p>6. Apply 15-minute cooldown on VCB</p>
+
+<h3>Scenario 2: Overbought Sell</h3>
+
+<strong>Setup:</strong>
+<pre><code>Rule: SELL IF RSI > 70 THEN 100%</code></pre>
+
+<strong>What Happens:</strong>
+<p>1. You hold 1000 HPG shares</p>
+<p>2. Monitor detects HPG RSI = 72</p>
+<p>3. Conditions met → Trigger sell rule</p>
+<p>4. Execute: Sell all 1000 HPG shares</p>
+<p>5. Lock in profit/loss</p>
+<p>6. Free up capital for new opportunities</p>
+
+<h3>Scenario 3: Stop Loss Protection</h3>
+
+<strong>Setup:</strong>
+<pre><code>Risk Management: Stop Loss 3%</code></pre>
+
+<strong>What Happens:</strong>
+<p>1. You buy FPT at ₫100,000/share</p>
+<p>2. Price drops to ₫97,000 (3% loss)</p>
+<p>3. Stop loss triggered automatically</p>
+<p>4. System sells entire position</p>
+<p>5. Loss limited to 3%</p>
+<p>6. Capital preserved for better opportunities</p>
+
+<p>---</p>
+
+<h2>Best Practices</h2>
+
+<h3>1. Start Small</h3>
+<ul>
+<li>Test with small position sizes first</li>
+<li>Increase gradually as you gain confidence</li>
+<li>Don't risk more than 2-5% per trade</li>
+</ul>
+
+<h3>2. Diversify Rules</h3>
+<ul>
+<li>Have multiple rule types (RSI, MACD, MA)</li>
+<li>Don't rely on a single indicator</li>
+<li>Balance buy and sell rules</li>
+</ul>
+
+<h3>3. Monitor Daily</h3>
+<ul>
+<li>Check trade log every day</li>
+<li>Review performance weekly</li>
+<li>Adjust rules based on results</li>
+</ul>
+
+<h3>4. Keep Learning</h3>
+<ul>
+<li>Study successful trades</li>
+<li>Analyze losing trades</li>
+<li>Refine your strategy over time</li>
+</ul>
+
+<h3>5. Respect Risk Limits</h3>
+<ul>
+<li>NEVER disable stop losses</li>
+<li>NEVER exceed position limits</li>
+<li>NEVER chase losses</li>
+</ul>
+
+<h3>6. Stay Informed</h3>
+<ul>
+<li>Market news affects automation</li>
+<li>Disable during major events</li>
+<li>Be ready to intervene manually</li>
+</ul>
+
+<p>---</p>
+
+<h2>Troubleshooting</h2>
+
+<h3>API Connection Failed</h3>
+<strong>Problem</strong>: Can't connect to broker API
+
+<strong>Solutions</strong>:
+<p>1. Check API key is correct</p>
+<p>2. Verify API secret is correct</p>
+<p>3. Check account number</p>
+<p>4. Ensure API is enabled in broker settings</p>
+<p>5. Check internet connection</p>
+
+<h3>Rules Not Triggering</h3>
+<strong>Problem</strong>: Conditions met but no trade executed
+
+<strong>Solutions</strong>:
+<p>1. Verify master switch is ON</p>
+<p>2. Check API connection</p>
+<p>3. Review risk limits (may be hit)</p>
+<p>4. Check cooldown period</p>
+<p>5. Verify rule syntax is correct</p>
+
+<h3>Unexpected Trades</h3>
+<strong>Problem</strong>: System made a trade you didn't expect
+
+<strong>Solutions</strong>:
+<p>1. Review trade log to see which rule triggered</p>
+<p>2. Check rule conditions carefully</p>
+<p>3. May need to refine rule logic</p>
+<p>4. Consider adding more conditions</p>
+
+<h3>System Stopped Trading</h3>
+<strong>Problem</strong>: No trades happening
+
+<strong>Possible Reasons</strong>:
+<p>1. Daily loss limit reached (safety feature)</p>
+<p>2. Max positions reached</p>
+<p>3. All stocks in cooldown</p>
+<p>4. Market conditions don't match any rules</p>
+<p>5. API connection lost</p>
+
+<strong>Actions</strong>:
+<p>1. Check system status</p>
+<p>2. Review risk limits</p>
+<p>3. Test API connection</p>
+<p>4. Check trade log for errors</p>
+
+<p>---</p>
+
+<h2>FAQ</h2>
+
+<strong>Q: Can I modify rules while trading is enabled?</strong>
+<p>A: Yes, but changes take effect on next scan. Be careful.</p>
+
+<strong>Q: What if I lose internet connection?</strong>
+<p>A: System stops executing new trades. Existing positions remain.</p>
+
+<strong>Q: Can I override automated decisions manually?</strong>
+<p>A: Yes, you can always trade manually in your broker platform.</p>
+
+<strong>Q: How much does API trading cost?</strong>
+<p>A: Check with your broker. Some charge per API call or have monthly fees.</p>
+
+<strong>Q: Can I use multiple brokers?</strong>
+<p>A: Not simultaneously in current version. Pick one.</p>
+
+<strong>Q: What's the minimum capital needed?</strong>
+<p>A: Depends on your broker's minimum order size. Recommend ≥₫50,000,000.</p>
+
+<strong>Q: Can I copy someone else's rules?</strong>
+<p>A: Yes, but always backtest first. What works for others may not work for you.</p>
+
+<strong>Q: Is this legal?</strong>
+<p>A: Yes, using broker APIs for automated trading is legal. Check your broker's terms.</p>
+
+<p>---</p>
+
+<h2>Advanced Topics</h2>
+
+<h3>Custom Indicators</h3>
+
+<p>You can reference any technical indicator the system calculates:</p>
+<ul>
+<li>RSI (14-period)</li>
+<li>MA20, MA50 (moving averages)</li>
+<li>EMA12, EMA26 (exponential moving averages)</li>
+<li>MACD, Signal, Histogram</li>
+<li>Technical Score (-100 to +100)</li>
+<li>Volume</li>
+<li>Price High/Low</li>
+<li>Bollinger Bands (if implemented)</li>
+</ul>
+
+<h3>Complex Rules</h3>
+
+<p>Combine multiple conditions with logic:</p>
+
+<pre><code>BUY IF (RSI < 30 OR Score > 40) AND MA20 > MA50 AND Volume > AvgVolume THEN ₫10,000,000</code></pre>
+
+<h3>Dynamic Position Sizing</h3>
+
+<p>Adjust size based on confidence:</p>
+
+<pre><code>BUY IF Score > 60 THEN ₫20,000,000
+<p>BUY IF Score > 40 THEN ₫10,000,000</p>
+<p>BUY IF Score > 20 THEN ₫5,000,000</code></pre></p>
+
+<h3>Time-Based Rules</h3>
+
+<p>Add time conditions:</p>
+
+<pre><code>SELL IF Holding time > 30 days AND Profit > 0 THEN 100%</code></pre>
+
+<p>---</p>
+
+<h2>Security & Privacy</h2>
+
+<h3>API Key Storage</h3>
+<ul>
+<li>Keys encrypted before storage</li>
+<li>Never transmitted in plain text</li>
+<li>Stored locally on your machine</li>
+<li>Not shared with third parties</li>
+</ul>
+
+<h3>Data Security</h3>
+<ul>
+<li>All trading data stays local</li>
+<li>No external analytics/tracking</li>
+<li>Your strategies are private</li>
+<li>You control everything</li>
+</ul>
+
+<h3>Best Practices</h3>
+<p>1. Use API keys with trading-only permissions</p>
+<p>2. Don't share your API keys</p>
+<p>3. Rotate keys periodically</p>
+<p>4. Revoke keys if compromised</p>
+<p>5. Use strong passwords</p>
+
+<p>---</p>
+
+<h2>Support & Resources</h2>
+
+<h3 data-i18n="footer.documentation">Documentation</h3>
+<ul>
+<li><code>QUICK_START.md</code> - Getting started</li>
+<li><code>FEATURES.md</code> - All features</li>
+<li><code>HISTORICAL_ANALYSIS_GUIDE.md</code> - Technical analysis</li>
+<li><code>WATCHLIST_GUIDE.md</code> - Stock selection</li>
+</ul>
+
+<h3>Getting Help</h3>
+<p>1. Review this guide thoroughly</p>
+<p>2. Check FAQ section</p>
+<p>3. Review trade logs for clues</p>
+<p>4. Test in backtesting mode</p>
+<p>5. Start with conservative settings</p>
+
+<p>---</p>
+
+<h2>Disclaimer</h2>
+
+<p>⚠️ <strong>IMPORTANT LEGAL NOTICE</strong>:</p>
+
+<p>This automated trading system is provided <strong>AS-IS</strong> for educational and informational purposes only.</p>
+
+<ul>
+<li><strong>Not Financial Advice</strong>: Nothing here constitutes financial, investment, or trading advice.</li>
+<li><strong>No Guarantees</strong>: Past performance does not guarantee future results.</li>
+<li><strong>Risk of Loss</strong>: You can lose money trading stocks. Only trade with money you can afford to lose.</li>
+<li><strong>Your Responsibility</strong>: All trading decisions and outcomes are your sole responsibility.</li>
+<li><strong>No Liability</strong>: The creators assume no liability for any losses incurred.</li>
+<li><strong>Professional Advice</strong>: Consult a licensed financial advisor before trading.</li>
+<li><strong>Legal Compliance</strong>: Ensure compliance with all applicable laws and regulations.</li>
+<li><strong>Broker Terms</strong>: Follow your broker's terms of service for API usage.</li>
+</ul>
+
+<strong>BY USING THIS SYSTEM, YOU ACKNOWLEDGE AND ACCEPT ALL RISKS.</strong>
+
+<p>---</p>
+
+<strong>Happy Trading! 🤖📈💰</strong>
+
+<p>*Remember: The best traders combine automated systems with human judgment. Stay informed, stay cautious, and trade responsibly.*</p>
+
+</div></div>
+<footer class="footer"><div class="footer-container">
+<p>© 2024 Vietnam Stock Analytics Platform</p>
+</div></footer>
+</body></html>

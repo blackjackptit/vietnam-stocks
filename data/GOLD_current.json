@@ -1,0 +1,12 @@
+{
+  "symbol": "GOLD",
+  "price": 5527721,
+  "change": 143377.0,
+  "change_percent": 2.59,
+  "volume": 382215000,
+  "high": 5638275.0,
+  "low": 5417167.0,
+  "open": 5515925.0,
+  "timestamp": "2026-01-31T15:48:38.123116",
+  "source": "DEMO DATA"
+}

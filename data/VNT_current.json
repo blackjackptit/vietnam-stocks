@@ -1,0 +1,12 @@
+{
+  "symbol": "VNT",
+  "price": 27100.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 14000,
+  "high": 27100.0,
+  "low": 27100.0,
+  "open": 27100.0,
+  "timestamp": "2026-02-01T09:04:35.238911",
+  "source": "vnstock/VCI"
+}

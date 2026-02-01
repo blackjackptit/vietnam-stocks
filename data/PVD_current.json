@@ -1,0 +1,12 @@
+{
+  "symbol": "PVD",
+  "price": 31000.0,
+  "change": 1000.0,
+  "change_percent": 3.3333333333333335,
+  "volume": 13853100,
+  "high": 31700.0,
+  "low": 30200.0,
+  "open": 30550.0,
+  "timestamp": "2026-02-01T08:57:09.178366",
+  "source": "vnstock/VCI"
+}

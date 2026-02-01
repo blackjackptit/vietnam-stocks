@@ -1,0 +1,12 @@
+{
+  "symbol": "GVR",
+  "price": 39850.0,
+  "change": -1000.0,
+  "change_percent": -2.4479804161566707,
+  "volume": 6315900,
+  "high": 41800.0,
+  "low": 39650.0,
+  "open": 40850.0,
+  "timestamp": "2026-02-01T01:25:01.204732",
+  "source": "vnstock/VCI"
+}

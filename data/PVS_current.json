@@ -1,0 +1,12 @@
+{
+  "symbol": "PVS",
+  "price": 45400.0,
+  "change": 1900.0,
+  "change_percent": 4.3678160919540225,
+  "volume": 11340600,
+  "high": 47800.0,
+  "low": 43500.0,
+  "open": 43500.0,
+  "timestamp": "2026-02-01T08:57:27.609656",
+  "source": "vnstock/VCI"
+}

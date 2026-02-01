@@ -1,0 +1,12 @@
+{
+  "symbol": "TIS",
+  "price": 5100.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 6600,
+  "high": 5400.0,
+  "low": 5100.0,
+  "open": 5400.0,
+  "timestamp": "2026-02-01T09:01:09.780939",
+  "source": "vnstock/VCI"
+}

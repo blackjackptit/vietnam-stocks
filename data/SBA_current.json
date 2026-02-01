@@ -1,0 +1,12 @@
+{
+  "symbol": "SBA",
+  "price": 29350.0,
+  "change": -250.0,
+  "change_percent": -0.8445945945945946,
+  "volume": 3200,
+  "high": 29500.0,
+  "low": 29000.0,
+  "open": 29500.0,
+  "timestamp": "2026-02-01T08:58:19.554003",
+  "source": "vnstock/VCI"
+}

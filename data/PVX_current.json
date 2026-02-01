@@ -1,0 +1,12 @@
+{
+  "symbol": "PVX",
+  "price": 2700.0,
+  "change": 300.0,
+  "change_percent": 12.5,
+  "volume": 6674800,
+  "high": 2700.0,
+  "low": 2600.0,
+  "open": 2700.0,
+  "timestamp": "2026-02-01T08:57:38.056212",
+  "source": "vnstock/VCI"
+}

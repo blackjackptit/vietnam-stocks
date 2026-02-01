@@ -1,0 +1,12 @@
+{
+  "symbol": "VRE",
+  "price": 30200.0,
+  "change": 200.0,
+  "change_percent": 0.6666666666666667,
+  "volume": 6955000,
+  "high": 30200.0,
+  "low": 29500.0,
+  "open": 29900.0,
+  "timestamp": "2026-02-01T09:04:49.367820",
+  "source": "vnstock/VCI"
+}

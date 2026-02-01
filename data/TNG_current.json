@@ -1,0 +1,12 @@
+{
+  "symbol": "TNG",
+  "price": 20800.0,
+  "change": -200.0,
+  "change_percent": -0.9523809523809524,
+  "volume": 1424400,
+  "high": 21500.0,
+  "low": 20800.0,
+  "open": 21100.0,
+  "timestamp": "2026-02-01T09:01:44.213801",
+  "source": "vnstock/VCI"
+}

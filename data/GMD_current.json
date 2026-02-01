@@ -1,0 +1,12 @@
+{
+  "symbol": "GMD",
+  "price": 68500.0,
+  "change": 600.0,
+  "change_percent": 0.8836524300441826,
+  "volume": 1901300,
+  "high": 70000.0,
+  "low": 67000.0,
+  "open": 68000.0,
+  "timestamp": "2026-02-01T01:24:56.638851",
+  "source": "vnstock/VCI"
+}

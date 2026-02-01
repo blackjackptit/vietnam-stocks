@@ -1,0 +1,12 @@
+{
+  "symbol": "VNE",
+  "price": 5450.0,
+  "change": 60.0,
+  "change_percent": 1.1131725417439702,
+  "volume": 157300,
+  "high": 5700.0,
+  "low": 5390.0,
+  "open": 5390.0,
+  "timestamp": "2026-02-01T09:04:25.409590",
+  "source": "vnstock/VCI"
+}

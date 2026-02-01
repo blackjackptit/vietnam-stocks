@@ -1,0 +1,12 @@
+{
+  "symbol": "STG",
+  "price": 37800.0,
+  "change": -50.0,
+  "change_percent": -0.13210039630118892,
+  "volume": 300,
+  "high": 37800.0,
+  "low": 37800.0,
+  "open": 37800.0,
+  "timestamp": "2026-02-01T08:59:42.235481",
+  "source": "vnstock/VCI"
+}

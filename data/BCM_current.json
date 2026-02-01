@@ -1,0 +1,12 @@
+{
+  "symbol": "BCM",
+  "price": 68100.0,
+  "change": 2100.0,
+  "change_percent": 3.1818181818181817,
+  "volume": 1823000,
+  "high": 69300.0,
+  "low": 66900.0,
+  "open": 67000.0,
+  "timestamp": "2026-02-01T01:30:38.799455",
+  "source": "vnstock/VCI"
+}

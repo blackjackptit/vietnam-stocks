@@ -1,0 +1,12 @@
+{
+  "symbol": "SJD",
+  "price": 14000.0,
+  "change": -100.0,
+  "change_percent": -0.7092198581560284,
+  "volume": 433100,
+  "high": 14100.0,
+  "low": 13950.0,
+  "open": 14050.0,
+  "timestamp": "2026-02-01T08:59:14.824761",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "FCN",
+  "price": 13850.0,
+  "change": 50.0,
+  "change_percent": 0.36231884057971014,
+  "volume": 451000,
+  "high": 14000.0,
+  "low": 13800.0,
+  "open": 13800.0,
+  "timestamp": "2026-02-01T01:24:17.696529",
+  "source": "vnstock/VCI"
+}

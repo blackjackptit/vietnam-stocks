@@ -1,0 +1,12 @@
+{
+  "symbol": "NHA",
+  "price": 15200.0,
+  "change": 150.0,
+  "change_percent": 0.9966777408637874,
+  "volume": 210300,
+  "high": 15400.0,
+  "low": 15000.0,
+  "open": 15250.0,
+  "timestamp": "2026-02-01T08:54:24.520778",
+  "source": "vnstock/VCI"
+}

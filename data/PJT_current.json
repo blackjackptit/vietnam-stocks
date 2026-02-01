@@ -1,0 +1,12 @@
+{
+  "symbol": "PJT",
+  "price": 9900.0,
+  "change": 130.0,
+  "change_percent": 1.3306038894575232,
+  "volume": 1000,
+  "high": 10400.0,
+  "low": 9770.0,
+  "open": 10400.0,
+  "timestamp": "2026-02-01T08:56:02.208137",
+  "source": "vnstock/VCI"
+}

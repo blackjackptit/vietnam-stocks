@@ -1,0 +1,12 @@
+{
+  "symbol": "SCS",
+  "price": 54500.0,
+  "change": 100.0,
+  "change_percent": 0.1838235294117647,
+  "volume": 174000,
+  "high": 55300.0,
+  "low": 54500.0,
+  "open": 54800.0,
+  "timestamp": "2026-02-01T08:58:35.194032",
+  "source": "vnstock/VCI"
+}

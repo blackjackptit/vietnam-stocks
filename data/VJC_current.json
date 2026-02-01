@@ -1,0 +1,12 @@
+{
+  "symbol": "VJC",
+  "price": 170500.0,
+  "change": 6500.0,
+  "change_percent": 3.9634146341463414,
+  "volume": 1696000,
+  "high": 170500.0,
+  "low": 159400.0,
+  "open": 164300.0,
+  "timestamp": "2026-02-01T09:04:20.186604",
+  "source": "vnstock/VCI"
+}

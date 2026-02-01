@@ -1,0 +1,12 @@
+{
+  "symbol": "TCM",
+  "price": 26700.0,
+  "change": 100.0,
+  "change_percent": 0.37593984962406013,
+  "volume": 1598400,
+  "high": 26700.0,
+  "low": 26300.0,
+  "open": 26650.0,
+  "timestamp": "2026-02-01T09:00:31.070882",
+  "source": "vnstock/VCI"
+}

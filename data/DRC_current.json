@@ -1,0 +1,12 @@
+{
+  "symbol": "DRC",
+  "price": 15000.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 471100,
+  "high": 15250.0,
+  "low": 14800.0,
+  "open": 15000.0,
+  "timestamp": "2026-02-01T01:23:44.559846",
+  "source": "vnstock/VCI"
+}

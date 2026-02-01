@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Vietnamese Stock Analytics Platform - API Edition</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="docs-style.css">
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head><body>
+<nav class="top-nav"><div class="nav-container">
+<a href="index.html" class="logo-text">📊 VNStock Analytics</a>
+<span class="page-title" data-i18n="footer.documentation">Documentation</span>
+</div></nav>
+<div class="container"><div class="content-card markdown-content">
+<h1>Vietnamese Stock Analytics Platform - API Edition</h1>
+
+<h2>🎉 Your Platform is Now API-Driven!</h2>
+
+<p>Stock data (symbols, names, categories) is now loaded from API endpoints instead of being hardcoded. This makes it <strong>super easy to update</strong> without changing any code!</p>
+
+<h2>🚀 Quick Start (3 Steps)</h2>
+
+<pre><code># 1. Install dependencies
+<p>pip install -r requirements.txt</p>
+
+<h1>2. Start the API server</h1>
+<p>./start_api.sh</p>
+
+<h1>3. Open your browser</h1>
+<h1>http://localhost:5000/dashboard_main.html</code></pre></h1>
+
+<p>That's it! Your dashboards now load data from the API.</p>
+
+<h2>📝 How to Update Stocks</h2>
+
+<h3>Add a New Stock</h3>
+
+<p>1. <strong>Edit <code>data/stock_categories.json</code>:</strong></p>
+<p>   <pre><code>   {</p>
+<p>     "categories": {</p>
+<p>       "blue_chips": ["VCB", "VHM", "NEW_STOCK", ...]</p>
+<p>     }</p>
+<p>   }</p>
+<p>   ``<code></p>
+
+<p>2. <strong>Edit </code>data/stock_names.json<code>:</strong></p>
+<p>   </code>`<code>json</p>
+<p>   {</p>
+<p>     "NEW_STOCK": "New Company - Công ty CP Mới"</p>
+<p>   }</p>
+<p>   </code>`<code></p>
+
+<p>3. <strong>Refresh your browser</strong> - Done! ✅</p>
+
+<h3>Update Stock Names</h3>
+
+<p>Just edit </code>data/stock_names.json<code> and refresh. No code changes!</p>
+
+<h3>Remove a Stock</h3>
+
+<p>Remove it from both JSON files and refresh. That's it!</p>
+
+<h2>📚 Documentation</h2>
+
+<ul>
+<li><strong><a href="API_ENDPOINTS.html">API Endpoints Documentation</a></strong> - Complete API documentation</li>
+<li><strong><a href="API_SERVER_SETUP.html">API Server Setup Guide</a></strong> - Setup & deployment guide</li>
+<li><strong><a href="API_MIGRATION_SUMMARY.html">API Migration Summary</a></strong> - What changed & why</li>
+</ul>
+
+<h2>🔧 API Endpoints</h2>
+</code></pre>
+<p>GET  /api/stock-categories    # Get all stock categories (233 stocks)</p>
+<p>GET  /api/stock-names          # Get stock symbol to name mappings</p>
+<p>GET  /api/watchlist            # Get user's watchlist</p>
+<p>POST /api/watchlist            # Update watchlist</p>
+<p>GET  /api/historical/:symbol   # Get historical data</p>
+<p>POST /api/clear-cache          # Clear data cache</p>
+<pre><code>
+<h2>📊 Data Files</h2>
+
+<p>All stock data is in JSON files (easy to edit!):</p>
+</code></pre>
+<p>data/</p>
+<p>├── stock_categories.json    # 233 stocks in 11 categories</p>
+<p>├── stock_names.json         # Symbol → Company name mappings</p>
+<p>├── watchlist.json           # User watchlist (auto-created)</p>
+<p>└── {SYMBOL}_history.json    # Historical price data</p>
+<pre><code>
+<h2>✨ Benefits</h2>
+
+<p>✅ <strong>No code changes</strong> to add/remove stocks</p>
+<p>✅ <strong>Instant updates</strong> - just edit JSON and refresh</p>
+<p>✅ <strong>Easy maintenance</strong> - everything in data files</p>
+<p>✅ <strong>Fallback mechanism</strong> - works even if API is down</p>
+<p>✅ <strong>All 8 dashboards</strong> use the same API data</p>
+
+<h2>🎯 Examples</h2>
+
+<h3>Test API Endpoints</h3>
+</code></pre>bash
+<h1>Get all categories</h1>
+<p>curl http://localhost:5000/api/stock-categories | jq</p>
+
+<h1>Get stock names</h1>
+<p>curl http://localhost:5000/api/stock-names | jq '.VCB'</p>
+
+<h1>Update watchlist</h1>
+<p>curl -X POST http://localhost:5000/api/watchlist \</p>
+<p>  -H "Content-Type: application/json" \</p>
+<p>  -d '["VCB", "VHM", "FPT"]'</p>
+<pre><code>
+<h3>Clear Cache After Updates</h3>
+</code></pre>bash
+<p>curl -X POST http://localhost:5000/api/clear-cache</p>
+<pre><code>
+<h2>🚀 Production Deployment</h2>
+
+<h3>Option 1: Gunicorn</code></pre>bash</h3>
+<p>gunicorn -w 4 -b 0.0.0.0:5000 api_server:app</p>
+<pre><code>
+<h3>Option 2: Docker</code></pre>bash</h3>
+<p>docker build -t vnstock-api .</p>
+<p>docker run -p 5000:5000 vnstock-api</p>
+<pre><code>
+<h3>Option 3: Systemd Service</code></pre>bash</h3>
+<p>sudo systemctl start vnstock-api</p>
+</code>`<code>
+
+<p>See <a href="API_SERVER_SETUP.html">API Server Setup Guide</a> for details.</p>
+
+<h2>🐛 Troubleshooting</h2>
+
+<strong>API server won't start?</strong>
+<ul>
+<li>Make sure port 5000 is available</li>
+<li>Install dependencies: </code>pip install -r requirements.txt<code></li>
+</ul>
+
+<strong>Data not loading?</strong>
+<ul>
+<li>Check if API server is running</li>
+<li>Open browser console for errors</li>
+<li>Try: </code>curl http://localhost:5000/health<code></li>
+</ul>
+
+<strong>Changes not showing?</strong>
+<ul>
+<li>Clear cache: </code>curl -X POST http://localhost:5000/api/clear-cache<code></li>
+<li>Hard refresh browser: Ctrl+Shift+R (Windows) or Cmd+Shift+R (Mac)</li>
+</ul>
+
+<h2>📦 What's Included</h2>
+
+<h3>Server Components</h3>
+<ul>
+<li></code>api_server.py<code> - Flask API server</li>
+<li></code>start_api.sh<code> - Quick start script</li>
+<li></code>requirements.txt<code> - Python dependencies</li>
+</ul>
+
+<h3>Data Files</h3>
+<ul>
+<li></code>data/stock_categories.json<code> - Stock categories</li>
+<li></code>data/stock_names.json<code> - Stock names</li>
+</ul>
+
+<h3>JavaScript</h3>
+<ul>
+<li></code>js/stock-categories.js<code> - Updated to load from API</li>
+</ul>
+
+<h3 data-i18n="footer.documentation">Documentation</h3>
+<ul>
+<li></code>API Endpoints Documentation<code> - API reference</li>
+<li></code>API Server Setup Guide<code> - Setup guide</li>
+<li></code>API Migration Summary<code> - Migration details</li>
+</ul>
+
+<h2>💡 Pro Tips</h2>
+
+<p>1. <strong>Edit data files</strong> instead of code</p>
+<p>2. <strong>Clear cache</strong> after updates: </code>curl -X POST http://localhost:5000/api/clear-cache<code></p>
+<p>3. <strong>Validate JSON</strong> before saving: </code>cat data/stock_names.json | jq`</p>
+<p>4. <strong>Monitor logs</strong> in the API server terminal</p>
+<p>5. <strong>Use fallback</strong> - platform works even if API is down</p>
+
+<h2>🎊 That's It!</h2>
+
+<p>Your platform now has API-driven stock data. Update stocks anytime by editing JSON files - no code changes needed!</p>
+
+<p>---</p>
+
+<strong>Need help?</strong> Check the documentation files or API server logs.
+
+<strong>Happy Trading!</strong> 📈💰🎯
+
+</div></div>
+<footer class="footer"><div class="footer-container">
+<p>© 2024 Vietnam Stock Analytics Platform</p>
+</div></footer>
+</body></html>

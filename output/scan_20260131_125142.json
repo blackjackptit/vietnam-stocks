@@ -1,0 +1,1232 @@
+{
+  "timestamp": "2026-01-31T12:51:42.491694",
+  "recommendations": {
+    "strong_buy": [],
+    "buy": [
+      {
+        "symbol": "ACB",
+        "price": 25791,
+        "change": -212.0,
+        "change_percent": -0.82,
+        "volume": 3028743000,
+        "high": 26307.0,
+        "low": 25275.0,
+        "open": 25868.0,
+        "timestamp": "2026-01-31T12:50:29.088763",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 26722.0,
+          "indicators": {
+            "rsi": 20.58,
+            "ma20": 29142.1,
+            "ma50": 28469.98,
+            "ema12": 28308.19,
+            "ema26": 28572.04,
+            "macd": {
+              "macd": -263.85,
+              "signal": -263.85,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 31399.64,
+              "middle": 29142.1,
+              "lower": 26884.56
+            }
+          },
+          "signals": [
+            "🟢 RSI oversold (potential buy)",
+            "🟢 MA20 above MA50 (golden cross area)",
+            "🔴 MACD bearish",
+            "🟢 Price near lower Bollinger Band (oversold)"
+          ],
+          "score": 35,
+          "recommendation": "BUY",
+          "emoji": "🟢"
+        }
+      }
+    ],
+    "hold": [
+      {
+        "symbol": "VPB",
+        "price": 23487,
+        "change": 180.0,
+        "change_percent": 0.77,
+        "volume": 2399418000,
+        "high": 23957.0,
+        "low": 23017.0,
+        "open": 23562.0,
+        "timestamp": "2026-01-31T12:50:24.058498",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 23369.0,
+          "indicators": {
+            "rsi": 63.15,
+            "ma20": 22949.05,
+            "ma50": 21016.08,
+            "ema12": 23300.18,
+            "ema26": 22549.5,
+            "macd": {
+              "macd": 750.68,
+              "signal": 750.68,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 24224.69,
+              "middle": 22949.05,
+              "lower": 21673.41
+            }
+          },
+          "signals": [
+            "🟢 Price above MA20 and MA50 (bullish)",
+            "🟢 MA20 above MA50 (golden cross area)",
+            "🔴 MACD bearish"
+          ],
+          "score": 15,
+          "recommendation": "HOLD",
+          "emoji": "⚪"
+        }
+      },
+      {
+        "symbol": "STB",
+        "price": 29151,
+        "change": 193.0,
+        "change_percent": 0.66,
+        "volume": 847327000,
+        "high": 29734.0,
+        "low": 28568.0,
+        "open": 29353.0,
+        "timestamp": "2026-01-31T12:50:25.065562",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 27294.0,
+          "indicators": {
+            "rsi": 63.11,
+            "ma20": 26462.9,
+            "ma50": 26568.08,
+            "ema12": 26999.55,
+            "ema26": 26693.77,
+            "macd": {
+              "macd": 305.78,
+              "signal": 305.78,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 28384.01,
+              "middle": 26462.9,
+              "lower": 24541.79
+            }
+          },
+          "signals": [
+            "🔴 MA20 below MA50 (death cross area)",
+            "🔴 MACD bearish",
+            "📈 High volume (strong interest)"
+          ],
+          "score": -15,
+          "recommendation": "HOLD",
+          "emoji": "⚪"
+        }
+      },
+      {
+        "symbol": "SHB",
+        "price": 13327,
+        "change": -119.0,
+        "change_percent": -0.89,
+        "volume": 628170000,
+        "high": 13594.0,
+        "low": 13060.0,
+        "open": 13419.0,
+        "timestamp": "2026-01-31T12:50:27.076114",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 14109.0,
+          "indicators": {
+            "rsi": 41.94,
+            "ma20": 14141.6,
+            "ma50": 13669.48,
+            "ema12": 13926.34,
+            "ema26": 13892.67,
+            "macd": {
+              "macd": 33.67,
+              "signal": 33.67,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 14905.67,
+              "middle": 14141.6,
+              "lower": 13377.53
+            }
+          },
+          "signals": [
+            "⚪ RSI neutral",
+            "🟢 MA20 above MA50 (golden cross area)",
+            "🔴 MACD bearish"
+          ],
+          "score": 0,
+          "recommendation": "HOLD",
+          "emoji": "⚪"
+        }
+      },
+      {
+        "symbol": "MBB",
+        "price": 25430,
+        "change": -39.0,
+        "change_percent": -0.15,
+        "volume": 267318000,
+        "high": 25939.0,
+        "low": 24921.0,
+        "open": 25563.0,
+        "timestamp": "2026-01-31T12:50:28.081901",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 26779.0,
+          "indicators": {
+            "rsi": 66.59,
+            "ma20": 25584.0,
+            "ma50": 24043.62,
+            "ema12": 26206.04,
+            "ema26": 25456.83,
+            "macd": {
+              "macd": 749.21,
+              "signal": 749.21,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 27583.26,
+              "middle": 25584.0,
+              "lower": 23584.74
+            }
+          },
+          "signals": [
+            "🟢 Price above MA20 and MA50 (bullish)",
+            "🟢 MA20 above MA50 (golden cross area)",
+            "🔴 MACD bearish"
+          ],
+          "score": 15,
+          "recommendation": "HOLD",
+          "emoji": "⚪"
+        }
+      },
+      {
+        "symbol": "FPT",
+        "price": 122200,
+        "change": 1849.0,
+        "change_percent": 1.51,
+        "volume": 4643351000,
+        "high": 124644.0,
+        "low": 119756.0,
+        "open": 122327.0,
+        "timestamp": "2026-01-31T12:50:30.094103",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 115271.0,
+          "indicators": {
+            "rsi": 71.79,
+            "ma20": 107353.1,
+            "ma50": 95771.28,
+            "ema12": 111322.46,
+            "ema26": 105656.81,
+            "macd": {
+              "macd": 5665.65,
+              "signal": 5665.65,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 121546.96,
+              "middle": 107353.1,
+              "lower": 93159.24
+            }
+          },
+          "signals": [
+            "🔴 RSI overbought (potential sell)",
+            "🟢 Price above MA20 and MA50 (bullish)",
+            "🟢 MA20 above MA50 (golden cross area)",
+            "🔴 MACD bearish"
+          ],
+          "score": -5,
+          "recommendation": "HOLD",
+          "emoji": "⚪"
+        }
+      },
+      {
+        "symbol": "POW",
+        "price": 11044,
+        "change": 92.0,
+        "change_percent": 0.83,
+        "volume": 2801063000,
+        "high": 11265.0,
+        "low": 10823.0,
+        "open": 10969.0,
+        "timestamp": "2026-01-31T12:50:31.102107",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 11296.0,
+          "indicators": {
+            "rsi": 24.55,
+            "ma20": 12164.95,
+            "ma50": 12514.06,
+            "ema12": 11736.66,
+            "ema26": 12120.74,
+            "macd": {
+              "macd": -384.08,
+              "signal": -384.08,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 13567.07,
+              "middle": 12164.95,
+              "lower": 10762.83
+            }
+          },
+          "signals": [
+            "🟢 RSI oversold (potential buy)",
+            "🔴 Price below MA20 and MA50 (bearish)",
+            "🔴 MA20 below MA50 (death cross area)",
+            "🔴 MACD bearish"
+          ],
+          "score": -15,
+          "recommendation": "HOLD",
+          "emoji": "⚪"
+        }
+      },
+      {
+        "symbol": "DGC",
+        "price": 16632,
+        "change": 361.0,
+        "change_percent": 2.17,
+        "volume": 2995262000,
+        "high": 16965.0,
+        "low": 16299.0,
+        "open": 16792.0,
+        "timestamp": "2026-01-31T12:50:32.106444",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 16267.0,
+          "indicators": {
+            "rsi": 52.48,
+            "ma20": 15841.1,
+            "ma50": 15796.72,
+            "ema12": 15869.21,
+            "ema26": 15795.21,
+            "macd": {
+              "macd": 74.0,
+              "signal": 74.0,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 16353.55,
+              "middle": 15841.1,
+              "lower": 15328.65
+            }
+          },
+          "signals": [
+            "⚪ RSI neutral",
+            "🟢 Price above MA20 and MA50 (bullish)",
+            "🟢 MA20 above MA50 (golden cross area)",
+            "🔴 MACD bearish"
+          ],
+          "score": 15,
+          "recommendation": "HOLD",
+          "emoji": "⚪"
+        }
+      },
+      {
+        "symbol": "GEX",
+        "price": 22911,
+        "change": 681.0,
+        "change_percent": 2.97,
+        "volume": 4238277000,
+        "high": 23369.0,
+        "low": 22453.0,
+        "open": 22994.0,
+        "timestamp": "2026-01-31T12:50:33.111150",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 23161.0,
+          "indicators": {
+            "rsi": 55.11,
+            "ma20": 22788.35,
+            "ma50": 22145.58,
+            "ema12": 22924.93,
+            "ema26": 22679.41,
+            "macd": {
+              "macd": 245.52,
+              "signal": 245.52,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 24113.47,
+              "middle": 22788.35,
+              "lower": 21463.23
+            }
+          },
+          "signals": [
+            "⚪ RSI neutral",
+            "🟢 Price above MA20 and MA50 (bullish)",
+            "🟢 MA20 above MA50 (golden cross area)",
+            "🔴 MACD bearish"
+          ],
+          "score": 15,
+          "recommendation": "HOLD",
+          "emoji": "⚪"
+        }
+      },
+      {
+        "symbol": "HPG",
+        "price": 30599,
+        "change": 117.0,
+        "change_percent": 0.38,
+        "volume": 4008089000,
+        "high": 31211.0,
+        "low": 29987.0,
+        "open": 30797.0,
+        "timestamp": "2026-01-31T12:50:56.237502",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 30120.0,
+          "indicators": {
+            "rsi": 50.8,
+            "ma20": 30944.4,
+            "ma50": 30316.4,
+            "ema12": 31060.49,
+            "ema26": 30830.53,
+            "macd": {
+              "macd": 229.96,
+              "signal": 229.96,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 32887.12,
+              "middle": 30944.4,
+              "lower": 29001.68
+            }
+          },
+          "signals": [
+            "⚪ RSI neutral",
+            "🟢 MA20 above MA50 (golden cross area)",
+            "🔴 MACD bearish"
+          ],
+          "score": 0,
+          "recommendation": "HOLD",
+          "emoji": "⚪"
+        }
+      },
+      {
+        "symbol": "VCB",
+        "price": 89675,
+        "change": -1109.0,
+        "change_percent": -1.24,
+        "volume": 778508000,
+        "high": 91468.0,
+        "low": 87882.0,
+        "open": 89938.0,
+        "timestamp": "2026-01-31T12:51:32.423773",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 90697.0,
+          "indicators": {
+            "rsi": 55.24,
+            "ma20": 90383.1,
+            "ma50": 90035.2,
+            "ema12": 90801.03,
+            "ema26": 90752.13,
+            "macd": {
+              "macd": 48.9,
+              "signal": 48.9,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 93933.2,
+              "middle": 90383.1,
+              "lower": 86833.0
+            }
+          },
+          "signals": [
+            "⚪ RSI neutral",
+            "🟢 Price above MA20 and MA50 (bullish)",
+            "🟢 MA20 above MA50 (golden cross area)",
+            "🔴 MACD bearish"
+          ],
+          "score": 15,
+          "recommendation": "HOLD",
+          "emoji": "⚪"
+        }
+      },
+      {
+        "symbol": "VHM",
+        "price": 52679,
+        "change": 991.0,
+        "change_percent": 1.88,
+        "volume": 1892639000,
+        "high": 53733.0,
+        "low": 51625.0,
+        "open": 52756.0,
+        "timestamp": "2026-01-31T12:51:36.448083",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 53745.0,
+          "indicators": {
+            "rsi": 43.57,
+            "ma20": 54724.35,
+            "ma50": 52490.16,
+            "ema12": 54723.3,
+            "ema26": 54120.93,
+            "macd": {
+              "macd": 602.37,
+              "signal": 602.37,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 56642.36,
+              "middle": 54724.35,
+              "lower": 52806.34
+            }
+          },
+          "signals": [
+            "⚪ RSI neutral",
+            "🟢 MA20 above MA50 (golden cross area)",
+            "🔴 MACD bearish"
+          ],
+          "score": 0,
+          "recommendation": "HOLD",
+          "emoji": "⚪"
+        }
+      },
+      {
+        "symbol": "VIC",
+        "price": 43577,
+        "change": -42.0,
+        "change_percent": -0.1,
+        "volume": 3253712000,
+        "high": 44449.0,
+        "low": 42705.0,
+        "open": 43740.0,
+        "timestamp": "2026-01-31T12:51:38.460878",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 45513.0,
+          "indicators": {
+            "rsi": 27.07,
+            "ma20": 47915.85,
+            "ma50": 48270.1,
+            "ema12": 46044.22,
+            "ema26": 47200.1,
+            "macd": {
+              "macd": -1155.88,
+              "signal": -1155.88,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 53189.91,
+              "middle": 47915.85,
+              "lower": 42641.79
+            }
+          },
+          "signals": [
+            "🟢 RSI oversold (potential buy)",
+            "🔴 Price below MA20 and MA50 (bearish)",
+            "🔴 MA20 below MA50 (death cross area)",
+            "🔴 MACD bearish"
+          ],
+          "score": -15,
+          "recommendation": "HOLD",
+          "emoji": "⚪"
+        }
+      }
+    ],
+    "sell": [
+      {
+        "symbol": "HDB",
+        "price": 18710,
+        "change": -55.0,
+        "change_percent": -0.3,
+        "volume": 3439364000,
+        "high": 19084.0,
+        "low": 18336.0,
+        "open": 18835.0,
+        "timestamp": "2026-01-31T12:50:26.070865",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 18522.0,
+          "indicators": {
+            "rsi": 76.25,
+            "ma20": 17299.25,
+            "ma50": 17685.26,
+            "ema12": 17661.87,
+            "ema26": 17452.29,
+            "macd": {
+              "macd": 209.58,
+              "signal": 209.58,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 18286.04,
+              "middle": 17299.25,
+              "lower": 16312.46
+            }
+          },
+          "signals": [
+            "🔴 RSI overbought (potential sell)",
+            "🔴 MA20 below MA50 (death cross area)",
+            "🔴 MACD bearish",
+            "🔴 Price near upper Bollinger Band (overbought)"
+          ],
+          "score": -55,
+          "recommendation": "STRONG SELL",
+          "emoji": "🔴🔴"
+        }
+      },
+      {
+        "symbol": "VNM",
+        "price": 78779,
+        "change": 1677.0,
+        "change_percent": 2.13,
+        "volume": 1773449000,
+        "high": 80355.0,
+        "low": 77203.0,
+        "open": 78359.0,
+        "timestamp": "2026-01-31T12:50:34.118909",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 83110.0,
+          "indicators": {
+            "rsi": 39.46,
+            "ma20": 85345.6,
+            "ma50": 85602.1,
+            "ema12": 84534.08,
+            "ema26": 85148.46,
+            "macd": {
+              "macd": -614.38,
+              "signal": -614.38,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 90735.31,
+              "middle": 85345.6,
+              "lower": 79955.89
+            }
+          },
+          "signals": [
+            "🔴 Price below MA20 and MA50 (bearish)",
+            "🔴 MA20 below MA50 (death cross area)",
+            "🔴 MACD bearish",
+            "📈 High volume (strong interest)"
+          ],
+          "score": -30,
+          "recommendation": "SELL",
+          "emoji": "🔴"
+        }
+      }
+    ]
+  },
+  "all_results": {
+    "VPB": {
+      "symbol": "VPB",
+      "price": 23487,
+      "change": 180.0,
+      "change_percent": 0.77,
+      "volume": 2399418000,
+      "high": 23957.0,
+      "low": 23017.0,
+      "open": 23562.0,
+      "timestamp": "2026-01-31T12:50:24.058498",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 23369.0,
+        "indicators": {
+          "rsi": 63.15,
+          "ma20": 22949.05,
+          "ma50": 21016.08,
+          "ema12": 23300.18,
+          "ema26": 22549.5,
+          "macd": {
+            "macd": 750.68,
+            "signal": 750.68,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 24224.69,
+            "middle": 22949.05,
+            "lower": 21673.41
+          }
+        },
+        "signals": [
+          "🟢 Price above MA20 and MA50 (bullish)",
+          "🟢 MA20 above MA50 (golden cross area)",
+          "🔴 MACD bearish"
+        ],
+        "score": 15,
+        "recommendation": "HOLD",
+        "emoji": "⚪"
+      }
+    },
+    "STB": {
+      "symbol": "STB",
+      "price": 29151,
+      "change": 193.0,
+      "change_percent": 0.66,
+      "volume": 847327000,
+      "high": 29734.0,
+      "low": 28568.0,
+      "open": 29353.0,
+      "timestamp": "2026-01-31T12:50:25.065562",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 27294.0,
+        "indicators": {
+          "rsi": 63.11,
+          "ma20": 26462.9,
+          "ma50": 26568.08,
+          "ema12": 26999.55,
+          "ema26": 26693.77,
+          "macd": {
+            "macd": 305.78,
+            "signal": 305.78,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 28384.01,
+            "middle": 26462.9,
+            "lower": 24541.79
+          }
+        },
+        "signals": [
+          "🔴 MA20 below MA50 (death cross area)",
+          "🔴 MACD bearish",
+          "📈 High volume (strong interest)"
+        ],
+        "score": -15,
+        "recommendation": "HOLD",
+        "emoji": "⚪"
+      }
+    },
+    "HDB": {
+      "symbol": "HDB",
+      "price": 18710,
+      "change": -55.0,
+      "change_percent": -0.3,
+      "volume": 3439364000,
+      "high": 19084.0,
+      "low": 18336.0,
+      "open": 18835.0,
+      "timestamp": "2026-01-31T12:50:26.070865",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 18522.0,
+        "indicators": {
+          "rsi": 76.25,
+          "ma20": 17299.25,
+          "ma50": 17685.26,
+          "ema12": 17661.87,
+          "ema26": 17452.29,
+          "macd": {
+            "macd": 209.58,
+            "signal": 209.58,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 18286.04,
+            "middle": 17299.25,
+            "lower": 16312.46
+          }
+        },
+        "signals": [
+          "🔴 RSI overbought (potential sell)",
+          "🔴 MA20 below MA50 (death cross area)",
+          "🔴 MACD bearish",
+          "🔴 Price near upper Bollinger Band (overbought)"
+        ],
+        "score": -55,
+        "recommendation": "STRONG SELL",
+        "emoji": "🔴🔴"
+      }
+    },
+    "SHB": {
+      "symbol": "SHB",
+      "price": 13327,
+      "change": -119.0,
+      "change_percent": -0.89,
+      "volume": 628170000,
+      "high": 13594.0,
+      "low": 13060.0,
+      "open": 13419.0,
+      "timestamp": "2026-01-31T12:50:27.076114",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 14109.0,
+        "indicators": {
+          "rsi": 41.94,
+          "ma20": 14141.6,
+          "ma50": 13669.48,
+          "ema12": 13926.34,
+          "ema26": 13892.67,
+          "macd": {
+            "macd": 33.67,
+            "signal": 33.67,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 14905.67,
+            "middle": 14141.6,
+            "lower": 13377.53
+          }
+        },
+        "signals": [
+          "⚪ RSI neutral",
+          "🟢 MA20 above MA50 (golden cross area)",
+          "🔴 MACD bearish"
+        ],
+        "score": 0,
+        "recommendation": "HOLD",
+        "emoji": "⚪"
+      }
+    },
+    "MBB": {
+      "symbol": "MBB",
+      "price": 25430,
+      "change": -39.0,
+      "change_percent": -0.15,
+      "volume": 267318000,
+      "high": 25939.0,
+      "low": 24921.0,
+      "open": 25563.0,
+      "timestamp": "2026-01-31T12:50:28.081901",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 26779.0,
+        "indicators": {
+          "rsi": 66.59,
+          "ma20": 25584.0,
+          "ma50": 24043.62,
+          "ema12": 26206.04,
+          "ema26": 25456.83,
+          "macd": {
+            "macd": 749.21,
+            "signal": 749.21,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 27583.26,
+            "middle": 25584.0,
+            "lower": 23584.74
+          }
+        },
+        "signals": [
+          "🟢 Price above MA20 and MA50 (bullish)",
+          "🟢 MA20 above MA50 (golden cross area)",
+          "🔴 MACD bearish"
+        ],
+        "score": 15,
+        "recommendation": "HOLD",
+        "emoji": "⚪"
+      }
+    },
+    "ACB": {
+      "symbol": "ACB",
+      "price": 25791,
+      "change": -212.0,
+      "change_percent": -0.82,
+      "volume": 3028743000,
+      "high": 26307.0,
+      "low": 25275.0,
+      "open": 25868.0,
+      "timestamp": "2026-01-31T12:50:29.088763",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 26722.0,
+        "indicators": {
+          "rsi": 20.58,
+          "ma20": 29142.1,
+          "ma50": 28469.98,
+          "ema12": 28308.19,
+          "ema26": 28572.04,
+          "macd": {
+            "macd": -263.85,
+            "signal": -263.85,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 31399.64,
+            "middle": 29142.1,
+            "lower": 26884.56
+          }
+        },
+        "signals": [
+          "🟢 RSI oversold (potential buy)",
+          "🟢 MA20 above MA50 (golden cross area)",
+          "🔴 MACD bearish",
+          "🟢 Price near lower Bollinger Band (oversold)"
+        ],
+        "score": 35,
+        "recommendation": "BUY",
+        "emoji": "🟢"
+      }
+    },
+    "FPT": {
+      "symbol": "FPT",
+      "price": 122200,
+      "change": 1849.0,
+      "change_percent": 1.51,
+      "volume": 4643351000,
+      "high": 124644.0,
+      "low": 119756.0,
+      "open": 122327.0,
+      "timestamp": "2026-01-31T12:50:30.094103",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 115271.0,
+        "indicators": {
+          "rsi": 71.79,
+          "ma20": 107353.1,
+          "ma50": 95771.28,
+          "ema12": 111322.46,
+          "ema26": 105656.81,
+          "macd": {
+            "macd": 5665.65,
+            "signal": 5665.65,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 121546.96,
+            "middle": 107353.1,
+            "lower": 93159.24
+          }
+        },
+        "signals": [
+          "🔴 RSI overbought (potential sell)",
+          "🟢 Price above MA20 and MA50 (bullish)",
+          "🟢 MA20 above MA50 (golden cross area)",
+          "🔴 MACD bearish"
+        ],
+        "score": -5,
+        "recommendation": "HOLD",
+        "emoji": "⚪"
+      }
+    },
+    "POW": {
+      "symbol": "POW",
+      "price": 11044,
+      "change": 92.0,
+      "change_percent": 0.83,
+      "volume": 2801063000,
+      "high": 11265.0,
+      "low": 10823.0,
+      "open": 10969.0,
+      "timestamp": "2026-01-31T12:50:31.102107",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 11296.0,
+        "indicators": {
+          "rsi": 24.55,
+          "ma20": 12164.95,
+          "ma50": 12514.06,
+          "ema12": 11736.66,
+          "ema26": 12120.74,
+          "macd": {
+            "macd": -384.08,
+            "signal": -384.08,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 13567.07,
+            "middle": 12164.95,
+            "lower": 10762.83
+          }
+        },
+        "signals": [
+          "🟢 RSI oversold (potential buy)",
+          "🔴 Price below MA20 and MA50 (bearish)",
+          "🔴 MA20 below MA50 (death cross area)",
+          "🔴 MACD bearish"
+        ],
+        "score": -15,
+        "recommendation": "HOLD",
+        "emoji": "⚪"
+      }
+    },
+    "DGC": {
+      "symbol": "DGC",
+      "price": 16632,
+      "change": 361.0,
+      "change_percent": 2.17,
+      "volume": 2995262000,
+      "high": 16965.0,
+      "low": 16299.0,
+      "open": 16792.0,
+      "timestamp": "2026-01-31T12:50:32.106444",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 16267.0,
+        "indicators": {
+          "rsi": 52.48,
+          "ma20": 15841.1,
+          "ma50": 15796.72,
+          "ema12": 15869.21,
+          "ema26": 15795.21,
+          "macd": {
+            "macd": 74.0,
+            "signal": 74.0,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 16353.55,
+            "middle": 15841.1,
+            "lower": 15328.65
+          }
+        },
+        "signals": [
+          "⚪ RSI neutral",
+          "🟢 Price above MA20 and MA50 (bullish)",
+          "🟢 MA20 above MA50 (golden cross area)",
+          "🔴 MACD bearish"
+        ],
+        "score": 15,
+        "recommendation": "HOLD",
+        "emoji": "⚪"
+      }
+    },
+    "GEX": {
+      "symbol": "GEX",
+      "price": 22911,
+      "change": 681.0,
+      "change_percent": 2.97,
+      "volume": 4238277000,
+      "high": 23369.0,
+      "low": 22453.0,
+      "open": 22994.0,
+      "timestamp": "2026-01-31T12:50:33.111150",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 23161.0,
+        "indicators": {
+          "rsi": 55.11,
+          "ma20": 22788.35,
+          "ma50": 22145.58,
+          "ema12": 22924.93,
+          "ema26": 22679.41,
+          "macd": {
+            "macd": 245.52,
+            "signal": 245.52,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 24113.47,
+            "middle": 22788.35,
+            "lower": 21463.23
+          }
+        },
+        "signals": [
+          "⚪ RSI neutral",
+          "🟢 Price above MA20 and MA50 (bullish)",
+          "🟢 MA20 above MA50 (golden cross area)",
+          "🔴 MACD bearish"
+        ],
+        "score": 15,
+        "recommendation": "HOLD",
+        "emoji": "⚪"
+      }
+    },
+    "VNM": {
+      "symbol": "VNM",
+      "price": 78779,
+      "change": 1677.0,
+      "change_percent": 2.13,
+      "volume": 1773449000,
+      "high": 80355.0,
+      "low": 77203.0,
+      "open": 78359.0,
+      "timestamp": "2026-01-31T12:50:34.118909",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 83110.0,
+        "indicators": {
+          "rsi": 39.46,
+          "ma20": 85345.6,
+          "ma50": 85602.1,
+          "ema12": 84534.08,
+          "ema26": 85148.46,
+          "macd": {
+            "macd": -614.38,
+            "signal": -614.38,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 90735.31,
+            "middle": 85345.6,
+            "lower": 79955.89
+          }
+        },
+        "signals": [
+          "🔴 Price below MA20 and MA50 (bearish)",
+          "🔴 MA20 below MA50 (death cross area)",
+          "🔴 MACD bearish",
+          "📈 High volume (strong interest)"
+        ],
+        "score": -30,
+        "recommendation": "SELL",
+        "emoji": "🔴"
+      }
+    },
+    "HPG": {
+      "symbol": "HPG",
+      "price": 30599,
+      "change": 117.0,
+      "change_percent": 0.38,
+      "volume": 4008089000,
+      "high": 31211.0,
+      "low": 29987.0,
+      "open": 30797.0,
+      "timestamp": "2026-01-31T12:50:56.237502",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 30120.0,
+        "indicators": {
+          "rsi": 50.8,
+          "ma20": 30944.4,
+          "ma50": 30316.4,
+          "ema12": 31060.49,
+          "ema26": 30830.53,
+          "macd": {
+            "macd": 229.96,
+            "signal": 229.96,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 32887.12,
+            "middle": 30944.4,
+            "lower": 29001.68
+          }
+        },
+        "signals": [
+          "⚪ RSI neutral",
+          "🟢 MA20 above MA50 (golden cross area)",
+          "🔴 MACD bearish"
+        ],
+        "score": 0,
+        "recommendation": "HOLD",
+        "emoji": "⚪"
+      }
+    },
+    "VCB": {
+      "symbol": "VCB",
+      "price": 89675,
+      "change": -1109.0,
+      "change_percent": -1.24,
+      "volume": 778508000,
+      "high": 91468.0,
+      "low": 87882.0,
+      "open": 89938.0,
+      "timestamp": "2026-01-31T12:51:32.423773",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 90697.0,
+        "indicators": {
+          "rsi": 55.24,
+          "ma20": 90383.1,
+          "ma50": 90035.2,
+          "ema12": 90801.03,
+          "ema26": 90752.13,
+          "macd": {
+            "macd": 48.9,
+            "signal": 48.9,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 93933.2,
+            "middle": 90383.1,
+            "lower": 86833.0
+          }
+        },
+        "signals": [
+          "⚪ RSI neutral",
+          "🟢 Price above MA20 and MA50 (bullish)",
+          "🟢 MA20 above MA50 (golden cross area)",
+          "🔴 MACD bearish"
+        ],
+        "score": 15,
+        "recommendation": "HOLD",
+        "emoji": "⚪"
+      }
+    },
+    "VHM": {
+      "symbol": "VHM",
+      "price": 52679,
+      "change": 991.0,
+      "change_percent": 1.88,
+      "volume": 1892639000,
+      "high": 53733.0,
+      "low": 51625.0,
+      "open": 52756.0,
+      "timestamp": "2026-01-31T12:51:36.448083",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 53745.0,
+        "indicators": {
+          "rsi": 43.57,
+          "ma20": 54724.35,
+          "ma50": 52490.16,
+          "ema12": 54723.3,
+          "ema26": 54120.93,
+          "macd": {
+            "macd": 602.37,
+            "signal": 602.37,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 56642.36,
+            "middle": 54724.35,
+            "lower": 52806.34
+          }
+        },
+        "signals": [
+          "⚪ RSI neutral",
+          "🟢 MA20 above MA50 (golden cross area)",
+          "🔴 MACD bearish"
+        ],
+        "score": 0,
+        "recommendation": "HOLD",
+        "emoji": "⚪"
+      }
+    },
+    "VIC": {
+      "symbol": "VIC",
+      "price": 43577,
+      "change": -42.0,
+      "change_percent": -0.1,
+      "volume": 3253712000,
+      "high": 44449.0,
+      "low": 42705.0,
+      "open": 43740.0,
+      "timestamp": "2026-01-31T12:51:38.460878",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 45513.0,
+        "indicators": {
+          "rsi": 27.07,
+          "ma20": 47915.85,
+          "ma50": 48270.1,
+          "ema12": 46044.22,
+          "ema26": 47200.1,
+          "macd": {
+            "macd": -1155.88,
+            "signal": -1155.88,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 53189.91,
+            "middle": 47915.85,
+            "lower": 42641.79
+          }
+        },
+        "signals": [
+          "🟢 RSI oversold (potential buy)",
+          "🔴 Price below MA20 and MA50 (bearish)",
+          "🔴 MA20 below MA50 (death cross area)",
+          "🔴 MACD bearish"
+        ],
+        "score": -15,
+        "recommendation": "HOLD",
+        "emoji": "⚪"
+      }
+    }
+  }
+}

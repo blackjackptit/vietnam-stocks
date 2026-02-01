@@ -1,0 +1,12 @@
+{
+  "symbol": "VTP",
+  "price": 111200.0,
+  "change": -200.0,
+  "change_percent": -0.17953321364452424,
+  "volume": 974600,
+  "high": 113700.0,
+  "low": 111100.0,
+  "open": 111400.0,
+  "timestamp": "2026-02-01T09:05:14.571772",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>📋 Watchlist Feature - Quick Guide</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="docs-style.css">
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head><body>
+<nav class="top-nav"><div class="nav-container">
+<a href="index.html" class="logo-text">📊 VNStock Analytics</a>
+<span class="page-title" data-i18n="footer.documentation">Documentation</span>
+</div></nav>
+<div class="container"><div class="content-card markdown-content">
+<h1>📋 Watchlist Feature - Quick Guide</h1>
+
+<h2>✅ Bug Fixed: Watchlist Now Works!</h2>
+
+<p>The issue where selecting stocks in the dashboard didn't update the charts has been <strong>fixed</strong>!</p>
+
+<h2>How It Works Now</h2>
+
+<h3>1. <strong>Select Stocks in Dashboard</strong></h3>
+<p>1. Open the enhanced dashboard:</p>
+<p>   <pre><code>   http://localhost:8888/dashboard_enhanced.html</p>
+<p>   ``<code></p>
+
+<p>2. Use the stock picker:</p>
+<p>   - Search for stocks by symbol</p>
+<p>   - Filter by category (Banks, Tech, etc.)</p>
+<p>   - Click stocks to select/deselect</p>
+<p>   - Use "Select All" or "Clear All" buttons</p>
+
+<p>3. Click <strong>"Apply Watchlist"</strong> button</p>
+<p>   - Your selection is saved to </code>watchlist.json<code></p>
+<p>   - You'll see a confirmation message</p>
+<p>   - The monitor will pick up changes on the next scan</p>
+
+<h3>2. <strong>Monitor Picks Up Changes Automatically</strong></h3>
+<ul>
+<li>The monitor now <strong>reloads the watchlist</strong> before each scan</li>
+<li>Changes are applied automatically every 5 minutes (current setting)</li>
+<li>No need to restart the monitor!</li>
+</ul>
+
+<h3>3. <strong>See Results in Dashboard</strong></h3>
+<ul>
+<li>Charts update automatically when new scan completes</li>
+<li>Performance heatmap shows only your selected stocks</li>
+<li>All visualizations use your custom watchlist</li>
+</ul>
+
+<h2>Current Status</h2>
+
+<p>✅ <strong>Monitor Running</strong>: Scanning every <strong>5 minutes</strong></p>
+<p>✅ <strong>Watchlist Active</strong>: Currently monitoring <strong>5 stocks</strong>:</p>
+<ul>
+<li>VCB (Vietcombank)</li>
+<li>HPG (Hoa Phat Group)</li>
+<li>FPT (FPT Corporation)</li>
+<li>VNM (Vinamilk)</li>
+<li>GAS (PetroVietnam Gas)</li>
+</ul>
+
+<p>✅ <strong>Dashboards Live</strong>:</p>
+<ul>
+<li>Enhanced: http://localhost:8888/dashboard_enhanced.html</li>
+<li>Original: http://localhost:8888/dashboard_realtime.html</li>
+</ul>
+
+<h2>How to Use</h2>
+
+<h3>Quick Method (Web UI)</h3>
+<p>1. Open enhanced dashboard</p>
+<p>2. Select stocks in the picker</p>
+<p>3. Click "Apply Watchlist"</p>
+<p>4. Wait for next scan (every 5 minutes)</p>
+<p>5. Charts update automatically</p>
+
+<h3>CLI Method</code></pre>bash</h3>
+<h1>Add specific stocks</h1>
+<p>python manage_watchlist.py --add VCB HPG FPT MSN VNM</p>
+
+<h1>Add entire category</h1>
+<p>python manage_watchlist.py --category blue_chips</p>
+
+<h1>List current watchlist</h1>
+<p>python manage_watchlist.py --list</p>
+
+<h1>Interactive mode</h1>
+<p>python manage_watchlist.py --interactive</p>
+<pre><code>
+<h2>What Was Fixed</h2>
+
+<h3>Before (Broken)</h3>
+<ul>
+<li>Dashboard saved to localStorage only</li>
+<li>Monitor used hardcoded stock list</li>
+<li>No sync between dashboard and monitor</li>
+<li>Charts didn't reflect selections</li>
+</ul>
+
+<h3>After (Fixed)</h3>
+<p>✅ Dashboard saves to </code>watchlist.json<code> file</p>
+<p>✅ Monitor loads from </code>watchlist.json<code></p>
+<p>✅ Monitor reloads on each scan</p>
+<p>✅ Charts update with selected stocks</p>
+<p>✅ No restart needed</p>
+
+<h2>Technical Details</h2>
+
+<h3>File Location</code></pre></h3>
+<p>vietnam-stocks/</p>
+<p>└── watchlist.json          # Your custom watchlist</p>
+<pre><code>
+<h3>API Endpoints</h3>
+<ul>
+<li></code>POST /api/watchlist<code> - Save watchlist (from dashboard)</li>
+<li></code>GET /api/watchlist<code> - Load watchlist</li>
+<li></code>GET /api/latest<code> - Get latest scan results</li>
+</ul>
+
+<h3>Monitor Behavior</code></pre></h3>
+<p>Every 5 minutes:</p>
+<p>1. Reload watchlist.json</p>
+<p>2. Scan selected stocks</p>
+<p>3. Run technical analysis</p>
+<p>4. Save results to output/scan_*.json</p>
+<p>5. Dashboard auto-updates</p>
+<pre><code>
+<h2>Examples</h2>
+
+<h3>Example 1: Monitor Blue Chip Stocks</code></pre>bash</h3>
+<h1>Via CLI</h1>
+<p>python manage_watchlist.py --category blue_chips</p>
+<pre><code>Or in dashboard: Click "Blue Chips" filter → Select All → Apply
+
+<h3>Example 2: Monitor Specific Stocks</code></pre>bash</h3>
+<h1>Via CLI</h1>
+<p>python manage_watchlist.py --add VCB TCB MBB ACB STB</p>
+<pre><code>Or in dashboard: Search and click each stock → Apply
+
+<h3>Example 3: Monitor Affordable Stocks</code></pre>bash</h3>
+<h1>Via CLI</h1>
+<p>python manage_watchlist.py --category affordable</p>
+<pre><code>Or in dashboard: Click "Affordable" filter → Select All → Apply
+
+<h2>Tips</h2>
+
+<p>1. <strong>Start with 10-20 stocks</strong> - Don't overwhelm yourself</p>
+<p>2. <strong>Use categories</strong> - Good starting point for diversification</p>
+<p>3. <strong>Mix sectors</strong> - Banks + Tech + Consumer for balance</p>
+<p>4. <strong>Watch the heatmap</strong> - Quick visual overview</p>
+<p>5. <strong>Check every scan</strong> - Dashboard updates every 5 minutes</p>
+
+<h2>Troubleshooting</h2>
+
+<strong>Charts not updating?</strong>
+<ul>
+<li>Wait for next scan (check timestamp in dashboard)</li>
+<li>Current scan interval: 5 minutes</li>
+<li>Check watchlist: </code>cat watchlist.json<code></li>
+</ul>
+
+<strong>Want immediate results?</strong></code></pre>bash
+<h1>Trigger manual scan</h1>
+<p>python demo_monitor.py --scan-once</p>
+<pre><code>
+<strong>Change scan interval?</strong></code></pre>bash
+<h1>Stop current monitor</h1>
+<p>pkill -f demo_monitor</p>
+
+<h1>Start with different interval (in minutes)</h1>
+<p>python demo_monitor.py --interval 10</p>
+<pre><code>
+<strong>Reset to default stocks?</strong></code></pre>bash
+<p>python manage_watchlist.py --clear</p>
+<p>python manage_watchlist.py --category affordable</p>
+<pre><code>
+<h2>Performance Notes</h2>
+
+<ul>
+<li><strong>5-minute scans</strong>: Good for active monitoring</li>
+<li><strong>15-minute scans</strong>: Better for battery life</li>
+<li><strong>30-minute scans</strong>: Good for long-term holds</li>
+</ul>
+
+<p>Current setting: <strong>5 minutes</strong> (as requested)</p>
+
+<p>To change:</code></pre>bash</p>
+<p>pkill -f demo_monitor</p>
+<p>python demo_monitor.py --interval 15  # 15 minutes</p>
+</code>``
+
+<h2>Next Steps</h2>
+
+<p>1. <strong>Open dashboard</strong>: http://localhost:8888/dashboard_enhanced.html</p>
+<p>2. <strong>Select stocks</strong> you want to monitor</p>
+<p>3. <strong>Click "Apply Watchlist"</strong></p>
+<p>4. <strong>Wait ~5 minutes</strong> for next scan</p>
+<p>5. <strong>Watch charts update</strong> automatically</p>
+
+<p>Enjoy your customized Vietnamese stock monitoring system! 🎉</p>
+
+</div></div>
+<footer class="footer"><div class="footer-container">
+<p>© 2024 Vietnam Stock Analytics Platform</p>
+</div></footer>
+</body></html>

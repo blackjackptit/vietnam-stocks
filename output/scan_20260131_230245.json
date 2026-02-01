@@ -1,0 +1,94 @@
+{
+  "timestamp": "2026-01-31T23:02:45.198616",
+  "recommendations": {
+    "strong_buy": [],
+    "buy": [],
+    "hold": [],
+    "sell": [
+      {
+        "symbol": "VCB",
+        "price": 88902,
+        "change": -800.0,
+        "change_percent": -0.9,
+        "volume": 4449831000,
+        "high": 90680.0,
+        "low": 87124.0,
+        "open": 88996.0,
+        "timestamp": "2026-01-31T23:02:39.165049",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 87488.0,
+          "indicators": {
+            "rsi": 84.91,
+            "ma20": 82221.4,
+            "ma50": 84476.96,
+            "ema12": 84950.52,
+            "ema26": 83823.03,
+            "macd": {
+              "macd": 1127.49,
+              "signal": 1127.49,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 89176.32,
+              "middle": 82221.4,
+              "lower": 75266.48
+            }
+          },
+          "signals": [
+            "🔴 RSI overbought (potential sell)",
+            "🔴 MA20 below MA50 (death cross area)",
+            "🔴 MACD bearish",
+            "📈 High volume (strong interest)"
+          ],
+          "score": -35,
+          "recommendation": "SELL",
+          "emoji": "🔴"
+        }
+      }
+    ]
+  },
+  "all_results": {
+    "VCB": {
+      "symbol": "VCB",
+      "price": 88902,
+      "change": -800.0,
+      "change_percent": -0.9,
+      "volume": 4449831000,
+      "high": 90680.0,
+      "low": 87124.0,
+      "open": 88996.0,
+      "timestamp": "2026-01-31T23:02:39.165049",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 87488.0,
+        "indicators": {
+          "rsi": 84.91,
+          "ma20": 82221.4,
+          "ma50": 84476.96,
+          "ema12": 84950.52,
+          "ema26": 83823.03,
+          "macd": {
+            "macd": 1127.49,
+            "signal": 1127.49,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 89176.32,
+            "middle": 82221.4,
+            "lower": 75266.48
+          }
+        },
+        "signals": [
+          "🔴 RSI overbought (potential sell)",
+          "🔴 MA20 below MA50 (death cross area)",
+          "🔴 MACD bearish",
+          "📈 High volume (strong interest)"
+        ],
+        "score": -35,
+        "recommendation": "SELL",
+        "emoji": "🔴"
+      }
+    }
+  }
+}

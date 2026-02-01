@@ -1,0 +1,12 @@
+{
+  "symbol": "ACB",
+  "price": 24100.0,
+  "change": 300.0,
+  "change_percent": 1.2605042016806722,
+  "volume": 15667300,
+  "high": 24100.0,
+  "low": 23800.0,
+  "open": 23850.0,
+  "timestamp": "2026-02-01T01:29:40.735450",
+  "source": "vnstock/VCI"
+}

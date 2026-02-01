@@ -1,0 +1,12 @@
+{
+  "symbol": "DVP",
+  "price": 70900.0,
+  "change": -500.0,
+  "change_percent": -0.700280112044818,
+  "volume": 11100,
+  "high": 70900.0,
+  "low": 70200.0,
+  "open": 70200.0,
+  "timestamp": "2026-02-01T01:23:55.846489",
+  "source": "vnstock/VCI"
+}

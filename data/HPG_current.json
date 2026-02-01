@@ -1,0 +1,12 @@
+{
+  "symbol": "HPG",
+  "price": 26800.0,
+  "change": -300.0,
+  "change_percent": -1.107011070110701,
+  "volume": 40558400,
+  "high": 27500.0,
+  "low": 26750.0,
+  "open": 27300.0,
+  "timestamp": "2026-02-01T01:25:49.061243",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "AGF",
+  "price": 2200.0,
+  "change": 100.0,
+  "change_percent": 4.761904761904762,
+  "volume": 7400,
+  "high": 2200.0,
+  "low": 2000.0,
+  "open": 2000.0,
+  "timestamp": "2026-02-01T01:29:53.947235",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "HND",
+  "price": 10700.0,
+  "change": -100.0,
+  "change_percent": -0.9259259259259258,
+  "volume": 6200,
+  "high": 10800.0,
+  "low": 10700.0,
+  "open": 10700.0,
+  "timestamp": "2026-02-01T01:25:39.644075",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "SSI",
+  "price": 31150.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 18979800,
+  "high": 31600.0,
+  "low": 31100.0,
+  "open": 31200.0,
+  "timestamp": "2026-02-01T08:59:36.972981",
+  "source": "vnstock/VCI"
+}

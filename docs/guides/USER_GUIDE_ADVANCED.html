@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>📖 Advanced User Guide - Vietnamese Stock Platform</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="docs-style.css">
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head><body>
+<nav class="top-nav"><div class="nav-container">
+<a href="index.html" class="logo-text">📊 VNStock Analytics</a>
+<span class="page-title" data-i18n="footer.documentation">Documentation</span>
+</div></nav>
+<div class="container"><div class="content-card markdown-content">
+<h1>📖 Advanced User Guide - Vietnamese Stock Platform</h1>
+
+<h2>Table of Contents</h2>
+
+<p>1. <a href="#getting-started">Getting Started</a></p>
+<p>2. <a href="#portfolio-management">Portfolio Management</a></p>
+<p>3. <a href="#strategy-development">Strategy Development</a></p>
+<p>4. <a href="#risk-analysis">Risk Analysis</a></p>
+<p>5. <a href="#price-alerts">Price Alerts</a></p>
+<p>6. <a href="#advanced-techniques">Advanced Techniques</a></p>
+<p>7. <a href="#best-practices">Best Practices</a></p>
+
+<p>---</p>
+
+<h2>Getting Started</h2>
+
+<h3>Quick Access</h3>
+<p>Visit: <code>http://localhost:8888/index.html</code></p>
+
+<h3>Available Dashboards</h3>
+<p>1. <strong>Enhanced Dashboard</strong> - Visual monitoring</p>
+<p>2. <strong>Historical Analysis</strong> - Deep dive analysis</p>
+<p>3. <strong>Price Forecast</strong> - AI predictions</p>
+<p>4. <strong>Advanced Analytics</strong> - Professional tools (NEW!)</p>
+<p>5. <strong>Price Alerts</strong> - Monitoring system (NEW!)</p>
+
+<p>---</p>
+
+<h2>Portfolio Management</h2>
+
+<h3>Building Your First Portfolio</h3>
+
+<strong>Step 1: Access Portfolio Analytics</strong>
+<pre><code>Navigate to: Dashboard > Advanced Analytics > Portfolio Analytics</code></pre>
+
+<strong>Step 2: Select Stocks</strong>
+<p>1. Choose 8-15 stocks from different sectors</p>
+<p>2. Hold Ctrl/Cmd to select multiple</p>
+<p>3. Ensure diversification:</p>
+<p>   - 2-3 Blue Chips (stability)</p>
+<p>   - 2-3 Banks (dividends)</p>
+<p>   - 2-3 Tech stocks (growth)</p>
+<p>   - 1-2 Commodities (hedge)</p>
+
+<strong>Step 3: Analyze Metrics</strong>
+<p>Review the calculated metrics:</p>
+<ul>
+<li><strong>Expected Return</strong>: Target 10-15% annually</li>
+<li><strong>Sharpe Ratio</strong>: Aim for > 1.0</li>
+<li><strong>Max Drawdown</strong>: Keep under -20%</li>
+<li><strong>Diversification</strong>: Target > 80%</li>
+</ul>
+
+<strong>Step 4: Optimize</strong>
+<ul>
+<li>If Sharpe < 1.0: Add safer stocks</li>
+<li>If Drawdown > -20%: Reduce volatile stocks</li>
+<li>If Diversification < 70%: Add uncorrelated stocks</li>
+</ul>
+
+<h3>Example Good Portfolio</h3>
+
+<pre><code>Blue Chips (30%):
+<ul>
+<li>VCB: 10%</li>
+<li>VNM: 10%</li>
+<li>GAS: 10%</li>
+</ul>
+
+<p>Growth Stocks (40%):</p>
+<ul>
+<li>FPT: 15%</li>
+<li>VHM: 15%</li>
+<li>MWG: 10%</li>
+</ul>
+
+<p>Defensive (20%):</p>
+<ul>
+<li>SAB: 10%</li>
+<li>MSN: 10%</li>
+</ul>
+
+<p>Commodities (10%):</p>
+<ul>
+<li>GOLD: 10%</code></pre></li>
+</ul>
+
+<strong>Expected Metrics:</strong>
+<ul>
+<li>Return: 12-14%</li>
+<li>Sharpe: 1.2-1.5</li>
+<li>Max DD: -15% to -18%</li>
+<li>Diversification: 85%+</li>
+</ul>
+
+<p>---</p>
+
+<h2>Strategy Development</h2>
+
+<h3>Backtesting Your Strategy</h3>
+
+<strong>Step 1: Choose a Strategy</strong>
+<p>Navigate to: Advanced Analytics > Backtesting</p>
+
+<strong>Available Strategies:</strong>
+<p>1. <strong>SMA Crossover (20/50)</strong> - Best for trending markets</p>
+<p>2. <strong>RSI Oversold/Overbought</strong> - Best for range-bound markets</p>
+<p>3. <strong>MACD Signal</strong> - Best for momentum trading</p>
+<p>4. <strong>Bollinger Breakout</strong> - Best for volatility breakouts</p>
+
+<strong>Step 2: Select Test Stock</strong>
+<p>Pick a liquid stock with good history:</p>
+<ul>
+<li>Blue chips: VCB, HPG, FPT</li>
+<li>High volume: MWG, MSN, VHM</li>
+</ul>
+
+<strong>Step 3: Run Backtest</strong>
+<p>Click "Run Backtest" and review:</p>
+
+<strong>Good Results:</strong>
+<ul>
+<li>Total Return > 15%</li>
+<li>Win Rate > 55%</li>
+<li>Avg Trade > 1%</li>
+<li>< 30 trades per year</li>
+</ul>
+
+<strong>Poor Results:</strong>
+<ul>
+<li>Total Return < 5%</li>
+<li>Win Rate < 45%</li>
+<li>Avg Trade < 0.5%</li>
+<li>> 100 trades per year</li>
+</ul>
+
+<strong>Step 4: Compare to Buy & Hold</strong>
+<ul>
+<li>Strategy should beat buy-and-hold</li>
+<li>Consider transaction costs</li>
+<li>Check consistency across different stocks</li>
+</ul>
+
+<h3>Strategy Optimization Tips</h3>
+
+<strong>For SMA Crossover:</strong>
+<ul>
+<li>Works best in trending markets</li>
+<li>Reduce trades by using longer periods</li>
+<li>Combine with trend filter</li>
+</ul>
+
+<strong>For RSI:</strong>
+<ul>
+<li>Oversold < 30, Overbought > 70</li>
+<li>Add confirmation (volume spike)</li>
+<li>Use in sideways markets</li>
+</ul>
+
+<strong>For MACD:</strong>
+<ul>
+<li>Fast crossovers for active trading</li>
+<li>Slow crossovers for fewer trades</li>
+<li>Combine with price action</li>
+</ul>
+
+<strong>For Bollinger:</strong>
+<ul>
+<li>Wait for strong breakout</li>
+<li>Confirm with volume</li>
+<li>Use with volatility filter</li>
+</ul>
+
+<p>---</p>
+
+<h2>Risk Analysis</h2>
+
+<h3>Calculating Portfolio Risk</h3>
+
+<strong>Step 1: Select Your Stocks</strong>
+<p>Navigate to: Advanced Analytics > Risk Management</p>
+
+<strong>Step 2: Review Metrics</strong>
+
+<strong>Value at Risk (VaR)</strong>
+<ul>
+<li>Shows maximum expected loss at 95% confidence</li>
+<li>Example: VaR = -8.5%</li>
+</ul>
+<p>  - Meaning: 95% chance you won't lose more than 8.5%</p>
+<p>  - 5% chance you might lose more</p>
+
+<strong>What's Good?</strong>
+<ul>
+<li>VaR < -8%: Low risk ✅</li>
+<li>VaR -8% to -12%: Medium risk ⚠️</li>
+<li>VaR > -12%: High risk ❌</li>
+</ul>
+
+<strong>Conditional VaR (CVaR)</strong>
+<ul>
+<li>Average loss in worst 5% scenarios</li>
+<li>Always worse than VaR</li>
+<li>Better measure of tail risk</li>
+</ul>
+
+<strong>Beta</strong>
+<ul>
+<li>Measures volatility vs market</li>
+<li>Beta = 1.0: Same as market</li>
+<li>Beta > 1.0: More volatile</li>
+<li>Beta < 1.0: Less volatile</li>
+</ul>
+
+<strong>Step 3: Risk Grading</strong>
+
+<p>Review each stock's risk grade:</p>
+
+<strong>Low Risk (Good for core holdings):</strong>
+<ul>
+<li>Beta < 0.8</li>
+<li>VaR < -8%</li>
+<li>Volatility < 20%</li>
+<li>Examples: VCB, VNM, SAB</li>
+</ul>
+
+<strong>Medium Risk (Good for growth):</strong>
+<ul>
+<li>Beta 0.8-1.2</li>
+<li>VaR -8% to -12%</li>
+<li>Volatility 20-30%</li>
+<li>Examples: FPT, MWG, HPG</li>
+</ul>
+
+<strong>High Risk (Small positions only):</strong>
+<ul>
+<li>Beta > 1.2</li>
+<li>VaR > -12%</li>
+<li>Volatility > 30%</li>
+<li>Examples: Small caps, commodities</li>
+</ul>
+
+<h3>Portfolio Risk Management Rules</h3>
+
+<p>1. <strong>Diversification</strong>:</p>
+<p>   - Minimum 8 stocks</p>
+<p>   - Maximum 15 stocks</p>
+<p>   - Max 15% per position</p>
+
+<p>2. <strong>Sector Allocation</strong>:</p>
+<p>   - Max 30% per sector</p>
+<p>   - At least 3 sectors</p>
+<p>   - Include defensive stocks</p>
+
+<p>3. <strong>Risk Limits</strong>:</p>
+<p>   - Portfolio VaR < -10%</p>
+<p>   - Average Beta 0.8-1.2</p>
+<p>   - Max drawdown tolerance: -20%</p>
+
+<p>4. <strong>Rebalancing</strong>:</p>
+<p>   - Quarterly review</p>
+<p>   - Rebalance if position > 20%</p>
+<p>   - Trim winners, add to losers</p>
+
+<p>---</p>
+
+<h2>Price Alerts</h2>
+
+<h3>Setting Up Effective Alerts</h3>
+
+<strong>Step 1: Access Alerts System</strong>
+<p>Navigate to: <code>alerts_system.html</code></p>
+
+<strong>Step 2: Choose Alert Type</strong>
+
+<strong>Price Alerts:</strong>
+<pre><code>Use for:
+<ul>
+<li>Buy orders: "Price Below" target entry</li>
+<li>Sell orders: "Price Above" target exit</li>
+<li>Stop loss: "Price Below" protection level</code></pre></li>
+</ul>
+
+<strong>Example:</strong>
+<pre><code>Stock: VCB
+<p>Type: Price Below</p>
+<p>Value: 85000</p>
+<p>Action: Buy signal when undervalued</code></pre></p>
+
+<strong>Change % Alerts:</strong>
+<pre><code>Use for:
+<ul>
+<li>Breakout detection: "Change Above" 3-5%</li>
+<li>Crash warnings: "Change Below" -3 to -5%</li>
+<li>Volatility spikes</code></pre></li>
+</ul>
+
+<strong>Example:</strong>
+<pre><code>Stock: FPT
+<p>Type: Change Above</p>
+<p>Value: 5</p>
+<p>Action: Momentum breakout signal</code></pre></p>
+
+<strong>Volume Spike Alerts:</strong>
+<pre><code>Use for:
+<ul>
+<li>Unusual activity detection</li>
+<li>Institutional buying</li>
+<li>News-driven moves</code></pre></li>
+</ul>
+
+<strong>RSI Alerts:</strong>
+<pre><code>Use for:
+<ul>
+<li>Oversold: Buy opportunity</li>
+<li>Overbought: Sell signal</li>
+<li>Trend exhaustion</code></pre></li>
+</ul>
+
+<strong>Example:</strong>
+<pre><code>Stock: HPG
+<p>Type: RSI Oversold</p>
+<p>Action: Buy when RSI < 30</code></pre></p>
+
+<h3>Alert Strategy Examples</h3>
+
+<strong>Day Trading Setup:</strong>
+<pre><code>1. VCB - Change Above 2%
+<p>2. VCB - Change Below -2%</p>
+<p>3. VCB - Volume Spike</code></pre></p>
+
+<strong>Swing Trading Setup:</strong>
+<pre><code>1. FPT - Price Below 110000 (buy)
+<p>2. FPT - Price Above 130000 (sell)</p>
+<p>3. FPT - RSI Oversold</code></pre></p>
+
+<strong>Long-Term Investing:</strong>
+<pre><code>1. VNM - Price Below 75000 (accumulate)
+<p>2. VNM - Price Above 95000 (consider selling)</p>
+<p>3. VNM - Change Below -5% (crisis opportunity)</code></pre></p>
+
+<strong>Watchlist Monitoring:</strong>
+<pre><code>Set alerts for top 10 stocks:
+<ul>
+<li>Price: ±10% from current</li>
+<li>RSI: Oversold/Overbought</li>
+<li>Change: ±5% moves</code></pre></li>
+</ul>
+
+<p>---</p>
+
+<h2>Advanced Techniques</h2>
+
+<h3>1. Pattern Recognition Trading</h3>
+
+<strong>Setup:</strong>
+<p>1. Navigate to Advanced Analytics > Pattern Recognition</p>
+<p>2. Select your target stock</p>
+<p>3. Click "Detect Patterns"</p>
+
+<strong>Trading Patterns:</strong>
+
+<strong>Bullish Patterns (Buy Signals):</strong>
+<ul>
+<li>Ascending Triangle</li>
+<li>Cup and Handle</li>
+<li>Double Bottom</li>
+<li>Bullish Engulfing</li>
+<li>Hammer</li>
+</ul>
+
+<strong>Action:</strong> Buy when pattern completes with volume
+
+<strong>Bearish Patterns (Sell Signals):</strong>
+<ul>
+<li>Descending Triangle</li>
+<li>Head and Shoulders</li>
+<li>Double Top</li>
+<li>Bearish Engulfing</li>
+<li>Shooting Star</li>
+</ul>
+
+<strong>Action:</strong> Sell or avoid when pattern forms
+
+<strong>Pattern Trading Rules:</strong>
+<p>1. Only trade high confidence (>80%)</p>
+<p>2. Confirm with volume</p>
+<p>3. Set stop loss below support</p>
+<p>4. Target next resistance level</p>
+
+<h3>2. Correlation Analysis for Diversification</h3>
+
+<strong>Setup:</strong>
+<p>1. Navigate to Advanced Analytics > Correlation Analysis</p>
+<p>2. Select 10-15 stocks</p>
+<p>3. Click "Analyze Correlations"</p>
+
+<strong>Reading the Matrix:</strong>
+
+<strong>High Positive Correlation (+0.7 to +1.0):</strong>
+<ul>
+<li>Stocks move together</li>
+<li>Don't provide diversification</li>
+<li>Example: VCB and TCB (both banks)</li>
+</ul>
+
+<strong>Action:</strong> Avoid multiple highly correlated stocks
+
+<strong>Low Correlation (-0.3 to +0.3):</strong>
+<ul>
+<li>Stocks move independently</li>
+<li>Great for diversification</li>
+<li>Example: FPT (tech) and SAB (consumer)</li>
+</ul>
+
+<strong>Action:</strong> Build portfolio with low correlations
+
+<strong>Negative Correlation (-0.7 to -1.0):</strong>
+<ul>
+<li>Stocks move opposite</li>
+<li>Natural hedge</li>
+<li>Example: GOLD and equities in crisis</li>
+</ul>
+
+<strong>Action:</strong> Use for hedging
+
+<strong>Diversification Strategy:</strong>
+<pre><code>1. Find 10 stocks with correlations < 0.5
+<p>2. Equal weight each position (10%)</p>
+<p>3. Review monthly</p>
+<p>4. Replace highly correlated stocks</code></pre></p>
+
+<h3>3. ML Forecasting for Entry/Exit</h3>
+
+<strong>Setup:</strong>
+<p>1. Navigate to Advanced Analytics > Machine Learning</p>
+<p>2. Select stock</p>
+<p>3. Choose horizon (30 days recommended)</p>
+<p>4. Click "Generate ML Forecast"</p>
+
+<strong>Interpreting Results:</strong>
+
+<strong>High Confidence (>80%):</strong>
+<ul>
+<li>Strong signal</li>
+<li>High model accuracy</li>
+<li>Trade with conviction</li>
+</ul>
+
+<strong>Medium Confidence (60-80%):</strong>
+<ul>
+<li>Moderate signal</li>
+<li>Use with other indicators</li>
+<li>Reduce position size</li>
+</ul>
+
+<strong>Low Confidence (<60%):</strong>
+<ul>
+<li>Weak signal</li>
+<li>Avoid trading</li>
+<li>Wait for better setup</li>
+</ul>
+
+<strong>Trading Rules:</strong>
+<pre><code>Upward Trend + Confidence >75%:
+<p>→ BUY signal</p>
+
+<p>Downward Trend + Confidence >75%:</p>
+<p>→ SELL signal</p>
+
+<p>Unclear Trend or Confidence <60%:</p>
+<p>→ HOLD / No trade</code></pre></p>
+
+<strong>Feature Importance:</strong>
+<p>Look at which features matter:</p>
+<ul>
+<li>If Price/Volume dominant: Momentum-driven</li>
+<li>If RSI/MACD dominant: Technical-driven</li>
+<li>If all balanced: Complex patterns</li>
+</ul>
+
+<h3>4. Risk-Adjusted Portfolio Construction</h3>
+
+<strong>Goal:</strong> Maximize Sharpe Ratio
+
+<strong>Steps:</strong>
+<p>1. Start with 10 candidate stocks</p>
+<p>2. Check correlations (want < 0.5)</p>
+<p>3. Calculate individual Sharpe ratios</p>
+<p>4. Build portfolio with top 5-8 stocks</p>
+<p>5. Adjust weights for optimal Sharpe</p>
+
+<strong>Target Allocation:</strong>
+<pre><code>High Sharpe (>1.5): 15-20% each
+<p>Medium Sharpe (1.0-1.5): 10-15% each</p>
+<p>Low Sharpe (<1.0): 5-10% each</code></pre></p>
+
+<strong>Efficient Frontier:</strong>
+<ul>
+<li>Find optimal risk/return point</li>
+<li>Current portfolio should be on/near frontier</li>
+<li>Move up frontier for higher returns</li>
+<li>Move left for lower risk</li>
+</ul>
+
+<p>---</p>
+
+<h2>Best Practices</h2>
+
+<h3>Daily Routine</h3>
+
+<strong>Morning (9:00 AM):</strong>
+<pre><code>1. Check alerts (5 min)
+<p>2. Review Enhanced Dashboard heatmap (5 min)</p>
+<p>3. Read triggered alerts (5 min)</p>
+<p>4. Update watchlist if needed (5 min)</code></pre></p>
+
+<strong>Mid-Day (12:00 PM):</strong>
+<pre><code>1. Check major movers (3 min)
+<p>2. Review positions vs targets (5 min)</p>
+<p>3. Adjust stop losses if needed (5 min)</code></pre></p>
+
+<strong>Evening (6:00 PM):</strong>
+<pre><code>1. Full portfolio review (10 min)
+<p>2. Analyze day's patterns (10 min)</p>
+<p>3. Plan tomorrow's trades (10 min)</p>
+<p>4. Update alerts as needed (5 min)</code></pre></p>
+
+<h3>Weekly Routine</h3>
+
+<strong>Monday:</strong>
+<ul>
+<li>Review last week's performance</li>
+<li>Check all alert triggers</li>
+<li>Update watchlist</li>
+</ul>
+
+<strong>Wednesday:</strong>
+<ul>
+<li>Analyze mid-week trends</li>
+<li>Review ML forecasts</li>
+<li>Check pattern signals</li>
+</ul>
+
+<strong>Friday:</strong>
+<ul>
+<li>Portfolio risk review</li>
+<li>Rebalance if needed</li>
+<li>Set weekend alerts</li>
+</ul>
+
+<h3>Monthly Routine</h3>
+
+<strong>First Week:</strong>
+<ul>
+<li>Full portfolio audit</li>
+<li>Risk metrics review</li>
+<li>Correlation analysis</li>
+<li>Performance report</li>
+</ul>
+
+<strong>Second Week:</strong>
+<ul>
+<li>Strategy backtesting</li>
+<li>ML forecast refresh</li>
+<li>Alert optimization</li>
+</ul>
+
+<strong>Third Week:</strong>
+<ul>
+<li>Pattern analysis</li>
+<li>Sector rotation review</li>
+<li>Diversification check</li>
+</ul>
+
+<strong>Fourth Week:</strong>
+<ul>
+<li>Rebalancing execution</li>
+<li>Tax loss harvesting (if applicable)</li>
+<li>Next month planning</li>
+</ul>
+
+<h3>Risk Management Checklist</h3>
+
+<strong>Before Every Trade:</strong>
+<ul>
+<li>[ ] Position size < 15%</li>
+<li>[ ] Stop loss set</li>
+<li>[ ] Take profit target defined</li>
+<li>[ ] Risk/reward > 2:1</li>
+<li>[ ] Fits portfolio strategy</li>
+</ul>
+
+<strong>Portfolio Level:</strong>
+<ul>
+<li>[ ] VaR < -10%</li>
+<li>[ ] Sharpe > 1.0</li>
+<li>[ ] Max drawdown < -20%</li>
+<li>[ ] Diversification > 80%</li>
+<li>[ ] At least 8 positions</li>
+</ul>
+
+<strong>Regular Reviews:</strong>
+<ul>
+<li>[ ] Daily: Alerts check</li>
+<li>[ ] Weekly: Performance review</li>
+<li>[ ] Monthly: Full audit</li>
+<li>[ ] Quarterly: Rebalancing</li>
+<li>[ ] Annually: Strategy review</li>
+</ul>
+
+<p>---</p>
+
+<h2>Common Mistakes to Avoid</h2>
+
+<h3>1. Over-Trading</h3>
+<p>❌ Trading every signal</p>
+<p>✅ Trade only high-confidence setups</p>
+
+<h3>2. Ignoring Risk</h3>
+<p>❌ No stop losses</p>
+<p>✅ Always protect capital</p>
+
+<h3>3. Poor Diversification</h3>
+<p>❌ All tech stocks</p>
+<p>✅ Multiple sectors, low correlation</p>
+
+<h3>4. Emotional Trading</h3>
+<p>❌ Panic selling, FOMO buying</p>
+<p>✅ Follow your system</p>
+
+<h3>5. No Strategy</h3>
+<p>❌ Random buying</p>
+<p>✅ Backtest before trading</p>
+
+<h3>6. Over-Leveraging</h3>
+<p>❌ Too much in single position</p>
+<p>✅ Max 15% per stock</p>
+
+<h3>7. Ignoring Fees</h3>
+<p>❌ Day trading without considering costs</p>
+<p>✅ Account for commissions</p>
+
+<h3>8. No Record Keeping</h3>
+<p>❌ No trade journal</p>
+<p>✅ Track every trade</p>
+
+<p>---</p>
+
+<h2>Success Tips</h2>
+
+<h3>For Beginners</h3>
+<p>1. Start with demo mode</p>
+<p>2. Paper trade for 3 months</p>
+<p>3. Start small (< 10% real money)</p>
+<p>4. Focus on blue chips</p>
+<p>5. Use simple strategies</p>
+
+<h3>For Intermediate</h3>
+<p>1. Develop your system</p>
+<p>2. Backtest thoroughly</p>
+<p>3. Keep detailed records</p>
+<p>4. Diversify properly</p>
+<p>5. Manage risk actively</p>
+
+<h3>For Advanced</h3>
+<p>1. Optimize strategies</p>
+<p>2. Use ML forecasting</p>
+<p>3. Advanced risk management</p>
+<p>4. Portfolio optimization</p>
+<p>5. Systematic approach</p>
+
+<p>---</p>
+
+<h2>Troubleshooting</h2>
+
+<h3>Problem: Alerts Not Triggering</h3>
+<strong>Solution:</strong>
+<ul>
+<li>Check browser allows notifications</li>
+<li>Ensure tab stays open</li>
+<li>Verify alert conditions are correct</li>
+<li>Check internet connection</li>
+</ul>
+
+<h3>Problem: Slow Performance</h3>
+<strong>Solution:</strong>
+<ul>
+<li>Reduce number of stocks</li>
+<li>Clear browser cache</li>
+<li>Close unused tabs</li>
+<li>Check server load</li>
+</ul>
+
+<h3>Problem: Inaccurate Forecasts</h3>
+<strong>Solution:</strong>
+<ul>
+<li>Use longer historical period</li>
+<li>Combine multiple models</li>
+<li>Add confirmation indicators</li>
+<li>Remember: No model is perfect</li>
+</ul>
+
+<h3>Problem: High Portfolio Risk</h3>
+<strong>Solution:</strong>
+<ul>
+<li>Add more stocks (10-15)</li>
+<li>Reduce volatile positions</li>
+<li>Add defensive stocks</li>
+<li>Increase commodities allocation</li>
+</ul>
+
+<p>---</p>
+
+<h2>Summary</h2>
+
+<strong>To become a successful investor using this platform:</strong>
+
+<p>1. <strong>Learn the Tools</strong>: Understand each feature</p>
+<p>2. <strong>Develop a Strategy</strong>: Backtest before trading</p>
+<p>3. <strong>Manage Risk</strong>: Use VaR, stop losses, diversification</p>
+<p>4. <strong>Stay Disciplined</strong>: Follow your system</p>
+<p>5. <strong>Keep Learning</strong>: Markets always change</p>
+
+<strong>Key Metrics to Watch:</strong>
+<ul>
+<li>Portfolio Sharpe Ratio: > 1.0</li>
+<li>Max Drawdown: < -20%</li>
+<li>Win Rate: > 55%</li>
+<li>Diversification: > 80%</li>
+</ul>
+
+<strong>Remember:</strong>
+<ul>
+<li>Start small</li>
+<li>Be patient</li>
+<li>Never risk more than you can lose</li>
+<li>This is a marathon, not a sprint</li>
+</ul>
+
+<strong>Happy Investing! 📈💰🚀</strong>
+
+</div></div>
+<footer class="footer"><div class="footer-container">
+<p>© 2024 Vietnam Stock Analytics Platform</p>
+</div></footer>
+</body></html>

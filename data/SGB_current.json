@@ -1,0 +1,12 @@
+{
+  "symbol": "SGB",
+  "price": 12600.0,
+  "change": 200.0,
+  "change_percent": 1.6129032258064515,
+  "volume": 4500,
+  "high": 12600.0,
+  "low": 12400.0,
+  "open": 12500.0,
+  "timestamp": "2026-02-01T08:58:44.717618",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "EVE",
+  "price": 69684,
+  "change": -2021.0,
+  "change_percent": -2.9,
+  "volume": 1546401000,
+  "high": 71078.0,
+  "low": 68290.0,
+  "open": 69404.0,
+  "timestamp": "2026-01-31T15:48:38.091288",
+  "source": "DEMO DATA"
+}

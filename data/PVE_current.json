@@ -1,0 +1,12 @@
+{
+  "symbol": "PVE",
+  "price": 2600.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 16000,
+  "high": 2800.0,
+  "low": 2300.0,
+  "open": 2400.0,
+  "timestamp": "2026-02-01T08:57:13.785972",
+  "source": "vnstock/VCI"
+}

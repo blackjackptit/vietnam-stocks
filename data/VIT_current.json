@@ -1,0 +1,12 @@
+{
+  "symbol": "VIT",
+  "price": 22400.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 200,
+  "high": 22400.0,
+  "low": 20200.0,
+  "open": 20200.0,
+  "timestamp": "2026-02-01T09:04:13.422152",
+  "source": "vnstock/VCI"
+}

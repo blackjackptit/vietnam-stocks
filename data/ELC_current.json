@@ -1,0 +1,12 @@
+{
+  "symbol": "ELC",
+  "price": 24400.0,
+  "change": -300.0,
+  "change_percent": -1.214574898785425,
+  "volume": 1318300,
+  "high": 25150.0,
+  "low": 24000.0,
+  "open": 24700.0,
+  "timestamp": "2026-02-01T01:24:13.260318",
+  "source": "vnstock/VCI"
+}

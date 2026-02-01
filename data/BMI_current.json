@@ -1,0 +1,12 @@
+{
+  "symbol": "BMI",
+  "price": 18400.0,
+  "change": 100.0,
+  "change_percent": 0.546448087431694,
+  "volume": 135600,
+  "high": 18550.0,
+  "low": 18150.0,
+  "open": 18550.0,
+  "timestamp": "2026-02-01T01:30:48.625853",
+  "source": "vnstock/VCI"
+}

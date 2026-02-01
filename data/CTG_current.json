@@ -1,0 +1,12 @@
+{
+  "symbol": "CTG",
+  "price": 38750.0,
+  "change": 450.0,
+  "change_percent": 1.1749347258485638,
+  "volume": 28474900,
+  "high": 39000.0,
+  "low": 37800.0,
+  "open": 38200.0,
+  "timestamp": "2026-02-01T01:32:06.423881",
+  "source": "vnstock/VCI"
+}

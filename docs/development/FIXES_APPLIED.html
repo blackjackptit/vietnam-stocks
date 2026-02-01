@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Data & Button Behavior Fixes - Summary</title>
+<link rel="stylesheet" href="docs-style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head><body>
+<nav class="top-nav"><div class="nav-container">
+<a href="index.html" class="logo-text">📊 VNStock Analytics</a>
+<span class="page-title" data-i18n="footer.documentation">Documentation</span>
+</div></nav>
+<div class="container"><div class="content-card markdown-content">
+<h1>Data & Button Behavior Fixes - Summary</h1>
+
+<h2>Completed Fixes</h2>
+
+<h3>✅ 1. Centralized Data API Created</h3>
+<strong>File:</strong> <code>js/data-api.js</code>
+<ul>
+<li>Created centralized API utility for all dashboards</li>
+<li>Functions for fetching real data from <code>/api/</code> endpoints</li>
+<li>Functions for loading historical data from <code>data/{SYMBOL}_history.json</code></li>
+<li>Functions for loading current prices from <code>data/{SYMBOL}_current.json</code></li>
+<li>Technical indicators calculation (RSI, SMA, etc.)</li>
+<li>No random/fake data generation</li>
+</ul>
+
+<h3>✅ 2. DataAPI Added to All Dashboards</h3>
+<strong>Files:</strong> All dashboard HTML files
+<ul>
+<li>Added <code><script src="js/data-api.js"></script></code> to all pages</li>
+<li>Dashboards can now use <code>DataAPI</code> for real data access</li>
+</ul>
+
+<h2>Critical Issues Found & Fixes Needed</h2>
+
+<h3>🔧 1. advanced_charts.html</h3>
+<strong>Issue:</strong> Uses <code>Math.random()</code> to generate fake price data
+<strong>Location:</strong> Line 1043 - <code>generatePriceData()</code> function
+<strong>Fix Needed:</strong>
+<ul>
+<li>Replace <code>generatePriceData()</code> with <code>DataAPI.getHistoricalData()</code></li>
+<li>Update <code>loadCharts()</code> to use real data</li>
+<li>Update <code>loadComparison()</code> to load real data for multiple stocks</li>
+</ul>
+
+<h3>🔧 2. price_forecast.html</h3>
+<strong>Issue:</strong> Likely generates random forecast data
+<strong>Fix Needed:</strong>
+<ul>
+<li>Use real historical data for AI predictions</li>
+<li>Connect stock selection checkboxes properly</li>
+<li>Ensure "Generate Forecast" button loads real data</li>
+</ul>
+
+<h3>🔧 3. dashboard_advanced.html</h3>
+<strong>Issue:</strong> Portfolio analytics may use mock data
+<strong>Fix Needed:</strong>
+<ul>
+<li>Load real stock data for portfolio calculations</li>
+<li>Fix checkbox selections for portfolio/risk/correlation</li>
+<li>Connect "Calculate" and "Generate Plan" buttons to real data</li>
+</ul>
+
+<h3>🔧 4. dashboard_history.html</h3>
+<strong>Issue:</strong> Need to verify button behaviors
+<strong>Fix Needed:</strong>
+<ul>
+<li>Ensure "Apply" button loads real historical data</li>
+<li>Verify checkbox selection works properly</li>
+<li>Test category filters</li>
+</ul>
+
+<h3>🔧 5. trading_automation.html</h3>
+<strong>Issue:</strong> Needs connection to automation API
+<strong>Fix Needed:</strong>
+<ul>
+<li>Connect to <code>/api/automation</code> endpoint</li>
+<li>Remove any mock strategy performance data</li>
+<li>Wire up save/load configuration buttons</li>
+</ul>
+
+<h2>Button Behaviors to Fix</h2>
+
+<h3>Selection Mechanisms</h3>
+<p>1. <strong>Checkboxes</strong> - Ensure all checkbox grids work:</p>
+<p>   - Multi-stock selection in comparison tools</p>
+<p>   - Portfolio stock selection</p>
+<p>   - Category filters</p>
+
+<p>2. <strong>"Select All" / "Clear All"</strong> buttons:</p>
+<p>   - Verify they properly select/deselect checkboxes</p>
+<p>   - Update selection counts</p>
+<p>   - Refresh displays</p>
+
+<p>3. <strong>"Apply" / "Generate" / "Calculate" buttons</strong>:</p>
+<p>   - Connect to real data loading</p>
+<p>   - Show loading states</p>
+<p>   - Display results properly</p>
+
+<h2>API Endpoints Available</h2>
+
+<p>| Endpoint | Method | Purpose |</p>
+<p>|----------|--------|---------|</p>
+<p>| <code>/api/watchlist</code> | GET | Get user's watchlist |</p>
+<p>| <code>/api/watchlist</code> | POST | Save watchlist |</p>
+<p>| <code>/api/stock-names</code> | GET | Get stock name mappings |</p>
+<p>| <code>/api/automation</code> | GET | Get automation config |</p>
+<p>| <code>/api/automation</code> | POST | Save automation config |</p>
+<p>| <code>/api/latest</code> | GET | Get latest scan data |</p>
+<p>| <code>/stream</code> | GET | SSE for real-time updates |</p>
+
+<h2>Data Files Available</h2>
+
+<ul>
+<li><code>data/{SYMBOL}_current.json</code> - Current price, volume, change%</li>
+<li><code>data/{SYMBOL}_history.json</code> - Historical OHLCV data</li>
+<li><code>watchlist.json</code> - User's selected stocks</li>
+<li><code>stock_names.json</code> - Symbol to company name mapping</li>
+</ul>
+
+<h2>Next Steps</h2>
+
+<p>1. Apply fixes to advanced_charts.html (highest priority - visible fake data)</p>
+<p>2. Fix price_forecast.html forecasting with real data</p>
+<p>3. Fix dashboard_advanced.html portfolio calculations</p>
+<p>4. Verify all button click handlers work</p>
+<p>5. Test all checkbox selection mechanisms</p>
+<p>6. Test all category filters</p>
+<p>7. Verify data persistence (watchlist, alerts, automation)</p>
+
+<h2>Testing Checklist</h2>
+
+<ul>
+<li>[ ] Can select stocks via checkboxes</li>
+<li>[ ] Select All / Clear All buttons work</li>
+<li>[ ] Apply/Generate buttons load real data</li>
+<li>[ ] Charts display real historical data (not random)</li>
+<li>[ ] Forecasts use real historical data</li>
+<li>[ ] Portfolio analytics use real stock metrics</li>
+<li>[ ] Watchlist saves and loads properly</li>
+<li>[ ] Automation config saves and loads</li>
+<li>[ ] No Math.random() in production code</li>
+<li>[ ] All API endpoints respond correctly</li>
+<li>[ ] Category filters work properly</li>
+<li>[ ] Stock name display works everywhere</li>
+</ul>
+
+</div></div>
+<footer class="footer"><div class="footer-container">
+<p>© 2024 Vietnam Stock Analytics Platform</p>
+</div></footer>
+</body></html>

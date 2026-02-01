@@ -1,0 +1,12 @@
+{
+  "symbol": "BID",
+  "price": 53900.0,
+  "change": 2000.0,
+  "change_percent": 3.8535645472061653,
+  "volume": 13696100,
+  "high": 54500.0,
+  "low": 51900.0,
+  "open": 52300.0,
+  "timestamp": "2026-02-01T01:30:44.016481",
+  "source": "vnstock/VCI"
+}

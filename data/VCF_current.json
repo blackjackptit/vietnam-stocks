@@ -1,0 +1,12 @@
+{
+  "symbol": "VCF",
+  "price": 297000.0,
+  "change": -3000.0,
+  "change_percent": -1.0,
+  "volume": 1300,
+  "high": 300000.0,
+  "low": 297000.0,
+  "open": 300000.0,
+  "timestamp": "2026-02-01T09:02:43.155578",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "DGC",
+  "price": 68600.0,
+  "change": 800.0,
+  "change_percent": 1.1799410029498525,
+  "volume": 3461500,
+  "high": 71000.0,
+  "low": 68200.0,
+  "open": 69000.0,
+  "timestamp": "2026-02-01T01:23:23.743482",
+  "source": "vnstock/VCI"
+}

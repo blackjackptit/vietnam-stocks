@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>🚀 Quick Start Guide</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="docs-style.css">
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head><body>
+<nav class="top-nav"><div class="nav-container">
+<a href="index.html" class="logo-text">📊 VNStock Analytics</a>
+<span class="page-title" data-i18n="footer.documentation">Documentation</span>
+</div></nav>
+<div class="container"><div class="content-card markdown-content">
+<h1>🚀 Quick Start Guide</h1>
+
+<h2>Current Status</h2>
+
+<p>✅ Real-time server is running on port 8888 (PID: 18522)</p>
+<p>✅ Enhanced dashboard is ready</p>
+<p>✅ 200+ Vietnamese stocks available</p>
+
+<h2>📱 Access Your Dashboards</h2>
+
+<h3>Enhanced Dashboard (Recommended)</h3>
+<pre><code>http://localhost:8888/dashboard_enhanced.html</code></pre>
+<strong>Features:</strong>
+<ul>
+<li>Stock picker with 200+ stocks</li>
+<li>6 different chart types</li>
+<li>Custom watchlist</li>
+<li>Detailed analysis table</li>
+</ul>
+
+<h3>Historical Analysis Dashboard (NEW!)</h3>
+<pre><code>http://localhost:8888/dashboard_history.html</code></pre>
+<strong>Features:</strong>
+<ul>
+<li>Price history charts with moving averages</li>
+<li>Volume analysis</li>
+<li>RSI & MACD indicators</li>
+<li>Detailed statistics</li>
+<li>Multiple timeframes (30/60/90/180/365 days)</li>
+<li>Deep technical analysis</li>
+</ul>
+
+<h3>Original Dashboard</h3>
+<pre><code>http://localhost:8888/dashboard_realtime.html</code></pre>
+<strong>Features:</strong>
+<ul>
+<li>Simple, focused view</li>
+<li>Quick market overview</li>
+<li>Real-time updates</li>
+</ul>
+
+<h2>🎯 Choose Stocks to Monitor</h2>
+
+<h3>Option 1: Use the Web UI</h3>
+<p>1. Open: <code>http://localhost:8888/dashboard_enhanced.html</code></p>
+<p>2. Scroll to "Select Stocks to Monitor" section</p>
+<p>3. Use search box or category filters</p>
+<p>4. Click stocks to select/deselect</p>
+<p>5. Click "Apply Watchlist" button</p>
+
+<h3>Option 2: Use CLI Tool</h3>
+<pre><code># Interactive menu
+<p>python manage_watchlist.py --interactive</p>
+
+<h1>Or use quick commands:</h1>
+<p>python manage_watchlist.py --add VCB HPG FPT MSN</p>
+<p>python manage_watchlist.py --category banks</p>
+<p>python manage_watchlist.py --list</code></pre></p>
+
+<h2>🔄 Monitor Your Stocks</h2>
+
+<p>The monitor is already running and scanning every 15 minutes.</p>
+
+<p>To check it's running:</p>
+<pre><code>ps aux | grep demo_monitor</code></pre>
+
+<p>To see the latest scan results:</p>
+<pre><code>ls -lt output/scan_*.json | head -1</code></pre>
+
+<p>To view logs:</p>
+<pre><code>tail -f logs/monitor_*.log</code></pre>
+
+<h2>📊 Understanding the Dashboard</h2>
+
+<h3>Top Section: Market Summary</h3>
+<ul>
+<li><strong>Monitoring</strong>: Total stocks in your watchlist</li>
+<li><strong>Strong Buy</strong>: Stocks with score > 40</li>
+<li><strong>Buy</strong>: Stocks with score 20-40</li>
+<li><strong>Hold</strong>: Stocks with score -20 to 20</li>
+<li><strong>Sell</strong>: Stocks with score < -20</li>
+<li><strong>Avg Score</strong>: Average technical score</li>
+</ul>
+
+<h3 data-i18n="dashboard.performance_heatmap">Performance Heatmap</h3>
+<ul>
+<li>Each cell is a stock</li>
+<li>Color intensity = magnitude of price change</li>
+<li>Green = positive, Red = negative</li>
+<li>Click to see details</li>
+</ul>
+
+<h3>Score Distribution Chart</h3>
+<ul>
+<li>Bar chart of technical analysis scores</li>
+<li>Higher is better</li>
+<li>Color-coded by recommendation</li>
+</ul>
+
+<h3>RSI Distribution</h3>
+<ul>
+<li>Line chart showing momentum</li>
+<li>< 30 = oversold (potential buy)</li>
+<li>> 70 = overbought (potential sell)</li>
+</ul>
+
+<h3>Sector Performance</h3>
+<ul>
+<li>Pie chart of your portfolio sectors</li>
+<li>Shows diversification</li>
+</ul>
+
+<h3>Price & Volume Chart</h3>
+<ul>
+<li>Combined view of price and trading volume</li>
+<li>High volume + price change = strong signal</li>
+</ul>
+
+<h3>Detailed Stock Table</h3>
+<ul>
+<li>Complete metrics for each stock</li>
+<li>Click column headers to sort</li>
+<li>Shows top signals for each stock</li>
+</ul>
+
+<h2>🛠️ Common Commands</h2>
+
+<h3>Server Management</h3>
+<pre><code># Check if server is running
+<p>ps aux | grep realtime_server</p>
+
+<h1>View server logs</h1>
+<p>tail -f realtime.log</p>
+
+<h1>Restart server</h1>
+<p>./start_enhanced.sh</p>
+
+<h1>Stop server</h1>
+<p>kill $(cat realtime.pid)</code></pre></p>
+
+<h3>Monitor Management</h3>
+<pre><code># Check monitor status
+<p>ps aux | grep demo_monitor</p>
+
+<h1>View monitor logs</h1>
+<p>tail -f logs/monitor_*.log</p>
+
+<h1>Start monitor (15 min interval)</h1>
+<p>python demo_monitor.py --interval 15</p>
+
+<h1>Run one-time scan</h1>
+<p>python demo_monitor.py --scan-once</code></pre></p>
+
+<h3>Watchlist Management</h3>
+<pre><code># View current watchlist
+<p>python manage_watchlist.py --list</p>
+
+<h1>Add stocks</h1>
+<p>python manage_watchlist.py --add VCB HPG FPT</p>
+
+<h1>Add entire category</h1>
+<p>python manage_watchlist.py --category blue_chips</p>
+
+<h1>Remove stocks</h1>
+<p>python manage_watchlist.py --remove VCB</p>
+
+<h1>Clear all</h1>
+<p>python manage_watchlist.py --clear</p>
+
+<h1>Interactive mode</h1>
+<p>python manage_watchlist.py --interactive</code></pre></p>
+
+<h2>📁 Important Files</h2>
+
+<pre><code>Output Files:
+<p>  output/scan_*.json          # Scan results (updated every 15 min)</p>
+
+<p>Configuration:</p>
+<p>  watchlist.json              # Your custom watchlist</p>
+
+<p>Logs:</p>
+<p>  realtime.log                # Server logs</p>
+<p>  logs/monitor_*.log          # Monitor logs</p>
+
+<p>Dashboards:</p>
+<p>  dashboard_enhanced.html     # Enhanced dashboard (recommended)</p>
+<p>  dashboard_realtime.html     # Simple dashboard</code></pre></p>
+
+<h2>🎨 Stock Categories</h2>
+
+<p>Use these category names with the CLI:</p>
+<ul>
+<li><code>blue_chips</code> - Top 20 largest companies</li>
+<li><code>banks</code> - 28 banking stocks</li>
+<li><code>real_estate</code> - 40 real estate stocks</li>
+<li><code>tech</code> - 30 technology stocks</li>
+<li><code>consumer</code> - 30 consumer goods stocks</li>
+<li><code>oil_gas</code> - 19 oil & gas stocks</li>
+<li><code>securities</code> - 19 securities firms</li>
+<li><code>utilities</code> - 20 utility companies</li>
+<li><code>transport</code> - 20 transport companies</li>
+<li><code>affordable</code> - 20 lower-priced stocks</li>
+</ul>
+
+<h2>🚀 Recommended Workflow</h2>
+
+<p>1. <strong>Choose Your Focus</strong></p>
+<p>   <pre><code>   python manage_watchlist.py --category banks</p>
+<p>   python manage_watchlist.py --add FPT HPG VNM</p>
+<p>   ``<code></p>
+
+<p>2. <strong>Open Dashboard</strong></p>
+<p>   </code>`<code></p>
+<p>   http://localhost:8888/dashboard_enhanced.html</p>
+<p>   </code>`<code></p>
+
+<p>3. <strong>Analyze the Heatmap</strong></p>
+<p>   - Look for green (gaining) stocks</p>
+<p>   - Check sector distribution</p>
+
+<p>4. <strong>Review Score Chart</strong></p>
+<p>   - Focus on high scores (> 20)</p>
+<p>   - Check recommendation badges</p>
+
+<p>5. <strong>Deep Dive in Table</strong></p>
+<p>   - Sort by score or RSI</p>
+<p>   - Read technical signals</p>
+<p>   - Make informed decisions</p>
+
+<p>6. <strong>Monitor Continuously</strong></p>
+<p>   - Dashboard updates every 2 seconds</p>
+<p>   - New scans every 15 minutes</p>
+<p>   - Watch for signal changes</p>
+
+<h2>💡 Pro Tips</h2>
+
+<p>1. <strong>Start Small</strong>: Begin with 10-15 stocks you know</p>
+<p>2. <strong>Use Categories</strong>: Filter by sector for focused analysis</p>
+<p>3. <strong>Check Volume</strong>: High volume = more reliable signals</p>
+<p>4. <strong>Combine Indicators</strong>: Don't rely on a single metric</p>
+<p>5. <strong>Set Alerts</strong>: Note stocks near key levels (RSI 30/70)</p>
+<p>6. <strong>Review History</strong>: Check past scans in output/ folder</p>
+
+<h2>❓ Troubleshooting</h2>
+
+<strong>Dashboard not loading?</strong></code></pre>bash
+<h1>Check server status</h1>
+<p>ps aux | grep realtime_server</p>
+
+<h1>Restart if needed</h1>
+<p>./start_enhanced.sh</p>
+<pre><code>
+<strong>No data showing?</strong></code></pre>bash
+<h1>Check if monitor is running</h1>
+<p>ps aux | grep demo_monitor</p>
+
+<h1>Run a scan manually</h1>
+<p>python demo_monitor.py --scan-once</p>
+<pre><code>
+<strong>Watchlist not saving?</strong></code></pre>bash
+<h1>Check file permissions</h1>
+<p>ls -l watchlist.json</p>
+
+<h1>Verify content</h1>
+<p>cat watchlist.json</p>
+</code>`<code>
+
+<h2>📞 Next Steps</h2>
+
+<p>Ready to customize? Check out:</p>
+<ul>
+<li></code>FEATURES.md<code> - Detailed feature documentation</li>
+<li></code>ENHANCEMENTS_SUMMARY.md` - What's new overview</li>
+</ul>
+
+<p>Enjoy your enhanced Vietnamese stock monitoring system! 🎉</p>
+
+</div></div>
+<footer class="footer"><div class="footer-container">
+<p>© 2024 Vietnam Stock Analytics Platform</p>
+</div></footer>
+</body></html>

@@ -1,0 +1,12 @@
+{
+  "symbol": "LBM",
+  "price": 35000.0,
+  "change": 150.0,
+  "change_percent": 0.430416068866571,
+  "volume": 9400,
+  "high": 35100.0,
+  "low": 34850.0,
+  "open": 34900.0,
+  "timestamp": "2026-02-01T08:53:05.901043",
+  "source": "vnstock/VCI"
+}

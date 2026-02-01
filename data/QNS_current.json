@@ -1,0 +1,12 @@
+{
+  "symbol": "QNS",
+  "price": 47500.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 186000,
+  "high": 47700.0,
+  "low": 47400.0,
+  "open": 47400.0,
+  "timestamp": "2026-02-01T08:57:52.188357",
+  "source": "vnstock/VCI"
+}

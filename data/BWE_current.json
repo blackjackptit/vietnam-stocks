@@ -1,0 +1,12 @@
+{
+  "symbol": "BWE",
+  "price": 46300.0,
+  "change": -100.0,
+  "change_percent": -0.21551724137931033,
+  "volume": 128800,
+  "high": 47000.0,
+  "low": 46000.0,
+  "open": 46700.0,
+  "timestamp": "2026-02-01T01:31:10.337286",
+  "source": "vnstock/VCI"
+}

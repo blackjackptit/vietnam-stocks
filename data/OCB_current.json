@@ -1,0 +1,12 @@
+{
+  "symbol": "OCB",
+  "price": 11800.0,
+  "change": 100.0,
+  "change_percent": 0.8547008547008548,
+  "volume": 1483400,
+  "high": 11850.0,
+  "low": 11700.0,
+  "open": 11800.0,
+  "timestamp": "2026-02-01T08:55:00.815791",
+  "source": "vnstock/VCI"
+}

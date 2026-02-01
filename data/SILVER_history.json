@@ -1,0 +1,812 @@
+[
+  {
+    "date": "2025-11-02",
+    "open": 76213.0,
+    "high": 76635.0,
+    "low": 75123.0,
+    "close": 76175.0,
+    "nmVolume": 1378747000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-03",
+    "open": 75249.0,
+    "high": 76647.0,
+    "low": 73941.0,
+    "close": 74824.0,
+    "nmVolume": 3418266000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-04",
+    "open": 75842.0,
+    "high": 77019.0,
+    "low": 75615.0,
+    "close": 75743.0,
+    "nmVolume": 4618705000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-05",
+    "open": 75034.0,
+    "high": 76482.0,
+    "low": 74142.0,
+    "close": 74935.0,
+    "nmVolume": 4816061000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-06",
+    "open": 76966.0,
+    "high": 78026.0,
+    "low": 76036.0,
+    "close": 76298.0,
+    "nmVolume": 4726988000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-07",
+    "open": 74431.0,
+    "high": 75265.0,
+    "low": 73343.0,
+    "close": 74845.0,
+    "nmVolume": 4376389000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-08",
+    "open": 76269.0,
+    "high": 76600.0,
+    "low": 74554.0,
+    "close": 76045.0,
+    "nmVolume": 2704010000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-09",
+    "open": 76240.0,
+    "high": 77547.0,
+    "low": 75268.0,
+    "close": 75689.0,
+    "nmVolume": 533311000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-10",
+    "open": 75637.0,
+    "high": 77188.0,
+    "low": 75058.0,
+    "close": 76028.0,
+    "nmVolume": 3217181000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-11",
+    "open": 74565.0,
+    "high": 75361.0,
+    "low": 74060.0,
+    "close": 74543.0,
+    "nmVolume": 4398002000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-12",
+    "open": 76741.0,
+    "high": 78275.0,
+    "low": 75169.0,
+    "close": 76011.0,
+    "nmVolume": 4749847000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-13",
+    "open": 74512.0,
+    "high": 75625.0,
+    "low": 73607.0,
+    "close": 74575.0,
+    "nmVolume": 733906000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-14",
+    "open": 74833.0,
+    "high": 75155.0,
+    "low": 74329.0,
+    "close": 75064.0,
+    "nmVolume": 4728016000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-15",
+    "open": 73618.0,
+    "high": 74370.0,
+    "low": 72698.0,
+    "close": 73518.0,
+    "nmVolume": 505156000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-16",
+    "open": 71446.0,
+    "high": 72909.0,
+    "low": 70080.0,
+    "close": 72075.0,
+    "nmVolume": 291627000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-17",
+    "open": 70353.0,
+    "high": 70625.0,
+    "low": 68657.0,
+    "close": 69950.0,
+    "nmVolume": 4903046000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-18",
+    "open": 68761.0,
+    "high": 68876.0,
+    "low": 67372.0,
+    "close": 68688.0,
+    "nmVolume": 2162652000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-19",
+    "open": 69836.0,
+    "high": 69901.0,
+    "low": 68886.0,
+    "close": 69646.0,
+    "nmVolume": 3022374000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-20",
+    "open": 71487.0,
+    "high": 72168.0,
+    "low": 70537.0,
+    "close": 71361.0,
+    "nmVolume": 1449529000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-21",
+    "open": 71626.0,
+    "high": 71901.0,
+    "low": 70770.0,
+    "close": 71260.0,
+    "nmVolume": 875766000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-22",
+    "open": 71182.0,
+    "high": 71281.0,
+    "low": 69533.0,
+    "close": 70640.0,
+    "nmVolume": 1559564000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-23",
+    "open": 69943.0,
+    "high": 71664.0,
+    "low": 69040.0,
+    "close": 70586.0,
+    "nmVolume": 4517115000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-24",
+    "open": 68569.0,
+    "high": 69966.0,
+    "low": 67475.0,
+    "close": 68716.0,
+    "nmVolume": 2655377000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-25",
+    "open": 67424.0,
+    "high": 67744.0,
+    "low": 67129.0,
+    "close": 67460.0,
+    "nmVolume": 3425308000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-26",
+    "open": 67908.0,
+    "high": 68270.0,
+    "low": 67283.0,
+    "close": 67323.0,
+    "nmVolume": 1991908000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-27",
+    "open": 65712.0,
+    "high": 65983.0,
+    "low": 64885.0,
+    "close": 65814.0,
+    "nmVolume": 1023435000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-28",
+    "open": 67440.0,
+    "high": 68104.0,
+    "low": 65702.0,
+    "close": 66996.0,
+    "nmVolume": 924657000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-29",
+    "open": 67663.0,
+    "high": 68564.0,
+    "low": 65983.0,
+    "close": 67104.0,
+    "nmVolume": 4466320000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-11-30",
+    "open": 66793.0,
+    "high": 67805.0,
+    "low": 65869.0,
+    "close": 67116.0,
+    "nmVolume": 705416000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-01",
+    "open": 67821.0,
+    "high": 69292.0,
+    "low": 66776.0,
+    "close": 68326.0,
+    "nmVolume": 2849507000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-02",
+    "open": 66572.0,
+    "high": 67250.0,
+    "low": 66430.0,
+    "close": 66847.0,
+    "nmVolume": 4347417000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-03",
+    "open": 65490.0,
+    "high": 65806.0,
+    "low": 65457.0,
+    "close": 65754.0,
+    "nmVolume": 2386819000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-04",
+    "open": 66260.0,
+    "high": 67111.0,
+    "low": 65605.0,
+    "close": 66605.0,
+    "nmVolume": 3351306000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-05",
+    "open": 67188.0,
+    "high": 67610.0,
+    "low": 66875.0,
+    "close": 67572.0,
+    "nmVolume": 4510326000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-06",
+    "open": 66938.0,
+    "high": 67427.0,
+    "low": 65640.0,
+    "close": 67315.0,
+    "nmVolume": 4101312000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-07",
+    "open": 65164.0,
+    "high": 65723.0,
+    "low": 64532.0,
+    "close": 65368.0,
+    "nmVolume": 120462000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-08",
+    "open": 65387.0,
+    "high": 66150.0,
+    "low": 64863.0,
+    "close": 65456.0,
+    "nmVolume": 2787279000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-09",
+    "open": 67313.0,
+    "high": 68424.0,
+    "low": 66168.0,
+    "close": 67372.0,
+    "nmVolume": 1613845000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-10",
+    "open": 68356.0,
+    "high": 69633.0,
+    "low": 67301.0,
+    "close": 67822.0,
+    "nmVolume": 1731634000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-11",
+    "open": 67207.0,
+    "high": 69060.0,
+    "low": 66965.0,
+    "close": 67827.0,
+    "nmVolume": 499670000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-12",
+    "open": 68971.0,
+    "high": 69252.0,
+    "low": 67490.0,
+    "close": 68377.0,
+    "nmVolume": 3223759000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-13",
+    "open": 68829.0,
+    "high": 70027.0,
+    "low": 67568.0,
+    "close": 68827.0,
+    "nmVolume": 2213572000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-14",
+    "open": 67206.0,
+    "high": 67699.0,
+    "low": 66248.0,
+    "close": 67104.0,
+    "nmVolume": 1956340000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-15",
+    "open": 67853.0,
+    "high": 69433.0,
+    "low": 66893.0,
+    "close": 68103.0,
+    "nmVolume": 4455992000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-16",
+    "open": 66878.0,
+    "high": 68391.0,
+    "low": 66718.0,
+    "close": 67068.0,
+    "nmVolume": 4925876000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-17",
+    "open": 68364.0,
+    "high": 69075.0,
+    "low": 68169.0,
+    "close": 68331.0,
+    "nmVolume": 2360370000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-18",
+    "open": 68516.0,
+    "high": 69066.0,
+    "low": 67183.0,
+    "close": 68615.0,
+    "nmVolume": 1632689000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-19",
+    "open": 67777.0,
+    "high": 69158.0,
+    "low": 67005.0,
+    "close": 68241.0,
+    "nmVolume": 1799015000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-20",
+    "open": 67294.0,
+    "high": 68406.0,
+    "low": 67070.0,
+    "close": 67849.0,
+    "nmVolume": 418001000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-21",
+    "open": 67936.0,
+    "high": 68518.0,
+    "low": 67294.0,
+    "close": 67844.0,
+    "nmVolume": 1751256000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-22",
+    "open": 67845.0,
+    "high": 68877.0,
+    "low": 67097.0,
+    "close": 68309.0,
+    "nmVolume": 1643701000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-23",
+    "open": 66417.0,
+    "high": 66961.0,
+    "low": 65117.0,
+    "close": 66471.0,
+    "nmVolume": 2924858000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-24",
+    "open": 67290.0,
+    "high": 67657.0,
+    "low": 67008.0,
+    "close": 67137.0,
+    "nmVolume": 3777823000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-25",
+    "open": 67164.0,
+    "high": 67211.0,
+    "low": 65854.0,
+    "close": 66808.0,
+    "nmVolume": 2815666000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-26",
+    "open": 67319.0,
+    "high": 68157.0,
+    "low": 66134.0,
+    "close": 67637.0,
+    "nmVolume": 564318000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-27",
+    "open": 67902.0,
+    "high": 69030.0,
+    "low": 67174.0,
+    "close": 67700.0,
+    "nmVolume": 3576558000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-28",
+    "open": 66389.0,
+    "high": 67634.0,
+    "low": 65242.0,
+    "close": 66760.0,
+    "nmVolume": 4386493000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-29",
+    "open": 67397.0,
+    "high": 68447.0,
+    "low": 66232.0,
+    "close": 68021.0,
+    "nmVolume": 2752750000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-30",
+    "open": 69740.0,
+    "high": 71102.0,
+    "low": 69265.0,
+    "close": 69320.0,
+    "nmVolume": 3582514000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2025-12-31",
+    "open": 71150.0,
+    "high": 72000.0,
+    "low": 69761.0,
+    "close": 71100.0,
+    "nmVolume": 4652352000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-01",
+    "open": 72388.0,
+    "high": 73164.0,
+    "low": 71224.0,
+    "close": 72672.0,
+    "nmVolume": 3126109000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-02",
+    "open": 74054.0,
+    "high": 74543.0,
+    "low": 73288.0,
+    "close": 73977.0,
+    "nmVolume": 4137215000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-03",
+    "open": 72692.0,
+    "high": 72735.0,
+    "low": 71832.0,
+    "close": 72623.0,
+    "nmVolume": 2096111000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-04",
+    "open": 74456.0,
+    "high": 75865.0,
+    "low": 72896.0,
+    "close": 73836.0,
+    "nmVolume": 3025297000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-05",
+    "open": 73121.0,
+    "high": 74215.0,
+    "low": 72322.0,
+    "close": 73841.0,
+    "nmVolume": 4066481000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-06",
+    "open": 75089.0,
+    "high": 77161.0,
+    "low": 73757.0,
+    "close": 75800.0,
+    "nmVolume": 4431206000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-07",
+    "open": 73452.0,
+    "high": 73850.0,
+    "low": 73413.0,
+    "close": 73773.0,
+    "nmVolume": 1583693000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-08",
+    "open": 75449.0,
+    "high": 76651.0,
+    "low": 73948.0,
+    "close": 75348.0,
+    "nmVolume": 4651333000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-09",
+    "open": 74354.0,
+    "high": 75145.0,
+    "low": 72731.0,
+    "close": 74127.0,
+    "nmVolume": 3903255000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-10",
+    "open": 71333.0,
+    "high": 72165.0,
+    "low": 70991.0,
+    "close": 71953.0,
+    "nmVolume": 4855786000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-11",
+    "open": 70625.0,
+    "high": 70731.0,
+    "low": 70030.0,
+    "close": 70151.0,
+    "nmVolume": 586468000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-12",
+    "open": 67986.0,
+    "high": 68961.0,
+    "low": 66752.0,
+    "close": 68593.0,
+    "nmVolume": 490121000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-13",
+    "open": 68253.0,
+    "high": 69621.0,
+    "low": 67326.0,
+    "close": 68552.0,
+    "nmVolume": 4090264000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-14",
+    "open": 67675.0,
+    "high": 68382.0,
+    "low": 66453.0,
+    "close": 67451.0,
+    "nmVolume": 3336880000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-15",
+    "open": 68105.0,
+    "high": 68355.0,
+    "low": 68080.0,
+    "close": 68107.0,
+    "nmVolume": 947470000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-16",
+    "open": 68809.0,
+    "high": 69637.0,
+    "low": 68039.0,
+    "close": 68579.0,
+    "nmVolume": 1972442000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-17",
+    "open": 68189.0,
+    "high": 69130.0,
+    "low": 67976.0,
+    "close": 68496.0,
+    "nmVolume": 4538893000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-18",
+    "open": 67124.0,
+    "high": 67577.0,
+    "low": 65569.0,
+    "close": 66839.0,
+    "nmVolume": 4101506000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-19",
+    "open": 67340.0,
+    "high": 67457.0,
+    "low": 66944.0,
+    "close": 67402.0,
+    "nmVolume": 573030000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-20",
+    "open": 65396.0,
+    "high": 66354.0,
+    "low": 64265.0,
+    "close": 65628.0,
+    "nmVolume": 623062000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-21",
+    "open": 65803.0,
+    "high": 66146.0,
+    "low": 65273.0,
+    "close": 65751.0,
+    "nmVolume": 4667086000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-22",
+    "open": 65468.0,
+    "high": 66754.0,
+    "low": 64874.0,
+    "close": 65229.0,
+    "nmVolume": 1689807000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-23",
+    "open": 63852.0,
+    "high": 64608.0,
+    "low": 62920.0,
+    "close": 64051.0,
+    "nmVolume": 2011279000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-24",
+    "open": 63856.0,
+    "high": 64174.0,
+    "low": 63648.0,
+    "close": 63663.0,
+    "nmVolume": 3615293000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-25",
+    "open": 64931.0,
+    "high": 65263.0,
+    "low": 64303.0,
+    "close": 64611.0,
+    "nmVolume": 3482540000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-26",
+    "open": 65634.0,
+    "high": 66252.0,
+    "low": 65104.0,
+    "close": 65616.0,
+    "nmVolume": 2177032000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-27",
+    "open": 67872.0,
+    "high": 68555.0,
+    "low": 67255.0,
+    "close": 67529.0,
+    "nmVolume": 1776006000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-28",
+    "open": 68713.0,
+    "high": 69575.0,
+    "low": 67574.0,
+    "close": 69096.0,
+    "nmVolume": 3630846000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-29",
+    "open": 69750.0,
+    "high": 70583.0,
+    "low": 68857.0,
+    "close": 70041.0,
+    "nmVolume": 578745000,
+    "symbol": "SILVER"
+  },
+  {
+    "date": "2026-01-30",
+    "open": 71023.0,
+    "high": 72012.0,
+    "low": 69761.0,
+    "close": 70553.0,
+    "nmVolume": 2936674000,
+    "symbol": "SILVER"
+  }
+]

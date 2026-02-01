@@ -1,0 +1,12 @@
+{
+  "symbol": "DIG",
+  "price": 16200.0,
+  "change": 200.0,
+  "change_percent": 1.25,
+  "volume": 13135200,
+  "high": 16500.0,
+  "low": 15950.0,
+  "open": 16149.999999999998,
+  "timestamp": "2026-02-01T01:23:32.256659",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,90 @@
+{
+  "timestamp": "2026-01-31T20:29:43.593164",
+  "recommendations": {
+    "strong_buy": [],
+    "buy": [],
+    "hold": [
+      {
+        "symbol": "VCB",
+        "price": 86197,
+        "change": -1437.0,
+        "change_percent": -1.67,
+        "volume": 1132784000,
+        "high": 87921.0,
+        "low": 84473.0,
+        "open": 86734.0,
+        "timestamp": "2026-01-31T20:29:37.557821",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 89024.0,
+          "indicators": {
+            "rsi": 36.0,
+            "ma20": 94908.95,
+            "ma50": 93507.02,
+            "ema12": 91910.45,
+            "ema26": 93636.46,
+            "macd": {
+              "macd": -1726.01,
+              "signal": -1726.01,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 102752.12,
+              "middle": 94908.95,
+              "lower": 87065.78
+            }
+          },
+          "signals": [
+            "🟢 MA20 above MA50 (golden cross area)",
+            "🔴 MACD bearish"
+          ],
+          "score": 0,
+          "recommendation": "HOLD",
+          "emoji": "⚪"
+        }
+      }
+    ],
+    "sell": []
+  },
+  "all_results": {
+    "VCB": {
+      "symbol": "VCB",
+      "price": 86197,
+      "change": -1437.0,
+      "change_percent": -1.67,
+      "volume": 1132784000,
+      "high": 87921.0,
+      "low": 84473.0,
+      "open": 86734.0,
+      "timestamp": "2026-01-31T20:29:37.557821",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 89024.0,
+        "indicators": {
+          "rsi": 36.0,
+          "ma20": 94908.95,
+          "ma50": 93507.02,
+          "ema12": 91910.45,
+          "ema26": 93636.46,
+          "macd": {
+            "macd": -1726.01,
+            "signal": -1726.01,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 102752.12,
+            "middle": 94908.95,
+            "lower": 87065.78
+          }
+        },
+        "signals": [
+          "🟢 MA20 above MA50 (golden cross area)",
+          "🔴 MACD bearish"
+        ],
+        "score": 0,
+        "recommendation": "HOLD",
+        "emoji": "⚪"
+      }
+    }
+  }
+}

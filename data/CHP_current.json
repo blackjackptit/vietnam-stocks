@@ -1,0 +1,12 @@
+{
+  "symbol": "CHP",
+  "price": 27400.0,
+  "change": -500.0,
+  "change_percent": -1.7921146953405016,
+  "volume": 95900,
+  "high": 27900.0,
+  "low": 27400.0,
+  "open": 27900.0,
+  "timestamp": "2026-02-01T01:31:29.482540",
+  "source": "vnstock/VCI"
+}

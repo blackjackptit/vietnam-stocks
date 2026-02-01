@@ -1,0 +1,12 @@
+{
+  "symbol": "TCH",
+  "price": 15700.0,
+  "change": 250.0,
+  "change_percent": 1.6181229773462782,
+  "volume": 7576700,
+  "high": 15700.0,
+  "low": 15150.0,
+  "open": 15500.0,
+  "timestamp": "2026-02-01T09:00:20.329138",
+  "source": "vnstock/VCI"
+}

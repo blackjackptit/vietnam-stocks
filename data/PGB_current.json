@@ -1,0 +1,12 @@
+{
+  "symbol": "PGB",
+  "price": 12400.0,
+  "change": -100.0,
+  "change_percent": -0.8,
+  "volume": 9700,
+  "high": 12500.0,
+  "low": 12300.0,
+  "open": 12400.0,
+  "timestamp": "2026-02-01T08:55:41.626576",
+  "source": "vnstock/VCI"
+}

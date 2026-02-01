@@ -1,0 +1,12 @@
+{
+  "symbol": "TDM",
+  "price": 56800.0,
+  "change": 100.0,
+  "change_percent": 0.1763668430335097,
+  "volume": 700,
+  "high": 56800.0,
+  "low": 56700.0,
+  "open": 56700.0,
+  "timestamp": "2026-02-01T09:00:53.453404",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,18 @@
+{
+  "success": true,
+  "categories": {
+    "commodities": ["GOLD", "SILVER", "XAU", "XAG"],
+    "blue_chips": ["VCB", "VHM", "VIC", "VNM", "HPG", "GAS", "MSN", "TCB", "VPB", "MBB", "BID", "CTG", "VRE", "SAB", "PLX", "MWG", "SSI", "FPT", "VJC", "GVR", "POW", "VCI", "NVL", "HDB", "TPB", "HVN", "PVD"],
+    "banks": ["VCB", "TCB", "MBB", "VPB", "CTG", "BID", "ACB", "STB", "HDB", "TPB", "VIB", "MSB", "SHB", "EIB", "LPB", "OCB", "VAB", "VBB", "BAB", "BVB", "NVB", "PGB", "SGB", "ABB", "NAB"],
+    "real_estate": ["VHM", "VIC", "NVL", "PDR", "DXG", "KDH", "BCM", "DIG", "HDG", "NLG", "DXS", "SCR", "CEO", "HDC", "LDG", "QCG", "TCH", "TDH", "AGG", "CII", "HQC", "IDC", "IJC", "KBC", "LHG", "NBB", "NTL", "OGC", "PPI", "SZL", "TDC", "TIX", "VCG", "VPI", "VRE", "ASM", "C32", "CCL", "CTD", "DPR", "FCN", "HUT", "ITA", "LCG", "NHA", "PIT", "PTL", "SJS", "TDM", "THG", "UIC"],
+    "tech": ["FPT", "CMG", "VGI", "SAM", "ITD", "ELC", "SGT", "ICT", "DGW", "CTR", "FOX", "VNT", "SHI", "SVT", "ONE", "VTP", "SGN", "CMX", "TTN", "NET", "ITC", "SCS", "MMC", "TDG", "STG", "VIT", "DAG", "AST", "ALT", "PTI", "TEG"],
+    "consumer": ["VNM", "MSN", "MWG", "PNJ", "SAB", "VHC", "DGC", "KDC", "FRT", "DBC", "MCH", "VCF", "QNS", "BBC", "VGC", "ASP", "SAV", "ANV", "ACL", "DRC", "TRI", "VTO", "HNG", "VNE", "TLG", "PAN", "LAF", "SBT", "TAC", "TCM", "VFG", "AGF", "HAG", "SJD", "CHP", "VHG", "KLF", "HT1", "SRC"],
+    "oil_gas": ["GAS", "PLX", "PVD", "PVS", "PVT", "PVB", "PVG", "PVC", "PVX", "BSR", "OIL", "PVE", "PVA", "PVO", "PCT", "CNG", "GEG", "PTB", "PTC"],
+    "affordable": ["VPB", "STB", "HDB", "SHB", "MBB", "ACB", "FPT", "POW", "DGC", "GEX", "MSB", "VIB", "TPB", "OCB", "LPB", "EIB", "VCI", "SHS", "AGR", "AAM", "DCM", "DPM", "DGW", "PVT", "BMI", "BMP", "CMG", "PHR", "DBD", "NT2", "REE", "VSH", "BWE", "TNG", "QCG", "HVN", "VJC", "PAN", "GMD", "VCS"],
+    "industrial": ["HPG", "HSG", "NKG", "VCS", "TVN", "DTL", "TLH", "VGS", "HT1", "TIS", "VIS", "DGW", "TMP", "POM", "TRA", "AAA", "AAT", "CSV", "KSB", "SBT", "FIT", "PHR", "DCM", "DPM", "BMP", "DGC", "DDG", "BMI", "HMC", "C32", "LBM", "VGC"],
+    "transportation": ["VJC", "HVN", "VTP", "VSC", "GMD", "VOS", "HAH", "PHP", "SCS", "VST", "TCL", "VFC", "SFI", "TMS", "DVP", "PJT", "ACV", "STG", "VTO", "MWG"],
+    "utilities": ["POW", "GAS", "NT2", "REE", "PC1", "PPC", "VSH", "BWE", "SBA", "TNG", "HND", "TBC", "HJS", "SJD", "SJE"]
+  },
+  "total_stocks": 233,
+  "last_updated": "2024-01-31T10:00:00Z"
+}

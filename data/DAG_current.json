@@ -1,0 +1,12 @@
+{
+  "symbol": "DAG",
+  "price": 1430.0,
+  "change": -50.0,
+  "change_percent": -3.3783783783783785,
+  "volume": 299200,
+  "high": 1480.0,
+  "low": 1380.0,
+  "open": 1470.0,
+  "timestamp": "2026-02-01T01:32:16.280164",
+  "source": "vnstock/VCI"
+}

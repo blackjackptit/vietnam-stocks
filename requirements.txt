@@ -1,0 +1,21 @@
+# Vietnamese Stock Analytics Platform - API Server Requirements
+
+# Flask web framework
+Flask>=2.3.0
+
+# CORS support for API
+flask-cors>=4.0.0
+
+# Optional: Production server
+gunicorn>=21.2.0
+
+# Database
+psycopg2-binary>=2.9.9
+
+# Job Scheduling
+APScheduler>=3.10.4
+
+# Optional: For advanced features
+requests>=2.31.0
+pandas>=2.0.0
+numpy>=1.24.0

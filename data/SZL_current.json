@@ -1,0 +1,12 @@
+{
+  "symbol": "SZL",
+  "price": 49300.0,
+  "change": 300.0,
+  "change_percent": 0.6122448979591837,
+  "volume": 4100,
+  "high": 49300.0,
+  "low": 48000.0,
+  "open": 48200.0,
+  "timestamp": "2026-02-01T08:59:52.922608",
+  "source": "vnstock/VCI"
+}

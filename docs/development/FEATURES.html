@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>Vietnamese Stock Monitor - Enhanced Features</title>
+<link rel="stylesheet" href="docs-style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head><body>
+<nav class="top-nav"><div class="nav-container">
+<a href="index.html" class="logo-text">📊 VNStock Analytics</a>
+<span class="page-title" data-i18n="footer.documentation">Documentation</span>
+</div></nav>
+<div class="container"><div class="content-card markdown-content">
+<h1>Vietnamese Stock Monitor - Enhanced Features</h1>
+
+<h2>What's New</h2>
+
+<h3>1. Complete Stock Database (200+ Stocks)</h3>
+
+<p>The system now includes <strong>ALL major Vietnamese stocks</strong> across multiple categories:</p>
+
+<ul>
+<li><strong>Blue Chips</strong> (20 stocks): VCB, VHM, VIC, VNM, HPG, GAS, MSN, TCB, VPB, MBB, etc.</li>
+<li><strong>Banks</strong> (28 stocks): VCB, TCB, MBB, VPB, CTG, BID, ACB, STB, HDB, TPB, VIB, MSB, etc.</li>
+<li><strong>Real Estate</strong> (40 stocks): VHM, VIC, NVL, PDR, DXG, KDH, BCM, DIG, HDG, NLG, etc.</li>
+<li><strong>Technology</strong> (30 stocks): FPT, CMG, VGI, SAM, ITD, ELC, SGT, ICT, DGW, CTR, etc.</li>
+<li><strong>Consumer</strong> (30 stocks): VNM, MSN, MWG, PNJ, SAB, VHC, DGC, KDC, FRT, DBC, etc.</li>
+<li><strong>Oil & Gas</strong> (19 stocks): GAS, PLX, PVD, PVS, PVT, PVB, PVG, PVC, PVX, BSR, etc.</li>
+<li><strong>Securities</strong> (19 stocks): SSI, VND, VCI, HCM, BSI, MBS, VIX, SHS, AGR, FTS, etc.</li>
+<li><strong>Utilities</strong> (20 stocks): POW, NT2, REE, GEG, GEX, PC1, VSH, BWE, EVE, HT1, etc.</li>
+<li><strong>Transport</strong> (20 stocks): VJC, HVN, GMD, ACV, HAH, PHP, VOS, VSC, STG, TMS, etc.</li>
+</ul>
+
+<h3>2. Interactive Stock Picker</h3>
+
+<p>Choose exactly which stocks you want to monitor:</p>
+
+<ul>
+<li><strong>Search functionality</strong> - Find stocks by symbol</li>
+<li><strong>Category filters</strong> - Filter by sector (Banks, Tech, Real Estate, etc.)</li>
+<li><strong>Select/Deselect</strong> - Click to add/remove stocks from your watchlist</li>
+<li><strong>Quick actions</strong> - Select All / Clear All buttons</li>
+<li><strong>Persistent storage</strong> - Your selections are saved automatically</li>
+</ul>
+
+<h3>3. Enhanced Visualizations</h3>
+
+<h4 data-i18n="dashboard.performance_heatmap">Performance Heatmap</h4>
+<ul>
+<li>Color-coded grid showing all stocks</li>
+<li>Green = positive performance, Red = negative</li>
+<li>Intensity indicates magnitude of change</li>
+<li>Quick visual overview of market sentiment</li>
+</ul>
+
+<h4>Score Distribution Chart</h4>
+<ul>
+<li>Bar chart showing technical analysis scores</li>
+<li>Color-coded by recommendation (Buy/Hold/Sell)</li>
+<li>Easy identification of top opportunities</li>
+</ul>
+
+<h4>RSI Distribution</h4>
+<ul>
+<li>Line chart tracking RSI values across stocks</li>
+<li>Shows overbought (>70) and oversold (<30) zones</li>
+<li>Helps identify reversal opportunities</li>
+</ul>
+
+<h4>Sector Performance</h4>
+<ul>
+<li>Doughnut chart showing sector distribution</li>
+<li>Understand your portfolio composition</li>
+<li>Identify sector concentration</li>
+</ul>
+
+<h4>Price & Volume Analysis</h4>
+<ul>
+<li>Dual-axis chart combining price and volume</li>
+<li>Identify high-activity stocks</li>
+<li>Spot unusual volume patterns</li>
+</ul>
+
+<h4>Detailed Stock Table</h4>
+<ul>
+<li>Comprehensive metrics for each stock</li>
+<li>Sortable columns</li>
+<li>Live updates with technical signals</li>
+<li>Recommendation badges</li>
+</ul>
+
+<h3>4. Custom Watchlist Management</h3>
+
+<p>Command-line tool for managing your watchlist:</p>
+
+<pre><code># Interactive mode
+<p>python manage_watchlist.py --interactive</p>
+
+<h1>Add specific stocks</h1>
+<p>python manage_watchlist.py --add VCB HPG FPT</p>
+
+<h1>Add entire category</h1>
+<p>python manage_watchlist.py --category banks</p>
+
+<h1>Remove stocks</h1>
+<p>python manage_watchlist.py --remove VCB HPG</p>
+
+<h1>List current watchlist</h1>
+<p>python manage_watchlist.py --list</p>
+
+<h1>Clear all</h1>
+<p>python manage_watchlist.py --clear</code></pre></p>
+
+<h2>How to Use</h2>
+
+<h3>Quick Start</h3>
+
+<p>1. <strong>Start the enhanced dashboard:</strong></p>
+<p>   <pre><code>   ./start_enhanced.sh</p>
+<p>   ``<code></p>
+
+<p>2. <strong>Start the monitor (in another terminal):</strong></p>
+<p>   </code>`<code>bash</p>
+<p>   python demo_monitor.py --interval 15</p>
+<p>   </code>`<code></p>
+
+<p>3. <strong>Open the enhanced dashboard:</strong></p>
+<p>   </code>`<code></p>
+<p>   http://localhost:8888/dashboard_enhanced.html</p>
+<p>   </code>`<code></p>
+
+<h3>Customizing Your Watchlist</h3>
+
+<h4>Method 1: Using the Dashboard</h4>
+<p>1. Open the enhanced dashboard</p>
+<p>2. Use the search box to find stocks</p>
+<p>3. Click on stocks to select/deselect</p>
+<p>4. Click "Apply Watchlist" button</p>
+<p>5. Your selection is saved automatically</p>
+
+<h4>Method 2: Using the CLI Tool</code></pre>bash</h4>
+<h1>Interactive mode with menu</h1>
+<p>python manage_watchlist.py --interactive</p>
+
+<h1>Or use command-line arguments</h1>
+<p>python manage_watchlist.py --add VCB VHM HPG GAS FPT</p>
+<p>python manage_watchlist.py --category blue_chips</p>
+<p>python manage_watchlist.py --list</p>
+<pre><code>
+<h3>Understanding the Metrics</h3>
+
+<h4>Technical Score (-100 to +100)</h4>
+<ul>
+<li><strong>> 40</strong>: STRONG BUY - Multiple bullish signals</li>
+<li><strong>20 to 40</strong>: BUY - Some bullish signals</li>
+<li><strong>-20 to 20</strong>: HOLD - Neutral or mixed signals</li>
+<li><strong>< -20</strong>: SELL - Bearish signals</li>
+</ul>
+
+<h4>RSI (Relative Strength Index)</h4>
+<ul>
+<li><strong>< 30</strong>: Oversold - Potential buying opportunity</li>
+<li><strong>30-70</strong>: Normal range</li>
+<li><strong>> 70</strong>: Overbought - Potential profit taking</li>
+</ul>
+
+<h4 data-i18n="table.signals">Signals</h4>
+<ul>
+<li><strong>Golden Cross</strong>: Short-term MA crosses above long-term MA (Bullish)</li>
+<li><strong>Death Cross</strong>: Short-term MA crosses below long-term MA (Bearish)</li>
+<li><strong>RSI Oversold/Overbought</strong>: RSI extreme values</li>
+<li><strong>Price above/below MA</strong>: Trend indicators</li>
+<li><strong>MACD Bullish/Bearish</strong>: Momentum indicators</li>
+</ul>
+
+<h2>API Endpoints</h2>
+
+<p>The real-time server provides several API endpoints:</p>
+
+<ul>
+<li></code>GET /api/latest<code> - Get latest scan results</li>
+<li></code>GET /api/stocks<code> - Get all available stocks by category</li>
+<li></code>GET /api/watchlist<code> - Get current watchlist</li>
+</ul>
+
+<h2>Dashboard Comparison</h2>
+
+<h3>Original Dashboard (</code>dashboard_realtime.html<code>)</h3>
+<ul>
+<li>Simple, focused view</li>
+<li>10 default stocks</li>
+<li>Basic charts (Score, RSI)</li>
+<li>Good for quick checks</li>
+</ul>
+
+<h3>Enhanced Dashboard (</code>dashboard_enhanced.html<code>)</h3>
+<ul>
+<li>Full stock picker (200+ stocks)</li>
+<li>Multiple visualization types</li>
+<li>Detailed table view</li>
+<li>Customizable watchlist</li>
+<li>Advanced analytics</li>
+</ul>
+
+<h2>Files Structure</h2>
+</code></pre>
+<p>vietnam-stocks/</p>
+<p>├── src/</p>
+<p>│   ├── stock_data.py          # Expanded with 200+ stocks</p>
+<p>│   ├── technical_analysis.py</p>
+<p>│   ├── portfolio.py</p>
+<p>│   └── demo_data.py</p>
+<p>├── dashboard_realtime.html    # Original dashboard</p>
+<p>├── dashboard_enhanced.html    # NEW: Enhanced dashboard</p>
+<p>├── realtime_server.py         # Updated with new API endpoints</p>
+<p>├── monitor.py</p>
+<p>├── demo_monitor.py</p>
+<p>├── manage_watchlist.py        # NEW: Watchlist CLI tool</p>
+<p>├── start_enhanced.sh          # NEW: Enhanced startup script</p>
+<p>├── watchlist.json             # Your custom watchlist (auto-created)</p>
+<p>└── output/                    # Scan results</p>
+</code>`<code>
+
+<h2>Tips</h2>
+
+<p>1. <strong>Start with a category</strong> - Select a category like "affordable" or "banks" to focus your analysis</p>
+<p>2. <strong>Use the heatmap</strong> - Quickly identify hot and cold stocks</p>
+<p>3. <strong>Monitor 20-30 stocks</strong> - Too many stocks can be overwhelming</p>
+<p>4. <strong>Combine indicators</strong> - Don't rely on a single metric</p>
+<p>5. <strong>Save multiple watchlists</strong> - Use different files for different strategies</p>
+
+<h2>Troubleshooting</h2>
+
+<strong>Dashboard shows no stocks:</strong>
+<ul>
+<li>Make sure you've selected stocks in the picker</li>
+<li>Click "Apply Watchlist" button</li>
+<li>Refresh the page</li>
+</ul>
+
+<strong>Monitor not finding stocks:</strong>
+<ul>
+<li>Check that watchlist.json exists</li>
+<li>Verify stock symbols are correct (uppercase)</li>
+<li>Run </code>python manage_watchlist.py --list<code> to see current list</li>
+</ul>
+
+<strong>Server won't start:</strong>
+<ul>
+<li>Kill existing process: </code>kill $(cat realtime.pid)<code></li>
+<li>Check port 8888 is not in use: </code>lsof -i:8888`</li>
+</ul>
+
+<h2>Future Enhancements</h2>
+
+<p>Possible additions:</p>
+<ul>
+<li>Candlestick charts for individual stocks</li>
+<li>Correlation matrix between stocks</li>
+<li>News integration</li>
+<li>Alert system for price targets</li>
+<li>Portfolio tracking with P&L</li>
+<li>Export to Excel/CSV</li>
+<li>Mobile-responsive design</li>
+</ul>
+
+</div></div>
+<footer class="footer"><div class="footer-container">
+<p>© 2024 Vietnam Stock Analytics Platform</p>
+</div></footer>
+</body></html>

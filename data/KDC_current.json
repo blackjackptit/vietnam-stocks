@@ -1,0 +1,12 @@
+{
+  "symbol": "KDC",
+  "price": 50000.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 188600,
+  "high": 50000.0,
+  "low": 49650.0,
+  "open": 49950.0,
+  "timestamp": "2026-02-01T08:52:40.683927",
+  "source": "vnstock/VCI"
+}

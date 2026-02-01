@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/theme.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VNStock Analytics - Professional Trading & Investment Tools</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Helvetica Neue', sans-serif;
+            background: #ffffff;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        /* Sticky Navigation */
+        .top-nav {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            font-size: 2em;
+        }
+
+        .logo-text {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #c41c16;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-menu {
+            position: relative;
+        }
+
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #c41c16;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s;
+        }
+
+        .menu-btn:hover {
+            background: #991b1b;
+            transform: translateY(-1px);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .menu-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            font-weight: 700;
+            color: #1e293b;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-category {
+            padding: 12px 20px 8px;
+            font-weight: 700;
+            color: #64748b;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .menu-category:first-child {
+            border-top: none;
+        }
+
+        .menu-items {
+            padding: 0 0 8px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #475569;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .menu-item:hover {
+            background: #fef2f2;
+            color: #c41c16;
+        }
+
+        .menu-item-icon {
+            font-size: 1.2em;
+            width: 24px;
+            text-align: center;
+        }
+
+        .nav-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: #f0fdf4;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #16a34a;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #16a34a;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            color: white;
+            padding: 80px 24px;
+        }
+
+        .hero-container {
+            max-width: 1360px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.2;
+            letter-spacing: -1px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.4em;
+            color: #cbd5e1;
+            margin-bottom: 40px;
+            font-weight: 400;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 60px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: 800;
+            color: #f59e0b;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            color: #cbd5e1;
+            font-weight: 500;
+        }
+
+        /* Main Content */
+        .content {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .section-title {
+            font-size: 2.5em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 16px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-subtitle {
+            font-size: 1.2em;
+            color: #64748b;
+            margin-bottom: 48px;
+        }
+
+        /* Card Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 32px;
+            margin-bottom: 80px;
+        }
+
+        .product-card {
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+            border-color: #c41c16;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: #c41c16;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-badge.pro {
+            background: #f59e0b;
+        }
+
+        .card-icon {
+            font-size: 3em;
+            padding: 32px 32px 0 32px;
+            display: block;
+        }
+
+        .card-content {
+            padding: 24px 32px 32px;
+        }
+
+        .card-title {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+            letter-spacing: -0.3px;
+        }
+
+        .card-description {
+            color: #64748b;
+            line-height: 1.7;
+            margin-bottom: 20px;
+            font-size: 0.95em;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background: #f1f5f9;
+            color: #475569;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+
+        .card-action {
+            padding: 16px 32px;
+            background: #f8fafc;
+            border-top: 1px solid #e5e7eb;
+            text-align: center;
+            font-weight: 600;
+            color: #c41c16;
+            font-size: 0.95em;
+            transition: all 0.2s;
+        }
+
+        .product-card:hover .card-action {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Features Section */
+        .features-section {
+            background: #f8fafc;
+            padding: 80px 24px;
+            margin: 0 -24px;
+        }
+
+        .features-container {
+            max-width: 1360px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-item {
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        .feature-text {
+            color: #64748b;
+            line-height: 1.7;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #c41c16 0%, #991b1b 100%);
+            color: white;
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: 2.5em;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .cta-text {
+            font-size: 1.2em;
+            margin-bottom: 32px;
+            color: #fecaca;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: #c41c16;
+        }
+
+        .btn-primary:hover {
+            background: #f8fafc;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 60px 24px 32px;
+        }
+
+        .footer-container {
+            max-width: 1360px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h3 {
+            color: white;
+            font-size: 1.2em;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: #f59e0b;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            padding-top: 32px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.9em;
+        }
+
+        .disclaimer {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 24px;
+            margin: 40px 0;
+            border-radius: 8px;
+        }
+
+        .disclaimer-title {
+            color: #92400e;
+            font-weight: 700;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+        }
+
+        .disclaimer-text {
+            color: #78350f;
+            line-height: 1.7;
+            font-size: 0.95em;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2em;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1em;
+            }
+
+            .stat-number {
+                font-size: 2em;
+            }
+
+            .section-title {
+                font-size: 1.8em;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-container {
+                height: auto;
+                padding: 16px 24px;
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+    </style>
+    <script src="js/collapsible.js"></script>
+    <script src="js/logo.js"></script>
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="logo-section">
+                <span class="logo-icon">📊</span>
+                <span class="logo-text">VNStock Analytics</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="nav-menu">
+                    <button class="menu-btn" onclick="toggleMenu()">
+                        📊 Dashboards
+                        <span id="menuArrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <div class="menu-header" data-i18n="menu.all_dashboards">All Dashboards</div>
+
+                        <div class="menu-category" data-i18n="menu.market_analysis">📊 Market Analysis</div>
+                        <div class="menu-items">
+                            <a href="dashboard.html" class="menu-item">
+                                <span class="menu-item-icon">📊</span>
+                                <span data-i18n="nav.dashboard">Main Dashboard</span>
+                            </a>
+                            <a href="dashboard_history.html" class="menu-item">
+                                <span class="menu-item-icon">📊</span>
+                                <span data-i18n="nav.history">Historical Analysis</span>
+                            </a>
+                            <a href="advanced_charts.html" class="menu-item">
+                                <span class="menu-item-icon">📉</span>
+                                <span data-i18n="nav.charts">Advanced Charts</span>
+                            </a>
+                        </div>
+
+                        <div class="menu-category" data-i18n="menu.investment_tools">💼 Investment Tools</div>
+                        <div class="menu-items">
+                            <a href="price_forecast.html" class="menu-item">
+                                <span class="menu-item-icon">🔮</span>
+                                <span data-i18n="nav.forecast">Price Forecasting</span>
+                            </a>
+                            <a href="dashboard_advanced.html" class="menu-item">
+                                <span class="menu-item-icon">💼</span>
+                                <span data-i18n="portfolio.title">Portfolio Analytics</span>
+                            </a>
+                            <a href="macro_analysis.html" class="menu-item">
+                                <span class="menu-item-icon">🌍</span>
+                                <span data-i18n="nav.macro">Macro Analysis</span>
+                            </a>
+                        </div>
+
+                        <div class="menu-category" data-i18n="menu.automation_alerts">🔔 Automation & Alerts</div>
+                        <div class="menu-items">
+                            <a href="alerts_system.html" class="menu-item">
+                                <span class="menu-item-icon">🔔</span>
+                                <span>Price Alerts</span>
+                            </a>
+                            <a href="trading_automation.html" class="menu-item">
+                                <span class="menu-item-icon">🤖</span>
+                                <span data-i18n="nav.automation">Trading Automation</span>
+                            </a>
+                        </div>
+
+                        <div class="menu-category" data-i18n="menu.configuration">⚙️ Configuration</div>
+                        <div class="menu-items">
+                            <a href="settings.html" class="menu-item">
+                                <span class="menu-item-icon">⚙️</span>
+                                <span data-i18n="nav.settings">Settings</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="nav-status" id="systemStatus">
+                    <span class="status-dot"></span>
+                    <span data-i18n="status.online">System Online</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('dropdownMenu');
+            const arrow = document.getElementById('menuArrow');
+            menu.classList.toggle('active');
+            arrow.textContent = menu.classList.contains('active') ? '▲' : '▼';
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('dropdownMenu');
+            const menuBtn = event.target.closest('.menu-btn');
+
+            if (!menuBtn && !event.target.closest('.dropdown-menu')) {
+                menu.classList.remove('active');
+                document.getElementById('menuArrow').textContent = '▼';
+            }
+        });
+    </script>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1 data-i18n="home.hero_title">Professional Stock Analytics Platform</h1>
+            <p class="hero-subtitle" data-i18n="home.hero_subtitle">Institutional-grade tools for Vietnamese market investors</p>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-number" id="stockCount">233</div>
+                    <div class="stat-label" data-i18n="stats.stocks_assets">Stocks & Assets</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">9</div>
+                    <div class="stat-label" data-i18n="menu.dashboards">Dashboards</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">30+</div>
+                    <div class="stat-label" data-i18n="stats.indicators">Indicators</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label" data-i18n="stats.ai_models">AI Models</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="content">
+        <h2 class="section-title" data-i18n="home.trading_tools">Trading & Analytics Tools</h2>
+        <p class="section-subtitle" data-i18n="home.tools_description">Comprehensive suite of professional-grade analytics and trading tools</p>
+
+        <div class="cards-grid">
+            <!-- Main Dashboard -->
+            <a href="dashboard.html" class="product-card">
+                <span class="card-icon">📊</span>
+                <div class="card-content">
+                    <h3 class="card-title" data-i18n="nav.dashboard">Main Dashboard</h3>
+                    <p class="card-description" data-i18n="home.dashboard_desc">
+                        Real-time monitoring of 233 Vietnamese stocks with live updates, interactive visualization, technical scores, and comprehensive performance tracking.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag" data-i18n="tag.realtime_updates">Real-time Updates</span>
+                        <span class="tag" data-i18n="tag.livedata">Live Data</span>
+                        <span class="tag" data-i18n="tag.9_categories">9 Categories</span>
+                    </div>
+                </div>
+                <div class="card-action" data-i18n="action.view_dashboard">View Dashboard →</div>
+            </a>
+
+            <!-- Historical Analysis -->
+            <a href="dashboard_history.html" class="product-card">
+                <span class="card-icon">📈</span>
+                <div class="card-content">
+                    <h3 class="card-title" data-i18n="nav.history">Historical Analysis</h3>
+                    <p class="card-description" data-i18n="home.history_desc">
+                        Deep dive into price history with moving averages, RSI, MACD, and volume analysis. Multiple timeframes from 30 days to 1 year.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag" data-i18n="tag.ma20_50">MA20/50</span>
+                        <span class="tag" data-i18n="table.rsi">RSI</span>
+                        <span class="tag" data-i18n="tag.macd">MACD</span>
+                    </div>
+                </div>
+                <div class="card-action" data-i18n="action.analyze_history">Analyze History →</div>
+            </a>
+
+            <!-- Price Forecast -->
+            <a href="price_forecast.html" class="product-card">
+                <span class="card-badge" data-i18n="tag.new">NEW</span>
+                <span class="card-icon">🔮</span>
+                <div class="card-content">
+                    <h3 class="card-title" data-i18n="home.ai_forecast">AI Price Forecast</h3>
+                    <p class="card-description" data-i18n="home.forecast_desc">
+                        Machine learning predictions using 4 models. Statistical control charts with anomaly detection and investment recommendations.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag" data-i18n="tag.ai_powered">AI Powered</span>
+                        <span class="tag" data-i18n="tag.four_models">4 Models</span>
+                        <span class="tag" data-i18n="tag.forecast_range">7-90 Days</span>
+                    </div>
+                </div>
+                <div class="card-action" data-i18n="action.generate_forecast">Generate Forecast →</div>
+            </a>
+
+            <!-- Advanced Analytics -->
+            <a href="dashboard_advanced.html" class="product-card">
+                <span class="card-badge pro" data-i18n="tag.pro">PRO</span>
+                <span class="card-icon">🚀</span>
+                <div class="card-content">
+                    <h3 class="card-title" data-i18n="home.advanced_analytics">Advanced Analytics</h3>
+                    <p class="card-description" data-i18n="home.advanced_desc">
+                        Portfolio optimization, strategy backtesting, risk management with VaR/CVaR, ML forecasting, and pattern recognition.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag" data-i18n="tag.portfolio">Portfolio</span>
+                        <span class="tag" data-i18n="tag.backtesting">Backtesting</span>
+                        <span class="tag" data-i18n="tag.risk_var">Risk VaR</span>
+                    </div>
+                </div>
+                <div class="card-action" data-i18n="action.access_pro">Access Pro Tools →</div>
+            </a>
+
+            <!-- Advanced Charts -->
+            <a href="advanced_charts.html" class="product-card">
+                <span class="card-badge pro">PRO</span>
+                <span class="card-icon">📊</span>
+                <div class="card-content">
+                    <h3 class="card-title" data-i18n="home.professional_charts">Professional Charts</h3>
+                    <p class="card-description" data-i18n="home.charts_desc">
+                        Institutional-grade charting with Ichimoku Cloud, Volume Profile, Stochastic, Fibonacci, Pivot Points, and more.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag" data-i18n="option.candlestick">Candlestick</span>
+                        <span class="tag" data-i18n="tag.ichimoku">Ichimoku</span>
+                        <span class="tag" data-i18n="tag.indicators">20+ Indicators</span>
+                    </div>
+                </div>
+                <div class="card-action" data-i18n="action.view_charts">View Charts →</div>
+            </a>
+
+            <!-- Macro Analysis -->
+            <a href="macro_analysis.html" class="product-card">
+                <span class="card-badge" data-i18n="tag.new">NEW</span>
+                <span class="card-icon">🌍</span>
+                <div class="card-content">
+                    <h3 class="card-title" data-i18n="home.macro_analysis">Macro Analysis</h3>
+                    <p class="card-description" data-i18n="home.macro_desc">
+                        Track global factors: oil prices, interest rates, geopolitical risks, policy changes, and their impact on Vietnamese stocks.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag" data-i18n="tag.oil_impact">Oil Impact</span>
+                        <span class="tag" data-i18n="tag.geopolitics">Geopolitics</span>
+                        <span class="tag" data-i18n="tag.policy">Policy</span>
+                    </div>
+                </div>
+                <div class="card-action" data-i18n="action.analyze_factors">Analyze Factors →</div>
+            </a>
+
+            <!-- Price Alerts -->
+            <a href="alerts_system.html" class="product-card">
+                <span class="card-icon">🔔</span>
+                <div class="card-content">
+                    <h3 class="card-title" data-i18n="home.price_alerts">Price Alerts</h3>
+                    <p class="card-description" data-i18n="home.alerts_desc">
+                        Real-time monitoring with customizable alerts. Get notified when stocks hit target prices, RSI levels, or volume spikes.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag" data-i18n="tag.realtime">Real-time</span>
+                        <span class="tag" data-i18n="tag.notifications">Notifications</span>
+                        <span class="tag" data-i18n="tag.custom">Custom</span>
+                    </div>
+                </div>
+                <div class="card-action" data-i18n="action.configure_alerts">Configure Alerts →</div>
+            </a>
+
+            <!-- Trading Automation -->
+            <a href="trading_automation.html" class="product-card">
+                <span class="card-badge pro">PRO</span>
+                <span class="card-icon">🤖</span>
+                <div class="card-content">
+                    <h3 class="card-title" data-i18n="nav.automation">Trading Automation</h3>
+                    <p class="card-description">
+                        Configure automated buy/sell rules based on technical indicators. Backtest strategies and automate execution.
+                    </p>
+                    <div class="card-tags">
+                        <span class="tag">Auto Trade</span>
+                        <span class="tag" data-i18n="tag.rules">Rules</span>
+                        <span class="tag" data-i18n="automation.backtest">Backtest</span>
+                    </div>
+                </div>
+                <div class="card-action" data-i18n="action.setup_automation">Setup Automation →</div>
+            </a>
+
+            <!-- Real-time Dashboard -->
+        </div>
+
+        <!-- Disclaimer -->
+        <div class="disclaimer">
+            <div class="disclaimer-title">⚠️ <span data-i18n="disclaimer.title">Important Disclaimer</span></div>
+            <div class="disclaimer-text">
+                <span data-i18n="disclaimer.educational">This platform is for educational and informational purposes only</span>.
+                <span data-i18n="disclaimer.risk">All investments carry risk</span>.
+                <span data-i18n="disclaimer.performance">Past performance does not guarantee future results</span>.
+                <span data-i18n="disclaimer.not_advice">This is not financial advice</span> -
+                <span data-i18n="disclaimer.dyor">always do your own research and consult licensed financial advisors</span>
+                <span data-i18n="disclaimer.before_invest">before making investment decisions</span>.
+            </div>
+        </div>
+    </main>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="features-container">
+            <h2 class="section-title" style="text-align: center;" data-i18n="home.why_choose">Why Choose Our Platform</h2>
+            <p class="section-subtitle" style="text-align: center;" data-i18n="home.trusted_description">Professional-grade tools trusted by serious investors</p>
+
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <h3 class="feature-title" data-i18n="home.comprehensive">Comprehensive Coverage</h3>
+                    <p class="feature-text" data-i18n="home.coverage_text">
+                        233 Vietnamese stocks and commodities with real-time data and historical analysis.
+                    </p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🤖</div>
+                    <h3 class="feature-title" data-i18n="home.ai_insights">AI-Powered Insights</h3>
+                    <p class="feature-text" data-i18n="home.ai_text">
+                        Machine learning forecasts, anomaly detection, and automated investment recommendations.
+                    </p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <h3 class="feature-title" data-i18n="home.professional_tools">Professional Tools</h3>
+                    <p class="feature-text" data-i18n="home.tools_text">
+                        30+ technical indicators, advanced charts, and institutional-grade analytics.
+                    </p>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">🛡️</div>
+                    <h3 class="feature-title" data-i18n="automation.risk_management">Risk Management</h3>
+                    <p class="feature-text" data-i18n="home.risk_text">
+                        VaR, CVaR, portfolio optimization, and comprehensive risk analysis tools.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="hero-container">
+            <h2 class="cta-title" data-i18n="cta.title">Start Analyzing Today</h2>
+            <p class="cta-text" data-i18n="cta.subtitle">Join thousands of investors using professional analytics</p>
+            <div class="cta-buttons">
+                <a href="dashboard.html" class="btn btn-primary" data-i18n="home.get_started">Get Started</a>
+                <a href="FEATURES_COMPLETE.html" class="btn btn-secondary" data-i18n="cta.view_features">View All Features</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3 data-i18n="footer.products">Products</h3>
+                    <ul class="footer-links">
+                        <li><a href="dashboard.html" data-i18n="footer.market_overview">Market Overview</a></li>
+                        <li><a href="dashboard_history.html" data-i18n="nav.history">Historical Analysis</a></li>
+                        <li><a href="price_forecast.html" data-i18n="footer.ai_forecast">AI Forecast</a></li>
+                        <li><a href="dashboard_advanced.html" data-i18n="home.advanced_analytics">Advanced Analytics</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 data-i18n="menu.tools">Tools</h3>
+                    <ul class="footer-links">
+                        <li><a href="advanced_charts.html" data-i18n="home.professional_charts">Professional Charts</a></li>
+                        <li><a href="alerts_system.html" data-i18n="home.price_alerts">Price Alerts</a></li>
+                        <li><a href="trading_automation.html" data-i18n="nav.automation">Trading Automation</a></li>
+                        <li><a href="macro_analysis.html" data-i18n="home.macro_analysis">Macro Analysis</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 data-i18n="footer.resources">Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="QUICK_START.html" data-i18n="footer.quick_start">Quick Start Guide</a></li>
+                        <li><a href="FEATURES_COMPLETE.html" data-i18n="footer.features">Features</a></li>
+                        <li><a href="USER_GUIDE_ADVANCED.html" data-i18n="footer.user_guide">User Guide</a></li>
+                        <li><a href="MACRO_FACTORS_GUIDE.html" data-i18n="footer.macro_guide">Macro Guide</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 data-i18n="menu.platform">Platform</h3>
+                    <ul class="footer-links">
+                        <li><a href="monitor.html" data-i18n="trading.system_status">System Status</a></li>
+                        <li><a href="monitor.html">⚙️ <span data-i18n="trading.settings_status">Settings & Status</span></a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p data-i18n="footer.copyright_full">© 2024 VNStock Analytics. Built with advanced AI and data analytics.</p>
+                <p style="margin-top: 8px; font-size: 0.85em;" data-i18n="footer.disclaimer">
+                    For educational purposes only. Not financial advice. Trade at your own risk.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Check system status
+        async function checkSystemStatus() {
+            try {
+                const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                    ? 'http://localhost:5000'
+                    : (window.API_BASE_URL || '');
+
+                // Try the new system status endpoint
+                const response = await fetch(`${API_BASE}/api/system-status`, {
+                    method: 'GET',
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const status = await response.json();
+                const statusElement = document.getElementById('systemStatus');
+
+                // Determine overall status
+                const isHealthy = status.overall === 'healthy';
+                const isWarning = status.overall === 'warning';
+                const schedulerRunning = status.scheduler?.status === 'running';
+
+                const dotColor = isHealthy ? '#10b981' : isWarning ? '#f59e0b' : '#ef4444';
+                const statusText = isHealthy ? 'System Online' :
+                                 isWarning ? 'System Warning' : 'System Error';
+
+                const detailText = schedulerRunning ?
+                    `Scheduler Active | ${status.data_collection?.stock_count_today || 0} updates today` :
+                    'Scheduler Stopped - Click to monitor';
+
+                statusElement.innerHTML = `
+                    <span class="status-dot" style="background: ${dotColor};"></span>
+                    <span title="${detailText}">${statusText}</span>
+                `;
+
+                // Add click to open monitor
+                statusElement.style.cursor = 'pointer';
+                statusElement.onclick = () => window.open('monitor.html', '_blank');
+
+                // Update stock count from API
+                try {
+                    const categoriesResponse = await fetch(`${API_BASE}/api/stock-categories`);
+                    const categoriesData = await categoriesResponse.json();
+                    if (categoriesData.total_stocks) {
+                        document.getElementById('stockCount').textContent = categoriesData.total_stocks;
+                    }
+                } catch (error) {
+                    // Fallback to default value if API fails
+                    document.getElementById('stockCount').textContent = 233;
+                }
+
+            } catch (error) {
+                console.warn('Status check failed (API may be offline):', error.message);
+
+                const statusElement = document.getElementById('systemStatus');
+                statusElement.innerHTML = `
+                    <span class="status-dot" style="background: #64748b;"></span>
+                    <span title="API server may not be running. Click to open monitor.">API Offline</span>
+                `;
+
+                // Add click to open monitor even when offline
+                statusElement.style.cursor = 'pointer';
+                statusElement.onclick = () => window.open('monitor.html', '_blank');
+
+                // Set default stock count
+                try {
+                    document.getElementById('stockCount').textContent = 233;
+                } catch (e) {}
+            }
+        }
+
+        // Initial check and periodic updates
+        checkSystemStatus();
+        setInterval(checkSystemStatus, 30000); // Check every 30 seconds
+    </script>
+</body>
+</html>

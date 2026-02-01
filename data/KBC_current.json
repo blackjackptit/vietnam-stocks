@@ -1,0 +1,12 @@
+{
+  "symbol": "KBC",
+  "price": 34900.0,
+  "change": 1300.0,
+  "change_percent": 3.869047619047619,
+  "volume": 4796300,
+  "high": 35000.0,
+  "low": 33800.0,
+  "open": 34000.0,
+  "timestamp": "2026-02-01T08:52:35.155148",
+  "source": "vnstock/VCI"
+}

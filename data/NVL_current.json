@@ -1,0 +1,12 @@
+{
+  "symbol": "NVL",
+  "price": 13000.0,
+  "change": 850.0,
+  "change_percent": 6.995884773662551,
+  "volume": 13138500,
+  "high": 13000.0,
+  "low": 12150.0,
+  "open": 12300.0,
+  "timestamp": "2026-02-01T08:54:55.856309",
+  "source": "vnstock/VCI"
+}

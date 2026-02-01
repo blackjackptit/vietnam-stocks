@@ -1,0 +1,12 @@
+{
+  "symbol": "BVB",
+  "price": 14000.0,
+  "change": 200.0,
+  "change_percent": 1.4492753623188406,
+  "volume": 2087800,
+  "high": 14100.0,
+  "low": 13700.0,
+  "open": 13800.0,
+  "timestamp": "2026-02-01T01:31:05.831116",
+  "source": "vnstock/VCI"
+}

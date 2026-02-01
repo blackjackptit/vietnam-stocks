@@ -1,0 +1,12 @@
+{
+  "symbol": "SAB",
+  "price": 49900.0,
+  "change": -400.0,
+  "change_percent": -0.7952286282306162,
+  "volume": 1724800,
+  "high": 51400.0,
+  "low": 49900.0,
+  "open": 51000.0,
+  "timestamp": "2026-02-01T08:58:04.083625",
+  "source": "vnstock/VCI"
+}

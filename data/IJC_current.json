@@ -1,0 +1,12 @@
+{
+  "symbol": "IJC",
+  "price": 10600.0,
+  "change": 50.0,
+  "change_percent": 0.47393364928909953,
+  "volume": 2705600,
+  "high": 10700.0,
+  "low": 10550.0,
+  "open": 10600.0,
+  "timestamp": "2026-02-01T08:52:15.202408",
+  "source": "vnstock/VCI"
+}

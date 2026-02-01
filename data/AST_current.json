@@ -1,0 +1,12 @@
+{
+  "symbol": "AST",
+  "price": 73000.0,
+  "change": -2700.0,
+  "change_percent": -3.5667107001321003,
+  "volume": 49500,
+  "high": 78000.0,
+  "low": 72200.0,
+  "open": 75900.0,
+  "timestamp": "2026-02-01T01:30:24.368262",
+  "source": "vnstock/VCI"
+}

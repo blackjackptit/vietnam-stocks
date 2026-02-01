@@ -1,0 +1,12 @@
+{
+  "symbol": "DBD",
+  "price": 53000.0,
+  "change": 1100.0,
+  "change_percent": 2.119460500963391,
+  "volume": 160300,
+  "high": 53000.0,
+  "low": 51900.0,
+  "open": 51900.0,
+  "timestamp": "2026-02-01T01:32:26.455831",
+  "source": "vnstock/VCI"
+}

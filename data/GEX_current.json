@@ -1,0 +1,12 @@
+{
+  "symbol": "GEX",
+  "price": 36700.0,
+  "change": 200.0,
+  "change_percent": 0.547945205479452,
+  "volume": 7438900,
+  "high": 37300.0,
+  "low": 36250.0,
+  "open": 37100.0,
+  "timestamp": "2026-02-01T01:24:51.906493",
+  "source": "vnstock/VCI"
+}

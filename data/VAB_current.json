@@ -1,0 +1,12 @@
+{
+  "symbol": "VAB",
+  "price": 11300.0,
+  "change": -50.0,
+  "change_percent": -0.4405286343612335,
+  "volume": 927800,
+  "high": 11550.0,
+  "low": 11300.0,
+  "open": 11450.0,
+  "timestamp": "2026-02-01T09:02:32.713450",
+  "source": "vnstock/VCI"
+}

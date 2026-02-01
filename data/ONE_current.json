@@ -1,0 +1,12 @@
+{
+  "symbol": "ONE",
+  "price": 9000.0,
+  "change": -700.0,
+  "change_percent": -7.216494845360824,
+  "volume": 28300,
+  "high": 10000.0,
+  "low": 9000.0,
+  "open": 10000.0,
+  "timestamp": "2026-02-01T08:55:15.525939",
+  "source": "vnstock/VCI"
+}

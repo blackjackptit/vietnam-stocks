@@ -1,0 +1,12 @@
+{
+  "symbol": "PVC",
+  "price": 14400.0,
+  "change": 300.0,
+  "change_percent": 2.127659574468085,
+  "volume": 3823300,
+  "high": 15200.0,
+  "low": 14100.0,
+  "open": 14100.0,
+  "timestamp": "2026-02-01T08:57:03.955998",
+  "source": "vnstock/VCI"
+}

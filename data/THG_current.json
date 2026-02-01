@@ -1,0 +1,12 @@
+{
+  "symbol": "THG",
+  "price": 45250.0,
+  "change": -250.0,
+  "change_percent": -0.5494505494505495,
+  "volume": 37500,
+  "high": 45500.0,
+  "low": 44800.0,
+  "open": 45500.0,
+  "timestamp": "2026-02-01T09:01:04.552557",
+  "source": "vnstock/VCI"
+}

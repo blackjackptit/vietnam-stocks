@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>🎉 NEW FEATURE: Historical Price Analysis Dashboard</title>
+<link rel="stylesheet" href="docs-style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head><body>
+<nav class="top-nav"><div class="nav-container">
+<a href="index.html" class="logo-text">📊 VNStock Analytics</a>
+<span class="page-title" data-i18n="footer.documentation">Documentation</span>
+</div></nav>
+<div class="container"><div class="content-card markdown-content">
+<h1>🎉 NEW FEATURE: Historical Price Analysis Dashboard</h1>
+
+<h2>What's New</h2>
+
+<p>I've created a <strong>professional-grade historical analysis dashboard</strong> that allows you to monitor price history and perform deep technical analysis on any stock in your watchlist!</p>
+
+<h2>Quick Access</h2>
+
+<pre><code>http://localhost:8888/dashboard_history.html</code></pre>
+
+<p>Or click the <strong>"📈 View Historical Analysis"</strong> button from any dashboard.</p>
+
+<h2>Key Features</h2>
+
+<h3>1. 📊 <strong>Interactive Price Chart</strong></h3>
+<ul>
+<li>Line chart showing price movement over time</li>
+<li><strong>MA20</strong> (20-day moving average) - Blue dotted line</li>
+<li><strong>MA50</strong> (50-day moving average) - Red dotted line</li>
+<li>Hover to see exact prices and dates</li>
+<li>Smooth animations and professional styling</li>
+</ul>
+
+<strong>What you can see:</strong>
+<ul>
+<li>Price trends (up/down/sideways)</li>
+<li>Support and resistance levels</li>
+<li>Golden Cross / Death Cross patterns</li>
+<li>Breakouts and breakdowns</li>
+</ul>
+
+<h3>2. 📊 <strong>Volume Analysis</strong></h3>
+<ul>
+<li>Bar chart showing daily trading volume</li>
+<li><strong>Green bars</strong>: Days with positive price movement</li>
+<li><strong>Red bars</strong>: Days with negative price movement</li>
+<li>Identify accumulation and distribution phases</li>
+</ul>
+
+<strong>What you can see:</strong>
+<ul>
+<li>Volume spikes (high interest)</li>
+<li>Volume patterns (confirming trends)</li>
+<li>Buyer vs seller pressure</li>
+</ul>
+
+<h3>3. 📈 <strong>RSI (Relative Strength Index)</strong></h3>
+<ul>
+<li>Dedicated RSI chart with 0-100 scale</li>
+<li><strong>Oversold zone</strong> (<30): Potential buy opportunity</li>
+<li><strong>Overbought zone</strong> (>70): Potential sell opportunity</li>
+<li>Visual markers at key levels</li>
+</ul>
+
+<strong>What you can see:</strong>
+<ul>
+<li>Momentum strength</li>
+<li>Overbought/oversold conditions</li>
+<li>Divergences (when RSI disagrees with price)</li>
+</ul>
+
+<h3>4. 📈 <strong>MACD Indicator</strong></h3>
+<ul>
+<li>MACD line (blue)</li>
+<li>Signal line (red)</li>
+<li>Histogram bars (green/red)</li>
+<li>Shows momentum and trend changes</li>
+</ul>
+
+<strong>What you can see:</strong>
+<ul>
+<li>Buy signals (MACD crosses above signal)</li>
+<li>Sell signals (MACD crosses below signal)</li>
+<li>Momentum building or fading</li>
+</ul>
+
+<h3>5. 📊 <strong>Technical Indicators Panel</strong></h3>
+<p>Live metrics displayed in cards:</p>
+<ul>
+<li><strong>Current Price</strong> with % change</li>
+<li><strong>RSI (14)</strong> with interpretation</li>
+<li><strong>MA20</strong> value</li>
+<li><strong>MA50</strong> value</li>
+<li><strong>Technical Score</strong> (-100 to +100)</li>
+<li><strong>Volume</strong> (formatted)</li>
+</ul>
+
+<h3>6. 🎯 <strong>Analysis & Signals</strong></h3>
+<ul>
+<li>Large recommendation badge (BUY/HOLD/SELL)</li>
+<li>Technical score</li>
+<li>List of all detected signals:</li>
+</ul>
+<p>  - Trend indicators</p>
+<p>  - Momentum signals</p>
+<p>  - Support/resistance levels</p>
+<p>  - Pattern formations</p>
+
+<h3>7. 📊 <strong>Price Statistics</strong></h3>
+<p>Comprehensive statistics:</p>
+<ul>
+<li><strong>Period High</strong>: Highest price in timeframe</li>
+<li><strong>Period Low</strong>: Lowest price in timeframe</li>
+<li><strong>Period Change</strong>: Total % change</li>
+<li><strong>Avg Volume</strong>: Average daily volume</li>
+<li><strong>Volatility</strong>: Price volatility %</li>
+<li><strong>52W Range</strong>: Annual price range</li>
+</ul>
+
+<h3>8. ⚙️ <strong>Flexible Controls</strong></h3>
+<ul>
+<li><strong>Stock selector</strong>: Choose any stock from your watchlist</li>
+<li><strong>Time period selector</strong>:</li>
+</ul>
+<p>  - 30 days (short-term)</p>
+<p>  - 60 days (default, recommended)</p>
+<p>  - 90 days (medium-term)</p>
+<p>  - 180 days (half-year)</p>
+<p>  - 365 days (full year)</p>
+<ul>
+<li><strong>Refresh button</strong>: Reload latest data</li>
+</ul>
+
+<h2>How It Works</h2>
+
+<h3>Data Flow</h3>
+<pre><code>Monitor scans stocks → Saves to output/ → Dashboard fetches latest data
+<p>     ↓                                              ↓</p>
+<p>Generates historical points              Renders charts with indicators</p>
+<p>     ↓                                              ↓</p>
+<p>Calculates MA20, MA50, RSI, MACD        Updates every 5 seconds (silent)</code></pre></p>
+
+<h3>Technical Calculations</h3>
+
+<p>All indicators are calculated using industry-standard formulas:</p>
+
+<strong>RSI (14-period)</strong>:
+<pre><code>RS = Average Gain / Average Loss
+<p>RSI = 100 - (100 / (1 + RS))</code></pre></p>
+
+<strong>Moving Averages</strong>:
+<pre><code>MA20 = Sum of last 20 closes / 20
+<p>MA50 = Sum of last 50 closes / 50</code></pre></p>
+
+<strong>MACD</strong>:
+<pre><code>MACD = EMA(12) - EMA(26)
+<p>Signal = EMA(9) of MACD</p>
+<p>Histogram = MACD - Signal</code></pre></p>
+
+<h2>Real-World Usage Examples</h2>
+
+<h3>Example 1: Finding Entry Points</h3>
+<pre><code>1. Select stock: VCB
+<p>2. Choose period: 60 days</p>
+<p>3. Check price chart:</p>
+<p>   - Price near MA50 support ✅</p>
+<p>4. Check RSI:</p>
+<p>   - RSI = 32 (oversold) ✅</p>
+<p>5. Check MACD:</p>
+<p>   - Histogram turning positive ✅</p>
+<p>6. Check volume:</p>
+<p>   - Decreasing on down days ✅</p>
+
+<p>Decision: Good entry point for long position</code></pre></p>
+
+<h3>Example 2: Taking Profits</h3>
+<pre><code>1. Select stock: HPG
+<p>2. Choose period: 90 days</p>
+<p>3. Check price chart:</p>
+<p>   - Price well above both MAs 🔴</p>
+<p>4. Check RSI:</p>
+<p>   - RSI = 78 (overbought) 🔴</p>
+<p>5. Check MACD:</p>
+<p>   - Histogram shrinking 🔴</p>
+<p>6. Check statistics:</p>
+<p>   - Near period high 🔴</p>
+
+<p>Decision: Consider taking profits</code></pre></p>
+
+<h3>Example 3: Trend Analysis</h3>
+<pre><code>1. Select stock: FPT
+<p>2. Choose period: 180 days</p>
+<p>3. Check price chart:</p>
+<p>   - Clear uptrend with higher lows ✅</p>
+<p>   - MA20 above MA50 (golden cross) ✅</p>
+<p>4. Check volume:</p>
+<p>   - Increasing on up days ✅</p>
+<p>5. Check technical score:</p>
+<p>   - Score = 45 (strong buy) ✅</p>
+
+<p>Decision: Strong uptrend, hold position</code></pre></p>
+
+<h2>Comparison with Other Dashboards</h2>
+
+<p>| Feature | Simple | Enhanced | Historical |</p>
+<p>|---------|--------|----------|------------|</p>
+<p>| <strong>Purpose</strong> | Quick overview | Multi-stock monitoring | Deep analysis |</p>
+<p>| <strong>Price history</strong> | ❌ | ❌ | ✅ Full timeline |</p>
+<p>| <strong>Moving averages</strong> | ❌ | ❌ | ✅ MA20 + MA50 |</p>
+<p>| <strong>Volume chart</strong> | ❌ | Bar | ✅ Timeline |</p>
+<p>| <strong>RSI</strong> | Single value | Line chart | ✅ Full timeline |</p>
+<p>| <strong>MACD</strong> | ❌ | ❌ | ✅ Full timeline |</p>
+<p>| <strong>Statistics</strong> | Basic | Summary | ✅ Detailed |</p>
+<p>| <strong>Timeframes</strong> | Current | Current | ✅ 30/60/90/180/365 days |</p>
+<p>| <strong>Best for</strong> | Quick check | Watchlist | Individual stocks |</p>
+
+<h2>Technical Benefits</h2>
+
+<h3>Performance</h3>
+<ul>
+<li>Charts update in place (no flickering)</li>
+<li>Silent background updates every 5 seconds</li>
+<li>Smooth animations</li>
+<li>Responsive design</li>
+</ul>
+
+<h3>Accuracy</h3>
+<ul>
+<li>Industry-standard indicator formulas</li>
+<li>Proper period calculations</li>
+<li>Accurate moving averages</li>
+<li>Correct RSI and MACD values</li>
+</ul>
+
+<h3>User Experience</h3>
+<ul>
+<li>Professional trading platform look</li>
+<li>Intuitive controls</li>
+<li>Clear visual hierarchy</li>
+<li>Comprehensive information</li>
+</ul>
+
+<h2>Integration with Existing System</h2>
+
+<h3>Seamless Navigation</h3>
+<ul>
+<li>Links on all dashboards to switch views</li>
+<li>Consistent styling and branding</li>
+<li>Shared watchlist system</li>
+<li>Same data source</li>
+</ul>
+
+<h3>Data Consistency</h3>
+<ul>
+<li>Uses same scan results as other dashboards</li>
+<li>Updates automatically with monitor</li>
+<li>No duplicate data storage</li>
+<li>Real-time synchronization</li>
+</ul>
+
+<h2>Educational Value</h2>
+
+<p>This dashboard teaches you:</p>
+<ul>
+<li>How to read price charts</li>
+<li>What moving averages mean</li>
+<li>How RSI indicates momentum</li>
+<li>What MACD signals represent</li>
+<li>Volume confirmation principles</li>
+<li>Technical analysis basics</li>
+</ul>
+
+<p>Perfect for:</p>
+<ul>
+<li>Beginners learning technical analysis</li>
+<li>Intermediate traders refining skills</li>
+<li>Advanced users doing deep research</li>
+</ul>
+
+<h2>What's Different from Other Tools</h2>
+
+<strong>Compared to investing.com or tradingview.com:</strong>
+<ul>
+<li>✅ Specifically for Vietnamese stocks</li>
+<li>✅ Integrated with your watchlist</li>
+<li>✅ No account needed</li>
+<li>✅ No ads or paywalls</li>
+<li>✅ Updates with your monitor</li>
+<li>✅ Runs locally (private)</li>
+</ul>
+
+<strong>Compared to broker platforms:</strong>
+<ul>
+<li>✅ No trading pressure</li>
+<li>✅ Educational focus</li>
+<li>✅ All indicators visible at once</li>
+<li>✅ Multiple timeframes easy to switch</li>
+<li>✅ Cleaner interface</li>
+</ul>
+
+<h2>Future Enhancements</h2>
+
+<p>Possible additions:</p>
+<ul>
+<li>[ ] Fibonacci retracement levels</li>
+<li>[ ] Bollinger Bands overlay</li>
+<li>[ ] Support/resistance lines</li>
+<li>[ ] Candlestick chart option</li>
+<li>[ ] Pattern recognition</li>
+<li>[ ] Comparison with index</li>
+<li>[ ] Export chart as image</li>
+<li>[ ] Alert system for levels</li>
+</ul>
+
+<h2>Files Added</h2>
+
+<pre><code>vietnam-stocks/
+<p>├── dashboard_history.html              # New historical dashboard</p>
+<p>├── HISTORICAL_ANALYSIS_GUIDE.md       # Detailed user guide</p>
+<p>└── NEW_FEATURE_HISTORICAL_ANALYSIS.md # This file</code></pre></p>
+
+<h2>Files Updated</h2>
+
+<pre><code>dashboard_enhanced.html    # Added navigation link
+<p>dashboard_realtime.html    # Added navigation link</p>
+<p>QUICK_START.md            # Added historical dashboard info</code></pre></p>
+
+<h2>Current Status</h2>
+
+<p>✅ <strong>Historical Dashboard</strong>: Live and ready</p>
+<p>✅ <strong>All Charts</strong>: Working perfectly</p>
+<p>✅ <strong>Auto-updates</strong>: Every 5 seconds</p>
+<p>✅ <strong>Navigation</strong>: Linked from all dashboards</p>
+<p>✅ <strong>Documentation</strong>: Complete guides available</p>
+
+<h2>How to Start Using It Right Now</h2>
+
+<h3>Step 1: Open the Dashboard</h3>
+<pre><code>http://localhost:8888/dashboard_history.html</code></pre>
+
+<h3>Step 2: Select Your Stock</h3>
+<p>Use the dropdown to choose from your watchlist</p>
+
+<h3>Step 3: Analyze</h3>
+<ul>
+<li>Look at price trend</li>
+<li>Check volume patterns</li>
+<li>Review RSI for momentum</li>
+<li>Examine MACD for signals</li>
+<li>Read the analysis panel</li>
+</ul>
+
+<h3>Step 4: Change Timeframe</h3>
+<p>Try different periods to understand:</p>
+<ul>
+<li>Short-term (30 days) - Day trading</li>
+<li>Medium-term (60-90 days) - Swing trading</li>
+<li>Long-term (180-365 days) - Position trading</li>
+</ul>
+
+<h3>Step 5: Make Informed Decisions</h3>
+<p>Combine all indicators:</p>
+<ul>
+<li>Price trend + Volume + RSI + MACD = High confidence</li>
+<li>2-3 confirming signals = Good probability</li>
+<li>1 signal only = Wait for confirmation</li>
+</ul>
+
+<h2>Tips for Best Results</h2>
+
+<p>1. <strong>Always check multiple timeframes</strong></p>
+<p>   - Short-term for entry timing</p>
+<p>   - Long-term for overall trend</p>
+
+<p>2. <strong>Confirm with volume</strong></p>
+<p>   - Price + Volume = Valid move</p>
+<p>   - Price alone = Suspicious</p>
+
+<p>3. <strong>Use RSI wisely</strong></p>
+<p>   - <30 = Look for reversal signs</p>
+<p>   - >70 = Consider profit taking</p>
+<p>   - 30-70 = Normal, check other indicators</p>
+
+<p>4. <strong>Watch MACD crossovers</strong></p>
+<p>   - Bullish cross = Potential buy</p>
+<p>   - Bearish cross = Potential sell</p>
+<p>   - Histogram = Momentum strength</p>
+
+<p>5. <strong>Respect moving averages</strong></p>
+<p>   - MA50 = Major support/resistance</p>
+<p>   - MA20 = Short-term trend</p>
+<p>   - Golden/Death cross = Important signal</p>
+
+<h2>Conclusion</h2>
+
+<p>You now have a <strong>professional-grade technical analysis tool</strong> for Vietnamese stocks that rivals commercial platforms!</p>
+
+<strong>What you gained:</strong>
+<ul>
+<li>✅ Price history visualization</li>
+<li>✅ Multiple technical indicators</li>
+<li>✅ Statistical analysis</li>
+<li>✅ Multiple timeframes</li>
+<li>✅ Professional charts</li>
+<li>✅ Educational value</li>
+</ul>
+
+<strong>Next steps:</strong>
+<p>1. Open: http://localhost:8888/dashboard_history.html</p>
+<p>2. Select a stock</p>
+<p>3. Explore different timeframes</p>
+<p>4. Read the signals</p>
+<p>5. Make better trading decisions!</p>
+
+<p>---</p>
+
+<strong>Need Help?</strong>
+<ul>
+<li>Read <code>HISTORICAL_ANALYSIS_GUIDE.md</code> for detailed instructions</li>
+<li>Check <code>QUICK_START.md</code> for system overview</li>
+<li>Review <code>FEATURES.md</code> for all features</li>
+</ul>
+
+<p>Happy trading! 📈📊💰</p>
+
+</div></div>
+<footer class="footer"><div class="footer-container">
+<p>© 2024 Vietnam Stock Analytics Platform</p>
+</div></footer>
+</body></html>

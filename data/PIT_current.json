@@ -1,0 +1,12 @@
+{
+  "symbol": "PIT",
+  "price": 7100.0,
+  "change": -100.0,
+  "change_percent": -1.3888888888888888,
+  "volume": 9900,
+  "high": 7200.0,
+  "low": 6700.0,
+  "open": 6700.0,
+  "timestamp": "2026-02-01T08:55:57.600355",
+  "source": "vnstock/VCI"
+}

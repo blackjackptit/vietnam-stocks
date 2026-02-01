@@ -1,0 +1,12 @@
+{
+  "symbol": "REE",
+  "price": 62100.0,
+  "change": 100.0,
+  "change_percent": 0.16129032258064516,
+  "volume": 740500,
+  "high": 62500.0,
+  "low": 61800.0,
+  "open": 62400.0,
+  "timestamp": "2026-02-01T08:57:58.352438",
+  "source": "vnstock/VCI"
+}

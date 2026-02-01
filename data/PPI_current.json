@@ -1,0 +1,12 @@
+{
+  "symbol": "PPI",
+  "price": 400.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 0,
+  "high": 400.0,
+  "low": 400.0,
+  "open": 400.0,
+  "timestamp": "2026-02-01T08:56:31.699865",
+  "source": "vnstock/VCI"
+}

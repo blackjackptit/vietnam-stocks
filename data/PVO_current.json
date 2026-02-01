@@ -1,0 +1,12 @@
+{
+  "symbol": "PVO",
+  "price": 6800.0,
+  "change": 300.0,
+  "change_percent": 4.615384615384616,
+  "volume": 81800,
+  "high": 6800.0,
+  "low": 6500.0,
+  "open": 6500.0,
+  "timestamp": "2026-02-01T08:57:22.387698",
+  "source": "vnstock/VCI"
+}

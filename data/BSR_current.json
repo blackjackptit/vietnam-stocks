@@ -1,0 +1,12 @@
+{
+  "symbol": "BSR",
+  "price": 22400.0,
+  "change": 550.0,
+  "change_percent": 2.517162471395881,
+  "volume": 22201400,
+  "high": 22900.0,
+  "low": 22050.0,
+  "open": 22500.0,
+  "timestamp": "2026-02-01T01:31:01.373359",
+  "source": "vnstock/VCI"
+}

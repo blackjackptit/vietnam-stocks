@@ -1,0 +1,12 @@
+{
+  "symbol": "SJE",
+  "price": 20300.0,
+  "change": 1100.0,
+  "change_percent": 5.729166666666666,
+  "volume": 293400,
+  "high": 20800.0,
+  "low": 19300.0,
+  "open": 19500.0,
+  "timestamp": "2026-02-01T08:59:19.745083",
+  "source": "vnstock/VCI"
+}

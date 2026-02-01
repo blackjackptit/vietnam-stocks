@@ -1,0 +1,12 @@
+{
+  "symbol": "NTL",
+  "price": 17050.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 591000,
+  "high": 17300.0,
+  "low": 17000.0,
+  "open": 17050.0,
+  "timestamp": "2026-02-01T08:54:45.716123",
+  "source": "vnstock/VCI"
+}

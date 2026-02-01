@@ -1,0 +1,12 @@
+{
+  "symbol": "PHR",
+  "price": 64300.0,
+  "change": 2300.0,
+  "change_percent": 3.7096774193548385,
+  "volume": 763700,
+  "high": 64900.00000000001,
+  "low": 62200.0,
+  "open": 63100.0,
+  "timestamp": "2026-02-01T08:55:52.993325",
+  "source": "vnstock/VCI"
+}

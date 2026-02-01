@@ -1,0 +1,12 @@
+{
+  "symbol": "TDH",
+  "price": 4270.0,
+  "change": -130.0,
+  "change_percent": -2.9545454545454546,
+  "volume": 129100,
+  "high": 4560.0,
+  "low": 4240.0,
+  "open": 4240.0,
+  "timestamp": "2026-02-01T09:00:47.942448",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "CMG",
+  "price": 35800.0,
+  "change": 250.0,
+  "change_percent": 0.7032348804500703,
+  "volume": 620400,
+  "high": 36450.0,
+  "low": 35550.0,
+  "open": 35650.0,
+  "timestamp": "2026-02-01T01:31:43.104657",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "DGW",
+  "price": 49000.0,
+  "change": 1950.0,
+  "change_percent": 4.1445270988310305,
+  "volume": 6248100,
+  "high": 49500.0,
+  "low": 48000.0,
+  "open": 48000.0,
+  "timestamp": "2026-02-01T01:23:27.394430",
+  "source": "vnstock/VCI"
+}

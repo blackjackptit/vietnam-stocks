@@ -1,0 +1,12 @@
+{
+  "symbol": "SCR",
+  "price": 7150.0,
+  "change": 100.0,
+  "change_percent": 1.4184397163120568,
+  "volume": 1632400,
+  "high": 7200.0,
+  "low": 7050.0,
+  "open": 7050.0,
+  "timestamp": "2026-02-01T08:58:30.279077",
+  "source": "vnstock/VCI"
+}

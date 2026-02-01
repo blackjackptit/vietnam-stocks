@@ -1,0 +1,12 @@
+{
+  "symbol": "PVT",
+  "price": 20750.0,
+  "change": 250.0,
+  "change_percent": 1.2195121951219512,
+  "volume": 4639700,
+  "high": 21400.0,
+  "low": 20700.0,
+  "open": 20800.0,
+  "timestamp": "2026-02-01T08:57:33.142393",
+  "source": "vnstock/VCI"
+}

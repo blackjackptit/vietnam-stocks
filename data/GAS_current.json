@@ -1,0 +1,12 @@
+{
+  "symbol": "GAS",
+  "price": 117000.0,
+  "change": 200.0,
+  "change_percent": 0.17123287671232876,
+  "volume": 3644900,
+  "high": 122000.0,
+  "low": 115800.0,
+  "open": 116800.0,
+  "timestamp": "2026-02-01T01:24:40.598662",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "TCL",
+  "price": 34900.0,
+  "change": 150.0,
+  "change_percent": 0.4316546762589928,
+  "volume": 24900,
+  "high": 35200.0,
+  "low": 34800.0,
+  "open": 34800.0,
+  "timestamp": "2026-02-01T09:00:25.522347",
+  "source": "vnstock/VCI"
+}

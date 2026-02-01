@@ -1,0 +1,12 @@
+{
+  "symbol": "SGT",
+  "price": 15200.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 14600,
+  "high": 15300.0,
+  "low": 15200.0,
+  "open": 15300.0,
+  "timestamp": "2026-02-01T08:58:53.933810",
+  "source": "vnstock/VCI"
+}

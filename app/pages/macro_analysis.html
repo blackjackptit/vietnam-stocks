@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/theme.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macro & Environmental Analysis - VNStock Analytics</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-nav {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-text {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #c41c16;
+            text-decoration: none;
+        }
+
+        .page-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #64748b;
+            border-left: 2px solid #e5e7eb;
+            padding-left: 16px;
+        }
+
+        .nav-menu {
+            position: relative;
+        }
+
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #c41c16;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s;
+        }
+
+        .menu-btn:hover {
+            background: #991b1b;
+            transform: translateY(-1px);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .menu-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            font-weight: 700;
+            color: #1e293b;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .menu-category {
+            padding: 12px 20px 8px;
+            font-weight: 700;
+            color: #64748b;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .menu-category:first-child {
+            border-top: none;
+        }
+
+
+        .menu-items {
+            padding: 0 0 8px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #475569;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .menu-item:hover {
+            background: #fef2f2;
+            color: #c41c16;
+        }
+
+        .menu-item-icon {
+            font-size: 1.2em;
+            width: 24px;
+            text-align: center;
+        }
+
+
+        .container {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .header {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            color: #1e293b;
+            font-size: 2.2em;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .factors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .factor-card {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            border-left: 4px solid #c41c16;
+        }
+
+        .factor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .factor-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .factor-icon {
+            font-size: 2em;
+        }
+
+        .factor-value {
+            font-size: 2em;
+            font-weight: 700;
+            color: #c41c16;
+            margin-bottom: 10px;
+        }
+
+        .factor-change {
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .factor-change.positive {
+            color: #10b981;
+        }
+
+        .factor-change.negative {
+            color: #ef4444;
+        }
+
+        .factor-impact {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #cbd5e1;
+        }
+
+        .impact-label {
+            color: #64748b;
+            font-size: 0.9em;
+            margin-bottom: 5px;
+        }
+
+        .impact-stocks {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .stock-tag {
+            background: #fef2f2;
+            color: #c41c16;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .stock-tag.high {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .stock-tag.negative {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .sentiment-bar {
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(90deg, #ef4444 0%, #f59e0b 25%, #fbbf24 50%, #84cc16 75%, #10b981 100%);
+            border-radius: 15px;
+            position: relative;
+            margin: 15px 0;
+        }
+
+        .sentiment-indicator {
+            position: absolute;
+            top: -10px;
+            width: 4px;
+            height: 50px;
+            background: #1e293b;
+            border-radius: 2px;
+        }
+
+        .sentiment-label {
+            text-align: center;
+            font-weight: 600;
+            margin-top: 10px;
+            font-size: 1.1em;
+        }
+
+        .news-item {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #c41c16;
+        }
+
+        .news-title {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .news-meta {
+            display: flex;
+            gap: 15px;
+            color: #64748b;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .news-sentiment {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.85em;
+        }
+
+        .news-sentiment.positive {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .news-sentiment.negative {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .news-sentiment.neutral {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin-top: 20px;
+        }
+
+        .correlation-matrix {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: 700;
+            color: #1e293b;
+            position: sticky;
+            top: 0;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .risk-level {
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9em;
+        }
+
+        .risk-level.low {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .risk-level.medium {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .risk-level.high {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .risk-level.critical {
+            background: #fecaca;
+            color: #7f1d1d;
+        }
+
+        .alert-box {
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 5px solid;
+        }
+
+        .alert-box.warning {
+            background: #fef3c7;
+            border-color: #f59e0b;
+            color: #92400e;
+        }
+
+        .alert-box.danger {
+            background: #fee2e2;
+            border-color: #ef4444;
+            color: #991b1b;
+        }
+
+        .alert-box.info {
+            background: #dbeafe;
+            border-color: #3b82f6;
+            color: #1e40af;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: #f1f5f9;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .tab:hover {
+            background: #e2e8f0;
+        }
+
+        .tab.active {
+            background: #3a7ca5;
+            color: white;
+            border-color: #3a7ca5;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .metric-box {
+            background: linear-gradient(135deg, #3a7ca5 0%, #2d5a7b 100%);
+            padding: 20px;
+            border-radius: 12px;
+            color: white;
+            text-align: center;
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: 700;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 40px 24px 24px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1360px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: white;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-size: 0.9em;
+        }
+
+        .footer-links a:hover {
+            color: #f59e0b;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            padding-top: 20px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.85em;
+        }
+
+    </style>
+    <script src="js/collapsible.js"></script>
+    <script src="js/logo.js"></script>
+    <script src="js/api-config.js"></script>
+    <script src="js/stock-categories.js"></script>
+    <script src="js/data-api.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="logo-section">
+                <span class="logo-icon">📊</span>
+                <a href="index.html" class="logo-text">VNStock Analytics</a>
+                <span class="page-title" data-i18n="nav.macro">Macro Analysis</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="nav-menu">
+                    <button class="menu-btn" onclick="toggleMenu()">
+                        📊 Dashboards
+                        <span id="menuArrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <div class="menu-header">All Dashboards</div>
+
+                        <div class="menu-category">📊 Market Analysis</div>
+                        <div class="menu-items">
+                            <a href="dashboard.html" class="menu-item">
+                                <span class="menu-item-icon">📊</span>
+                                <span data-i18n="nav.dashboard">Main Dashboard</span>
+                            </a>
+                            <a href="dashboard_history.html" class="menu-item">
+                                <span class="menu-item-icon">📊</span>
+                                <span data-i18n="nav.history">Historical Analysis</span>
+                            </a>
+                            <a href="advanced_charts.html" class="menu-item">
+                                <span class="menu-item-icon">📉</span>
+                                <span data-i18n="nav.charts">Advanced Charts</span>
+                            </a>
+                        </div>
+
+                        <div class="menu-category">💼 Investment Tools</div>
+                        <div class="menu-items">
+                            <a href="price_forecast.html" class="menu-item">
+                                <span class="menu-item-icon">🔮</span>
+                                <span>Price Forecasting</span>
+                            </a>
+                            <a href="dashboard_advanced.html" class="menu-item">
+                                <span class="menu-item-icon">💼</span>
+                                <span data-i18n="portfolio.title">Portfolio Analytics</span>
+                            </a>
+                            <a href="macro_analysis.html" class="menu-item">
+                                <span class="menu-item-icon">🌍</span>
+                                <span data-i18n="nav.macro">Macro Analysis</span>
+                            </a>
+                        </div>
+
+                        <div class="menu-category">🔔 Automation & Alerts</div>
+                        <div class="menu-items">
+                            <a href="alerts_system.html" class="menu-item">
+                                <span class="menu-item-icon">🔔</span>
+                                <span>Price Alerts</span>
+                            </a>
+                            <a href="trading_automation.html" class="menu-item">
+                                <span class="menu-item-icon">🤖</span>
+                                <span data-i18n="nav.automation">Trading Automation</span>
+                            </a>
+                        </div>
+                    <a href="settings.html" class="menu-item">
+                            <span class="menu-item-icon">⚙️</span>
+                            <span data-i18n="nav.settings">Settings</span>
+                        </a>
+
+                    </div>
+                
+
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>🌍 <span data-i18n="macro.title">Macroeconomic & Environmental Analysis</span></h1>
+            <p style="color: #666; font-size: 1.1em;" data-i18n="macro.subtitle">Global Factors Impact on Vietnamese Market</p>
+            <p style="color: #94a3b8; font-size: 0.95em; margin-top: 8px; font-weight: 500;">
+                📅 <span data-i18n="macro.last_updated">Last Updated</span>: <span id="reportTimestamp"></span>
+            </p>
+        </div>
+
+        <!-- Market Sentiment -->
+        <div class="card">
+            <h2>📊 <span data-i18n="macro.market_sentiment">Overall Market Sentiment</span></h2>
+            <div class="sentiment-bar">
+                <div class="sentiment-indicator" id="sentimentIndicator"></div>
+            </div>
+            <div class="sentiment-label" id="sentimentLabel">Neutral</div>
+            <div style="margin-top: 20px;">
+                <p style="color: #64748b; text-align: center;" data-i18n="macro.sentiment_based_on">
+                    Based on: Oil prices, geopolitical tensions, monetary policy, economic indicators, and market news
+                </p>
+            </div>
+        </div>
+
+        <!-- Alert Section -->
+        <div id="alertsContainer"></div>
+
+        <!-- Key Metrics -->
+        <div class="card">
+            <h2>🔑 <span data-i18n="macro.key_indicators">Key Economic Indicators</span></h2>
+            <div class="metric-grid">
+                <div class="metric-box">
+                    <div class="metric-label" data-i18n="macro.oil_price">Global Oil Price</div>
+                    <div class="metric-value" id="oilPrice">$85.30</div>
+                </div>
+                <div class="metric-box" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                    <div class="metric-label" data-i18n="macro.gdp_growth">VN GDP Growth</div>
+                    <div class="metric-value" id="gdpGrowth">6.5%</div>
+                </div>
+                <div class="metric-box" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                    <div class="metric-label" data-i18n="macro.inflation">Inflation Rate</div>
+                    <div class="metric-value" id="inflation">3.2%</div>
+                </div>
+                <div class="metric-box" style="background: linear-gradient(135deg, #c41c16 0%, #7f1d1d 100%);">
+                    <div class="metric-label" data-i18n="macro.exchange_rate">USD/VND Rate</div>
+                    <div class="metric-value" id="exchangeRate">24,250</div>
+                </div>
+                <div class="metric-box" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+                    <div class="metric-label" data-i18n="macro.interest_rate">Interest Rate</div>
+                    <div class="metric-value" id="interestRate">4.5%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <div class="tab active" data-tab="factors" onclick="switchTab('factors')" data-i18n="macro.tab.factors">Environmental Factors</div>
+            <div class="tab" data-tab="commodities" onclick="switchTab('commodities')" data-i18n="macro.tab.commodities">Commodities Impact</div>
+            <div class="tab" data-tab="geopolitical" onclick="switchTab('geopolitical')" data-i18n="macro.tab.geopolitical">Geopolitical Risks</div>
+            <div class="tab" data-tab="policy" onclick="switchTab('policy')" data-i18n="macro.tab.policy">Policy Changes</div>
+            <div class="tab" data-tab="news" onclick="switchTab('news')" data-i18n="macro.tab.news">News & Events</div>
+            <div class="tab" data-tab="correlation" onclick="switchTab('correlation')" data-i18n="macro.tab.correlation">Factor Correlation</div>
+        </div>
+
+        <!-- Environmental Factors Tab -->
+        <div class="tab-content active" id="factors">
+            <div class="card">
+                <h2>🌍 <span data-i18n="macro.factors_impact">Environmental Factors Impact</span></h2>
+                <div class="factors-grid" id="factorsGrid">
+                    <!-- Will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Commodities Tab -->
+        <div class="tab-content" id="commodities">
+            <div class="card">
+                <h2>⛽ <span data-i18n="macro.commodities_energy">Commodities & Energy Impact</span></h2>
+                <div class="chart-container">
+                    <canvas id="commoditiesChart"></canvas>
+                </div>
+
+                <h3 style="margin-top: 30px; color: #1e3a5f;" data-i18n="macro.sector_impact">Sector Impact Analysis</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th data-i18n="macro.commodity">Commodity</th>
+                            <th data-i18n="macro.current_price">Current Price</th>
+                            <th data-i18n="table.change">Change</th>
+                            <th data-i18n="macro.impact_level">Impact Level</th>
+                            <th data-i18n="macro.affected_sectors">Affected Sectors</th>
+                        </tr>
+                    </thead>
+                    <tbody id="commoditiesTable">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Geopolitical Risks Tab -->
+        <div class="tab-content" id="geopolitical">
+            <div class="card">
+                <h2>⚠️ <span data-i18n="macro.geopolitical_assessment">Geopolitical Risk Assessment</span></h2>
+                <div id="geopoliticalRisks"></div>
+
+                <h3 style="margin-top: 30px; color: #1e3a5f;" data-i18n="macro.regional_tensions">Regional Tensions Impact</h3>
+                <div class="chart-container">
+                    <canvas id="geopoliticalChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Policy Changes Tab -->
+        <div class="tab-content" id="policy">
+            <div class="card">
+                <h2>📋 <span data-i18n="macro.policy_regulatory">Policy & Regulatory Changes</span></h2>
+                <div id="policyChanges"></div>
+
+                <h3 style="margin-top: 30px; color: #1e3a5f;" data-i18n="macro.policy_timeline">Policy Impact Timeline</h3>
+                <div class="chart-container">
+                    <canvas id="policyChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- News & Events Tab -->
+        <div class="tab-content" id="news">
+            <div class="card">
+                <h2>📰 <span data-i18n="macro.market_news">Market News & Events</span></h2>
+                <div id="newsContainer"></div>
+            </div>
+        </div>
+
+        <!-- Factor Correlation Tab -->
+        <div class="tab-content" id="correlation">
+            <div class="card">
+                <h2>🔗 <span data-i18n="macro.factor_correlation">Environmental Factor Correlation</span></h2>
+                <p style="color: #64748b; margin-bottom: 20px;" data-i18n="macro.correlation_desc">
+                    How different environmental factors correlate with Vietnamese stock market sectors
+                </p>
+                <div class="correlation-matrix">
+                    <div class="chart-container">
+                        <canvas id="correlationChart"></canvas>
+                    </div>
+                </div>
+
+                <h3 style="margin-top: 30px; color: #1e3a5f;" data-i18n="macro.correlation_matrix">Correlation Matrix</h3>
+                <table id="correlationTable"></table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let charts = {};
+
+        // Environmental factors data
+        const environmentalFactors = {
+            oil_price: {
+                name: 'Global Oil Prices',
+                icon: '⛽',
+                value: '$85.30',
+                change: '+2.5%',
+                trend: 'up',
+                impact: 'high',
+                description: 'Rising oil prices increase costs for transportation, manufacturing, and utilities',
+                affected_positive: ['GAS', 'PLX', 'PVD', 'BSR'],
+                affected_negative: ['VJC', 'HVN', 'VNL', 'TCM']
+            },
+            interest_rate: {
+                name: 'Interest Rates',
+                icon: '💰',
+                value: '4.5%',
+                change: '+0.25%',
+                trend: 'up',
+                impact: 'high',
+                description: 'Higher interest rates increase borrowing costs, affecting real estate and banking',
+                affected_positive: ['VCB', 'TCB', 'MBB', 'BID'],
+                affected_negative: ['VHM', 'VIC', 'NVL', 'PDR']
+            },
+            usd_vnd: {
+                name: 'USD/VND Exchange Rate',
+                icon: '💱',
+                value: '24,250',
+                change: '-0.5%',
+                trend: 'down',
+                impact: 'medium',
+                description: 'Weaker VND benefits exporters but increases import costs',
+                affected_positive: ['FPT', 'CMG', 'VGI', 'HPG'],
+                affected_negative: ['VNM', 'SAB', 'MSN', 'MWG']
+            },
+            china_economy: {
+                name: 'China Economic Growth',
+                icon: '🇨🇳',
+                value: '5.2%',
+                change: '-0.3%',
+                trend: 'down',
+                impact: 'high',
+                description: 'China slowdown affects Vietnam exports and manufacturing',
+                affected_positive: [],
+                affected_negative: ['HPG', 'HSG', 'NKG', 'DCM']
+            },
+            us_fed_policy: {
+                name: 'US Federal Reserve Policy',
+                icon: '🏦',
+                value: 'Hawkish',
+                change: 'Tightening',
+                trend: 'down',
+                impact: 'high',
+                description: 'Fed tightening reduces foreign investment in emerging markets',
+                affected_positive: [],
+                affected_negative: ['VN-Index', 'Blue Chips', 'All Sectors']
+            },
+            inflation: {
+                name: 'Vietnam Inflation',
+                icon: '📈',
+                value: '3.2%',
+                change: '+0.1%',
+                trend: 'up',
+                impact: 'medium',
+                description: 'Moderate inflation affects purchasing power and consumer spending',
+                affected_positive: ['Real Estate', 'Commodities'],
+                affected_negative: ['Consumer', 'Retail']
+            },
+            tech_war: {
+                name: 'US-China Tech War',
+                icon: '⚔️',
+                value: 'High Tension',
+                change: 'Escalating',
+                trend: 'down',
+                impact: 'medium',
+                description: 'Tech war creates opportunities for Vietnam manufacturing shift',
+                affected_positive: ['FPT', 'CMG', 'SAM', 'VGI'],
+                affected_negative: []
+            },
+            supply_chain: {
+                name: 'Global Supply Chain',
+                icon: '🚢',
+                value: 'Improving',
+                change: 'Normalizing',
+                trend: 'up',
+                impact: 'medium',
+                description: 'Supply chain recovery improves manufacturing and exports',
+                affected_positive: ['HSG', 'HPG', 'NKG', 'DCM'],
+                affected_negative: []
+            }
+        };
+
+        // Geopolitical risks
+        const geopoliticalRisks = [
+            {
+                event: 'South China Sea Tensions',
+                risk_level: 'medium',
+                probability: '40%',
+                impact: 'High',
+                affected_sectors: ['Defense', 'Maritime', 'Tourism'],
+                description: 'Ongoing territorial disputes could affect regional trade and investment',
+                stocks_affected: ['VJC', 'HVN', 'VTO', 'VNL']
+            },
+            {
+                event: 'Russia-Ukraine Conflict',
+                risk_level: 'high',
+                probability: '90%',
+                impact: 'Medium',
+                affected_sectors: ['Energy', 'Agriculture', 'Commodities'],
+                description: 'War drives up energy and food prices globally',
+                stocks_affected: ['GAS', 'PLX', 'VNM', 'SAB']
+            },
+            {
+                event: 'Middle East Instability',
+                risk_level: 'medium',
+                probability: '50%',
+                impact: 'High',
+                affected_sectors: ['Oil & Gas', 'Transportation'],
+                description: 'Regional conflicts threaten oil supply and prices',
+                stocks_affected: ['PLX', 'PVD', 'BSR', 'VJC']
+            },
+            {
+                event: 'US-China Trade Relations',
+                risk_level: 'low',
+                probability: '60%',
+                impact: 'Medium',
+                affected_sectors: ['Technology', 'Manufacturing', 'Exports'],
+                description: 'Improving relations as manufacturing shifts to Vietnam',
+                stocks_affected: ['FPT', 'CMG', 'HPG', 'HSG']
+            }
+        ];
+
+        // Policy changes
+        const policyChanges = [
+            {
+                policy: 'Digital Economy Tax Framework',
+                date: '2026-Q1',
+                type: 'Fiscal',
+                impact: 'Positive',
+                description: 'New framework supports digital businesses with tax incentives for AI and tech innovation',
+                affected: ['Technology', 'E-commerce', 'Fintech'],
+                stocks: ['FPT', 'CMG', 'VGI', 'MWG']
+            },
+            {
+                policy: 'Green Bond Market Development',
+                date: '2025-Q4',
+                type: 'Environmental',
+                impact: 'Positive',
+                description: 'Government launches green bond program to fund renewable energy transition',
+                affected: ['Utilities', 'Energy', 'Banking'],
+                stocks: ['POW', 'REE', 'VCB', 'TCB']
+            },
+            {
+                policy: 'Infrastructure Investment Acceleration',
+                date: '2025-Q3',
+                type: 'Fiscal',
+                impact: 'Positive',
+                description: 'Major infrastructure spending increase for high-speed rail and ports',
+                affected: ['Construction', 'Transportation', 'Industrial'],
+                stocks: ['HPG', 'HSG', 'CTD', 'HT1']
+            },
+            {
+                policy: 'Foreign Investment Incentives',
+                date: '2025-Q2',
+                type: 'Regulatory',
+                impact: 'Positive',
+                description: 'Enhanced incentives for FDI in high-tech manufacturing and semiconductors',
+                affected: ['Technology', 'Manufacturing', 'Industrial'],
+                stocks: ['FPT', 'CMG', 'HPG', 'HSG']
+            }
+        ];
+
+        // News items
+        const newsItems = [
+            {
+                title: 'Vietnam-EU Trade Agreement Expansion',
+                date: '2026-02-01',
+                sentiment: 'positive',
+                impact: 'High',
+                description: 'New trade provisions boost Vietnam exports to EU, particularly electronics and textiles',
+                affected_stocks: ['FPT', 'CMG', 'VGT', 'MSH'],
+                url: 'https://e.vnexpress.net/business'
+            },
+            {
+                title: 'Semiconductor Manufacturing Investment Wave',
+                date: '2026-01-30',
+                sentiment: 'positive',
+                impact: 'High',
+                description: 'Major semiconductor firms announce $5B investment in Vietnam facilities',
+                affected_stocks: ['FPT', 'CMG', 'REE', 'HPG'],
+                url: 'https://e.vnexpress.net/business'
+            },
+            {
+                title: 'ASEAN Digital Economy Framework Launched',
+                date: '2026-01-28',
+                sentiment: 'positive',
+                impact: 'High',
+                description: 'Regional digital trade framework accelerates e-commerce and fintech growth',
+                affected_stocks: ['MWG', 'FPT', 'VCB', 'TCB'],
+                url: 'https://e.vnexpress.net/business'
+            },
+            {
+                title: 'Green Energy Transition Accelerates',
+                date: '2026-01-25',
+                sentiment: 'positive',
+                impact: 'Medium',
+                description: 'Government announces 50% renewable energy target by 2030, boosting clean energy sector',
+                affected_stocks: ['POW', 'REE', 'GEG', 'PC1'],
+                url: 'https://e.vnexpress.net/business'
+            },
+            {
+                title: 'Infrastructure Mega-Projects Approved',
+                date: '2026-01-22',
+                sentiment: 'positive',
+                impact: 'High',
+                description: 'High-speed rail and port expansion projects worth $20B receive approval',
+                affected_stocks: ['HPG', 'HSG', 'CTD', 'HT1'],
+                url: 'https://e.vnexpress.net/business'
+            }
+        ];
+
+        function updateReportTimestamp() {
+            const now = new Date();
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            };
+            const timestamp = now.toLocaleString('en-US', options);
+            document.getElementById('reportTimestamp').textContent = timestamp;
+        }
+
+        function init() {
+            updateReportTimestamp();
+            renderEnvironmentalFactors();
+            renderGeopoliticalRisks();
+            renderPolicyChanges();
+            renderNews();
+            renderCommoditiesImpact();
+            renderCorrelationAnalysis();
+            calculateOverallSentiment();
+            generateAlerts();
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        function renderEnvironmentalFactors() {
+            const container = document.getElementById('factorsGrid');
+            let html = '';
+
+            Object.values(environmentalFactors).forEach(factor => {
+                const changeClass = factor.trend === 'up' ? 'positive' : 'negative';
+                const impactColor = factor.impact === 'high' ? '#ef4444' :
+                                   factor.impact === 'medium' ? '#f59e0b' : '#10b981';
+
+                html += `
+                    <div class="factor-card" style="border-left-color: ${impactColor};">
+                        <div class="factor-header">
+                            <div class="factor-title">${factor.name}</div>
+                            <div class="factor-icon">${factor.icon}</div>
+                        </div>
+                        <div class="factor-value">${factor.value}</div>
+                        <div class="factor-change ${changeClass}">${factor.change}</div>
+                        <p style="color: #64748b; font-size: 0.9em; margin-top: 10px;">
+                            ${factor.description}
+                        </p>
+                        <div class="factor-impact">
+                            ${factor.affected_positive.length > 0 ? `
+                                <div class="impact-label">✅ ${t('macro.factor.positively_affected')}:</div>
+                                <div class="impact-stocks">
+                                    ${factor.affected_positive.map(s =>
+                                        `<span class="stock-tag high">${s}</span>`
+                                    ).join('')}
+                                </div>
+                            ` : ''}
+                            ${factor.affected_negative.length > 0 ? `
+                                <div class="impact-label" style="margin-top: 10px;">❌ ${t('macro.factor.negatively_affected')}:</div>
+                                <div class="impact-stocks">
+                                    ${factor.affected_negative.map(s =>
+                                        `<span class="stock-tag negative">${s}</span>`
+                                    ).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function renderGeopoliticalRisks() {
+            const container = document.getElementById('geopoliticalRisks');
+            let html = '';
+
+            geopoliticalRisks.forEach(risk => {
+                const riskClass = risk.risk_level === 'high' ? 'danger' :
+                                 risk.risk_level === 'medium' ? 'warning' : 'info';
+
+                html += `
+                    <div class="alert-box ${riskClass}" style="margin-bottom: 20px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                            <h3 style="margin: 0;">${risk.event}</h3>
+                            <span class="risk-level ${risk.risk_level}">${risk.risk_level.toUpperCase()} RISK</span>
+                        </div>
+                        <p style="margin-bottom: 10px;">${risk.description}</p>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px;">
+                            <div>
+                                <strong>${t('macro.risk.probability')}:</strong> ${risk.probability}
+                            </div>
+                            <div>
+                                <strong>${t('macro.impact_label')}:</strong> ${t('macro.level.' + risk.impact.toLowerCase())}
+                            </div>
+                            <div>
+                                <strong>${t('macro.risk.sectors')}:</strong> ${risk.affected_sectors.join(', ')}
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px;">
+                            <strong>${t('macro.risk.affected_stocks')}:</strong>
+                            ${risk.stocks_affected.map(s => `<span class="stock-tag">${s}</span>`).join(' ')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+
+            // Create Regional Tensions Impact Chart
+            renderRegionalTensionsChart();
+        }
+
+        function renderRegionalTensionsChart() {
+            const ctx = document.getElementById('geopoliticalChart');
+
+            charts.geopolitical = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['South China Sea', 'Russia-Ukraine', 'Middle East', 'US-China Relations'],
+                    datasets: [{
+                        label: 'Risk Probability (%)',
+                        data: [40, 90, 50, 60],
+                        backgroundColor: 'rgba(239, 68, 68, 0.6)',
+                        borderColor: '#ef4444',
+                        borderWidth: 2,
+                        yAxisID: 'y'
+                    }, {
+                        label: 'Market Impact Score (0-100)',
+                        data: [75, 60, 80, 55],
+                        backgroundColor: 'rgba(251, 146, 60, 0.6)',
+                        borderColor: '#f97316',
+                        borderWidth: 2,
+                        yAxisID: 'y'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Regional Geopolitical Tensions - Risk Assessment',
+                            font: { size: 16, weight: 'bold' }
+                        },
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += context.parsed.y;
+                                    if (context.datasetIndex === 0) {
+                                        label += '%';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Score / Probability (%)'
+                            }
+                        },
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Geopolitical Events'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderPolicyChanges() {
+            const container = document.getElementById('policyChanges');
+            let html = '';
+
+            policyChanges.forEach(policy => {
+                const impactColor = policy.impact === 'Positive' ? '#10b981' : '#ef4444';
+                const impactBg = policy.impact === 'Positive' ? '#dcfce7' : '#fee2e2';
+
+                html += `
+                    <div class="news-item">
+                        <div class="news-title">${policy.policy}</div>
+                        <div class="news-meta">
+                            <span>📅 ${policy.date}</span>
+                            <span>📋 ${policy.type}</span>
+                            <span style="background: ${impactBg}; color: ${impactColor}; padding: 2px 10px; border-radius: 10px; font-weight: 600;">
+                                ${t('macro.impact.' + policy.impact.toLowerCase())}
+                            </span>
+                        </div>
+                        <p style="color: #475569; margin-bottom: 10px;">${policy.description}</p>
+                        <div>
+                            <strong>${t('macro.policy.affected_sectors')}:</strong> ${policy.affected.join(', ')}
+                        </div>
+                        <div style="margin-top: 8px;">
+                            <strong>${t('macro.policy.stocks')}:</strong>
+                            ${policy.stocks.map(s => `<span class="stock-tag">${s}</span>`).join(' ')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+
+            // Create Policy Impact Timeline Chart
+            renderPolicyTimelineChart();
+        }
+
+        function renderPolicyTimelineChart() {
+            const ctx = document.getElementById('policyChart');
+
+            // Extract policy data for chart
+            const labels = policyChanges.map(p => p.policy.substring(0, 25) + '...');
+            const impactScores = policyChanges.map(p => p.impact === 'Positive' ? 75 : 40);
+            const colors = policyChanges.map(p => p.impact === 'Positive' ? 'rgba(16, 185, 129, 0.7)' : 'rgba(239, 68, 68, 0.7)');
+
+            charts.policy = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Policy Impact Score',
+                        data: impactScores,
+                        backgroundColor: colors,
+                        borderColor: colors.map(c => c.replace('0.7', '1')),
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    indexAxis: 'y', // Horizontal bar chart
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Policy & Regulatory Impact Timeline',
+                            font: { size: 16, weight: 'bold' }
+                        },
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const policy = policyChanges[context.dataIndex];
+                                    return [
+                                        'Impact: ' + policy.impact,
+                                        'Type: ' + policy.type,
+                                        'Date: ' + policy.date
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: 'Impact Score (0-100)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderNews() {
+            const container = document.getElementById('newsContainer');
+            let html = '';
+
+            newsItems.forEach(news => {
+                html += `
+                    <div class="news-item">
+                        <div class="news-title">
+                            <a href="${news.url}" target="_blank" rel="noopener noreferrer" style="color: #1e3a5f; text-decoration: none;">
+                                ${news.title} 🔗
+                            </a>
+                        </div>
+                        <div class="news-meta">
+                            <span>📅 ${news.date}</span>
+                            <span class="news-sentiment ${news.sentiment}">${t('macro.sentiment.' + news.sentiment)}</span>
+                            <span>${t('macro.impact_label')}: ${t('macro.level.' + news.impact.toLowerCase())}</span>
+                        </div>
+                        <p style="color: #475569; margin-bottom: 10px;">${news.description}</p>
+                        <div>
+                            <strong>${t('common.affected')}:</strong> ${news.affected_stocks.join(', ')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function renderCommoditiesImpact() {
+            const ctx = document.getElementById('commoditiesChart');
+
+            charts.commodities = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan 1', 'Jan 8', 'Jan 15', 'Jan 22', 'Jan 29'],
+                    datasets: [{
+                        label: 'Oil Price ($/barrel)',
+                        data: [78, 82, 85, 83, 85],
+                        borderColor: '#ef4444',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                        yAxisID: 'y'
+                    }, {
+                        label: 'VN-Index',
+                        data: [1200, 1180, 1195, 1210, 1205],
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        yAxisID: 'y1'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Oil Price vs VN-Index Correlation'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            type: 'linear',
+                            display: true,
+                            position: 'left',
+                            title: { display: true, text: 'Oil Price ($)' }
+                        },
+                        y1: {
+                            type: 'linear',
+                            display: true,
+                            position: 'right',
+                            title: { display: true, text: 'VN-Index' },
+                            grid: { drawOnChartArea: false }
+                        }
+                    }
+                }
+            });
+
+            // Commodities table
+            const table = document.getElementById('commoditiesTable');
+            table.innerHTML = `
+                <tr>
+                    <td>Crude Oil</td>
+                    <td>$85.30/barrel</td>
+                    <td style="color: #10b981; font-weight: 600;">+2.5%</td>
+                    <td><span class="risk-level high">HIGH</span></td>
+                    <td>Oil & Gas (+), Airlines (-), Logistics (-)</td>
+                </tr>
+                <tr>
+                    <td>Gold</td>
+                    <td>5,520,000 VND/g</td>
+                    <td style="color: #10b981; font-weight: 600;">+1.2%</td>
+                    <td><span class="risk-level medium">MEDIUM</span></td>
+                    <td>Commodities (+), Safe Haven Demand</td>
+                </tr>
+                <tr>
+                    <td>Steel</td>
+                    <td>$650/ton</td>
+                    <td style="color: #ef4444; font-weight: 600;">-0.8%</td>
+                    <td><span class="risk-level medium">MEDIUM</span></td>
+                    <td>Steel (+), Construction (+)</td>
+                </tr>
+                <tr>
+                    <td>Natural Gas</td>
+                    <td>$2.85/MMBtu</td>
+                    <td style="color: #10b981; font-weight: 600;">+3.5%</td>
+                    <td><span class="risk-level high">HIGH</span></td>
+                    <td>Utilities (-), Fertilizer (-)</td>
+                </tr>
+            `;
+        }
+
+        function renderCorrelationAnalysis() {
+            const ctx = document.getElementById('correlationChart');
+
+            const factors = ['Oil Price', 'Interest Rate', 'USD/VND', 'China GDP', 'US Fed'];
+            const sectors = ['Oil & Gas', 'Banks', 'Real Estate', 'Technology', 'Consumer'];
+
+            // Simulated correlation data
+            const correlationData = [
+                [0.85, -0.45, -0.65, 0.35, -0.55],  // Oil & Gas
+                [-0.25, 0.92, 0.15, -0.35, 0.88],   // Banks
+                [-0.35, -0.78, 0.45, 0.55, -0.82],  // Real Estate
+                [0.15, -0.15, 0.72, 0.68, -0.25],   // Technology
+                [-0.45, 0.25, -0.55, 0.45, 0.35]    // Consumer
+            ];
+
+            charts.correlation = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: factors,
+                    datasets: sectors.map((sector, i) => ({
+                        label: sector,
+                        data: correlationData[i],
+                        backgroundColor: `hsla(${i * 72}, 70%, 60%, 0.6)`
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Factor-Sector Correlation Analysis'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            min: -1,
+                            max: 1,
+                            title: { display: true, text: 'Correlation Coefficient' }
+                        }
+                    }
+                }
+            });
+
+            // Correlation matrix table
+            const table = document.getElementById('correlationTable');
+            let html = '<thead><tr><th>Sector</th>';
+            factors.forEach(f => html += `<th>${f}</th>`);
+            html += '</tr></thead><tbody>';
+
+            sectors.forEach((sector, i) => {
+                html += `<tr><th>${sector}</th>`;
+                correlationData[i].forEach(corr => {
+                    const color = corr > 0.5 ? '#10b981' : corr < -0.5 ? '#ef4444' : '#64748b';
+                    html += `<td style="color: ${color}; font-weight: 600;">${corr.toFixed(2)}</td>`;
+                });
+                html += '</tr>';
+            });
+            html += '</tbody>';
+            table.innerHTML = html;
+        }
+
+        function calculateOverallSentiment() {
+            // Calculate based on multiple factors
+            let score = 50; // Start neutral
+
+            // Oil price impact
+            if (environmentalFactors.oil_price.trend === 'up') score -= 5;
+
+            // Interest rate impact
+            if (environmentalFactors.interest_rate.trend === 'up') score -= 10;
+
+            // Exchange rate impact
+            if (environmentalFactors.usd_vnd.trend === 'down') score += 5;
+
+            // China economy
+            if (environmentalFactors.china_economy.trend === 'down') score -= 8;
+
+            // US Fed policy
+            if (environmentalFactors.us_fed_policy.value === 'Hawkish') score -= 10;
+
+            // Supply chain
+            if (environmentalFactors.supply_chain.trend === 'up') score += 8;
+
+            // Normalize to 0-100
+            score = Math.max(0, Math.min(100, score));
+
+            // Position indicator
+            const indicator = document.getElementById('sentimentIndicator');
+            indicator.style.left = `${score}%`;
+
+            // Set label
+            const label = document.getElementById('sentimentLabel');
+            if (score > 70) {
+                label.textContent = t('macro.sentiment.bullish');
+                label.style.color = '#10b981';
+            } else if (score > 55) {
+                label.textContent = t('macro.sentiment.bullish');
+                label.style.color = '#84cc16';
+            } else if (score >= 45) {
+                label.textContent = t('macro.sentiment.neutral');
+                label.style.color = '#f59e0b';
+            } else if (score >= 30) {
+                label.textContent = t('macro.sentiment.bearish');
+                label.style.color = '#f97316';
+            } else {
+                label.textContent = t('macro.sentiment.bearish');
+                label.style.color = '#ef4444';
+            }
+        }
+
+        function generateAlerts() {
+            const container = document.getElementById('alertsContainer');
+            let html = '';
+
+            // Check for high-impact conditions
+            if (environmentalFactors.oil_price.trend === 'up' &&
+                parseFloat(environmentalFactors.oil_price.change) > 2) {
+                html += `
+                    <div class="alert-box warning">
+                        <strong>⚠️ ${t('macro.alert.high_oil')}</strong>
+                        <p style="margin-top: 10px;">
+                            Oil prices up ${environmentalFactors.oil_price.change}.
+                            ${t('macro.alert.consider')}: ${t('common.sell')} airlines (VJC, HVN), ${t('common.buy')} oil & gas (GAS, PLX, PVD)
+                        </p>
+                    </div>
+                `;
+            }
+
+            if (environmentalFactors.interest_rate.trend === 'up') {
+                html += `
+                    <div class="alert-box danger">
+                        <strong>🚨 Interest Rate Increase Alert</strong>
+                        <p style="margin-top: 10px;">
+                            Rising interest rates negative for real estate.
+                            Consider: Reduce exposure to VHM, VIC, NVL. Increase banks: VCB, TCB
+                        </p>
+                    </div>
+                `;
+            }
+
+            geopoliticalRisks.forEach(risk => {
+                if (risk.risk_level === 'high') {
+                    html += `
+                        <div class="alert-box danger">
+                            <strong>🚨 ${t('macro.alert.geopolitical_risk')}: ${risk.event}</strong>
+                            <p style="margin-top: 10px;">
+                                ${risk.description}. ${t('common.affected')}: ${risk.stocks_affected.join(', ')}
+                            </p>
+                        </div>
+                    `;
+                }
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Initialize
+        init();
+    </script>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('dropdownMenu');
+            const arrow = document.getElementById('menuArrow');
+            menu.classList.toggle('active');
+            arrow.textContent = menu.classList.contains('active') ? '▲' : '▼';
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('dropdownMenu');
+            const menuBtn = event.target.closest('.menu-btn');
+            if (!menuBtn && !event.target.closest('.dropdown-menu')) {
+                menu.classList.remove('active');
+                const arrow = document.getElementById('menuArrow');
+                if (arrow) arrow.textContent = '▼';
+            }
+        });
+    </script>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3 data-i18n="menu.dashboards">Dashboards</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+                        <li><a href="dashboard.html" data-i18n="nav.dashboard">Main Dashboard</a></li>
+                        <li><a href="dashboard_history.html" data-i18n="nav.history">Historical Analysis</a></li>
+                        <li><a href="advanced_charts.html" data-i18n="nav.charts">Advanced Charts</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 data-i18n="menu.tools">Tools</h3>
+                    <ul class="footer-links">
+                        <li><a href="price_forecast.html">Price Forecasting</a></li>
+                        <li><a href="dashboard_advanced.html" data-i18n="portfolio.title">Portfolio Analytics</a></li>
+                        <li><a href="macro_analysis.html" data-i18n="nav.macro">Macro Analysis</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 data-i18n="menu.automation">Automation</h3>
+                    <ul class="footer-links">
+                        <li><a href="alerts_system.html">Price Alerts</a></li>
+                        <li><a href="trading_automation.html" data-i18n="nav.automation">Trading Automation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 data-i18n="menu.platform">Platform</h3>
+                    <ul class="footer-links">
+                        <li><a href="API_SERVER_SETUP.html">API Documentation</a></li>
+                        <li><a href="README_API.html">Quick Start</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p data-i18n="footer.copyright_full">© 2026 VNStock Analytics. Built with advanced AI and data analytics.</p>
+                <p style="margin-top: 8px;" data-i18n="footer.disclaimer">For educational purposes only. Not financial advice. Trade at your own risk.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "symbol": "MCH",
+  "price": 159100.0,
+  "change": 1000.0,
+  "change_percent": 0.6325110689437065,
+  "volume": 203900,
+  "high": 161900.0,
+  "low": 158200.0,
+  "open": 161900.0,
+  "timestamp": "2026-02-01T08:53:31.679694",
+  "source": "vnstock/VCI"
+}

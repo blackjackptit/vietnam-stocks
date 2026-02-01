@@ -1,0 +1,12 @@
+{
+  "symbol": "NKG",
+  "price": 15200.0,
+  "change": -100.0,
+  "change_percent": -0.6535947712418301,
+  "volume": 3550700,
+  "high": 15700.0,
+  "low": 15200.0,
+  "open": 15450.0,
+  "timestamp": "2026-02-01T08:54:31.584052",
+  "source": "vnstock/VCI"
+}

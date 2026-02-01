@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>💎 Commodities Separated from Stocks</title>
+<link rel="stylesheet" href="docs-style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head><body>
+<nav class="top-nav"><div class="nav-container">
+<a href="index.html" class="logo-text">📊 VNStock Analytics</a>
+<span class="page-title" data-i18n="footer.documentation">Documentation</span>
+</div></nav>
+<div class="container"><div class="content-card markdown-content">
+<h1>💎 Commodities Separated from Stocks</h1>
+
+<h2>Overview</h2>
+
+<p>Gold and Silver commodities are now <strong>visually and functionally separated</strong> from stocks throughout the platform.</p>
+
+<p>---</p>
+
+<h2>What Changed</h2>
+
+<h3><strong>1. Enhanced Dashboard - Separate Category</strong></h3>
+
+<strong>New "Commodities" Tab:</strong>
+<ul>
+<li>💎 <strong>Commodities</strong> tab (gold/amber color) - shows ONLY precious metals</li>
+<li><strong>All Stocks</strong> tab - shows stocks ONLY (commodities excluded)</li>
+<li>Other category tabs (Blue Chips, Banks, etc.) - stocks only</li>
+</ul>
+
+<strong>Visual Distinction:</strong>
+<ul>
+<li>Commodities have <strong>💎 diamond icon</strong></li>
+<li><strong>Amber/gold border</strong> (vs blue for stocks)</li>
+<li>Separate heatmap sections:</li>
+</ul>
+<p>  - "💎 Commodities" section with gold borders</p>
+<p>  - "📈 Stocks" section</p>
+
+<h3><strong>2. Stock Picker</strong></h3>
+
+<strong>Before:</strong>
+<pre><code>All Assets (mixed):
+<p>  GOLD</p>
+<p>  SILVER</p>
+<p>  VCB</p>
+<p>  HPG</p>
+<p>  ...</code></pre></p>
+
+<strong>After:</strong>
+<pre><code>💎 Commodities Category:
+<p>  💎 GOLD - Gold - Vàng</p>
+<p>  💎 SILVER - Silver - Bạc</p>
+<p>  💎 XAU - Gold - Vàng (XAU)</p>
+<p>  💎 XAG - Silver - Bạc (XAG)</p>
+
+<p>All Stocks Category (commodities excluded):</p>
+<p>  VCB - Vietcombank</p>
+<p>  HPG - Hòa Phát Group</p>
+<p>  VNM - Vinamilk</p>
+<p>  ...</code></pre></p>
+
+<h3><strong>3. Updated Terminology</strong></h3>
+
+<strong>Changed:</strong>
+<ul>
+<li>"Selected Stocks: X stocks" → <strong>"Selected Assets: X items"</strong></li>
+<li>"Customize your watchlist to focus on stocks" → <strong>"Customize your watchlist with stocks and commodities"</strong></li>
+</ul>
+
+<h3><strong>4. Visual Indicators</strong></h3>
+
+<strong>Commodities:</strong>
+<ul>
+<li>💎 Diamond icon prefix</li>
+<li>Amber/gold border color (#f59e0b)</li>
+<li>Gold gradient on category tab</li>
+<li>Special styling in heatmap</li>
+</ul>
+
+<strong>Stocks:</strong>
+<ul>
+<li>No icon</li>
+<li>Blue border color (#1e3c72)</li>
+<li>Standard styling</li>
+</ul>
+
+<p>---</p>
+
+<h2>How to Use</h2>
+
+<h3><strong>Enhanced Dashboard</strong></h3>
+
+<p>1. <strong>View Commodities Only:</strong></p>
+<p>   - Click "💎 Commodities" tab</p>
+<p>   - See GOLD, SILVER, XAU, XAG</p>
+
+<p>2. <strong>View All Stocks (no commodities):</strong></p>
+<p>   - Click "All Stocks" tab</p>
+<p>   - See 200+ Vietnamese stocks</p>
+<p>   - Commodities are automatically filtered out</p>
+
+<p>3. <strong>Select Mixed Watchlist:</strong></p>
+<p>   - Switch between tabs to select both</p>
+<p>   - Or select all in one category</p>
+<p>   - Apply to watchlist</p>
+
+<h3><strong>Historical Analysis</strong></h3>
+
+<p>Commodities and stocks can be selected together:</p>
+<ul>
+<li>Multi-select dropdown shows both</li>
+<li>Compare: GOLD vs VCB vs HPG</li>
+<li>Charts show all selected assets with different colors</li>
+</ul>
+
+<h3><strong>Price Forecast</strong></h3>
+
+<p>Generate forecasts for both:</p>
+<ul>
+<li>Select: GOLD + SILVER + VNM</li>
+<li>Generate forecast for 30 days</li>
+<li>Compare commodity trends vs stock trends</li>
+</ul>
+
+<p>---</p>
+
+<h2>Categories Structure</h2>
+
+<pre><code>📊 STOCK DATABASE
+<p>│</p>
+<p>├── 💎 COMMODITIES (Separate)</p>
+<p>│   ├── GOLD</p>
+<p>│   ├── SILVER</p>
+<p>│   ├── XAU</p>
+<p>│   └── XAG</p>
+<p>│</p>
+<p>├── 📈 STOCKS</p>
+<p>│   ├── Blue Chips (20 stocks)</p>
+<p>│   ├── Banks (16 stocks)</p>
+<p>│   ├── Real Estate (16 stocks)</p>
+<p>│   ├── Technology (14 stocks)</p>
+<p>│   ├── Consumer (13 stocks)</p>
+<p>│   ├── Industrial (10 stocks)</p>
+<p>│   ├── Oil & Gas (11 stocks)</p>
+<p>│   ├── Securities (1 stock)</p>
+<p>│   ├── Utilities (2 stocks)</p>
+<p>│   ├── Transport (2 stocks)</p>
+<p>│   └── Affordable (15 stocks)</p>
+<p>│</p>
+<p>└── ALL STOCKS</p>
+<p>    └── Combined (excludes commodities)</code></pre></p>
+
+<p>---</p>
+
+<h2>Visual Examples</h2>
+
+<h3><strong>Category Tabs</strong></h3>
+
+<pre><code>┌───────────────┬──────────┬────────────┬───────┬────────────┐
+<p>│ 💎 Commodities│All Stocks│ Blue Chips │ Banks │Real Estate │</p>
+<p>│   (GOLD TAB)  │          │            │       │            │</p>
+<p>└───────────────┴──────────┴────────────┴───────┴────────────┘</p>
+<p>     ▲</p>
+<p>  Gold gradient background</code></pre></p>
+
+<h3><strong>Stock Tiles</strong></h3>
+
+<strong>Commodity:</strong>
+<pre><code>┌─────────────────────┐
+<p>│ 💎 GOLD            │ ← Diamond icon + amber border</p>
+<p>│ Gold - Vàng        │</p>
+<p>└─────────────────────┘</code></pre></p>
+
+<strong>Stock:</strong>
+<pre><code>┌─────────────────────┐
+<p>│ VCB                │ ← Blue border</p>
+<p>│ Vietcombank        │</p>
+<p>└─────────────────────┘</code></pre></p>
+
+<h3><strong>Heatmap Display</strong></h3>
+
+<pre><code>┌─ Performance Heatmap ────────────────────┐
+<p>│                                          │</p>
+<p>│ 💎 Commodities                           │</p>
+<p>│ ┌──────┬──────┬──────┬──────┐          │</p>
+<p>│ │💎GOLD│💎SILV│💎XAU │💎XAG │          │ ← Gold borders</p>
+<p>│ │+2.5% │+1.8% │+2.5% │+1.8% │          │</p>
+<p>│ └──────┴──────┴──────┴──────┘          │</p>
+<p>│                                          │</p>
+<p>│ 📈 Stocks                                │</p>
+<p>│ ┌────┬────┬────┬────┬────┬────┐        │</p>
+<p>│ │VCB │HPG │VNM │FPT │MSN │...│        │ ← Regular borders</p>
+<p>│ │+1.2│-0.5│+0.8│+2.1│-1.3│   │        │</p>
+<p>│ └────┴────┴────┴────┴────┴────┘        │</p>
+<p>└──────────────────────────────────────────┘</code></pre></p>
+
+<p>---</p>
+
+<h2>Benefits</h2>
+
+<h3><strong>1. Clear Asset Classification</strong></h3>
+<ul>
+<li>No confusion between commodities and stocks</li>
+<li>Easy to filter by asset type</li>
+<li>Professional categorization</li>
+</ul>
+
+<h3><strong>2. Better Portfolio Diversification</strong></h3>
+<ul>
+<li>Select stocks for growth</li>
+<li>Add gold/silver for hedging</li>
+<li>Compare different asset classes</li>
+</ul>
+
+<h3><strong>3. Specialized Analysis</strong></h3>
+<ul>
+<li>Commodity-specific charts</li>
+<li>Stock-specific technical indicators</li>
+<li>Side-by-side comparison</li>
+</ul>
+
+<h3><strong>4. User Experience</strong></h3>
+<ul>
+<li>Intuitive navigation</li>
+<li>Visual distinction at a glance</li>
+<li>Faster asset selection</li>
+</ul>
+
+<p>---</p>
+
+<h2>Technical Details</h2>
+
+<h3><strong>Data Structure</strong></h3>
+
+<pre><code>const STOCK_DATABASE = {
+<p>    // Separated commodities</p>
+<p>    commodities: ['GOLD', 'SILVER', 'XAU', 'XAG'],</p>
+
+<p>    // Stock categories (no commodities)</p>
+<p>    blue_chips: ['VCB', 'VHM', ...],</p>
+<p>    banks: ['VCB', 'TCB', ...],</p>
+<p>    // ... other stock categories</p>
+
+<p>    // All stocks combined (excludes commodities)</p>
+<p>    all: [...allStocksOnly]</p>
+<p>};</code></pre></p>
+
+<h3><strong>Filtering Logic</strong></h3>
+
+<pre><code>// "All Stocks" excludes commodities
+<p>const allSymbols = [...new Set(Object.entries(STOCK_DATABASE)</p>
+<p>    .filter(([key]) => key !== 'commodities' && key !== 'all')</p>
+<p>    .flatMap(([_, symbols]) => symbols))];</p>
+
+<p>// Check if symbol is commodity</p>
+<p>const isCommodity = (symbol) =></p>
+<p>    STOCK_DATABASE.commodities.includes(symbol);</code></pre></p>
+
+<h3><strong>Visual Styling</strong></h3>
+
+<pre><code>// Apply different styling based on asset type
+<p>const borderColor = isCommodity(symbol) ? '#f59e0b' : '#1e3c72';</p>
+<p>const icon = isCommodity(symbol) ? '💎' : '';</code></pre></p>
+
+<p>---</p>
+
+<h2>Files Modified</h2>
+
+<p>1. <strong>dashboard_enhanced.html</strong></p>
+<p>   - Added commodities tab</p>
+<p>   - Separated heatmap sections</p>
+<p>   - Visual indicators for commodities</p>
+<p>   - Updated terminology</p>
+
+<p>2. <strong>index.html</strong></p>
+<p>   - Updated feature description</p>
+<p>   - Clarified commodities separation</p>
+
+<p>3. <strong>COMMODITIES_SEPARATION.md</strong> (NEW)</p>
+<p>   - This documentation file</p>
+
+<p>---</p>
+
+<h2>Next Steps</h2>
+
+<strong>Optional Enhancements:</strong>
+
+<p>1. <strong>Dedicated Commodities Dashboard</strong></p>
+<p>   - Create <code>commodities_dashboard.html</code></p>
+<p>   - Specialized charts for precious metals</p>
+<p>   - Gold/Silver correlation analysis</p>
+
+<p>2. <strong>Commodity-Specific Technical Indicators</strong></p>
+<p>   - Moving averages for gold/silver</p>
+<p>   - Gold/Silver ratio</p>
+<p>   - Historical high/low comparisons</p>
+
+<p>3. <strong>Multi-Currency Support</strong></p>
+<p>   - Show prices in USD</p>
+<p>   - Show prices in VND</p>
+<p>   - Exchange rate display</p>
+
+<p>4. <strong>Commodity News Feed</strong></p>
+<p>   - Gold market news</p>
+<p>   - Silver market updates</p>
+<p>   - Central bank announcements</p>
+
+<p>---</p>
+
+<h2>Summary</h2>
+
+<p>✅ <strong>Commodities are now clearly separated from stocks</strong></p>
+<ul>
+<li>Dedicated "💎 Commodities" category tab</li>
+<li>Visual distinction with gold borders and diamond icons</li>
+<li>Separate heatmap sections</li>
+<li>"All Stocks" excludes commodities by default</li>
+<li>Can still select and compare both together</li>
+</ul>
+
+<strong>The platform now provides professional asset class separation while maintaining flexibility for mixed portfolios!</strong> 💎📈
+
+</div></div>
+<footer class="footer"><div class="footer-container">
+<p>© 2024 Vietnam Stock Analytics Platform</p>
+</div></footer>
+</body></html>

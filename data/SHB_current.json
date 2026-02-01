@@ -1,0 +1,12 @@
+{
+  "symbol": "SHB",
+  "price": 16000.0,
+  "change": 50.0,
+  "change_percent": 0.3134796238244514,
+  "volume": 53345400,
+  "high": 16200.0,
+  "low": 15800.0,
+  "open": 15900.0,
+  "timestamp": "2026-02-01T08:58:59.783496",
+  "source": "vnstock/VCI"
+}

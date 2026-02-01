@@ -1,0 +1,12 @@
+{
+  "symbol": "VGC",
+  "price": 50100.0,
+  "change": 3200.0,
+  "change_percent": 6.823027718550106,
+  "volume": 4140800,
+  "high": 50100.0,
+  "low": 47050.0,
+  "open": 47050.0,
+  "timestamp": "2026-02-01T09:03:12.338962",
+  "source": "vnstock/VCI"
+}

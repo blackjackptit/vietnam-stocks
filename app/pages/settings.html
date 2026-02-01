@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Vietnamese Stock Analytics Platform</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #f8fafc;
+            color: #333333;
+            line-height: 1.6;
+        }
+
+        .top-nav {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-text {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #c41c16;
+            text-decoration: none;
+        }
+
+        .page-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #64748b;
+            border-left: 2px solid #e5e7eb;
+            padding-left: 16px;
+        }
+
+        .nav-menu {
+            position: relative;
+        }
+
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #c41c16;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .menu-btn:hover {
+            background: #991b1b;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .menu-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            font-weight: 700;
+            color: #1e293b;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .menu-category {
+            padding: 12px 20px 8px;
+            font-weight: 700;
+            color: #64748b;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .menu-items {
+            padding: 0 0 8px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #475569;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .menu-item:hover {
+            background: #fef2f2;
+            color: #c41c16;
+        }
+
+        .menu-item-icon {
+            font-size: 1.2em;
+            width: 24px;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .settings-header {
+            margin-bottom: 32px;
+        }
+
+        .settings-header h1 {
+            font-size: 2.5em;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        .settings-header p {
+            color: #64748b;
+            font-size: 1.1em;
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        .settings-card {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .settings-card h2 {
+            font-size: 1.5em;
+            color: #1e293b;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .settings-card .description {
+            color: #64748b;
+            font-size: 0.95em;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 8px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #c41c16;
+            box-shadow: 0 0 0 3px rgba(196, 28, 22, 0.1);
+        }
+
+        .form-group .hint {
+            font-size: 0.85em;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+            margin-top: 24px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1em;
+        }
+
+        .btn-primary {
+            background: #c41c16;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #991b1b;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #e5e7eb;
+            color: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #cbd5e1;
+        }
+
+        .success-message {
+            display: none;
+            background: #10b981;
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            animation: slideIn 0.3s;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .footer {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 32px 24px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1360px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: #c41c16;
+        }
+    </style>
+    <script src="js/custom-dialogs.js"></script>
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="logo-section">
+                <a href="index.html" class="logo-text" data-i18n="home.title">📊 VNStock Analytics</a>
+                <span class="page-title" data-i18n="nav.settings">Settings</span>
+            </div>
+            <div class="nav-menu">
+                <button class="menu-btn" onclick="toggleMenu()">
+                    📊 Dashboards
+                    <span id="menuArrow">▼</span>
+                </button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <div class="menu-header" data-i18n="menu.all_dashboards">All Dashboards</div>
+
+                    <div class="menu-category" data-i18n="menu.market_analysis">📊 Market Analysis</div>
+                    <div class="menu-items">
+                        <a href="dashboard.html" class="menu-item">
+                            <span class="menu-item-icon">📊</span>
+                            <span data-i18n="nav.dashboard">Main Dashboard</span>
+                        </a>
+                        <a href="dashboard_history.html" class="menu-item">
+                            <span class="menu-item-icon">📈</span>
+                            <span data-i18n="nav.history">Historical Analysis</span>
+                        </a>
+                        <a href="advanced_charts.html" class="menu-item">
+                            <span class="menu-item-icon">📉</span>
+                            <span data-i18n="nav.charts">Advanced Charts</span>
+                        </a>
+                        <a href="macro_analysis.html" class="menu-item">
+                            <span class="menu-item-icon">🌍</span>
+                            <span data-i18n="home.macro_analysis">Macro Analysis</span>
+                        </a>
+                    </div>
+
+                    <div class="menu-category">💹 Portfolio & Trading</div>
+                    <div class="menu-items">
+                        <a href="dashboard_advanced.html" class="menu-item">
+                            <span class="menu-item-icon">💹</span>
+                            <span data-i18n="portfolio.title">Portfolio Analytics</span>
+                        </a>
+                        <a href="price_forecast.html" class="menu-item">
+                            <span class="menu-item-icon">🔮</span>
+                            <span data-i18n="nav.forecast">Price Forecast</span>
+                        </a>
+                        <a href="trading_automation.html" class="menu-item">
+                            <span class="menu-item-icon">🤖</span>
+                            <span data-i18n="nav.automation">Trading Automation</span>
+                        </a>
+                    </div>
+
+                    <div class="menu-category">⚙️ Tools & Settings</div>
+                    <div class="menu-items">
+                        <a href="alerts_system.html" class="menu-item">
+                            <span class="menu-item-icon">🔔</span>
+                            <span data-i18n="nav.alerts">Alerts System</span>
+                        </a>
+                        <a href="settings.html" class="menu-item">
+                            <span class="menu-item-icon">⚙️</span>
+                            <span data-i18n="nav.settings">Settings</span>
+                        </a>
+                        <a href="index.html" class="menu-item">
+                            <span class="menu-item-icon">🏠</span>
+                            <span data-i18n="nav.home">Home</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="success-message" id="successMessage">
+            ✓ Settings saved successfully!
+        </div>
+
+        <div class="settings-header">
+            <h1 data-i18n="settings.title">⚙️ Settings</h1>
+            <p data-i18n="settings.subtitle">Configure your preferences and platform settings</p>
+        </div>
+
+        <div class="settings-grid">
+            <!-- Budget Settings -->
+            <div class="settings-card">
+                <h2 data-i18n="settings.budget">💰 Budget & Portfolio</h2>
+                <p class="description">Configure your investment budget and portfolio settings</p>
+
+                <div class="form-group">
+                    <label for="currency" data-i18n="settings.currency_label">Currency</label>
+                    <select id="currency">
+                        <option value="VND">🇻🇳 Vietnamese Dong (VND)</option>
+                        <option value="USD">🇺🇸 US Dollar (USD)</option>
+                        <option value="EUR">🇪🇺 Euro (EUR)</option>
+                        <option value="GBP">🇬🇧 British Pound (GBP)</option>
+                        <option value="JPY">🇯🇵 Japanese Yen (JPY)</option>
+                        <option value="CNY">🇨🇳 Chinese Yuan (CNY)</option>
+                        <option value="KRW">🇰🇷 Korean Won (KRW)</option>
+                        <option value="THB">🇹🇭 Thai Baht (THB)</option>
+                        <option value="SGD">🇸🇬 Singapore Dollar (SGD)</option>
+                        <option value="AUD">🇦🇺 Australian Dollar (AUD)</option>
+                        <option value="CAD">🇨🇦 Canadian Dollar (CAD)</option>
+                        <option value="CHF">🇨🇭 Swiss Franc (CHF)</option>
+                    </select>
+                    <div class="hint">Select your preferred currency for display</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="totalBudget" data-i18n="settings.total_budget">Total Investment Budget</label>
+                    <input type="number" id="totalBudget" placeholder="100000000" step="1000000">
+                    <div class="hint">Enter your total investment budget in selected currency</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="riskTolerance" data-i18n="settings.risk_tolerance">Risk Tolerance</label>
+                    <select id="riskTolerance">
+                        <option value="conservative">Conservative (Low Risk)</option>
+                        <option value="moderate">Moderate (Balanced)</option>
+                        <option value="aggressive">Aggressive (High Risk)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="maxPositionSize" data-i18n="settings.max_position">Maximum Position Size (%)</label>
+                    <input type="number" id="maxPositionSize" placeholder="10" min="1" max="100">
+                    <div class="hint">Maximum percentage of portfolio per stock</div>
+                </div>
+            </div>
+
+            <!-- Data Refresh Settings -->
+            <div class="settings-card">
+                <h2 data-i18n="settings.refresh">🔄 Data Refresh</h2>
+                <p class="description">Control how often data is refreshed</p>
+
+                <div class="form-group">
+                    <label for="refreshInterval" data-i18n="settings.refresh_interval">Dashboard Refresh Interval</label>
+                    <select id="refreshInterval">
+                        <option value="5000">5 seconds (Real-time)</option>
+                        <option value="10000">10 seconds</option>
+                        <option value="30000">30 seconds</option>
+                        <option value="60000" data-i18n="timerange.1min">1 minute</option>
+                        <option value="300000" data-i18n="timerange.5min">5 minutes</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="chartUpdateInterval">Chart Update Interval</label>
+                    <select id="chartUpdateInterval">
+                        <option value="10000">10 seconds</option>
+                        <option value="30000">30 seconds</option>
+                        <option value="60000">1 minute</option>
+                        <option value="300000">5 minutes</option>
+                    </select>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="autoRefresh">
+                    <label for="autoRefresh">Enable automatic data refresh</label>
+                </div>
+            </div>
+
+            <!-- API Settings -->
+            <div class="settings-card">
+                <h2 data-i18n="settings.api">🔌 API Configuration</h2>
+                <p class="description">Configure API endpoints and connection settings</p>
+
+                <div class="form-group">
+                    <label for="apiBaseUrl">API Base URL</label>
+                    <input type="text" id="apiBaseUrl" placeholder="http://localhost:5000">
+                    <div class="hint">Base URL for API server</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="apiTimeout">API Timeout (ms)</label>
+                    <input type="number" id="apiTimeout" placeholder="10000" min="1000" max="60000">
+                    <div class="hint">Request timeout in milliseconds</div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="enableCache">
+                    <label for="enableCache">Enable data caching</label>
+                </div>
+
+                <div class="form-group">
+                    <label for="cacheExpiry">Cache Expiry (minutes)</label>
+                    <input type="number" id="cacheExpiry" placeholder="5" min="1" max="60">
+                </div>
+            </div>
+
+            <!-- Display Preferences -->
+            <div class="settings-card">
+                <h2 data-i18n="settings.display">🎨 Display Preferences</h2>
+                <p class="description">Customize the look and feel</p>
+
+                <div class="form-group">
+                    <label for="chartTheme">Chart Theme</label>
+                    <select id="chartTheme">
+                        <option value="light" data-i18n="option.light">Light</option>
+                        <option value="dark" data-i18n="option.dark">Dark</option>
+                        <option value="auto">Auto (System)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="chartType">Default Chart Type</label>
+                    <select id="chartType">
+                        <option value="line">Line Chart</option>
+                        <option value="candlestick" data-i18n="option.candlestick">Candlestick</option>
+                        <option value="area">Area Chart</option>
+                    </select>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="showGridLines">
+                    <label for="showGridLines">Show grid lines on charts</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="animateCharts">
+                    <label for="animateCharts">Animate chart transitions</label>
+                </div>
+
+                <div class="form-group">
+                    <label for="decimalPlaces">Price Decimal Places</label>
+                    <input type="number" id="decimalPlaces" placeholder="2" min="0" max="4">
+                </div>
+            </div>
+
+            <!-- Alert Settings -->
+            <div class="settings-card">
+                <h2 data-i18n="settings.alerts">🔔 Alerts & Notifications</h2>
+                <p class="description">Configure price alerts and notifications</p>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="enableAlerts">
+                    <label for="enableAlerts">Enable price alerts</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="enableSound">
+                    <label for="enableSound">Enable sound notifications</label>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="enableBrowserNotif">
+                    <label for="enableBrowserNotif">Enable browser notifications</label>
+                </div>
+
+                <div class="form-group">
+                    <label for="alertThreshold">Price Change Alert Threshold (%)</label>
+                    <input type="number" id="alertThreshold" placeholder="5" min="1" max="50">
+                    <div class="hint">Alert when price changes by this percentage</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="volumeAlertMultiplier">Volume Alert Multiplier</label>
+                    <input type="number" id="volumeAlertMultiplier" placeholder="2" min="1" max="10">
+                    <div class="hint">Alert when volume exceeds average by this multiplier</div>
+                </div>
+            </div>
+
+            <!-- Trading Settings -->
+            <div class="settings-card">
+                <h2 data-i18n="settings.trading">📊 Trading Configuration</h2>
+                <p class="description">Configure trading strategies and parameters</p>
+
+                <div class="form-group">
+                    <label for="tradingStrategy">Default Strategy</label>
+                    <select id="tradingStrategy">
+                        <option value="momentum">Momentum Trading</option>
+                        <option value="mean_reversion">Mean Reversion</option>
+                        <option value="trend_following">Trend Following</option>
+                        <option value="value">Value Investing</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="stopLoss">Default Stop Loss (%)</label>
+                    <input type="number" id="stopLoss" placeholder="5" min="1" max="20">
+                </div>
+
+                <div class="form-group">
+                    <label for="takeProfit">Default Take Profit (%)</label>
+                    <input type="number" id="takeProfit" placeholder="10" min="1" max="50">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="enableAutoTrading">
+                    <label for="enableAutoTrading">Enable automated trading (USE WITH CAUTION)</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <button class="btn btn-secondary" onclick="resetSettings()" data-i18n="button.reset_defaults">Reset to Defaults</button>
+            <button class="btn btn-primary" onclick="saveSettings()" data-i18n="button.save_settings">Save Settings</button>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div>
+                <p>&copy; 2024 Vietnam Stock Analytics Platform</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html" data-i18n="nav.home">Home</a>
+                <a href="dashboard.html" data-i18n="footer.dashboard">Dashboard</a>
+                <a href="README.html" data-i18n="footer.documentation">Documentation</a>
+                <a href="settings.html" data-i18n="nav.settings">Settings</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Default settings
+        const DEFAULT_SETTINGS = {
+            currency: 'VND',
+            totalBudget: 100000000,
+            riskTolerance: 'moderate',
+            maxPositionSize: 10,
+            refreshInterval: 5000,
+            chartUpdateInterval: 30000,
+            autoRefresh: true,
+            apiBaseUrl: 'http://localhost:5000',
+            apiTimeout: 10000,
+            enableCache: true,
+            cacheExpiry: 5,
+            chartTheme: 'light',
+            chartType: 'line',
+            showGridLines: true,
+            animateCharts: true,
+            decimalPlaces: 2,
+            enableAlerts: true,
+            enableSound: false,
+            enableBrowserNotif: false,
+            alertThreshold: 5,
+            volumeAlertMultiplier: 2,
+            tradingStrategy: 'momentum',
+            stopLoss: 5,
+            takeProfit: 10,
+            enableAutoTrading: false
+        };
+
+        // Load settings on page load
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem('platformSettings')) || DEFAULT_SETTINGS;
+
+            // Populate form fields
+            Object.keys(settings).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    if (element.type === 'checkbox') {
+                        element.checked = settings[key];
+                    } else {
+                        element.value = settings[key];
+                    }
+                }
+            });
+        }
+
+        // Save settings
+        function saveSettings() {
+            const settings = {};
+
+            // Collect all form values
+            Object.keys(DEFAULT_SETTINGS).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    if (element.type === 'checkbox') {
+                        settings[key] = element.checked;
+                    } else if (element.type === 'number') {
+                        settings[key] = parseFloat(element.value) || DEFAULT_SETTINGS[key];
+                    } else {
+                        settings[key] = element.value || DEFAULT_SETTINGS[key];
+                    }
+                }
+            });
+
+            // Save to localStorage
+            localStorage.setItem('platformSettings', JSON.stringify(settings));
+
+            // Show success message
+            const successMsg = document.getElementById('successMessage');
+            successMsg.classList.add('show');
+            setTimeout(() => {
+                successMsg.classList.remove('show');
+            }, 3000);
+
+            console.log('Settings saved:', settings);
+        }
+
+        // Reset to defaults
+        async function resetSettings() {
+            if (await showConfirm('Are you sure you want to reset all settings to defaults?', '🔄 Reset Settings')) {
+                localStorage.setItem('platformSettings', JSON.stringify(DEFAULT_SETTINGS));
+                loadSettings();
+
+                const successMsg = document.getElementById('successMessage');
+                successMsg.textContent = '✓ Settings reset to defaults!';
+                successMsg.classList.add('show');
+                setTimeout(() => {
+                    successMsg.classList.remove('show');
+                    successMsg.textContent = '✓ Settings saved successfully!';
+                }, 3000);
+            }
+        }
+
+        // Toggle menu
+        function toggleMenu() {
+            const menu = document.getElementById('dropdownMenu');
+            const arrow = document.getElementById('menuArrow');
+            menu.classList.toggle('active');
+            if (arrow) arrow.textContent = menu.classList.contains('active') ? '▲' : '▼';
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('dropdownMenu');
+            const menuBtn = event.target.closest('.menu-btn');
+            if (!menuBtn && !event.target.closest('.dropdown-menu')) {
+                menu.classList.remove('active');
+                const arrow = document.getElementById('menuArrow');
+                if (arrow) arrow.textContent = '▼';
+            }
+        });
+
+        // Load settings on page load
+        document.addEventListener('DOMContentLoaded', loadSettings);
+    </script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "symbol": "VNM",
+  "price": 70600.0,
+  "change": -500.0,
+  "change_percent": -0.7032348804500703,
+  "volume": 7844800,
+  "high": 72500.0,
+  "low": 70500.0,
+  "open": 71500.0,
+  "timestamp": "2026-02-01T09:04:30.332746",
+  "source": "vnstock/VCI"
+}

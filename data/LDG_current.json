@@ -1,0 +1,12 @@
+{
+  "symbol": "LDG",
+  "price": 4330.0,
+  "change": 280.0,
+  "change_percent": 6.91358024691358,
+  "volume": 4064200,
+  "high": 4330.0,
+  "low": 4000.0,
+  "open": 4050.0,
+  "timestamp": "2026-02-01T08:53:15.091317",
+  "source": "vnstock/VCI"
+}

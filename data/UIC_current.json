@@ -1,0 +1,12 @@
+{
+  "symbol": "UIC",
+  "price": 61500.0,
+  "change": 600.0,
+  "change_percent": 0.9852216748768473,
+  "volume": 3200,
+  "high": 61500.0,
+  "low": 60200.0,
+  "open": 60200.0,
+  "timestamp": "2026-02-01T09:02:27.779473",
+  "source": "vnstock/VCI"
+}

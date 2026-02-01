@@ -1,0 +1,12 @@
+{
+  "symbol": "HAH",
+  "price": 56500.0,
+  "change": 300.0,
+  "change_percent": 0.5338078291814947,
+  "volume": 1262300,
+  "high": 57600.0,
+  "low": 56400.0,
+  "open": 56500.0,
+  "timestamp": "2026-02-01T01:25:11.942778",
+  "source": "vnstock/VCI"
+}

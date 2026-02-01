@@ -1,0 +1,12 @@
+{
+  "symbol": "SHS",
+  "price": 18700.0,
+  "change": 100.0,
+  "change_percent": 0.5376344086021506,
+  "volume": 14024700,
+  "high": 19000.0,
+  "low": 18500.0,
+  "open": 18500.0,
+  "timestamp": "2026-02-01T08:59:10.483217",
+  "source": "vnstock/VCI"
+}

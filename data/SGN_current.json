@@ -1,0 +1,12 @@
+{
+  "symbol": "SGN",
+  "price": 60100.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 10500,
+  "high": 60400.0,
+  "low": 59000.0,
+  "open": 60200.0,
+  "timestamp": "2026-02-01T08:58:49.324802",
+  "source": "vnstock/VCI"
+}

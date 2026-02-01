@@ -1,0 +1,12 @@
+{
+  "symbol": "PC1",
+  "price": 24200.0,
+  "change": 200.0,
+  "change_percent": 0.8333333333333334,
+  "volume": 8072600,
+  "high": 24950.0,
+  "low": 24200.0,
+  "open": 24600.0,
+  "timestamp": "2026-02-01T08:55:27.196432",
+  "source": "vnstock/VCI"
+}

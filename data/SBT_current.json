@@ -1,0 +1,12 @@
+{
+  "symbol": "SBT",
+  "price": 23900.0,
+  "change": -100.0,
+  "change_percent": -0.4166666666666667,
+  "volume": 721700,
+  "high": 24050.0,
+  "low": 23050.0,
+  "open": 24000.0,
+  "timestamp": "2026-02-01T08:58:24.753626",
+  "source": "vnstock/VCI"
+}

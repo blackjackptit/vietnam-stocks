@@ -1,0 +1,12 @@
+{
+  "symbol": "NT2",
+  "price": 26300.0,
+  "change": 50.0,
+  "change_percent": 0.19047619047619047,
+  "volume": 950100,
+  "high": 26700.0,
+  "low": 26150.0,
+  "open": 26400.0,
+  "timestamp": "2026-02-01T08:54:41.108108",
+  "source": "vnstock/VCI"
+}

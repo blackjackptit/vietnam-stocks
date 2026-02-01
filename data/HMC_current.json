@@ -1,0 +1,12 @@
+{
+  "symbol": "HMC",
+  "price": 11100.0,
+  "change": -200.0,
+  "change_percent": -1.7699115044247788,
+  "volume": 7700,
+  "high": 11350.0,
+  "low": 11100.0,
+  "open": 11350.0,
+  "timestamp": "2026-02-01T01:25:35.267671",
+  "source": "vnstock/VCI"
+}

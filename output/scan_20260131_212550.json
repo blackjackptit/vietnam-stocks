@@ -1,0 +1,92 @@
+{
+  "timestamp": "2026-01-31T21:25:50.055731",
+  "recommendations": {
+    "strong_buy": [],
+    "buy": [],
+    "hold": [],
+    "sell": [
+      {
+        "symbol": "VCB",
+        "price": 90765,
+        "change": 1921.0,
+        "change_percent": 2.12,
+        "volume": 4665820000,
+        "high": 92580.0,
+        "low": 88950.0,
+        "open": 91455.0,
+        "timestamp": "2026-01-31T21:25:44.019809",
+        "source": "DEMO DATA",
+        "analysis": {
+          "current_price": 87443.0,
+          "indicators": {
+            "rsi": 52.1,
+            "ma20": 87440.75,
+            "ma50": 91942.4,
+            "ema12": 87613.3,
+            "ema26": 88407.43,
+            "macd": {
+              "macd": -794.13,
+              "signal": -794.13,
+              "histogram": 0.0
+            },
+            "bollinger": {
+              "upper": 90444.66,
+              "middle": 87440.75,
+              "lower": 84436.84
+            }
+          },
+          "signals": [
+            "⚪ RSI neutral",
+            "🔴 MA20 below MA50 (death cross area)",
+            "🔴 MACD bearish"
+          ],
+          "score": -20,
+          "recommendation": "SELL",
+          "emoji": "🔴"
+        }
+      }
+    ]
+  },
+  "all_results": {
+    "VCB": {
+      "symbol": "VCB",
+      "price": 90765,
+      "change": 1921.0,
+      "change_percent": 2.12,
+      "volume": 4665820000,
+      "high": 92580.0,
+      "low": 88950.0,
+      "open": 91455.0,
+      "timestamp": "2026-01-31T21:25:44.019809",
+      "source": "DEMO DATA",
+      "analysis": {
+        "current_price": 87443.0,
+        "indicators": {
+          "rsi": 52.1,
+          "ma20": 87440.75,
+          "ma50": 91942.4,
+          "ema12": 87613.3,
+          "ema26": 88407.43,
+          "macd": {
+            "macd": -794.13,
+            "signal": -794.13,
+            "histogram": 0.0
+          },
+          "bollinger": {
+            "upper": 90444.66,
+            "middle": 87440.75,
+            "lower": 84436.84
+          }
+        },
+        "signals": [
+          "⚪ RSI neutral",
+          "🔴 MA20 below MA50 (death cross area)",
+          "🔴 MACD bearish"
+        ],
+        "score": -20,
+        "recommendation": "SELL",
+        "emoji": "🔴"
+      }
+    }
+  }
+}

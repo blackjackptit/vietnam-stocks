@@ -1,0 +1,12 @@
+{
+  "symbol": "AGG",
+  "price": 14850.0,
+  "change": -50.0,
+  "change_percent": -0.33557046979865773,
+  "volume": 350500,
+  "high": 15050.0,
+  "low": 14800.0,
+  "open": 15000.0,
+  "timestamp": "2026-02-01T01:29:58.242985",
+  "source": "vnstock/VCI"
+}

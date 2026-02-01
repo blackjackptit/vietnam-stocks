@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>🏠 Homepage & Automated Trading - New Features</title>
+<link rel="stylesheet" href="docs-style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head><body>
+<nav class="top-nav"><div class="nav-container">
+<a href="index.html" class="logo-text">📊 VNStock Analytics</a>
+<span class="page-title" data-i18n="footer.documentation">Documentation</span>
+</div></nav>
+<div class="container"><div class="content-card markdown-content">
+<h1>🏠 Homepage & Automated Trading - New Features</h1>
+
+<h2>What's New</h2>
+
+<p>I've created a complete <strong>Intelligent Stock Investment</strong> platform with:</p>
+<p>1. <strong>Professional Homepage</strong> - Central hub for navigation</p>
+<p>2. <strong>Automated Trading System</strong> - Configure buy/sell rules with API integration</p>
+<p>3. <strong>Unified Navigation</strong> - Easy access between all dashboards</p>
+
+<p>---</p>
+
+<h2>🏠 Homepage: "Intelligent Stock Investment"</h2>
+
+<h3><strong>Access</strong></h3>
+<pre><code>http://localhost:8888/index.html</code></pre>
+
+<p>Or simply:</p>
+<pre><code>http://localhost:8888/</code></pre>
+
+<h3><strong>Features</strong></h3>
+
+<h4><strong>Welcome Header</strong></h4>
+<ul>
+<li>Large logo and branding</li>
+<li>System status indicator (real-time)</li>
+<li>Platform statistics</li>
+</ul>
+
+<h4><strong>Platform Statistics</strong></h4>
+<ul>
+<li><strong>200+ Available Stocks</strong> - Full Vietnamese market</li>
+<li><strong>4 Dashboards</strong> - Different analysis tools</li>
+<li><strong>10+ Technical Indicators</strong> - Comprehensive analysis</li>
+<li><strong>5min Scan Interval</strong> - Real-time monitoring</li>
+</ul>
+
+<h4><strong>Feature Cards</strong></h4>
+<p>Beautiful cards linking to all platform features:</p>
+
+<p>1. <strong>🎯 Enhanced Dashboard</strong></p>
+<p>   - Monitor multiple stocks</p>
+<p>   - Custom watchlist (200+ stocks)</p>
+<p>   - Real-time updates</p>
+<p>   - 6 chart types</p>
+
+<p>2. <strong>📈 Historical Analysis</strong></p>
+<p>   - Price history with MA20/MA50</p>
+<p>   - RSI, MACD, Volume analysis</p>
+<p>   - Multiple timeframes (30-365 days)</p>
+<p>   - Statistical analysis</p>
+
+<p>3. <strong>🤖 Automated Trading</strong> (NEW!)</p>
+<p>   - Configure auto buy/sell rules</p>
+<p>   - API integration</p>
+<p>   - Risk management</p>
+<p>   - Backtesting</p>
+
+<p>4. <strong>⚡ Real-time Dashboard</strong></p>
+<p>   - Quick market overview</p>
+<p>   - Simple interface</p>
+<p>   - Fast loading</p>
+
+<p>5. <strong>📋 Watchlist Manager</strong></p>
+<p>   - CLI tool information</p>
+<p>   - Category management</p>
+<p>   - Import/export</p>
+
+<p>6. <strong>📚 Documentation</strong></p>
+<p>   - Quick start guides</p>
+<p>   - Tutorials</p>
+<p>   - API documentation</p>
+
+<h4><strong>System Status</strong></h4>
+<ul>
+<li>Real-time connection indicator</li>
+<li>Last scan timestamp</li>
+<li>Automatic health checks</li>
+</ul>
+
+<p>---</p>
+
+<h2>🤖 Automated Trading Configuration</h2>
+
+<h3><strong>Access</strong></h3>
+<pre><code>http://localhost:8888/trading_automation.html</code></pre>
+
+<p>Or click <strong>"🤖 Automated Trading"</strong> from any page.</p>
+
+<h3><strong>Key Features</strong></h3>
+
+<h4><strong>1. API Configuration</strong></h4>
+<p>Connect to your broker's trading API:</p>
+<ul>
+<li><strong>Supported Brokers</strong>: VNDirect, SSI, VPS, TCBS, Custom</li>
+<li><strong>Credentials</strong>: API Key, Secret, Account Number</li>
+<li><strong>Test Connection</strong>: Verify before enabling</li>
+<li><strong>Secure Storage</strong>: Encrypted credentials</li>
+</ul>
+
+<h4><strong>2. Trading Rules System</strong></h4>
+<p>Create automated buy/sell conditions:</p>
+
+<strong>Rule Format:</strong>
+<pre><code>[BUY/SELL] IF [CONDITIONS] THEN [ACTION]</code></pre>
+
+<strong>Examples:</strong>
+<pre><code>BUY IF RSI < 30 AND Score > 20 THEN 1000 shares
+<p>SELL IF RSI > 70 OR Profit > 10% THEN 100%</p>
+<p>BUY IF MA20 crosses above MA50 THEN ₫5,000,000</p>
+<p>SELL IF Loss > 3% THEN All shares</code></pre></p>
+
+<strong>Available Conditions:</strong>
+<ul>
+<li>RSI (< 30 oversold, > 70 overbought)</li>
+<li>Price vs Moving Averages (MA20, MA50)</li>
+<li>MACD signals</li>
+<li>Technical Score</li>
+<li>Profit/Loss percentages</li>
+<li>Holding time</li>
+<li>Volume</li>
+</ul>
+
+<strong>Logical Operators:</strong>
+<ul>
+<li>AND, OR, NOT</li>
+<li>Multiple conditions per rule</li>
+<li>Complex logic supported</li>
+</ul>
+
+<h4><strong>3. Risk Management</strong></h4>
+<p>Critical safety settings:</p>
+
+<strong>Position Limits:</strong>
+<ul>
+<li>Max Position Size: ₫10,000,000 (per trade)</li>
+<li>Max Open Positions: 5 (concurrent holdings)</li>
+</ul>
+
+<strong>Loss Protection:</strong>
+<ul>
+<li>Stop Loss: 3% (auto-sell if exceeded)</li>
+<li>Max Daily Loss: 5% (stop all trading)</li>
+</ul>
+
+<strong>Profit Taking:</strong>
+<ul>
+<li>Take Profit: 10% (auto-sell when reached)</li>
+</ul>
+
+<strong>Cooldown:</strong>
+<ul>
+<li>15 minutes between trades on same stock</li>
+</ul>
+
+<h4><strong>4. Backtesting</strong></h4>
+<p>Test rules on historical data:</p>
+<ul>
+<li>Multiple time periods (30-365 days)</li>
+<li>Performance metrics (Win rate, Sharpe ratio, Drawdown)</li>
+<li>Trade-by-trade analysis</li>
+<li>Risk assessment</li>
+<li>Strategy validation</li>
+</ul>
+
+<strong>Backtest Metrics:</strong>
+<ul>
+<li>Total Trades</li>
+<li>Win Rate %</li>
+<li>Profit/Loss (VND)</li>
+<li>Sharpe Ratio</li>
+<li>Max Drawdown</li>
+</ul>
+
+<h4><strong>5. Master Trading Switch</strong></h4>
+<p>On/off control for entire system:</p>
+
+<strong>OFF (Safe Mode):</strong>
+<ul>
+<li>Rules configured but inactive</li>
+<li>No trades executed</li>
+<li>Testing and configuration</li>
+</ul>
+
+<strong>ON (Live Trading):</strong>
+<ul>
+<li>⚠️ Rules active</li>
+<li>⚠️ Real trades executed</li>
+<li>⚠️ Real money at risk</li>
+</ul>
+
+<strong>Requirements Before Enabling:</strong>
+<p>1. ✅ API configured and tested</p>
+<p>2. ✅ Rules added and reviewed</p>
+<p>3. ✅ Risk management configured</p>
+<p>4. ✅ Backtest completed successfully</p>
+<p>5. ✅ Understand the risks</p>
+
+<h4><strong>6. Trade Execution Log</strong></h4>
+<p>Real-time trade history:</p>
+<ul>
+<li>Timestamp</li>
+<li>Action (Buy/Sell)</li>
+<li>Stock symbol</li>
+<li>Quantity</li>
+<li>Price</li>
+<li>Triggered rule</li>
+<li>Profit/Loss</li>
+</ul>
+
+<h4><strong>7. System Status Dashboard</strong></h4>
+<p>Live monitoring:</p>
+<ul>
+<li>Trading status (Active/Inactive)</li>
+<li>Active rules count</li>
+<li>Today's trades</li>
+<li>Total P&L</li>
+</ul>
+
+<p>---</p>
+
+<h2>🔗 Unified Navigation</h2>
+
+<p>All dashboards now have links to:</p>
+<ul>
+<li><strong>🏠 Home</strong> - Homepage</li>
+<li><strong>🎯 Enhanced Dashboard</strong> - Multi-stock monitoring</li>
+<li><strong>📈 Historical Analysis</strong> - Deep dive</li>
+<li><strong>🤖 Auto Trading</strong> - Automation config</li>
+<li><strong>📊 Simple Dashboard</strong> - Quick view</li>
+</ul>
+
+<p>Easy navigation between all features!</p>
+
+<p>---</p>
+
+<h2>📁 File Structure</h2>
+
+<pre><code>vietnam-stocks/
+<p>├── index.html                      # NEW: Homepage</p>
+<p>├── trading_automation.html         # NEW: Automation config</p>
+<p>├── dashboard_enhanced.html         # Updated with navigation</p>
+<p>├── dashboard_history.html          # Updated with navigation</p>
+<p>├── dashboard_realtime.html         # Updated with navigation</p>
+<p>├── dashboard.html                  # Original static</p>
+<p>├── realtime_server.py              # Updated with automation API</p>
+<p>├── automation_config.json          # NEW: Auto-created</p>
+<p>├── AUTOMATED_TRADING_GUIDE.md      # NEW: Complete guide</p>
+<p>├── HOMEPAGE_AND_AUTOMATION.md      # NEW: This file</p>
+<p>└── [Other existing files...]</code></pre></p>
+
+<p>---</p>
+
+<h2>🚀 Quick Start</h2>
+
+<h3><strong>1. Access Homepage</strong></h3>
+<pre><code>http://localhost:8888/index.html</code></pre>
+
+<p>or</p>
+
+<pre><code>http://localhost:8888/</code></pre>
+
+<h3><strong>2. Explore Dashboards</strong></h3>
+<p>Click on any feature card to explore:</p>
+<ul>
+<li>Enhanced Dashboard for watchlist monitoring</li>
+<li>Historical Analysis for deep dives</li>
+<li>Automated Trading for rule configuration</li>
+</ul>
+
+<h3><strong>3. Configure Automated Trading (Optional)</strong></h3>
+
+<strong>Step 1: Open Automation Page</strong>
+<pre><code>http://localhost:8888/trading_automation.html</code></pre>
+
+<strong>Step 2: Configure API</strong>
+<p>1. Select your broker</p>
+<p>2. Enter API credentials</p>
+<p>3. Test connection</p>
+<p>4. Save configuration</p>
+
+<strong>Step 3: Add Trading Rules</strong>
+<p>1. Click "➕ Add New Rule"</p>
+<p>2. Enter rule: <code>BUY IF RSI < 30 THEN 1000 shares</code></p>
+<p>3. Review and save</p>
+
+<strong>Step 4: Set Risk Management</strong>
+<p>1. Max position: ₫10,000,000</p>
+<p>2. Stop loss: 3%</p>
+<p>3. Take profit: 10%</p>
+<p>4. Max positions: 5</p>
+<p>5. Save settings</p>
+
+<strong>Step 5: Backtest</strong>
+<p>1. Select period: 60 days</p>
+<p>2. Run backtest</p>
+<p>3. Review results</p>
+<p>4. Adjust if needed</p>
+
+<strong>Step 6: Enable (When Ready)</strong>
+<p>1. Toggle Master Switch to ON</p>
+<p>2. Confirm warning</p>
+<p>3. Monitor actively</p>
+
+<p>---</p>
+
+<h2>🔐 Security Features</h2>
+
+<h3><strong>API Key Protection</strong></h3>
+<ul>
+<li>Encrypted storage</li>
+<li>Local-only (never transmitted externally)</li>
+<li>Secure credential handling</li>
+<li>Password-masked inputs</li>
+</ul>
+
+<h3><strong>Risk Safeguards</strong></h3>
+<ul>
+<li>Pre-trade validation</li>
+<li>Position limits</li>
+<li>Loss limits</li>
+<li>Stop loss automation</li>
+<li>Cooldown periods</li>
+<li>Daily loss circuit breaker</li>
+</ul>
+
+<h3><strong>Privacy</strong></h3>
+<ul>
+<li>All data local</li>
+<li>No external tracking</li>
+<li>No third-party sharing</li>
+<li>You control everything</li>
+</ul>
+
+<p>---</p>
+
+<h2>📊 System Status</h2>
+
+<h3><strong>Current Configuration</strong></h3>
+
+<p>✅ <strong>Homepage</strong>: LIVE at http://localhost:8888/index.html</p>
+<p>✅ <strong>Automation Page</strong>: LIVE at http://localhost:8888/trading_automation.html</p>
+<p>✅ <strong>All Dashboards</strong>: Updated with navigation</p>
+<p>✅ <strong>API Endpoints</strong>: Added /api/automation</p>
+<p>✅ <strong>Documentation</strong>: Complete guides available</p>
+
+<h3><strong>Running Services</strong></h3>
+
+<p>Check status:</p>
+<pre><code>ps aux | grep -E "(demo_monitor|realtime_server)"</code></pre>
+
+<strong>Expected Output:</strong>
+<ul>
+<li>✅ realtime_server.py (PID: XXXXX)</li>
+<li>✅ demo_monitor.py --interval 5 (PID: XXXXX)</li>
+</ul>
+
+<p>---</p>
+
+<h2>🎯 Use Cases</h2>
+
+<h3><strong>Use Case 1: Active Day Trader</strong></h3>
+<p>1. Start on homepage to check system status</p>
+<p>2. Go to Enhanced Dashboard for market overview</p>
+<p>3. Switch to Historical Analysis for detailed stock research</p>
+<p>4. Configure automated rules for quick entries/exits</p>
+<p>5. Monitor via Real-time Dashboard throughout the day</p>
+
+<h3><strong>Use Case 2: Swing Trader</strong></h3>
+<p>1. Set up 5-10 stocks in watchlist via Enhanced Dashboard</p>
+<p>2. Configure automated rules:</p>
+<p>   - Buy on RSI oversold</p>
+<p>   - Sell on 10% profit or 3% loss</p>
+<p>3. Enable automation</p>
+<p>4. Check homepage daily for summary</p>
+<p>5. Review trade log weekly</p>
+
+<h3><strong>Use Case 3: Long-term Investor</strong></h3>
+<p>1. Use Historical Analysis for research</p>
+<p>2. Set up position-building rules:</p>
+<p>   - Buy on significant dips</p>
+<p>   - Dollar-cost averaging</p>
+<p>3. Conservative risk settings (low stop loss)</p>
+<p>4. Monitor monthly via homepage</p>
+<p>5. Adjust strategy based on backtests</p>
+
+<p>---</p>
+
+<h2>⚠️ Important Warnings</h2>
+
+<h3><strong>Before Using Automated Trading:</strong></h3>
+
+<p>1. <strong>RISK OF LOSS</strong></p>
+<p>   - You can lose money</p>
+<p>   - Only trade what you can afford to lose</p>
+<p>   - Past performance ≠ future results</p>
+
+<p>2. <strong>TEST THOROUGHLY</strong></p>
+<p>   - Run backtests first</p>
+<p>   - Paper trade for 1-2 weeks</p>
+<p>   - Start with small positions</p>
+
+<p>3. <strong>MONITOR REGULARLY</strong></p>
+<p>   - Check daily even with automation</p>
+<p>   - Review trade log</p>
+<p>   - Be ready to intervene</p>
+
+<p>4. <strong>API SECURITY</strong></p>
+<p>   - Keep API keys secure</p>
+<p>   - Use trading-only permissions</p>
+<p>   - Rotate keys periodically</p>
+
+<p>5. <strong>NOT FINANCIAL ADVICE</strong></p>
+<p>   - For educational purposes only</p>
+<p>   - Consult licensed advisor</p>
+<p>   - Understand regulations</p>
+
+<p>---</p>
+
+<h2>📚 Documentation</h2>
+
+<h3><strong>Available Guides:</strong></h3>
+<ul>
+<li><code>AUTOMATED_TRADING_GUIDE.md</code> - Complete automation manual</li>
+<li><code>QUICK_START.md</code> - Getting started</li>
+<li><code>FEATURES.md</code> - All features overview</li>
+<li><code>HISTORICAL_ANALYSIS_GUIDE.md</code> - Technical analysis</li>
+<li><code>WATCHLIST_GUIDE.md</code> - Watchlist management</li>
+<li><code>BUGFIX_FLICKERING.md</code> - Technical details</li>
+</ul>
+
+<h3><strong>Quick Links:</strong></h3>
+<ul>
+<li>Homepage: http://localhost:8888/index.html</li>
+<li>Automated Trading: http://localhost:8888/trading_automation.html</li>
+<li>Enhanced Dashboard: http://localhost:8888/dashboard_enhanced.html</li>
+<li>Historical Analysis: http://localhost:8888/dashboard_history.html</li>
+</ul>
+
+<p>---</p>
+
+<h2>🎉 Summary</h2>
+
+<p>You now have a <strong>complete, professional-grade Vietnamese stock investment platform</strong> with:</p>
+
+<p>✅ <strong>Beautiful Homepage</strong> - "Intelligent Stock Investment"</p>
+<p>✅ <strong>4 Dashboards</strong> - Different analysis tools</p>
+<p>✅ <strong>Automated Trading</strong> - Rule-based buy/sell with API</p>
+<p>✅ <strong>Risk Management</strong> - Comprehensive safeguards</p>
+<p>✅ <strong>Backtesting</strong> - Test before trading</p>
+<p>✅ <strong>Unified Navigation</strong> - Easy access to all features</p>
+<p>✅ <strong>Complete Documentation</strong> - Extensive guides</p>
+<p>✅ <strong>Security Features</strong> - Encrypted credentials</p>
+<p>✅ <strong>Real-time Monitoring</strong> - 5-minute scans</p>
+
+<h3><strong>What Makes It Special:</strong></h3>
+
+<p>1. <strong>All-in-One Platform</strong>: Monitor, analyze, and trade from one place</p>
+<p>2. <strong>Beginner-Friendly</strong>: Clear interfaces and documentation</p>
+<p>3. <strong>Professional-Grade</strong>: Tools used by serious traders</p>
+<p>4. <strong>Vietnamese Market Focus</strong>: Specifically for VN stocks</p>
+<p>5. <strong>Risk-Aware</strong>: Multiple safety layers</p>
+<p>6. <strong>Customizable</strong>: Configure everything to your strategy</p>
+<p>7. <strong>Educational</strong>: Learn technical analysis and automation</p>
+<p>8. <strong>Private</strong>: All data stays local</p>
+
+<p>---</p>
+
+<h2>🚀 Next Steps</h2>
+
+<p>1. <strong>Explore Homepage</strong>:</p>
+<p>   ``<code></p>
+<p>   http://localhost:8888/index.html</p>
+<p>   </code>`<code></p>
+
+<p>2. <strong>Check All Dashboards</strong>:</p>
+<p>   - Click through each feature card</p>
+<p>   - Familiarize yourself with navigation</p>
+<p>   - Explore different analysis tools</p>
+
+<p>3. <strong>Try Automated Trading</strong>:</p>
+<p>   - Read </code>AUTOMATED_TRADING_GUIDE.md` thoroughly</p>
+<p>   - Configure (but don't enable yet)</p>
+<p>   - Run backtests</p>
+<p>   - Test with paper trading</p>
+
+<p>4. <strong>Customize Your Experience</strong>:</p>
+<p>   - Build your watchlist</p>
+<p>   - Create your trading rules</p>
+<p>   - Set your risk parameters</p>
+<p>   - Develop your strategy</p>
+
+<p>---</p>
+
+<strong>Congratulations! You now have a complete intelligent stock investment platform! 🎉📈🤖</strong>
+
+<p>*Start with the homepage, explore all features, and remember: trade responsibly!*</p>
+
+</div></div>
+<footer class="footer"><div class="footer-container">
+<p>© 2024 Vietnam Stock Analytics Platform</p>
+</div></footer>
+</body></html>

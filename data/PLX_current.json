@@ -1,0 +1,12 @@
+{
+  "symbol": "PLX",
+  "price": 58900.0,
+  "change": 1200.0,
+  "change_percent": 2.079722703639515,
+  "volume": 6913800,
+  "high": 59500.0,
+  "low": 57700.0,
+  "open": 58400.0,
+  "timestamp": "2026-02-01T08:56:07.440482",
+  "source": "vnstock/VCI"
+}

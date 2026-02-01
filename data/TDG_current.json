@@ -1,0 +1,12 @@
+{
+  "symbol": "TDG",
+  "price": 2820.0,
+  "change": -20.0,
+  "change_percent": -0.7042253521126761,
+  "volume": 34000,
+  "high": 2840.0,
+  "low": 2780.0,
+  "open": 2800.0,
+  "timestamp": "2026-02-01T09:00:42.072176",
+  "source": "vnstock/VCI"
+}

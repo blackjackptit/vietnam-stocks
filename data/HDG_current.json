@@ -1,0 +1,12 @@
+{
+  "symbol": "HDG",
+  "price": 27450.0,
+  "change": 1050.0,
+  "change_percent": 3.977272727272727,
+  "volume": 5362500,
+  "high": 27700.0,
+  "low": 26550.0,
+  "open": 26550.0,
+  "timestamp": "2026-02-01T01:25:26.169557",
+  "source": "vnstock/VCI"
+}

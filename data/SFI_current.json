@@ -1,0 +1,12 @@
+{
+  "symbol": "SFI",
+  "price": 27000.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 13800,
+  "high": 27400.0,
+  "low": 26950.0,
+  "open": 26950.0,
+  "timestamp": "2026-02-01T08:58:40.108884",
+  "source": "vnstock/VCI"
+}

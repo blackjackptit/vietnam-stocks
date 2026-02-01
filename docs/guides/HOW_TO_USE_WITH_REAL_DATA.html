@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>How to Use With Real Vietnamese Stock Data</title>
+<link rel="stylesheet" href="docs-style.css">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head><body>
+<nav class="top-nav"><div class="nav-container">
+<a href="index.html" class="logo-text">📊 VNStock Analytics</a>
+<span class="page-title" data-i18n="footer.documentation">Documentation</span>
+</div></nav>
+<div class="container"><div class="content-card markdown-content">
+<h1>How to Use With Real Vietnamese Stock Data</h1>
+
+<p>The VNDirect API requires Vietnam network access. Here are your options:</p>
+
+<h2>Option 1: Use VPN with Vietnam Server (Recommended)</h2>
+
+<h3>Free VPN Options:</h3>
+<ul>
+<li><strong>ProtonVPN</strong> - Has Vietnam servers on paid plan</li>
+<li><strong>Windscribe</strong> - Offers Vietnam location</li>
+<li><strong>NordVPN</strong> - Multiple Vietnam servers</li>
+</ul>
+
+<h3>Steps:</h3>
+<p>1. Connect to VPN with Vietnam server</p>
+<p>2. Run: <code>python monitor.py --scan-once</code></p>
+<p>3. Wait for real data to load</p>
+
+<h2>Option 2: Run From Vietnam Network</h2>
+
+<p>If you're physically in Vietnam:</p>
+<pre><code>python monitor.py --scan-once
+<p>python monitor.py --interval 15  # Continuous monitoring</code></pre></p>
+
+<h2>Option 3: Use Alternative APIs</h2>
+
+<h3>SSI iBoard API (Alternative)</h3>
+
+<p>Edit <code>src/stock_data.py</code> and add:</p>
+
+<pre><code>SSI_API = "https://iboard-api.ssi.com.vn/statistics/charts/symbols/{symbol}"
+
+<p>def get_stock_price_ssi(self, symbol: str):</p>
+<p>    """Get price from SSI API"""</p>
+<p>    try:</p>
+<p>        url = self.SSI_API.format(symbol=symbol)</p>
+<p>        response = self.session.get(url, timeout=10)</p>
+<p>        if response.status_code == 200:</p>
+<p>            data = response.json()</p>
+<p>            # Parse SSI response format</p>
+<p>            return {</p>
+<p>                'symbol': symbol,</p>
+<p>                'price': data.get('price'),</p>
+<p>                # ... map other fields</p>
+<p>            }</p>
+<p>    except Exception as e:</p>
+<p>        print(f"Error: {e}")</p>
+<p>    return None</code></pre></p>
+
+<h3>Web Scraping (Last Resort)</h3>
+
+<p>You can scrape data from:</p>
+<ul>
+<li>https://www.cophieu68.vn/</li>
+<li>https://www.vndirect.com.vn/</li>
+<li>https://chart.vps.com.vn/</li>
+</ul>
+
+<strong>Note:</strong> Respect robots.txt and rate limits.
+
+<h2>Option 4: Use Demo Mode for Learning</h2>
+
+<pre><code>python demo_monitor.py --scan-once
+<p>python demo_monitor.py --interval 15</code></pre></p>
+
+<p>This uses realistic mock data to:</p>
+<ul>
+<li>✅ Learn how the tool works</li>
+<li>✅ Test strategies without real data</li>
+<li>✅ Understand technical indicators</li>
+<li>✅ See recommendation logic</li>
+</ul>
+
+<h2>Option 5: Manual Data Entry</h2>
+
+<p>Create a file <code>data/manual_prices.json</code>:</p>
+
+<pre><code>{
+<p>  "VPB": {"price": 23500, "volume": 1500000},</p>
+<p>  "FPT": {"price": 118500, "volume": 890000},</p>
+<p>  "STB": {"price": 28300, "volume": 2100000}</p>
+<p>}</code></pre></p>
+
+<p>Then load it in the tool (requires minor code modification).</p>
+
+<h2>Option 6: Use Excel/CSV Import</h2>
+
+<p>1. Export data from SSI iBoard or VNDirect</p>
+<p>2. Save as CSV:</p>
+<p>   <pre><code>   Symbol,Price,Change%,Volume</p>
+<p>   VPB,23500,+2.5,1500000</p>
+<p>   FPT,118500,-1.2,890000</p>
+<p>   ``<code></p>
+<p>3. Import in Python and run analysis</p>
+
+<h2>Check If API Is Working</h2>
+
+<p>Test connection:</p>
+</code></pre>bash
+<p>python3 << 'EOF'</p>
+<p>from src.stock_data import VNStockData</p>
+
+<p>fetcher = VNStockData()</p>
+<p>result = fetcher.get_stock_price('VCB')</p>
+
+<p>if result:</p>
+<p>    print(f"✅ API working! VCB: {result['price']} VND")</p>
+<p>else:</p>
+<p>    print("❌ API not accessible from your location")</p>
+<p>    print("Use VPN with Vietnam server or demo mode")</p>
+<p>EOF</p>
+<pre><code>
+<h2>Real-Time Data Sources (When API Works)</h2>
+
+<p>Once connected to Vietnam network, the tool will fetch from:</p>
+
+<h3>VNDirect API</h3>
+<ul>
+<li><strong>Endpoint:</strong> </code>https://finfo-api.vndirect.com.vn/v4/stock_prices<code></li>
+<li><strong>Coverage:</strong> HSX, HNX, UPCOM</li>
+<li><strong>Delay:</strong> ~15 minutes</li>
+<li><strong>Free:</strong> Yes</li>
+<li><strong>Rate Limit:</strong> ~100 requests/minute</li>
+</ul>
+
+<h3>What You'll Get:</code></pre>json</h3>
+<p>{</p>
+<p>  "symbol": "VPB",</p>
+<p>  "price": 23500,</p>
+<p>  "change": 550,</p>
+<p>  "change_percent": 2.4,</p>
+<p>  "volume": 1850000000,</p>
+<p>  "high": 23800,</p>
+<p>  "low": 23100,</p>
+<p>  "open": 23200</p>
+<p>}</p>
+<pre><code>
+<h2>Broker Platforms with APIs</h2>
+
+<p>If you have an account with these brokers, they may offer API access:</p>
+
+<p>1. <strong>SSI Securities</strong></p>
+<p>   - iBoard API</p>
+<p>   - Trading API (for customers)</p>
+
+<p>2. <strong>VNDirect</strong></p>
+<p>   - Financial Info API (what we use)</p>
+<p>   - Trading API (for customers)</p>
+
+<p>3. <strong>TCBS</strong></p>
+<p>   - Market data API</p>
+<p>   - Trading API</p>
+
+<p>4. <strong>HSC</strong></p>
+<p>   - Limited API access</p>
+
+<strong>Contact your broker</strong> to request API credentials.
+
+<h2>Compare: Demo vs Real Data</h2>
+
+<p>| Feature | Demo Mode | Real API |</p>
+<p>|---------|-----------|----------|</p>
+<p>| Price data | Simulated | Live prices |</p>
+<p>| Historical data | Generated | Actual history |</p>
+<p>| Volume | Random | Real trading volume |</p>
+<p>| Indicators | Calculated correctly | Calculated correctly |</p>
+<p>| Recommendations | Based on demo | Based on real market |</p>
+<p>| Learning | ✅ Perfect | ✅ Perfect |</p>
+<p>| Trading | ❌ Don't use | ✅ Can use |</p>
+
+<h2>Recommended Workflow</h2>
+
+<h3>For Learning (Week 1-2)</code></pre>bash</h3>
+<h1>Use demo mode to learn the tool</h1>
+<p>python demo_monitor.py --scan-once</p>
+<p>python demo_monitor.py --interval 15</p>
+<pre><code>
+<h3>For Analysis (Week 3+)</code></pre>bash</h3>
+<h1>Connect VPN to Vietnam</h1>
+<h1>Then use real data</h1>
+<p>python monitor.py --scan-once</p>
+<p>python monitor.py --interval 15</p>
+<pre><code>
+<h3>For Trading (When Ready)</h3>
+<p>1. Paper trade for 1 month (simulated)</p>
+<p>2. Start with 5M VND real money</p>
+<p>3. Monitor with real-time tool</p>
+<p>4. Follow recommendations but verify manually</p>
+<p>5. Set stop-loss at -10%</p>
+
+<h2>Troubleshooting Real API</h2>
+
+<h3>Connection Timeout</code></pre></h3>
+<p>Error: Connection timeout</p>
+<pre><code><strong>Solution:</strong> Use VPN with Vietnam server
+
+<h3>Rate Limiting</code></pre></h3>
+<p>Error: 429 Too Many Requests</p>
+<pre><code><strong>Solution:</strong> Increase sleep time between requests in code
+
+<h3>Invalid Symbol</code></pre></h3>
+<p>Error: No data for symbol</p>
+</code>`<code>
+<strong>Solution:</strong> Check symbol is correct (uppercase, HSX/HNX listing)
+
+<h3>API Changed</h3>
+<p>If API stops working:</p>
+<p>1. Check VNDirect website for announcements</p>
+<p>2. Try alternative endpoints</p>
+<p>3. Use web scraping as backup</p>
+<p>4. Switch to SSI API</p>
+
+<h2>Next Steps</h2>
+
+<p>1. <strong>Try demo mode now:</strong></p>
+<p>   </code>`<code>bash</p>
+<p>   python demo_monitor.py --scan-once</p>
+<p>   </code>``</p>
+
+<p>2. <strong>Get VPN with Vietnam server</strong> (for real data)</p>
+
+<p>3. <strong>Open broker account:</strong></p>
+<p>   - SSI Securities</p>
+<p>   - VNDirect</p>
+<p>   - TCBS</p>
+
+<p>4. <strong>Start paper trading</strong> (practice without real money)</p>
+
+<p>5. <strong>When comfortable, invest small</strong> (1-2M VND first)</p>
+
+<p>---</p>
+
+<strong>Current Status:</strong> Demo mode working ✅
+
+<strong>To use real data:</strong> Get Vietnam IP (VPN or local network)
+
+</div></div>
+<footer class="footer"><div class="footer-container">
+<p>© 2024 Vietnam Stock Analytics Platform</p>
+</div></footer>
+</body></html>

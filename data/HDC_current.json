@@ -1,0 +1,12 @@
+{
+  "symbol": "HDC",
+  "price": 21700.0,
+  "change": 350.0,
+  "change_percent": 1.639344262295082,
+  "volume": 4243100,
+  "high": 22150.0,
+  "low": 21500.0,
+  "open": 21600.0,
+  "timestamp": "2026-02-01T01:25:21.104279",
+  "source": "vnstock/VCI"
+}

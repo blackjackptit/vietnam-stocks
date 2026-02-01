@@ -1,0 +1,12 @@
+{
+  "symbol": "MWG",
+  "price": 92900.0,
+  "change": 3400.0,
+  "change_percent": 3.798882681564246,
+  "volume": 20845900,
+  "high": 93400.0,
+  "low": 89800.0,
+  "open": 90000.0,
+  "timestamp": "2026-02-01T08:54:05.175618",
+  "source": "vnstock/VCI"
+}

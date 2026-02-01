@@ -1,0 +1,12 @@
+{
+  "symbol": "CTD",
+  "price": 76800.0,
+  "change": 900.0,
+  "change_percent": 1.185770750988142,
+  "volume": 511200,
+  "high": 77600.0,
+  "low": 75600.0,
+  "open": 75900.0,
+  "timestamp": "2026-02-01T01:32:01.334099",
+  "source": "vnstock/VCI"
+}

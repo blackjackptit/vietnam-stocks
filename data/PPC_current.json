@@ -1,0 +1,12 @@
+{
+  "symbol": "PPC",
+  "price": 10050.0,
+  "change": 50.0,
+  "change_percent": 0.5,
+  "volume": 128700,
+  "high": 10050.0,
+  "low": 10000.0,
+  "open": 10000.0,
+  "timestamp": "2026-02-01T08:56:27.673321",
+  "source": "vnstock/VCI"
+}

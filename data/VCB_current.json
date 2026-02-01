@@ -1,0 +1,12 @@
+{
+  "symbol": "VCB",
+  "price": 70500.0,
+  "change": 700.0,
+  "change_percent": 1.002865329512894,
+  "volume": 11480700,
+  "high": 71900.0,
+  "low": 69600.0,
+  "open": 70600.0,
+  "timestamp": "2026-02-01T01:33:02.373461",
+  "source": "vnstock/VCI"
+}

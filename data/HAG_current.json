@@ -1,0 +1,12 @@
+{
+  "symbol": "HAG",
+  "price": 17250.0,
+  "change": 150.0,
+  "change_percent": 0.8771929824561403,
+  "volume": 3821300,
+  "high": 17250.0,
+  "low": 16950.0,
+  "open": 17100.0,
+  "timestamp": "2026-02-01T01:25:07.560356",
+  "source": "vnstock/VCI"
+}

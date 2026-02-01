@@ -1,0 +1,12 @@
+{
+  "symbol": "GEG",
+  "price": 14750.0,
+  "change": -150.0,
+  "change_percent": -1.006711409395973,
+  "volume": 282200,
+  "high": 15000.0,
+  "low": 14750.0,
+  "open": 15000.0,
+  "timestamp": "2026-02-01T01:24:46.090977",
+  "source": "vnstock/VCI"
+}

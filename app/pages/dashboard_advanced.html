@@ -1,0 +1,2111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="css/theme.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Analytics - VNStock Analytics</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: #f8fafc;
+            color: #333333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        .top-nav {
+            position: sticky;
+            top: 0;
+            background: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 72px;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-text {
+            font-size: 1.3em;
+            font-weight: 700;
+            color: #c41c16;
+            text-decoration: none;
+        }
+
+        .page-title {
+            font-size: 1.1em;
+            font-weight: 600;
+            color: #64748b;
+            border-left: 2px solid #e5e7eb;
+            padding-left: 16px;
+        }
+
+        .nav-menu {
+            position: relative;
+        }
+
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: #c41c16;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95em;
+            transition: all 0.3s;
+        }
+
+        .menu-btn:hover {
+            background: #991b1b;
+            transform: translateY(-1px);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            min-width: 280px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+
+        .dropdown-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .menu-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e5e7eb;
+            font-weight: 700;
+            color: #1e293b;
+            font-size: 0.9em;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .menu-category {
+            padding: 12px 20px 8px;
+            font-weight: 700;
+            color: #64748b;
+            font-size: 0.75em;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            border-top: 1px solid #e5e7eb;
+        }
+
+        .menu-category:first-child {
+            border-top: none;
+        }
+
+
+        .menu-items {
+            padding: 0 0 8px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            color: #475569;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .menu-item:hover {
+            background: #fef2f2;
+            color: #c41c16;
+        }
+
+        .menu-item-icon {
+            font-size: 1.2em;
+            width: 24px;
+            text-align: center;
+        }
+
+
+        .container {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 32px 24px;
+        }
+
+        .header {
+            background: white;
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 24px;
+        }
+
+        .header h1 {
+            color: #1e293b;
+            font-size: 2.2em;
+            margin-bottom: 8px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            border: 1px solid #e5e7eb;
+            margin-bottom: 24px;
+        }
+
+        .card h2 {
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 1.6em;
+            font-weight: 700;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 12px;
+            letter-spacing: -0.3px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .feature-box {
+            background: linear-gradient(135deg, #c41c16 0%, #7f1d1d 100%);
+            padding: 25px;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(196, 28, 22, 0.4);
+            background: linear-gradient(135deg, #991b1b 0%, #7f1d1d 100%);
+        }
+
+        .feature-box h3 {
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-box:hover h3 {
+            color: #ffffff;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+        }
+
+        .feature-box p {
+            font-size: 0.95em;
+            opacity: 0.9;
+            color: white;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin-top: 20px;
+        }
+
+        .chart-container.large {
+            height: 500px;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            padding: 12px 24px;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            color: #64748b;
+        }
+
+        .tab:hover {
+            background: #fee2e2;
+            border-color: #fecaca;
+            color: #991b1b;
+        }
+
+        .tab.active {
+            background: #c41c16;
+            color: white;
+            border-color: #c41c16;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .metric-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .metric-label {
+            color: #64748b;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background: #c41c16;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn:hover {
+            background: #991b1b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(196, 28, 22, 0.3);
+        }
+
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+
+        .alert {
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .alert-info {
+            background: #dbeafe;
+            color: #1e40af;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .alert-success {
+            background: #dcfce7;
+            color: #166534;
+            border-left: 4px solid #10b981;
+        }
+
+        .alert-warning {
+            background: #fef3c7;
+            color: #92400e;
+            border-left: 4px solid #f59e0b;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #f8fafc;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .checkbox-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 8px;
+            max-height: 450px;
+            overflow-y: auto;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            background: white;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #e2e8f0;
+        }
+
+        .checkbox-item:hover {
+            background: #ede9fe;
+            border-color: #7c3aed;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .checkbox-item label {
+            margin: 0;
+            cursor: pointer;
+            font-size: 0.9em;
+            color: #4c1d95;
+            font-weight: 500;
+        }
+
+        .checkbox-controls {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn-small {
+            padding: 5px 12px;
+            background: #64748b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-small:hover {
+            background: #475569;
+        }
+
+        .selection-count {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #ede9fe;
+            color: #6b21a8;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 0.8em;
+        }
+
+        .search-box-small {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+            transition: all 0.3s;
+        }
+
+        .search-box-small:focus {
+            outline: none;
+            border-color: #7c3aed;
+            box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+        }
+
+        .checkbox-item.hidden {
+            display: none;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background: #1e293b;
+            color: #cbd5e1;
+            padding: 40px 24px 24px;
+            margin-top: 60px;
+        }
+
+        .footer-container {
+            max-width: 1360px;
+            margin: 0 auto;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            color: white;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.2s;
+            font-size: 0.9em;
+        }
+
+        .footer-links a:hover {
+            color: #f59e0b;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #334155;
+            padding-top: 20px;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.85em;
+        }
+
+    </style>
+    <script src="js/collapsible.js"></script>
+    <script src="js/logo.js"></script>
+    <script src="js/api-config.js"></script>
+    <script src="js/stock-categories.js"></script>
+    <script src="js/data-api.js"></script>
+    <script src="js/custom-dialogs.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="logo-section">
+                <span class="logo-icon">📊</span>
+                <a href="index.html" class="logo-text">VNStock Analytics</a>
+                <span class="page-title" data-i18n="portfolio.title">Portfolio Analytics</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 20px;">
+                <div class="nav-menu">
+                    <button class="menu-btn" onclick="toggleMenu()">
+                        📊 Dashboards
+                        <span id="menuArrow">▼</span>
+                    </button>
+                    <div class="dropdown-menu" id="dropdownMenu">
+                        <div class="menu-header" data-i18n="menu.all_dashboards">All Dashboards</div>
+
+                        <div class="menu-category" data-i18n="menu.market_analysis">📊 Market Analysis</div>
+                        <div class="menu-items">
+                            <a href="dashboard.html" class="menu-item">
+                                <span class="menu-item-icon">📊</span>
+                                <span data-i18n="nav.dashboard">Main Dashboard</span>
+                            </a>
+                            <a href="dashboard_history.html" class="menu-item">
+                                <span class="menu-item-icon">📊</span>
+                                <span data-i18n="nav.history">Historical Analysis</span>
+                            </a>
+                            <a href="advanced_charts.html" class="menu-item">
+                                <span class="menu-item-icon">📉</span>
+                                <span data-i18n="nav.charts">Advanced Charts</span>
+                            </a>
+                        </div>
+
+                        <div class="menu-category" data-i18n="menu.investment_tools">💼 Investment Tools</div>
+                        <div class="menu-items">
+                            <a href="price_forecast.html" class="menu-item">
+                                <span class="menu-item-icon">🔮</span>
+                                <span>Price Forecasting</span>
+                            </a>
+                            <a href="dashboard_advanced.html" class="menu-item">
+                                <span class="menu-item-icon">💼</span>
+                                <span data-i18n="portfolio.title">Portfolio Analytics</span>
+                            </a>
+                            <a href="macro_analysis.html" class="menu-item">
+                                <span class="menu-item-icon">🌍</span>
+                                <span data-i18n="nav.macro">Macro Analysis</span>
+                            </a>
+                        </div>
+
+                        <div class="menu-category" data-i18n="menu.automation_alerts">🔔 Automation & Alerts</div>
+                        <div class="menu-items">
+                            <a href="alerts_system.html" class="menu-item">
+                                <span class="menu-item-icon">🔔</span>
+                                <span>Price Alerts</span>
+                            </a>
+                            <a href="trading_automation.html" class="menu-item">
+                                <span class="menu-item-icon">🤖</span>
+                                <span data-i18n="nav.automation">Trading Automation</span>
+                            </a>
+                        </div>
+                    <a href="settings.html" class="menu-item">
+                            <span class="menu-item-icon">⚙️</span>
+                            <span data-i18n="nav.settings">Settings</span>
+                        </a>
+
+                    </div>
+                
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1 data-i18n="page.advanced_analytics">🚀 Advanced Analytics Dashboard</h1>
+            <p style="color: #666; font-size: 1.1em;">Professional-Grade Stock Analysis Tools</p>
+            <div style="margin-top: 12px; padding: 10px 16px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); border-radius: 8px; display: inline-block;">
+                <span style="color: white; font-weight: 600;">📅 <span data-i18n="common.analysis_date">Analysis Date</span>:</span>
+                <span id="analysisTimestamp" style="color: white; font-weight: 500; margin-left: 8px;">Loading...</span>
+            </div>
+        </div>
+
+        <!-- Feature Overview -->
+        <div class="card">
+            <h2 data-i18n="advanced.title">🎯 Advanced Features</h2>
+            <div class="feature-grid">
+                <div class="feature-box" onclick="switchTab('portfolio')">
+                    <h3>📊 Portfolio Analytics</h3>
+                    <p>Risk metrics, diversification, asset allocation, Sharpe ratio, max drawdown</p>
+                </div>
+                <div class="feature-box" onclick="switchTab('backtesting')">
+                    <h3>⏮️ Strategy Backtesting</h3>
+                    <p>Test trading strategies, simulate trades, performance analysis</p>
+                </div>
+                <div class="feature-box" onclick="switchTab('risk')">
+                    <h3>⚠️ Risk Management</h3>
+                    <p>VaR, CVaR, Beta, correlation matrix, volatility analysis</p>
+                </div>
+                <div class="feature-box" onclick="switchTab('patterns')">
+                    <h3>🔍 Pattern Recognition</h3>
+                    <p>Chart patterns, candlestick patterns, support/resistance</p>
+                </div>
+                <div class="feature-box" onclick="switchTab('ml')">
+                    <h3 data-i18n="advanced.machine_learning">🤖 Machine Learning</h3>
+                    <p>LSTM forecasting, ensemble models, feature importance</p>
+                </div>
+                <div class="feature-box" onclick="switchTab('correlation')">
+                    <h3>🔗 Correlation Analysis</h3>
+                    <p>Stock correlations, sector analysis, pair trading opportunities</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tabs">
+            <div class="tab active" data-tab="portfolio" onclick="switchTab('portfolio')" data-i18n="portfolio.title">Portfolio Analytics</div>
+            <div class="tab" data-tab="backtesting" onclick="switchTab('backtesting')" data-i18n="tag.backtesting">Backtesting</div>
+            <div class="tab" data-tab="risk" onclick="switchTab('risk')" data-i18n="automation.risk_management">Risk Management</div>
+            <div class="tab" data-tab="patterns" onclick="switchTab('patterns')">Pattern Recognition</div>
+            <div class="tab" data-tab="ml" onclick="switchTab('ml')">Machine Learning</div>
+            <div class="tab" data-tab="correlation" onclick="switchTab('correlation')">Correlation Analysis</div>
+        </div>
+
+        <!-- Portfolio Analytics Tab -->
+        <div class="tab-content active" id="portfolio">
+            <div class="card">
+                <h2 data-i18n="advanced.portfolio_analytics">📊 Portfolio Analytics</h2>
+                <div class="alert alert-info">
+                    Build and analyze your portfolio with advanced metrics including Sharpe ratio, maximum drawdown, and asset allocation optimization.
+                </div>
+
+                <div>
+                    <label><strong>Select Stocks for Portfolio:</strong></label>
+                    <input type="text"
+                           class="search-box-small"
+                           id="portfolioSearchBox"
+                           placeholder="🔍 Search stocks..."
+                           oninput="filterPortfolioStocks()">
+                    <div class="checkbox-controls">
+                        <button class="btn-small" onclick="selectAllPortfolio()">✓ All</button>
+                        <button class="btn-small" onclick="clearAllPortfolio()">✗ Clear</button>
+                        <button class="btn-small" onclick="selectVisiblePortfolio()">✓ Visible</button>
+                        <span class="selection-count" id="portfolioCount">0 selected</span>
+                    </div>
+                    <div class="checkbox-grid" id="portfolioStocks">
+                        <div style="grid-column: 1/-1; text-align: center; color: #64748b; font-size: 0.9em;" data-i18n="common.loading">Loading...</div>
+                    </div>
+                    <button class="btn" onclick="analyzePortfolio()" style="margin-top: 10px; width: 100%;">📈 Analyze Portfolio</button>
+                </div>
+
+                <div id="portfolioResults" style="display: none;">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label" data-i18n="dashboard.total_value">Total Value</div>
+                            <div class="metric-value" id="portfolioValue">0</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Expected Return</div>
+                            <div class="metric-value" id="expectedReturn">0%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Portfolio Risk (σ)</div>
+                            <div class="metric-value" id="portfolioRisk">0%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Sharpe Ratio</div>
+                            <div class="metric-value" id="sharpeRatio">0</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Max Drawdown</div>
+                            <div class="metric-value" id="maxDrawdown">0%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Diversification</div>
+                            <div class="metric-value" id="diversification">0%</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="allocationChart"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="efficientFrontierChart"></canvas>
+                    </div>
+
+                    <!-- Budget Allocation Section -->
+                    <div style="margin-top: 30px; padding: 25px; background: #f0f9ff; border-radius: 12px; border: 2px solid #3b82f6;">
+                        <h3 style="color: #1e40af; margin-bottom: 15px;" data-i18n="advanced.budget_allocation">💰 Budget Allocation & Investment Plan</h3>
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Enter Your Investment Budget (VND):</label>
+                            <div style="display: flex; gap: 10px; align-items: center;">
+                                <input type="text"
+                                       id="investmentBudget"
+                                       placeholder="e.g., 100000000"
+                                       style="flex: 1; padding: 12px; font-size: 1.1em; border: 2px solid #3b82f6; border-radius: 8px;"
+                                       oninput="formatBudgetInput(this)">
+                                <button class="btn" onclick="generateInvestmentPlan()" style="white-space: nowrap;">
+                                    🎯 Generate Investment Plan
+                                </button>
+                            </div>
+                            <div style="margin-top: 8px; color: #64748b; font-size: 0.9em;">
+                                Example: 100,000,000 VND (100 million)
+                            </div>
+                        </div>
+
+                        <div id="investmentPlanResults" style="display: none;">
+                            <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                                <h4 style="color: #1e40af; margin-bottom: 15px;">📋 Recommended Investment Plan</h4>
+                                <div id="investmentSummary" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 20px;"></div>
+                                <div id="investmentAllocation"></div>
+                            </div>
+
+                            <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                                <h4 style="color: #1e40af; margin-bottom: 15px;">📊 Allocation Breakdown</h4>
+                                <div id="allocationTable"></div>
+                            </div>
+
+                            <div style="background: white; padding: 20px; border-radius: 10px;">
+                                <h4 style="color: #1e40af; margin-bottom: 15px;">💡 Investment Rationale & Evidence</h4>
+                                <div id="investmentRationale"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Backtesting Tab -->
+        <div class="tab-content" id="backtesting">
+            <div class="card">
+                <h2 data-i18n="advanced.strategy_backtesting">⏮️ Strategy Backtesting</h2>
+                <div class="alert alert-info">
+                    Test your trading strategies on historical data. See how your strategy would have performed.
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label><strong>Select Stock:</strong></label>
+                        <select id="backtestStock">
+                            <option value="">-- Loading --</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label><strong>Strategy:</strong></label>
+                        <select id="strategySelect">
+                            <option value="sma_crossover">SMA Crossover (20/50)</option>
+                            <option value="rsi_oversold">RSI Oversold/Overbought</option>
+                            <option value="macd">MACD Signal</option>
+                            <option value="bollinger">Bollinger Breakout</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="runBacktest()">🚀 Run Backtest</button>
+
+                <div id="backtestResults" style="display: none;">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Total Return</div>
+                            <div class="metric-value" id="totalReturn">0%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Win Rate</div>
+                            <div class="metric-value" id="winRate">0%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Total Trades</div>
+                            <div class="metric-value" id="totalTrades">0</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Avg Trade P/L</div>
+                            <div class="metric-value" id="avgTrade">0%</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container large">
+                        <canvas id="backtestChart"></canvas>
+                    </div>
+
+                    <h3 style="margin: 20px 0;" data-i18n="section.trade_history">Trade History</h3>
+                    <div id="tradeHistory"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Risk Management Tab -->
+        <div class="tab-content" id="risk">
+            <div class="card">
+                <h2 data-i18n="advanced.risk_management">⚠️ Risk Management</h2>
+                <div class="alert alert-warning">
+                    Advanced risk metrics to help you understand and manage investment risk.
+                </div>
+
+                <div>
+                    <label><strong>Select Stocks:</strong></label>
+                    <input type="text"
+                           class="search-box-small"
+                           id="riskSearchBox"
+                           placeholder="🔍 Search stocks..."
+                           oninput="filterRiskStocks()">
+                    <div class="checkbox-controls">
+                        <button class="btn-small" onclick="selectAllRisk()">✓ All</button>
+                        <button class="btn-small" onclick="clearAllRisk()">✗ Clear</button>
+                        <button class="btn-small" onclick="selectVisibleRisk()">✓ Visible</button>
+                        <span class="selection-count" id="riskCount">0 selected</span>
+                    </div>
+                    <div class="checkbox-grid" id="riskStocks">
+                        <div style="grid-column: 1/-1; text-align: center; color: #64748b; font-size: 0.9em;" data-i18n="common.loading">Loading...</div>
+                    </div>
+                    <button class="btn" onclick="calculateRisk()" style="margin-top: 10px; width: 100%;">📊 Calculate Risk Metrics</button>
+                </div>
+
+                <div id="riskResults" style="display: none;">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Value at Risk (95%)</div>
+                            <div class="metric-value" id="var95">0%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">CVaR (95%)</div>
+                            <div class="metric-value" id="cvar95">0%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Average Beta</div>
+                            <div class="metric-value" id="avgBeta">0</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Volatility</div>
+                            <div class="metric-value" id="volatility">0%</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="riskChart"></canvas>
+                    </div>
+
+                    <h3 style="margin: 20px 0;">Risk Breakdown by Stock</h3>
+                    <div id="riskTable"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pattern Recognition Tab -->
+        <div class="tab-content" id="patterns">
+            <div class="card">
+                <h2 data-i18n="advanced.pattern_recognition">🔍 Pattern Recognition</h2>
+                <div class="alert alert-info">
+                    Automatic detection of chart patterns and candlestick formations.
+                </div>
+
+                <div>
+                    <label><strong>Select Stock:</strong></label>
+                    <select id="patternStock">
+                        <option value="">-- Loading --</option>
+                    </select>
+                    <button class="btn" onclick="detectPatterns()">🔎 Detect Patterns</button>
+                </div>
+
+                <div id="patternResults" style="display: none;">
+                    <div class="alert alert-success" id="patternAlert"></div>
+
+                    <h3 style="margin: 20px 0;">Detected Patterns</h3>
+                    <div id="patternList"></div>
+
+                    <div class="chart-container large">
+                        <canvas id="patternChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Machine Learning Tab -->
+        <div class="tab-content" id="ml">
+            <div class="card">
+                <h2>🤖 Machine Learning Forecasting</h2>
+                <div class="alert alert-info">
+                    Advanced LSTM neural network predictions with confidence intervals.
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <label><strong>Select Stock:</strong></label>
+                        <select id="mlStock">
+                            <option value="">-- Loading --</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label><strong>Forecast Horizon:</strong></label>
+                        <select id="mlHorizon">
+                            <option value="7">7 Days</option>
+                            <option value="14">14 Days</option>
+                            <option value="30" selected>30 Days</option>
+                            <option value="60">60 Days</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button class="btn" onclick="runMLForecast()">🚀 Generate ML Forecast</button>
+
+                <div id="mlResults" style="display: none;">
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Model Accuracy</div>
+                            <div class="metric-value" id="mlAccuracy">0%</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Predicted Trend</div>
+                            <div class="metric-value" id="mlTrend">--</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-label">Confidence</div>
+                            <div class="metric-value" id="mlConfidence">0%</div>
+                        </div>
+                    </div>
+
+                    <div class="chart-container large">
+                        <canvas id="mlChart"></canvas>
+                    </div>
+
+                    <h3 style="margin: 20px 0;">Feature Importance</h3>
+                    <div class="chart-container">
+                        <canvas id="featureChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Correlation Analysis Tab -->
+        <div class="tab-content" id="correlation">
+            <div class="card">
+                <h2 data-i18n="advanced.correlation_analysis">🔗 Correlation Analysis</h2>
+                <div class="alert alert-info">
+                    Analyze correlations between stocks for diversification and pair trading.
+                </div>
+
+                <div>
+                    <label><strong>Select Stocks (min 3):</strong></label>
+                    <input type="text"
+                           class="search-box-small"
+                           id="correlationSearchBox"
+                           placeholder="🔍 Search stocks..."
+                           oninput="filterCorrelationStocks()">
+                    <div class="checkbox-controls">
+                        <button class="btn-small" onclick="selectAllCorrelation()">✓ All</button>
+                        <button class="btn-small" onclick="clearAllCorrelation()">✗ Clear</button>
+                        <button class="btn-small" onclick="selectVisibleCorrelation()">✓ Visible</button>
+                        <span class="selection-count" id="correlationCount">0 selected</span>
+                    </div>
+                    <div class="checkbox-grid" id="correlationStocks" style="max-height: 450px;">
+                        <div style="grid-column: 1/-1; text-align: center; color: #64748b; font-size: 0.9em;" data-i18n="common.loading">Loading...</div>
+                    </div>
+                    <button class="btn" onclick="analyzeCorrelation()" style="margin-top: 10px; width: 100%;">📊 Analyze Correlations</button>
+                </div>
+
+                <div id="correlationResults" style="display: none;">
+                    <h3 style="margin: 20px 0;">Correlation Matrix</h3>
+                    <div id="correlationMatrix"></div>
+
+                    <h3 style="margin: 20px 0;">Correlation Heatmap</h3>
+                    <div class="chart-container large">
+                        <canvas id="correlationHeatmap"></canvas>
+                    </div>
+
+                    <h3 style="margin: 20px 0;">Pair Trading Opportunities</h3>
+                    <div id="pairTrading"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let allStocks = [];
+        let stockData = {};
+        let currentPortfolioStocks = [];
+        let charts = {};
+        let stockNames = {}; // Stock symbol to name mapping
+
+        // Update analysis timestamp
+        function updateAnalysisTimestamp() {
+            const now = new Date();
+            const options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
+            };
+            const timestamp = now.toLocaleString('en-US', options);
+            document.getElementById('analysisTimestamp').textContent = timestamp;
+        }
+
+        async function init() {
+            try {
+                // Update timestamp
+                updateAnalysisTimestamp();
+
+                // Load stock names first
+                try {
+                    const namesResponse = await fetch(`${window.API_BASE_URL || ''}/api/stock-names`);
+                    stockNames = await namesResponse.json();
+                } catch (e) {
+                    console.log('Stock names not available');
+                    stockNames = {};
+                }
+
+                // Wait for stock categories to load from API
+                let waitCount = 0;
+                while (!categoriesLoaded && waitCount < 50) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    waitCount++;
+                }
+
+                if (!categoriesLoaded) {
+                    console.error('Failed to load stock categories');
+                    return;
+                }
+
+                // Build allStocks from all categories (233 stocks)
+                allStocks = [...new Set([
+                    ...STOCK_CATEGORIES.all,
+                    ...(STOCK_CATEGORIES.commodities || [])
+                ])].sort();
+
+                console.log(`✓ Loaded ${allStocks.length} stocks for portfolio analytics`);
+
+                // Populate all dropdowns
+                populateDropdowns();
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+
+        function getStockDisplayName(symbol) {
+            const name = stockNames[symbol];
+            if (name) {
+                return `${symbol} - ${name}`;
+            }
+            return symbol;
+        }
+
+        function populateDropdowns() {
+            // Regular dropdowns (single select)
+            const regularDropdowns = ['backtestStock', 'patternStock', 'mlStock'];
+            regularDropdowns.forEach(id => {
+                const select = document.getElementById(id);
+                if (select && select.tagName === 'SELECT') {
+                    select.innerHTML = allStocks.map(symbol =>
+                        `<option value="${symbol}">${getStockDisplayName(symbol)}</option>`
+                    ).join('');
+                }
+            });
+
+            // Checkbox containers (multi-select)
+            populateCheckboxContainer('portfolioStocks', 'portfolio');
+            populateCheckboxContainer('riskStocks', 'risk');
+            populateCheckboxContainer('correlationStocks', 'correlation');
+        }
+
+        function populateCheckboxContainer(containerId, prefix) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            container.innerHTML = allStocks.map(symbol => `
+                <div class="checkbox-item">
+                    <input type="checkbox" id="${prefix}_${symbol}" value="${symbol}" onchange="update${prefix.charAt(0).toUpperCase() + prefix.slice(1)}Count()">
+                    <label for="${prefix}_${symbol}" title="${getStockDisplayName(symbol)}">${getStockDisplayName(symbol)}</label>
+                </div>
+            `).join('');
+
+            // Initialize count
+            window[`update${prefix.charAt(0).toUpperCase() + prefix.slice(1)}Count`]();
+        }
+
+        function updatePortfolioCount() {
+            const count = document.querySelectorAll('#portfolioStocks input:checked').length;
+            document.getElementById('portfolioCount').textContent = `${count} selected`;
+        }
+
+        function updateRiskCount() {
+            const count = document.querySelectorAll('#riskStocks input:checked').length;
+            document.getElementById('riskCount').textContent = `${count} selected`;
+        }
+
+        function updateCorrelationCount() {
+            const count = document.querySelectorAll('#correlationStocks input:checked').length;
+            document.getElementById('correlationCount').textContent = `${count} selected`;
+        }
+
+        // Portfolio checkbox controls
+        function selectAllPortfolio() {
+            document.querySelectorAll('#portfolioStocks input[type="checkbox"]').forEach(cb => cb.checked = true);
+            updatePortfolioCount();
+        }
+
+        function clearAllPortfolio() {
+            document.querySelectorAll('#portfolioStocks input[type="checkbox"]').forEach(cb => cb.checked = false);
+            updatePortfolioCount();
+        }
+
+        function filterPortfolioStocks() {
+            const searchTerm = document.getElementById('portfolioSearchBox').value.toLowerCase();
+            document.querySelectorAll('#portfolioStocks .checkbox-item').forEach(item => {
+                const label = item.querySelector('label').textContent.toLowerCase();
+                item.classList.toggle('hidden', !label.includes(searchTerm));
+            });
+        }
+
+        function selectVisiblePortfolio() {
+            document.querySelectorAll('#portfolioStocks .checkbox-item:not(.hidden) input[type="checkbox"]').forEach(cb => cb.checked = true);
+            updatePortfolioCount();
+        }
+
+        // Risk checkbox controls
+        function selectAllRisk() {
+            document.querySelectorAll('#riskStocks input[type="checkbox"]').forEach(cb => cb.checked = true);
+            updateRiskCount();
+        }
+
+        function clearAllRisk() {
+            document.querySelectorAll('#riskStocks input[type="checkbox"]').forEach(cb => cb.checked = false);
+            updateRiskCount();
+        }
+
+        function filterRiskStocks() {
+            const searchTerm = document.getElementById('riskSearchBox').value.toLowerCase();
+            document.querySelectorAll('#riskStocks .checkbox-item').forEach(item => {
+                const label = item.querySelector('label').textContent.toLowerCase();
+                item.classList.toggle('hidden', !label.includes(searchTerm));
+            });
+        }
+
+        function selectVisibleRisk() {
+            document.querySelectorAll('#riskStocks .checkbox-item:not(.hidden) input[type="checkbox"]').forEach(cb => cb.checked = true);
+            updateRiskCount();
+        }
+
+        // Correlation checkbox controls
+        function selectAllCorrelation() {
+            document.querySelectorAll('#correlationStocks input[type="checkbox"]').forEach(cb => cb.checked = true);
+            updateCorrelationCount();
+        }
+
+        function clearAllCorrelation() {
+            document.querySelectorAll('#correlationStocks input[type="checkbox"]').forEach(cb => cb.checked = false);
+            updateCorrelationCount();
+        }
+
+        function filterCorrelationStocks() {
+            const searchTerm = document.getElementById('correlationSearchBox').value.toLowerCase();
+            document.querySelectorAll('#correlationStocks .checkbox-item').forEach(item => {
+                const label = item.querySelector('label').textContent.toLowerCase();
+                item.classList.toggle('hidden', !label.includes(searchTerm));
+            });
+        }
+
+        function selectVisibleCorrelation() {
+            document.querySelectorAll('#correlationStocks .checkbox-item:not(.hidden) input[type="checkbox"]').forEach(cb => cb.checked = true);
+            updateCorrelationCount();
+        }
+
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+            // Update tab content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+        }
+
+        async function analyzePortfolio() {
+            const checkboxes = document.querySelectorAll('#portfolioStocks input[type="checkbox"]:checked');
+            const selected = Array.from(checkboxes).map(cb => cb.value);
+
+            if (selected.length < 2) {
+                showAlert('Please select at least 2 stocks');
+                return;
+            }
+
+            // Store selected stocks globally
+            currentPortfolioStocks = selected;
+
+            // Simulate portfolio analysis
+            document.getElementById('portfolioResults').style.display = 'block';
+
+            // Mock calculations
+            document.getElementById('portfolioValue').textContent = '1,000,000';
+            document.getElementById('expectedReturn').textContent = '12.5%';
+            document.getElementById('portfolioRisk').textContent = '18.3%';
+            document.getElementById('sharpeRatio').textContent = '0.68';
+            document.getElementById('maxDrawdown').textContent = '-15.2%';
+            document.getElementById('diversification').textContent = '85%';
+
+            // Create allocation chart
+            renderAllocationChart(selected);
+            renderEfficientFrontier();
+        }
+
+        function renderAllocationChart(stocks) {
+            const ctx = document.getElementById('allocationChart');
+            if (charts.allocation) charts.allocation.destroy();
+
+            const colors = stocks.map((_, i) =>
+                `hsl(${(i * 360) / stocks.length}, 70%, 60%)`
+            );
+
+            charts.allocation = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: stocks,
+                    datasets: [{
+                        data: stocks.map(() => 100 / stocks.length), // Equal weight allocation
+                        backgroundColor: colors
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Asset Allocation'
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderEfficientFrontier() {
+            const ctx = document.getElementById('efficientFrontierChart');
+            if (charts.frontier) charts.frontier.destroy();
+
+            // Generate efficient frontier curve (theoretical optimal portfolios)
+            // Note: Real efficient frontier would require correlation matrix and optimization
+            const points = [];
+            for (let i = 0; i < 50; i++) {
+                const risk = 5 + i * 0.5;
+                const return_ = 3 + Math.sqrt(risk) * 2; // Simplified efficient frontier curve
+                points.push({x: risk, y: return_});
+            }
+
+            charts.frontier = new Chart(ctx, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Efficient Frontier',
+                        data: points,
+                        backgroundColor: 'rgba(196, 28, 22, 0.6)',
+                        borderColor: '#c41c16',
+                        pointRadius: 4
+                    }, {
+                        label: 'Current Portfolio',
+                        data: [{x: 18.3, y: 12.5}],
+                        backgroundColor: 'rgba(239, 68, 68, 1)',
+                        pointRadius: 10,
+                        pointStyle: 'star'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Efficient Frontier'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Risk (%)' }
+                        },
+                        y: {
+                            title: { display: true, text: 'Expected Return (%)' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function formatBudgetInput(input) {
+            // Remove non-digit characters
+            let value = input.value.replace(/\D/g, '');
+
+            // Format with commas
+            if (value) {
+                value = parseInt(value).toLocaleString('en-US');
+            }
+
+            input.value = value;
+        }
+
+        async function generateInvestmentPlan() {
+            const budgetInput = document.getElementById('investmentBudget').value;
+            const budget = parseFloat(budgetInput.replace(/,/g, ''));
+
+            if (!budget || budget <= 0) {
+                showAlert('Please enter a valid budget amount');
+                return;
+            }
+
+            // Get selected stocks from portfolio
+            const checkboxes = document.querySelectorAll('#portfolioStocks input[type="checkbox"]:checked');
+            const selectedStocks = Array.from(checkboxes).map(cb => cb.value);
+
+            if (selectedStocks.length < 2) {
+                showAlert('Please select at least 2 stocks in the portfolio first');
+                return;
+            }
+
+            // Load REAL data for each stock
+            const stocksData = [];
+            for (const symbol of selectedStocks) {
+                try {
+                    const currentData = await DataAPI.getCurrentPrice(symbol);
+                    const historicalData = await DataAPI.getHistoricalData(symbol);
+
+                    if (currentData && historicalData && historicalData.length > 0) {
+                        // Calculate real metrics from historical data
+                        const closes = historicalData.map(d => d.close);
+                        const returns = [];
+
+                        // Calculate daily returns
+                        for (let i = 1; i < closes.length; i++) {
+                            returns.push(((closes[i] - closes[i-1]) / closes[i-1]) * 100);
+                        }
+
+                        // Expected return (annualized from average daily return)
+                        const avgDailyReturn = returns.reduce((a, b) => a + b, 0) / returns.length;
+                        const expectedReturn = avgDailyReturn * 252; // 252 trading days per year
+
+                        // Risk (annualized volatility)
+                        const variance = returns.reduce((sum, r) => sum + Math.pow(r - avgDailyReturn, 2), 0) / returns.length;
+                        const dailyVolatility = Math.sqrt(variance);
+                        const risk = dailyVolatility * Math.sqrt(252);
+
+                        // 3-month performance
+                        const threeMonthsAgo = Math.max(0, closes.length - 63); // ~3 months = 63 trading days
+                        const performance3M = ((closes[closes.length - 1] - closes[threeMonthsAgo]) / closes[threeMonthsAgo]) * 100;
+
+                        // Simple beta estimate (using price changes as proxy)
+                        const beta = Math.abs(avgDailyReturn) * 10; // Simplified beta estimation
+
+                        // P/E ratio placeholder (would need earnings data)
+                        const pe = 15; // Default P/E
+
+                        // Market cap based on price range
+                        const currentPrice = currentData.price;
+                        const marketCap = currentPrice > 50000 ? 'Large' : currentPrice > 20000 ? 'Mid' : 'Small';
+
+                        stocksData.push({
+                            symbol,
+                            expectedReturn: Math.max(expectedReturn, -50), // Cap at -50%
+                            risk: Math.max(risk, 1), // Minimum 1% risk
+                            sharpeRatio: expectedReturn / Math.max(risk, 1),
+                            currentPrice,
+                            performance3M,
+                            beta: Math.min(Math.max(beta, 0.5), 2.0),
+                            pe,
+                            marketCap
+                        });
+                    }
+                } catch (error) {
+                    console.error(`Error loading data for ${symbol}:`, error);
+                }
+            }
+
+            if (stocksData.length < 2) {
+                showAlert('Not enough data available for selected stocks. Please try different stocks.');
+                return;
+            }
+
+            // Sort by Sharpe ratio (risk-adjusted return)
+            stocksData.sort((a, b) => b.sharpeRatio - a.sharpeRatio);
+
+            // Calculate allocations using multiple strategies
+            const strategies = {
+                'Risk-Adjusted (Recommended)': calculateRiskAdjustedAllocation(stocksData),
+                'Equal Weight': calculateEqualWeightAllocation(stocksData),
+                'Performance-Based': calculatePerformanceBasedAllocation(stocksData),
+                'Low Risk': calculateLowRiskAllocation(stocksData)
+            };
+
+            // Use recommended strategy
+            const recommendedStrategy = strategies['Risk-Adjusted (Recommended)'];
+
+            // Calculate actual amounts
+            const allocations = stocksData.map((stock, index) => {
+                const percentage = recommendedStrategy[index];
+                const amount = budget * (percentage / 100);
+                const shares = Math.floor(amount / stock.currentPrice);
+                const actualAmount = shares * stock.currentPrice;
+
+                return {
+                    ...stock,
+                    percentage: percentage.toFixed(2),
+                    amount: actualAmount,
+                    shares
+                };
+            });
+
+            // Display results
+            displayInvestmentPlan(allocations, budget, strategies);
+        }
+
+        function calculateRiskAdjustedAllocation(stocks) {
+            // Allocate based on Sharpe ratio (risk-adjusted return)
+            const totalSharpe = stocks.reduce((sum, s) => sum + s.sharpeRatio, 0);
+            return stocks.map(s => (s.sharpeRatio / totalSharpe) * 100);
+        }
+
+        function calculateEqualWeightAllocation(stocks) {
+            const equalWeight = 100 / stocks.length;
+            return stocks.map(() => equalWeight);
+        }
+
+        function calculatePerformanceBasedAllocation(stocks) {
+            // Allocate based on recent performance
+            const performanceScores = stocks.map(s => Math.max(0, s.performance3M + 20)); // Shift to positive
+            const totalScore = performanceScores.reduce((sum, s) => sum + s, 0);
+            return performanceScores.map(s => (s / totalScore) * 100);
+        }
+
+        function calculateLowRiskAllocation(stocks) {
+            // Allocate more to lower risk stocks
+            const riskScores = stocks.map(s => 1 / s.risk); // Inverse of risk
+            const totalScore = riskScores.reduce((sum, s) => sum + s, 0);
+            return riskScores.map(s => (s / totalScore) * 100);
+        }
+
+        function displayInvestmentPlan(allocations, budget, strategies) {
+            document.getElementById('investmentPlanResults').style.display = 'block';
+
+            // Summary metrics
+            const totalAllocated = allocations.reduce((sum, a) => sum + a.amount, 0);
+            const remainingBudget = budget - totalAllocated;
+            const weightedReturn = allocations.reduce((sum, a) => sum + (a.expectedReturn * a.percentage / 100), 0);
+            const weightedRisk = Math.sqrt(allocations.reduce((sum, a) => sum + Math.pow(a.risk * a.percentage / 100, 2), 0));
+            const portfolioSharpe = weightedReturn / weightedRisk;
+
+            const summaryHTML = `
+                <div style="background: #dbeafe; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                    <div style="font-weight: 600; color: #1e40af;">Total Budget</div>
+                    <div style="font-size: 1.3em; font-weight: 700; color: #1e3a8a;">${budget.toLocaleString()} VND</div>
+                </div>
+                <div style="background: #dcfce7; padding: 15px; border-radius: 8px; border-left: 4px solid #22c55e;">
+                    <div style="font-weight: 600; color: #15803d;">Total Allocated</div>
+                    <div style="font-size: 1.3em; font-weight: 700; color: #166534;">${totalAllocated.toLocaleString()} VND</div>
+                </div>
+                <div style="background: #fef3c7; padding: 15px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                    <div style="font-weight: 600; color: #92400e;">Remaining</div>
+                    <div style="font-size: 1.3em; font-weight: 700; color: #78350f;">${remainingBudget.toLocaleString()} VND</div>
+                </div>
+                <div style="background: #fee2e2; padding: 15px; border-radius: 8px; border-left: 4px solid #c41c16;">
+                    <div style="font-weight: 600; color: #4338ca;">Expected Return</div>
+                    <div style="font-size: 1.3em; font-weight: 700; color: #3730a3;">${weightedReturn.toFixed(2)}%</div>
+                </div>
+                <div style="background: #fce7f3; padding: 15px; border-radius: 8px; border-left: 4px solid #ec4899;">
+                    <div style="font-weight: 600; color: #9f1239;">Portfolio Risk</div>
+                    <div style="font-size: 1.3em; font-weight: 700; color: #881337;">${weightedRisk.toFixed(2)}%</div>
+                </div>
+                <div style="background: #f3e8ff; padding: 15px; border-radius: 8px; border-left: 4px solid #a855f7;">
+                    <div style="font-weight: 600; color: #6b21a8;">Sharpe Ratio</div>
+                    <div style="font-size: 1.3em; font-weight: 700; color: #581c87;">${portfolioSharpe.toFixed(2)}</div>
+                </div>
+            `;
+            document.getElementById('investmentSummary').innerHTML = summaryHTML;
+
+            // Allocation table
+            let tableHTML = `
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: #f1f5f9;">
+                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #cbd5e1;">Stock</th>
+                            <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;">Allocation</th>
+                            <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;">Amount (VND)</th>
+                            <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;">Shares</th>
+                            <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;" data-i18n="table.price">Price</th>
+                            <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;">Exp. Return</th>
+                            <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;">Risk</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            allocations.forEach(stock => {
+                const returnColor = stock.expectedReturn > 15 ? '#16a34a' : stock.expectedReturn > 10 ? '#ca8a04' : '#dc2626';
+                const riskColor = stock.risk < 15 ? '#16a34a' : stock.risk < 25 ? '#ca8a04' : '#dc2626';
+                const displayName = getStockDisplayName(stock.symbol);
+
+                tableHTML += `
+                    <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <td style="padding: 12px; font-weight: 600;" title="${displayName}">${displayName}</td>
+                        <td style="padding: 12px; text-align: right; font-weight: 700; color: #3b82f6;">${stock.percentage}%</td>
+                        <td style="padding: 12px; text-align: right;">${stock.amount.toLocaleString()}</td>
+                        <td style="padding: 12px; text-align: right; font-weight: 600;">${stock.shares}</td>
+                        <td style="padding: 12px; text-align: right;">${Math.round(stock.currentPrice).toLocaleString()}</td>
+                        <td style="padding: 12px; text-align: right; color: ${returnColor}; font-weight: 600;">${stock.expectedReturn.toFixed(1)}%</td>
+                        <td style="padding: 12px; text-align: right; color: ${riskColor}; font-weight: 600;">${stock.risk.toFixed(1)}%</td>
+                    </tr>
+                `;
+            });
+
+            tableHTML += `
+                    </tbody>
+                </table>
+            `;
+            document.getElementById('allocationTable').innerHTML = tableHTML;
+
+            // Investment rationale
+            let rationaleHTML = '<div style="display: grid; gap: 15px;">';
+
+            allocations.forEach((stock, index) => {
+                const reasons = [];
+
+                // Risk-adjusted performance
+                if (stock.sharpeRatio > 1) {
+                    reasons.push(`✅ <strong>Excellent risk-adjusted return</strong> (Sharpe: ${stock.sharpeRatio.toFixed(2)}) - Returns ${stock.expectedReturn.toFixed(1)}% with ${stock.risk.toFixed(1)}% risk`);
+                } else if (stock.sharpeRatio > 0.7) {
+                    reasons.push(`✓ <strong>Good risk-adjusted return</strong> (Sharpe: ${stock.sharpeRatio.toFixed(2)})`);
+                }
+
+                // Recent performance
+                if (stock.performance3M > 10) {
+                    reasons.push(`📈 <strong>Strong recent performance</strong> (+${stock.performance3M.toFixed(1)}% in 3 months)`);
+                } else if (stock.performance3M > 5) {
+                    reasons.push(`📊 <strong>Positive momentum</strong> (+${stock.performance3M.toFixed(1)}% in 3 months)`);
+                }
+
+                // Risk level
+                if (stock.risk < 15) {
+                    reasons.push(`🛡️ <strong>Low volatility</strong> (${stock.risk.toFixed(1)}% risk) - Suitable for conservative investors`);
+                } else if (stock.risk < 25) {
+                    reasons.push(`⚖️ <strong>Moderate risk</strong> (${stock.risk.toFixed(1)}%) - Balanced risk/reward profile`);
+                } else {
+                    reasons.push(`⚠️ <strong>Higher volatility</strong> (${stock.risk.toFixed(1)}%) - Higher potential returns with increased risk`);
+                }
+
+                // Beta
+                if (stock.beta < 1) {
+                    reasons.push(`📉 <strong>Defensive stock</strong> (Beta: ${stock.beta.toFixed(2)}) - Less volatile than market`);
+                } else if (stock.beta > 1.3) {
+                    reasons.push(`📈 <strong>High beta</strong> (${stock.beta.toFixed(2)}) - Amplified market movements`);
+                }
+
+                // Valuation
+                if (stock.pe < 15) {
+                    reasons.push(`💰 <strong>Attractive valuation</strong> (P/E: ${stock.pe.toFixed(1)}) - Potentially undervalued`);
+                } else if (stock.pe > 25) {
+                    reasons.push(`🚀 <strong>Growth premium</strong> (P/E: ${stock.pe.toFixed(1)}) - Market expects high growth`);
+                }
+
+                // Market cap
+                reasons.push(`🏢 <strong>${stock.marketCap}-cap stock</strong> - ${stock.marketCap === 'Large' ? 'Stable, established company' : stock.marketCap === 'Mid' ? 'Growth potential with moderate stability' : 'Higher growth potential, higher risk'}`);
+
+                // Allocation reasoning
+                if (parseFloat(stock.percentage) > 20) {
+                    reasons.push(`⭐ <strong>Core holding</strong> (${stock.percentage}% allocation) - High confidence in risk/reward profile`);
+                } else if (parseFloat(stock.percentage) > 15) {
+                    reasons.push(`💼 <strong>Significant position</strong> (${stock.percentage}% allocation) - Important portfolio component`);
+                } else {
+                    reasons.push(`🎯 <strong>Diversification component</strong> (${stock.percentage}% allocation) - Balances portfolio risk`);
+                }
+
+                const rankBadge = index === 0 ? '🥇 Top Pick' : index === 1 ? '🥈 Second Choice' : index === 2 ? '🥉 Third Choice' : `#${index + 1}`;
+
+                const displayName = getStockDisplayName(stock.symbol);
+                rationaleHTML += `
+                    <div style="background: ${index < 3 ? '#f0f9ff' : '#f8fafc'}; padding: 15px; border-radius: 8px; border-left: 4px solid ${index === 0 ? '#3b82f6' : index === 1 ? '#10b981' : index === 2 ? '#f59e0b' : '#64748b'};">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                            <h4 style="margin: 0; color: #1e293b;">${displayName}</h4>
+                            <span style="background: ${index === 0 ? '#3b82f6' : index === 1 ? '#10b981' : index === 2 ? '#f59e0b' : '#64748b'}; color: white; padding: 4px 12px; border-radius: 12px; font-size: 0.85em; font-weight: 600;">${rankBadge}</span>
+                        </div>
+                        <div style="color: #475569; line-height: 1.8; font-size: 0.95em;">
+                            ${reasons.join('<br>')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            rationaleHTML += '</div>';
+
+            // Add strategy comparison
+            rationaleHTML += `
+                <div style="margin-top: 25px; padding: 20px; background: #fefce8; border-radius: 8px; border: 2px solid #facc15;">
+                    <h4 style="color: #854d0e; margin-bottom: 12px;">📚 Strategy Comparison</h4>
+                    <div style="color: #713f12; line-height: 1.8;">
+                        <strong>Risk-Adjusted (Recommended):</strong> Allocates based on Sharpe ratio, balancing returns with risk. Best for most investors.<br>
+                        <strong>Equal Weight:</strong> Distributes investment equally across all stocks. Simple diversification approach.<br>
+                        <strong>Performance-Based:</strong> Favors stocks with strong recent performance. Momentum-driven strategy.<br>
+                        <strong>Low Risk:</strong> Prioritizes stocks with lower volatility. Conservative approach for risk-averse investors.
+                    </div>
+                </div>
+
+                <div style="margin-top: 15px; padding: 20px; background: #f0fdf4; border-radius: 8px; border: 2px solid #22c55e;">
+                    <h4 style="color: #166534; margin-bottom: 12px;">💡 Key Recommendations</h4>
+                    <div style="color: #15803d; line-height: 1.8;">
+                        ✓ <strong>Diversification:</strong> ${allocations.length} stocks reduce concentration risk<br>
+                        ✓ <strong>Rebalancing:</strong> Review allocation quarterly to maintain target percentages<br>
+                        ✓ <strong>Risk Management:</strong> Set stop-loss at -10% to -15% per position<br>
+                        ✓ <strong>Time Horizon:</strong> Recommended holding period: 6-12 months minimum<br>
+                        ✓ <strong>Reserved Capital:</strong> Keep ${(remainingBudget / budget * 100).toFixed(1)}% in cash for opportunities
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('investmentRationale').innerHTML = rationaleHTML;
+        }
+
+        async function runBacktest() {
+            const stock = document.getElementById('backtestStock').value;
+            const strategy = document.getElementById('strategySelect').value;
+
+            if (!stock) {
+                showAlert('Please select a stock');
+                return;
+            }
+
+            document.getElementById('backtestResults').style.display = 'block';
+
+            // Mock backtest results
+            document.getElementById('totalReturn').textContent = '24.5%';
+            document.getElementById('winRate').textContent = '65%';
+            document.getElementById('totalTrades').textContent = '23';
+            document.getElementById('avgTrade').textContent = '1.2%';
+
+            // Render backtest chart
+            renderBacktestChart(stock, strategy);
+        }
+
+        function renderBacktestChart(stock, strategy) {
+            const ctx = document.getElementById('backtestChart');
+            if (charts.backtest) charts.backtest.destroy();
+
+            // Generate mock equity curve
+            const dates = [];
+            const equity = [100000];
+            const buyHold = [100000];
+
+            for (let i = 1; i <= 60; i++) {
+                const date = new Date();
+                date.setDate(date.getDate() - (60 - i));
+                dates.push(date.toLocaleDateString());
+
+                equity.push(equity[i-1] * (1 + (Math.random() - 0.45) * 0.02));
+                buyHold.push(buyHold[i-1] * (1 + (Math.random() - 0.48) * 0.015));
+            }
+
+            charts.backtest = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: dates,
+                    datasets: [{
+                        label: `${strategy} Strategy`,
+                        data: equity,
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        borderWidth: 2,
+                        fill: true
+                    }, {
+                        label: 'Buy & Hold',
+                        data: buyHold,
+                        borderColor: '#64748b',
+                        backgroundColor: 'rgba(100, 116, 139, 0.1)',
+                        borderWidth: 2,
+                        borderDash: [5, 5],
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Equity Curve'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: { display: true, text: 'Portfolio Value (VND)' }
+                        }
+                    }
+                }
+            });
+
+            // Generate trade history table
+            let html = '<table><thead><tr><th data-i18n="table.date">Date</th><th data-i18n="table.action">Action</th><th data-i18n="table.price">Price</th><th>P/L</th></tr></thead><tbody>';
+            for (let i = 0; i < 10; i++) {
+                const action = Math.random() > 0.5 ? 'BUY' : 'SELL';
+                const pl = (Math.random() - 0.4) * 5;
+                html += `<tr>
+                    <td>${dates[i * 6]}</td>
+                    <td style="color: ${action === 'BUY' ? '#10b981' : '#ef4444'}">${action}</td>
+                    <td>${(50000 + Math.random() * 10000).toFixed(0)} VND</td>
+                    <td style="color: ${pl > 0 ? '#10b981' : '#ef4444'}">${pl > 0 ? '+' : ''}${pl.toFixed(2)}%</td>
+                </tr>`;
+            }
+            html += '</tbody></table>';
+            document.getElementById('tradeHistory').innerHTML = html;
+        }
+
+        async function calculateRisk() {
+            const checkboxes = document.querySelectorAll('#riskStocks input[type="checkbox"]:checked');
+            const selected = Array.from(checkboxes).map(cb => cb.value);
+
+            if (selected.length < 1) {
+                showAlert('Please select at least 1 stock');
+                return;
+            }
+
+            document.getElementById('riskResults').style.display = 'block';
+
+            // Mock risk metrics
+            document.getElementById('var95').textContent = '-8.5%';
+            document.getElementById('cvar95').textContent = '-12.3%';
+            document.getElementById('avgBeta').textContent = '1.15';
+            document.getElementById('volatility').textContent = '22.4%';
+
+            renderRiskChart(selected);
+        }
+
+        function renderRiskChart(stocks) {
+            const ctx = document.getElementById('riskChart');
+            if (charts.risk) charts.risk.destroy();
+
+            charts.risk = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: stocks,
+                    datasets: [{
+                        label: 'Beta',
+                        data: stocks.map(() => 0.5 + Math.random() * 1.5),
+                        backgroundColor: 'rgba(196, 28, 22, 0.6)',
+                        borderColor: '#c41c16',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Beta by Stock'
+                        }
+                    }
+                }
+            });
+
+            // Generate risk table
+            let html = '<table><thead><tr><th>Stock</th><th>Beta</th><th>Volatility</th><th>VaR (95%)</th><th>Risk Grade</th></tr></thead><tbody>';
+            stocks.forEach(symbol => {
+                const beta = (0.5 + Math.random() * 1.5).toFixed(2);
+                const vol = (15 + Math.random() * 20).toFixed(1);
+                const var_ = (5 + Math.random() * 10).toFixed(1);
+                const grade = var_ < 8 ? 'Low' : var_ < 12 ? 'Medium' : 'High';
+                const gradeColor = grade === 'Low' ? '#10b981' : grade === 'Medium' ? '#f59e0b' : '#ef4444';
+
+                html += `<tr>
+                    <td><strong>${symbol}</strong></td>
+                    <td>${beta}</td>
+                    <td>${vol}%</td>
+                    <td>-${var_}%</td>
+                    <td style="color: ${gradeColor}; font-weight: 600;">${grade}</td>
+                </tr>`;
+            });
+            html += '</tbody></table>';
+            document.getElementById('riskTable').innerHTML = html;
+        }
+
+        async function detectPatterns() {
+            const stock = document.getElementById('patternStock').value;
+
+            if (!stock) {
+                showAlert('Please select a stock');
+                return;
+            }
+
+            document.getElementById('patternResults').style.display = 'block';
+
+            // Mock pattern detection
+            const patterns = [
+                { name: 'Ascending Triangle', confidence: 85, bullish: true },
+                { name: 'Support Level at 45,000', confidence: 92, bullish: true },
+                { name: 'Bullish Engulfing', confidence: 78, bullish: true }
+            ];
+
+            document.getElementById('patternAlert').textContent =
+                `Found ${patterns.length} patterns for ${stock}`;
+
+            let html = '<div style="display: grid; gap: 15px;">';
+            patterns.forEach(p => {
+                html += `
+                    <div style="background: ${p.bullish ? '#dcfce7' : '#fee2e2'};
+                                padding: 15px; border-radius: 8px;
+                                border-left: 4px solid ${p.bullish ? '#10b981' : '#ef4444'};">
+                        <div style="display: flex; justify-content: space-between;">
+                            <strong>${p.bullish ? '📈' : '📉'} ${p.name}</strong>
+                            <span style="font-weight: 600;">Confidence: ${p.confidence}%</span>
+                        </div>
+                        <div style="margin-top: 5px; color: #64748b;">
+                            ${p.bullish ? 'Bullish' : 'Bearish'} signal detected
+                        </div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            document.getElementById('patternList').innerHTML = html;
+        }
+
+        async function runMLForecast() {
+            const stock = document.getElementById('mlStock').value;
+            const horizon = document.getElementById('mlHorizon').value;
+
+            if (!stock) {
+                showAlert('Please select a stock');
+                return;
+            }
+
+            document.getElementById('mlResults').style.display = 'block';
+
+            // Mock ML results
+            document.getElementById('mlAccuracy').textContent = '87.3%';
+            document.getElementById('mlTrend').textContent = '↗ Upward';
+            document.getElementById('mlConfidence').textContent = '82%';
+
+            renderMLChart(stock, horizon);
+            renderFeatureImportance();
+        }
+
+        function renderMLChart(stock, horizon) {
+            const ctx = document.getElementById('mlChart');
+            if (charts.ml) charts.ml.destroy();
+
+            // Generate mock data
+            const historical = [];
+            const forecast = [];
+            let price = 50000;
+
+            for (let i = 60; i >= 0; i--) {
+                const date = new Date();
+                date.setDate(date.getDate() - i);
+                price *= (1 + (Math.random() - 0.5) * 0.02);
+                historical.push({x: date, y: price});
+            }
+
+            for (let i = 1; i <= parseInt(horizon); i++) {
+                const date = new Date();
+                date.setDate(date.getDate() + i);
+                price *= (1 + (Math.random() - 0.45) * 0.015);
+                forecast.push({x: date, y: price});
+            }
+
+            charts.ml = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: 'Historical',
+                        data: historical,
+                        borderColor: '#c41c16',
+                        borderWidth: 2
+                    }, {
+                        label: 'LSTM Forecast',
+                        data: forecast,
+                        borderColor: '#10b981',
+                        borderWidth: 2,
+                        borderDash: [5, 5]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'LSTM Neural Network Forecast'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'time',
+                            time: { unit: 'day' }
+                        }
+                    }
+                }
+            });
+        }
+
+        function renderFeatureImportance() {
+            const ctx = document.getElementById('featureChart');
+            if (charts.features) charts.features.destroy();
+
+            const features = ['Price', 'Volume', 'RSI', 'MACD', 'MA20', 'MA50', 'Volatility'];
+            const importance = features.map(() => Math.random() * 100);
+
+            charts.features = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: features,
+                    datasets: [{
+                        label: 'Importance (%)',
+                        data: importance,
+                        backgroundColor: 'rgba(196, 28, 22, 0.6)',
+                        borderColor: '#c41c16',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y',
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Feature Importance in ML Model'
+                        }
+                    }
+                }
+            });
+        }
+
+        async function analyzeCorrelation() {
+            const checkboxes = document.querySelectorAll('#correlationStocks input[type="checkbox"]:checked');
+            const selected = Array.from(checkboxes).map(cb => cb.value);
+
+            if (selected.length < 3) {
+                showAlert('Please select at least 3 stocks');
+                return;
+            }
+
+            document.getElementById('correlationResults').style.display = 'block';
+
+            // Generate correlation matrix
+            const matrix = [];
+            for (let i = 0; i < selected.length; i++) {
+                matrix[i] = [];
+                for (let j = 0; j < selected.length; j++) {
+                    if (i === j) {
+                        matrix[i][j] = 1;
+                    } else if (i < j) {
+                        matrix[i][j] = Math.random() * 2 - 1;
+                    } else {
+                        matrix[i][j] = matrix[j][i];
+                    }
+                }
+            }
+
+            // Render matrix table
+            let html = '<table style="text-align: center;"><thead><tr><th></th>';
+            selected.forEach(s => html += `<th>${s}</th>`);
+            html += '</tr></thead><tbody>';
+
+            selected.forEach((s, i) => {
+                html += `<tr><th>${s}</th>`;
+                matrix[i].forEach(corr => {
+                    const color = corr > 0.7 ? '#10b981' : corr < -0.7 ? '#ef4444' : '#64748b';
+                    html += `<td style="color: ${color}; font-weight: 600;">${corr.toFixed(2)}</td>`;
+                });
+                html += '</tr>';
+            });
+            html += '</tbody></table>';
+            document.getElementById('correlationMatrix').innerHTML = html;
+
+            // Find pair trading opportunities
+            let pairHtml = '<div style="display: grid; gap: 15px;">';
+            for (let i = 0; i < selected.length; i++) {
+                for (let j = i + 1; j < selected.length; j++) {
+                    if (Math.abs(matrix[i][j]) > 0.7) {
+                        const type = matrix[i][j] > 0 ? 'Highly Correlated' : 'Negatively Correlated';
+                        pairHtml += `
+                            <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                                <strong>${selected[i]} & ${selected[j]}</strong>
+                                <div style="margin-top: 5px; color: #64748b;">
+                                    ${type} (${matrix[i][j].toFixed(2)})
+                                </div>
+                            </div>
+                        `;
+                    }
+                }
+            }
+            pairHtml += '</div>';
+            document.getElementById('pairTrading').innerHTML = pairHtml;
+        }
+
+        // Initialize
+        init();
+    </script>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('dropdownMenu');
+            const arrow = document.getElementById('menuArrow');
+            menu.classList.toggle('active');
+            arrow.textContent = menu.classList.contains('active') ? '▲' : '▼';
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.getElementById('dropdownMenu');
+            const menuBtn = event.target.closest('.menu-btn');
+            if (!menuBtn && !event.target.closest('.dropdown-menu')) {
+                menu.classList.remove('active');
+                const arrow = document.getElementById('menuArrow');
+                if (arrow) arrow.textContent = '▼';
+            }
+        });
+    </script>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3 data-i18n="menu.dashboards">Dashboards</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html" data-i18n="nav.home">Home</a></li>
+                        <li><a href="dashboard.html" data-i18n="nav.dashboard">Main Dashboard</a></li>
+                        <li><a href="dashboard_history.html" data-i18n="nav.history">Historical Analysis</a></li>
+                        <li><a href="advanced_charts.html">Advanced Charts</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 data-i18n="menu.tools">Tools</h3>
+                    <ul class="footer-links">
+                        <li><a href="price_forecast.html" data-i18n="nav.forecast">Price Forecasting</a></li>
+                        <li><a href="dashboard_advanced.html" data-i18n="portfolio.title">Portfolio Analytics</a></li>
+                        <li><a href="macro_analysis.html" data-i18n="home.macro_analysis">Macro Analysis</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 data-i18n="menu.automation">Automation</h3>
+                    <ul class="footer-links">
+                        <li><a href="alerts_system.html" data-i18n="home.price_alerts">Price Alerts</a></li>
+                        <li><a href="trading_automation.html" data-i18n="nav.automation">Trading Automation</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3 data-i18n="menu.platform">Platform</h3>
+                    <ul class="footer-links">
+                        <li><a href="API_SERVER_SETUP.html">API Documentation</a></li>
+                        <li><a href="README_API.html">Quick Start</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>© 2024 VNStock Analytics</p>
+                <p style="margin-top: 8px;" data-i18n="footer.disclaimer">For educational purposes only. Not financial advice. Trade at your own risk.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

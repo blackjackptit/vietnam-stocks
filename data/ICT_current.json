@@ -1,0 +1,12 @@
+{
+  "symbol": "ICT",
+  "price": 18050.0,
+  "change": -300.0,
+  "change_percent": -1.6348773841961852,
+  "volume": 9800,
+  "high": 18100.0,
+  "low": 17900.0,
+  "open": 18000.0,
+  "timestamp": "2026-02-01T01:26:18.295752",
+  "source": "vnstock/VCI"
+}

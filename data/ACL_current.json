@@ -1,0 +1,12 @@
+{
+  "symbol": "ACL",
+  "price": 13650.0,
+  "change": 250.0,
+  "change_percent": 1.8656716417910446,
+  "volume": 7300,
+  "high": 13800.0,
+  "low": 13000.0,
+  "open": 13400.0,
+  "timestamp": "2026-02-01T01:29:45.407665",
+  "source": "vnstock/VCI"
+}

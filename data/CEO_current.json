@@ -1,0 +1,12 @@
+{
+  "symbol": "CEO",
+  "price": 20000.0,
+  "change": 700.0,
+  "change_percent": 3.6269430051813467,
+  "volume": 24228600,
+  "high": 20500.0,
+  "low": 19300.0,
+  "open": 19400.0,
+  "timestamp": "2026-02-01T01:31:25.182292",
+  "source": "vnstock/VCI"
+}

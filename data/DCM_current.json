@@ -1,0 +1,12 @@
+{
+  "symbol": "DCM",
+  "price": 36600.0,
+  "change": -400.0,
+  "change_percent": -1.0810810810810811,
+  "volume": 4038100,
+  "high": 37500.0,
+  "low": 36550.0,
+  "open": 37100.0,
+  "timestamp": "2026-02-01T01:23:15.875775",
+  "source": "vnstock/VCI"
+}

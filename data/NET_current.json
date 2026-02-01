@@ -1,0 +1,12 @@
+{
+  "symbol": "NET",
+  "price": 68000.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 400,
+  "high": 68000.0,
+  "low": 68000.0,
+  "open": 68000.0,
+  "timestamp": "2026-02-01T08:54:19.913852",
+  "source": "vnstock/VCI"
+}

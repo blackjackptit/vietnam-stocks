@@ -1,0 +1,12 @@
+{
+  "symbol": "CSV",
+  "price": 28700.0,
+  "change": 150.0,
+  "change_percent": 0.5253940455341506,
+  "volume": 647700,
+  "high": 29300.0,
+  "low": 28700.0,
+  "open": 28950.0,
+  "timestamp": "2026-02-01T01:31:56.007126",
+  "source": "vnstock/VCI"
+}

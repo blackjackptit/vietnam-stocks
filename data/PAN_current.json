@@ -1,0 +1,12 @@
+{
+  "symbol": "PAN",
+  "price": 29800.0,
+  "change": 100.0,
+  "change_percent": 0.33670033670033667,
+  "volume": 776900,
+  "high": 30100.0,
+  "low": 29450.0,
+  "open": 29700.0,
+  "timestamp": "2026-02-01T08:55:20.737123",
+  "source": "vnstock/VCI"
+}

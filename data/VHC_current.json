@@ -1,0 +1,12 @@
+{
+  "symbol": "VHC",
+  "price": 64700.0,
+  "change": -300.0,
+  "change_percent": -0.46153846153846156,
+  "volume": 1548000,
+  "high": 65600.0,
+  "low": 64300.0,
+  "open": 64700.0,
+  "timestamp": "2026-02-01T09:03:28.006225",
+  "source": "vnstock/VCI"
+}

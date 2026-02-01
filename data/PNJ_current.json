@@ -1,0 +1,12 @@
+{
+  "symbol": "PNJ",
+  "price": 127000.0,
+  "change": 500.0,
+  "change_percent": 0.3952569169960474,
+  "volume": 3736300,
+  "high": 127000.0,
+  "low": 121500.0,
+  "open": 124800.0,
+  "timestamp": "2026-02-01T08:56:12.670057",
+  "source": "vnstock/VCI"
+}

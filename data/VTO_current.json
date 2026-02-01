@@ -1,0 +1,12 @@
+{
+  "symbol": "VTO",
+  "price": 11800.0,
+  "change": 50.0,
+  "change_percent": 0.425531914893617,
+  "volume": 117100,
+  "high": 11900.0,
+  "low": 11750.0,
+  "open": 11800.0,
+  "timestamp": "2026-02-01T09:05:09.334648",
+  "source": "vnstock/VCI"
+}

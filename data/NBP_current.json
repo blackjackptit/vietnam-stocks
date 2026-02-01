@@ -1,0 +1,12 @@
+{
+  "symbol": "NBP",
+  "price": 23562,
+  "change": 485.0,
+  "change_percent": 2.06,
+  "volume": 4004229000,
+  "high": 24033.0,
+  "low": 23091.0,
+  "open": 23330.0,
+  "timestamp": "2026-01-31T15:48:38.251709",
+  "source": "DEMO DATA"
+}

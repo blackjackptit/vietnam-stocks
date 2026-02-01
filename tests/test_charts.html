@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advanced Charts Test</title>
+    <script src="js/api-config.js"></script>
+    <script src="js/stock-categories.js"></script>
+    <script src="js/data-api.js"></script>
+</head>
+<body>
+    <h1>Advanced Charts Diagnostic</h1>
+    <div id="status">Loading...</div>
+    <div id="results"></div>
+
+    <script>
+        async function test() {
+            const status = document.getElementById('status');
+            const results = document.getElementById('results');
+
+            try {
+                // Test 1: API config
+                status.innerHTML = 'Test 1: API Config...';
+                console.log('API_BASE_URL:', window.API_BASE_URL);
+                results.innerHTML += `<p>✅ API_BASE_URL: ${window.API_BASE_URL}</p>`;
+
+                // Test 2: Wait for categories
+                status.innerHTML = 'Test 2: Waiting for categories...';
+                let retries = 0;
+                while (!window.categoriesLoaded && retries < 50) {
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                    retries++;
+                }
+                console.log('categoriesLoaded:', window.categoriesLoaded);
+                console.log('Retries:', retries);
+                results.innerHTML += `<p>✅ Categories loaded: ${window.categoriesLoaded} (retries: ${retries})</p>`;
+
+                // Test 3: Check STOCK_CATEGORIES
+                status.innerHTML = 'Test 3: Checking STOCK_CATEGORIES...';
+                if (typeof STOCK_CATEGORIES !== 'undefined') {
+                    console.log('STOCK_CATEGORIES:', Object.keys(STOCK_CATEGORIES));
+                    console.log('STOCK_CATEGORIES.all length:', STOCK_CATEGORIES.all?.length);
+                    results.innerHTML += `<p>✅ STOCK_CATEGORIES exists</p>`;
+                    results.innerHTML += `<p>✅ Categories: ${Object.keys(STOCK_CATEGORIES).join(', ')}</p>`;
+                    results.innerHTML += `<p>✅ Total stocks (all): ${STOCK_CATEGORIES.all?.length || 0}</p>`;
+                } else {
+                    results.innerHTML += `<p>❌ STOCK_CATEGORIES undefined</p>`;
+                }
+
+                // Test 4: Test DataAPI
+                status.innerHTML = 'Test 4: Testing DataAPI...';
+                if (typeof DataAPI !== 'undefined') {
+                    results.innerHTML += `<p>✅ DataAPI exists</p>`;
+
+                    // Try to fetch VCB history
+                    const vcbHistory = await DataAPI.getHistoricalData('VCB');
+                    console.log('VCB history length:', vcbHistory?.length);
+                    results.innerHTML += `<p>✅ VCB history: ${vcbHistory?.length || 0} records</p>`;
+
+                    // Try to fetch TPB current
+                    const tpbCurrent = await DataAPI.getCurrentPrice('TPB');
+                    console.log('TPB current:', tpbCurrent);
+                    results.innerHTML += `<p>✅ TPB price: ${tpbCurrent?.price || 'N/A'} VND</p>`;
+                } else {
+                    results.innerHTML += `<p>❌ DataAPI undefined</p>`;
+                }
+
+                status.innerHTML = '✅ All tests completed!';
+                status.style.color = 'green';
+
+            } catch (error) {
+                status.innerHTML = '❌ Error: ' + error.message;
+                status.style.color = 'red';
+                results.innerHTML += `<p style="color: red;">❌ Error: ${error.message}</p>`;
+                console.error('Test error:', error);
+            }
+        }
+
+        // Run tests after page loads
+        window.addEventListener('load', test);
+    </script>
+</body>
+</html>

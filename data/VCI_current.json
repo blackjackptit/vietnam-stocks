@@ -1,0 +1,12 @@
+{
+  "symbol": "VCI",
+  "price": 36650.0,
+  "change": 500.0,
+  "change_percent": 1.3831258644536653,
+  "volume": 9459900,
+  "high": 36650.0,
+  "low": 36000.0,
+  "open": 36150.0,
+  "timestamp": "2026-02-01T09:02:53.317152",
+  "source": "vnstock/VCI"
+}

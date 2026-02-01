@@ -1,0 +1,12 @@
+{
+  "symbol": "HVN",
+  "price": 26950.0,
+  "change": -250.0,
+  "change_percent": -0.9191176470588236,
+  "volume": 902400,
+  "high": 27500.0,
+  "low": 26900.0,
+  "open": 27500.0,
+  "timestamp": "2026-02-01T01:26:13.412031",
+  "source": "vnstock/VCI"
+}

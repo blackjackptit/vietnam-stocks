@@ -1,0 +1,12 @@
+{
+  "symbol": "VPB",
+  "price": 28000.0,
+  "change": 350.0,
+  "change_percent": 1.2658227848101267,
+  "volume": 15839700,
+  "high": 28000.0,
+  "low": 27550.0,
+  "open": 27750.0,
+  "timestamp": "2026-02-01T01:33:06.675267",
+  "source": "vnstock/VCI"
+}

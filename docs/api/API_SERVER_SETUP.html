@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>API Server Setup Guide</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="docs-style.css">
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head><body>
+<nav class="top-nav"><div class="nav-container">
+<a href="index.html" class="logo-text">📊 VNStock Analytics</a>
+<span class="page-title" data-i18n="footer.documentation">Documentation</span>
+</div></nav>
+<div class="container"><div class="content-card markdown-content">
+<h1>API Server Setup Guide</h1>
+
+<p>This guide explains how to run the API server for the Vietnamese Stock Analytics Platform.</p>
+
+<h2>Overview</h2>
+
+<p>The platform now loads stock data from API endpoints instead of hardcoded values. This makes it easy to:</p>
+<ul>
+<li>✅ Add/remove stocks without changing code</li>
+<li>✅ Update stock names instantly</li>
+<li>✅ Modify categories dynamically</li>
+<li>✅ Maintain data centrally</li>
+</ul>
+
+<h2>Quick Start</h2>
+
+<h3>1. Install Dependencies</h3>
+
+<pre><code>pip install flask flask-cors</code></pre>
+
+<h3>2. Run the API Server</h3>
+
+<pre><code>python api_server.py</code></pre>
+
+<p>The server will start on <code>http://localhost:5000</code></p>
+
+<h3>3. Open Your Dashboard</h3>
+
+<p>Open any dashboard in your browser:</p>
+<ul>
+<li>http://localhost:5000/dashboard_main.html</li>
+<li>http://localhost:5000/dashboard_history.html</li>
+<li>etc.</li>
+</ul>
+
+<p>The dashboards will automatically load data from the API!</p>
+
+<h2>API Endpoints</h2>
+
+<h3>Stock Categories</h3>
+<pre><code>GET http://localhost:5000/api/stock-categories</code></pre>
+<p>Returns all stock symbols organized by categories.</p>
+
+<h3>Stock Names</h3>
+<pre><code>GET http://localhost:5000/api/stock-names</code></pre>
+<p>Returns mapping of stock symbols to company names.</p>
+
+<h3>Watchlist</h3>
+<pre><code>GET http://localhost:5000/api/watchlist
+<p>POST http://localhost:5000/api/watchlist</code></pre></p>
+<p>Get or update the user's watchlist.</p>
+
+<h3>Historical Data</h3>
+<pre><code>GET http://localhost:5000/api/historical/:symbol?days=90</code></pre>
+<p>Get historical price data for a specific stock.</p>
+
+<h2>Data Files</h2>
+
+<p>All data is stored in JSON files in the <code>data/</code> directory:</p>
+
+<pre><code>data/
+<p>├── stock_categories.json    # Stock categories (233 stocks)</p>
+<p>├── stock_names.json         # Stock name mappings</p>
+<p>├── watchlist.json           # User watchlist</p>
+<p>├── latest_data.json         # Latest stock prices</p>
+<p>└── {SYMBOL}_history.json    # Historical data per stock</code></pre></p>
+
+<h2>Updating Stock Data</h2>
+
+<h3>Add a New Stock</h3>
+
+<p>1. <strong>Edit <code>data/stock_categories.json</code>:</strong></p>
+<pre><code>{
+<p>  "categories": {</p>
+<p>    "blue_chips": ["VCB", "VHM", "NEW_STOCK", ...],</p>
+<p>    ...</p>
+<p>  }</p>
+<p>}</code></pre></p>
+
+<p>2. <strong>Edit <code>data/stock_names.json</code>:</strong></p>
+<pre><code>{
+<p>  "NEW_STOCK": "New Company - Công ty CP Mới",</p>
+<p>  ...</p>
+<p>}</code></pre></p>
+
+<p>3. <strong>Clear cache (optional):</strong></p>
+<pre><code>curl -X POST http://localhost:5000/api/clear-cache</code></pre>
+
+<p>4. <strong>Refresh your browser</strong> - The new stock appears immediately!</p>
+
+<h3>Remove a Stock</h3>
+
+<p>1. Remove the symbol from <code>data/stock_categories.json</code></p>
+<p>2. Remove the entry from <code>data/stock_names.json</code></p>
+<p>3. Clear cache and refresh</p>
+
+<h3>Update Stock Names</h3>
+
+<p>1. Edit <code>data/stock_names.json</code></p>
+<p>2. Clear cache</p>
+<p>3. Refresh browser</p>
+
+<strong>No code changes needed!</strong>
+
+<h2>Production Deployment</h2>
+
+<h3>Option 1: Use Gunicorn (Recommended)</h3>
+
+<pre><code># Install gunicorn
+<p>pip install gunicorn</p>
+
+<h1>Run with 4 workers</h1>
+<p>gunicorn -w 4 -b 0.0.0.0:5000 api_server:app</code></pre></p>
+
+<h3>Option 2: Use Docker</h3>
+
+<p>Create <code>Dockerfile</code>:</p>
+<pre><code>FROM python:3.9-slim
+
+<p>WORKDIR /app</p>
+
+<p>COPY requirements.txt .</p>
+<p>RUN pip install -r requirements.txt</p>
+
+<p>COPY . .</p>
+
+<p>EXPOSE 5000</p>
+
+<p>CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "api_server:app"]</code></pre></p>
+
+<p>Build and run:</p>
+<pre><code>docker build -t vnstock-api .
+<p>docker run -p 5000:5000 vnstock-api</code></pre></p>
+
+<h3>Option 3: Use systemd (Linux)</h3>
+
+<p>Create <code>/etc/systemd/system/vnstock-api.service</code>:</p>
+<pre><code>[Unit]
+<p>Description=Vietnamese Stock Analytics API</p>
+<p>After=network.target</p>
+
+<p>[Service]</p>
+<p>Type=simple</p>
+<p>User=www-data</p>
+<p>WorkingDirectory=/var/www/vietnam-stocks</p>
+<p>Environment="PATH=/usr/local/bin"</p>
+<p>ExecStart=/usr/local/bin/gunicorn -w 4 -b 0.0.0.0:5000 api_server:app</p>
+
+<p>[Install]</p>
+<p>WantedBy=multi-user.target</code></pre></p>
+
+<p>Start the service:</p>
+<pre><code>sudo systemctl start vnstock-api
+<p>sudo systemctl enable vnstock-api</code></pre></p>
+
+<h2>Nginx Configuration (Optional)</h2>
+
+<p>If you want to serve the API through Nginx:</p>
+
+<pre><code>server {
+<p>    listen 80;</p>
+<p>    server_name yourdomain.com;</p>
+
+<p>    location / {</p>
+<p>        root /var/www/vietnam-stocks;</p>
+<p>        index index.html;</p>
+<p>        try_files $uri $uri/ =404;</p>
+<p>    }</p>
+
+<p>    location /api {</p>
+<p>        proxy_pass http://localhost:5000;</p>
+<p>        proxy_set_header Host $host;</p>
+<p>        proxy_set_header X-Real-IP $remote_addr;</p>
+<p>    }</p>
+
+<p>    location /data {</p>
+<p>        proxy_pass http://localhost:5000;</p>
+<p>        proxy_set_header Host $host;</p>
+<p>    }</p>
+<p>}</code></pre></p>
+
+<h2>Testing the API</h2>
+
+<h3>Test Categories Endpoint</h3>
+<pre><code>curl http://localhost:5000/api/stock-categories | jq</code></pre>
+
+<h3>Test Stock Names</h3>
+<pre><code>curl http://localhost:5000/api/stock-names | jq</code></pre>
+
+<h3>Test Watchlist</h3>
+<pre><code># Get watchlist
+<p>curl http://localhost:5000/api/watchlist</p>
+
+<h1>Update watchlist</h1>
+<p>curl -X POST http://localhost:5000/api/watchlist \</p>
+<p>  -H "Content-Type: application/json" \</p>
+<p>  -d '["VCB", "VHM", "VIC", "FPT"]'</code></pre></p>
+
+<h3>Test Health Check</h3>
+<pre><code>curl http://localhost:5000/health</code></pre>
+
+<h2>Troubleshooting</h2>
+
+<h3>Port Already in Use</h3>
+<pre><code># Find process using port 5000
+<p>lsof -i :5000</p>
+
+<h1>Kill the process</h1>
+<p>kill -9 <PID></p>
+
+<h1>Or use a different port</h1>
+<p>python api_server.py --port 5001</code></pre></p>
+
+<h3>CORS Issues</h3>
+<p>The server has CORS enabled by default. If you still have issues:</p>
+<p>1. Check browser console for errors</p>
+<p>2. Verify <code>flask-cors</code> is installed</p>
+<p>3. Check API server logs</p>
+
+<h3>Data Not Updating</h3>
+<p>1. Clear browser cache (Ctrl+Shift+R or Cmd+Shift+R)</p>
+<p>2. Clear server cache:</p>
+<p>   <pre><code>   curl -X POST http://localhost:5000/api/clear-cache</p>
+<p>   ``<code></p>
+<p>3. Restart the API server</p>
+
+<h3>File Not Found Errors</h3>
+<p>Make sure all required JSON files exist in the </code>data/<code> directory:</code></pre>bash</p>
+<p>ls -la data/</p>
+<pre><code>
+<p>Required files:</p>
+<ul>
+<li></code>stock_categories.json<code></li>
+<li></code>stock_names.json<code></li>
+<li></code>watchlist.json<code> (optional, will be created automatically)</li>
+</ul>
+
+<h2>Development Tips</h2>
+
+<h3>Auto-Reload Changes</h3>
+<p>The Flask development server auto-reloads when you change Python code.</p>
+
+<p>To reload data files without restarting:</code></pre>bash</p>
+<p>curl -X POST http://localhost:5000/api/clear-cache</p>
+<pre><code>
+<h3>View Server Logs</h3>
+<p>All requests are logged to console. Watch for:</p>
+<ul>
+<li>✓ 200 OK - Success</li>
+<li>⚠️ 404 Not Found - File missing</li>
+<li>❌ 500 Internal Server Error - Check JSON syntax</li>
+</ul>
+
+<h3>JSON Validation</h3>
+<p>Before updating data files, validate JSON:</code></pre>bash</p>
+<h1>Install jq</h1>
+<p>sudo apt install jq  # Linux</p>
+<p>brew install jq      # Mac</p>
+
+<h1>Validate JSON</h1>
+<p>cat data/stock_categories.json | jq</p>
+</code>`<code>
+
+<h2>Next Steps</h2>
+
+<p>1. <strong>Implement Real Data Fetching:</strong></p>
+<p>   - Connect to actual stock market APIs</p>
+<p>   - Update </code>latest_data.json` periodically</p>
+<p>   - Implement historical data fetching</p>
+
+<p>2. <strong>Add Database:</strong></p>
+<p>   - Move from JSON files to PostgreSQL/MySQL</p>
+<p>   - Better performance for large datasets</p>
+<p>   - Query optimization</p>
+
+<p>3. <strong>Add Authentication:</strong></p>
+<p>   - User accounts</p>
+<p>   - Personal watchlists</p>
+<p>   - API key management</p>
+
+<p>4. <strong>Add Caching:</strong></p>
+<p>   - Redis for better performance</p>
+<p>   - Cache frequently accessed data</p>
+<p>   - Reduce database queries</p>
+
+<h2>Support</h2>
+
+<p>For issues or questions:</p>
+<p>1. Check the logs in the terminal where API server is running</p>
+<p>2. Verify JSON file syntax</p>
+<p>3. Clear cache and restart server</p>
+<p>4. Check browser console for frontend errors</p>
+
+<p>---</p>
+
+<strong>Your stock data is now API-driven! Easy to maintain and update.</strong> 🎉
+
+</div></div>
+<footer class="footer"><div class="footer-container">
+<p>© 2024 Vietnam Stock Analytics Platform</p>
+</div></footer>
+</body></html>

@@ -1,0 +1,12 @@
+{
+  "symbol": "PHP",
+  "price": 36500.0,
+  "change": -400.0,
+  "change_percent": -1.084010840108401,
+  "volume": 181600,
+  "high": 37000.0,
+  "low": 36200.0,
+  "open": 37000.0,
+  "timestamp": "2026-02-01T08:55:46.234688",
+  "source": "vnstock/VCI"
+}

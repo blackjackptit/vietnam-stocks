@@ -1,0 +1,12 @@
+{
+  "symbol": "BBC",
+  "price": 97000.0,
+  "change": 6100.0,
+  "change_percent": 6.710671067106711,
+  "volume": 7200,
+  "high": 97000.0,
+  "low": 84600.0,
+  "open": 84600.0,
+  "timestamp": "2026-02-01T01:30:33.172453",
+  "source": "vnstock/VCI"
+}

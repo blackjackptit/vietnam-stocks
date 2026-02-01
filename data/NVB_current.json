@@ -1,0 +1,12 @@
+{
+  "symbol": "NVB",
+  "price": 12500.0,
+  "change": 100.0,
+  "change_percent": 0.8064516129032258,
+  "volume": 153400,
+  "high": 12600.0,
+  "low": 12400.0,
+  "open": 12600.0,
+  "timestamp": "2026-02-01T08:54:50.632457",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "VFC",
+  "price": 96400.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 1100,
+  "high": 100000.0,
+  "low": 96400.0,
+  "open": 100000.0,
+  "timestamp": "2026-02-01T09:03:02.112031",
+  "source": "vnstock/VCI"
+}

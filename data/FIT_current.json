@@ -1,0 +1,12 @@
+{
+  "symbol": "FIT",
+  "price": 4720.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 482300,
+  "high": 4770.0,
+  "low": 4700.0,
+  "open": 4750.0,
+  "timestamp": "2026-02-01T01:24:21.867677",
+  "source": "vnstock/VCI"
+}

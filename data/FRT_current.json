@@ -1,0 +1,12 @@
+{
+  "symbol": "FRT",
+  "price": 169900.0,
+  "change": 4900.0,
+  "change_percent": 2.9696969696969697,
+  "volume": 998500,
+  "high": 171000.0,
+  "low": 165000.0,
+  "open": 168900.0,
+  "timestamp": "2026-02-01T01:24:36.313750",
+  "source": "vnstock/VCI"
+}

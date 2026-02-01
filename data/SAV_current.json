@@ -1,0 +1,12 @@
+{
+  "symbol": "SAV",
+  "price": 12950.0,
+  "change": -350.0,
+  "change_percent": -2.631578947368421,
+  "volume": 2100,
+  "high": 13350.0,
+  "low": 12950.0,
+  "open": 13350.0,
+  "timestamp": "2026-02-01T08:58:14.614453",
+  "source": "vnstock/VCI"
+}

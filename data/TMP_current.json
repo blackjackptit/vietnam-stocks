@@ -1,0 +1,12 @@
+{
+  "symbol": "TMP",
+  "price": 58000.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 100,
+  "high": 58000.0,
+  "low": 58000.0,
+  "open": 58000.0,
+  "timestamp": "2026-02-01T09:01:31.896122",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "ALT",
+  "price": 13200.0,
+  "change": 600.0,
+  "change_percent": 4.761904761904762,
+  "volume": 400,
+  "high": 13200.0,
+  "low": 13000.0,
+  "open": 13200.0,
+  "timestamp": "2026-02-01T01:30:06.845988",
+  "source": "vnstock/VCI"
+}

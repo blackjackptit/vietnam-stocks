@@ -1,0 +1,12 @@
+{
+  "symbol": "TCB",
+  "price": 35900.0,
+  "change": 1000.0,
+  "change_percent": 2.865329512893983,
+  "volume": 11603200,
+  "high": 35900.0,
+  "low": 34800.0,
+  "open": 34850.0,
+  "timestamp": "2026-02-01T09:00:15.120796",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "VSH",
+  "price": 44500.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 2000,
+  "high": 44500.0,
+  "low": 44250.0,
+  "open": 44400.0,
+  "timestamp": "2026-02-01T09:05:00.730432",
+  "source": "vnstock/VCI"
+}

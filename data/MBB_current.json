@@ -1,0 +1,12 @@
+{
+  "symbol": "MBB",
+  "price": 27200.0,
+  "change": 500.0,
+  "change_percent": 1.8726591760299627,
+  "volume": 28064600,
+  "high": 27200.0,
+  "low": 26600.0,
+  "open": 26750.0,
+  "timestamp": "2026-02-01T01:33:11.217077",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "OGC",
+  "price": 3800.0,
+  "change": -40.0,
+  "change_percent": -1.0416666666666665,
+  "volume": 559300,
+  "high": 3860.0,
+  "low": 3780.0,
+  "open": 3850.0,
+  "timestamp": "2026-02-01T08:55:05.391877",
+  "source": "vnstock/VCI"
+}

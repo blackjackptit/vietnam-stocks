@@ -1,0 +1,12 @@
+{
+  "symbol": "SILVER",
+  "price": 74143,
+  "change": -1799.0,
+  "change_percent": -2.43,
+  "volume": 464916000,
+  "high": 75626.0,
+  "low": 72660.0,
+  "open": 74381.0,
+  "timestamp": "2026-01-31T15:48:38.446368",
+  "source": "DEMO DATA"
+}

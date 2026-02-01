@@ -1,0 +1,12 @@
+{
+  "symbol": "CTR",
+  "price": 96700.0,
+  "change": 700.0,
+  "change_percent": 0.7291666666666666,
+  "volume": 613000,
+  "high": 98700.0,
+  "low": 96100.0,
+  "open": 96100.0,
+  "timestamp": "2026-02-01T01:32:11.727193",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "BMP",
+  "price": 163000.0,
+  "change": 3200.0,
+  "change_percent": 2.002503128911139,
+  "volume": 289300,
+  "high": 163000.0,
+  "low": 157500.0,
+  "open": 159800.0,
+  "timestamp": "2026-02-01T01:30:53.847903",
+  "source": "vnstock/VCI"
+}

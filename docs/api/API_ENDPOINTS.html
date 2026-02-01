@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>API Endpoints Documentation</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="docs-style.css">
+    <script src="js/api-config.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/currency.js"></script>
+</head><body>
+<nav class="top-nav"><div class="nav-container">
+<a href="index.html" class="logo-text">📊 VNStock Analytics</a>
+<span class="page-title" data-i18n="footer.documentation">Documentation</span>
+</div></nav>
+<div class="container"><div class="content-card markdown-content">
+<h1>API Endpoints Documentation</h1>
+
+<p>This document describes all API endpoints that should be implemented for the Vietnamese Stock Analytics Platform.</p>
+
+<h2>1. Stock Categories API</h2>
+
+<strong>Endpoint:</strong> <code>GET /api/stock-categories</code>
+
+<strong>Description:</strong> Returns all stock symbols organized by categories.
+
+<strong>Response Format:</strong>
+<pre><code>{
+<p>  "success": true,</p>
+<p>  "categories": {</p>
+<p>    "commodities": ["GOLD", "SILVER", "XAU", "XAG"],</p>
+<p>    "blue_chips": ["VCB", "VHM", "VIC", "VNM", "HPG", "GAS", "MSN", "TCB", ...],</p>
+<p>    "banks": ["VCB", "TCB", "MBB", "VPB", "CTG", "BID", "ACB", ...],</p>
+<p>    "real_estate": ["VHM", "VIC", "NVL", "PDR", "DXG", "KDH", ...],</p>
+<p>    "tech": ["FPT", "CMG", "VGI", "SAM", "ITD", "ELC", ...],</p>
+<p>    "consumer": ["VNM", "MSN", "MWG", "PNJ", "SAB", "VHC", ...],</p>
+<p>    "oil_gas": ["GAS", "PLX", "PVD", "PVS", "PVT", ...],</p>
+<p>    "affordable": ["VPB", "STB", "HDB", "SHB", "MBB", ...],</p>
+<p>    "industrial": ["HPG", "HSG", "NKG", "VCS", "TVN", ...],</p>
+<p>    "transportation": ["VJC", "HVN", "VTP", "VSC", "GMD", ...],</p>
+<p>    "utilities": ["POW", "GAS", "NT2", "REE", "PC1", ...]</p>
+<p>  },</p>
+<p>  "total_stocks": 233,</p>
+<p>  "last_updated": "2024-01-31T10:00:00Z"</p>
+<p>}</code></pre></p>
+
+<strong>Error Response:</strong>
+<pre><code>{
+<p>  "success": false,</p>
+<p>  "error": "Failed to load categories"</p>
+<p>}</code></pre></p>
+
+<p>---</p>
+
+<h2>2. Stock Names API</h2>
+
+<strong>Endpoint:</strong> <code>GET /api/stock-names</code>
+
+<strong>Description:</strong> Returns mapping of stock symbols to their full company names.
+
+<strong>Response Format:</strong>
+<pre><code>{
+<p>  "VCB": "Vietcombank - Ngân hàng TMCP Ngoại Thương Việt Nam",</p>
+<p>  "VHM": "Vinhomes - Công ty CP Vinhomes",</p>
+<p>  "VIC": "Vingroup - Tập đoàn Vingroup",</p>
+<p>  "VNM": "Vinamilk - Công ty CP Sữa Việt Nam",</p>
+<p>  "HPG": "Hòa Phát - Tập đoàn Hòa Phát",</p>
+<p>  "GAS": "PV Gas - Tổng Công ty Khí Việt Nam",</p>
+<p>  "MSN": "Masan Group - Tập đoàn Masan",</p>
+<p>  "TCB": "Techcombank - Ngân hàng TMCP Kỹ Thương Việt Nam",</p>
+<p>  "VPB": "VPBank - Ngân hàng TMCP Việt Nam Thịnh Vượng",</p>
+<p>  "MBB": "MBBank - Ngân hàng TMCP Quân Đội",</p>
+<p>  ...</p>
+<p>}</code></pre></p>
+
+<strong>Example:</strong>
+<pre><code>// Usage in frontend
+<p>const stockNames = await fetch('/api/stock-names').then(r => r.json());</p>
+<p>console.log(stockNames['VCB']); // "Vietcombank - Ngân hàng TMCP Ngoại Thương Việt Nam"</code></pre></p>
+
+<p>---</p>
+
+<h2>3. Stock Info API</h2>
+
+<strong>Endpoint:</strong> <code>GET /api/stock-info/:symbol</code>
+
+<strong>Description:</strong> Returns detailed information about a specific stock.
+
+<strong>Parameters:</strong>
+<ul>
+<li><code>symbol</code> (required): Stock symbol (e.g., "VCB", "HPG")</li>
+</ul>
+
+<strong>Response Format:</strong>
+<pre><code>{
+<p>  "success": true,</p>
+<p>  "symbol": "VCB",</p>
+<p>  "name": "Vietcombank - Ngân hàng TMCP Ngoại Thương Việt Nam",</p>
+<p>  "name_en": "Joint Stock Commercial Bank for Foreign Trade of Vietnam",</p>
+<p>  "exchange": "HOSE",</p>
+<p>  "industry": "Banking",</p>
+<p>  "sector": "Financials",</p>
+<p>  "categories": ["blue_chips", "banks"],</p>
+<p>  "market_cap": 150000000000000,</p>
+<p>  "outstanding_shares": 3700000000,</p>
+<p>  "listed_date": "2009-07-14",</p>
+<p>  "website": "https://www.vietcombank.com.vn",</p>
+<p>  "description": "Vietcombank is one of the largest commercial banks in Vietnam...",</p>
+<p>  "address": "198 Trần Quang Khải, Hoàn Kiếm, Hà Nội",</p>
+<p>  "phone": "+84 24 3942 5932",</p>
+<p>  "email": "info@vietcombank.com.vn"</p>
+<p>}</code></pre></p>
+
+<strong>Error Response:</strong>
+<pre><code>{
+<p>  "success": false,</p>
+<p>  "error": "Stock not found"</p>
+<p>}</code></pre></p>
+
+<p>---</p>
+
+<h2>4. All Stocks Info API</h2>
+
+<strong>Endpoint:</strong> <code>GET /api/stocks-info</code>
+
+<strong>Description:</strong> Returns detailed information for all stocks at once.
+
+<strong>Response Format:</strong>
+<pre><code>{
+<p>  "success": true,</p>
+<p>  "stocks": {</p>
+<p>    "VCB": {</p>
+<p>      "name": "Vietcombank - Ngân hàng TMCP Ngoại Thương Việt Nam",</p>
+<p>      "exchange": "HOSE",</p>
+<p>      "industry": "Banking",</p>
+<p>      "sector": "Financials",</p>
+<p>      "categories": ["blue_chips", "banks"],</p>
+<p>      "market_cap": 150000000000000,</p>
+<p>      "listed_date": "2009-07-14"</p>
+<p>    },</p>
+<p>    "VHM": {</p>
+<p>      "name": "Vinhomes - Công ty CP Vinhomes",</p>
+<p>      "exchange": "HOSE",</p>
+<p>      "industry": "Real Estate",</p>
+<p>      "sector": "Real Estate",</p>
+<p>      "categories": ["blue_chips", "real_estate"],</p>
+<p>      "market_cap": 200000000000000,</p>
+<p>      "listed_date": "2018-05-16"</p>
+<p>    },</p>
+<p>    ...</p>
+<p>  },</p>
+<p>  "total": 233,</p>
+<p>  "last_updated": "2024-01-31T10:00:00Z"</p>
+<p>}</code></pre></p>
+
+<p>---</p>
+
+<h2>5. Watchlist API</h2>
+
+<strong>Endpoint:</strong> <code>GET /api/watchlist</code>
+
+<strong>Description:</strong> Returns the user's current watchlist.
+
+<strong>Response Format:</strong>
+<pre><code>["VCB", "VHM", "VIC", "VNM", "HPG", "GAS", "MSN", "TCB", "VPB", "MBB"]</code></pre>
+
+<strong>Update Watchlist:</strong>
+
+<strong>Endpoint:</strong> <code>POST /api/watchlist</code>
+
+<strong>Request Body:</strong>
+<pre><code>["VCB", "VHM", "VIC", "VNM", "HPG"]</code></pre>
+
+<strong>Response:</strong>
+<pre><code>{
+<p>  "success": true,</p>
+<p>  "count": 5,</p>
+<p>  "message": "Watchlist updated successfully"</p>
+<p>}</code></pre></p>
+
+<p>---</p>
+
+<h2>6. Latest Stock Data API</h2>
+
+<strong>Endpoint:</strong> <code>GET /api/latest</code>
+
+<strong>Description:</strong> Returns the latest price and analysis data for all stocks.
+
+<strong>Response Format:</strong>
+<pre><code>{
+<p>  "timestamp": "2024-01-31T10:30:00Z",</p>
+<p>  "all_results": {</p>
+<p>    "VCB": {</p>
+<p>      "symbol": "VCB",</p>
+<p>      "price": 95500,</p>
+<p>      "change": 500,</p>
+<p>      "change_percent": 0.53,</p>
+<p>      "volume": 2500000,</p>
+<p>      "open": 95000,</p>
+<p>      "high": 96000,</p>
+<p>      "low": 94500,</p>
+<p>      "analysis": {</p>
+<p>        "score": 25,</p>
+<p>        "recommendation": "BUY",</p>
+<p>        "emoji": "🟢",</p>
+<p>        "signals": [</p>
+<p>          "🟢 RSI at 45 (Neutral)",</p>
+<p>          "🟢 Price above MA20",</p>
+<p>          "🟢 Volume increasing"</p>
+<p>        ],</p>
+<p>        "indicators": {</p>
+<p>          "rsi": 45,</p>
+<p>          "ma20": 93000,</p>
+<p>          "ma50": 90000,</p>
+<p>          "macd": 150,</p>
+<p>          "macd_signal": 120</p>
+<p>        }</p>
+<p>      }</p>
+<p>    },</p>
+<p>    ...</p>
+<p>  }</p>
+<p>}</code></pre></p>
+
+<p>---</p>
+
+<h2>7. Historical Data API</h2>
+
+<strong>Endpoint:</strong> <code>GET /api/historical/:symbol</code>
+
+<strong>Description:</strong> Returns historical OHLCV data for a specific stock.
+
+<strong>Parameters:</strong>
+<ul>
+<li><code>symbol</code> (required): Stock symbol</li>
+<li><code>days</code> (optional): Number of days to retrieve (default: 90)</li>
+</ul>
+
+<strong>Response Format:</strong>
+<pre><code>[
+<p>  {</p>
+<p>    "date": "2024-01-31",</p>
+<p>    "open": 95000,</p>
+<p>    "high": 96000,</p>
+<p>    "low": 94500,</p>
+<p>    "close": 95500,</p>
+<p>    "volume": 2500000</p>
+<p>  },</p>
+<p>  {</p>
+<p>    "date": "2024-01-30",</p>
+<p>    "open": 94500,</p>
+<p>    "high": 95500,</p>
+<p>    "low": 94000,</p>
+<p>    "close": 95000,</p>
+<p>    "volume": 2800000</p>
+<p>  },</p>
+<p>  ...</p>
+<p>]</code></pre></p>
+
+<p>---</p>
+
+<h2>Implementation Priority</h2>
+
+<h3>High Priority (Required for basic functionality):</h3>
+<p>1. ✅ <code>/api/stock-categories</code> - Stock organization</p>
+<p>2. ✅ <code>/api/stock-names</code> - Display names</p>
+<p>3. ✅ <code>/api/latest</code> - Real-time data</p>
+<p>4. ✅ <code>/api/watchlist</code> (GET/POST) - User preferences</p>
+
+<h3>Medium Priority (Enhanced features):</h3>
+<p>5. <code>/api/stock-info/:symbol</code> - Detailed information</p>
+<p>6. <code>/api/stocks-info</code> - Bulk information</p>
+
+<h3>Already Implemented:</h3>
+<ul>
+<li>Historical data is currently loaded from <code>data/{SYMBOL}_history.json</code></li>
+<li>Current price data from <code>data/{SYMBOL}_current.json</code></li>
+</ul>
+
+<p>---</p>
+
+<h2>Data Storage Recommendations</h2>
+
+<h3>Option 1: JSON Files (Current)</h3>
+<pre><code>data/
+<p>  ├── stock_categories.json      # Categories data</p>
+<p>  ├── stock_names.json           # Name mappings</p>
+<p>  ├── stock_info.json            # Detailed info for all stocks</p>
+<p>  ├── VCB_current.json           # Current price data</p>
+<p>  ├── VCB_history.json           # Historical data</p>
+<p>  └── ...</code></pre></p>
+
+<h3>Option 2: Database (Recommended for production)</h3>
+<pre><code>-- Stocks table
+<p>CREATE TABLE stocks (</p>
+<p>    symbol VARCHAR(10) PRIMARY KEY,</p>
+<p>    name VARCHAR(200),</p>
+<p>    name_en VARCHAR(200),</p>
+<p>    exchange VARCHAR(10),</p>
+<p>    industry VARCHAR(50),</p>
+<p>    sector VARCHAR(50),</p>
+<p>    market_cap BIGINT,</p>
+<p>    listed_date DATE</p>
+<p>);</p>
+
+<p>-- Categories table</p>
+<p>CREATE TABLE stock_categories (</p>
+<p>    symbol VARCHAR(10),</p>
+<p>    category VARCHAR(50),</p>
+<p>    PRIMARY KEY (symbol, category),</p>
+<p>    FOREIGN KEY (symbol) REFERENCES stocks(symbol)</p>
+<p>);</p>
+
+<p>-- Price data table</p>
+<p>CREATE TABLE stock_prices (</p>
+<p>    symbol VARCHAR(10),</p>
+<p>    date DATE,</p>
+<p>    open DECIMAL(12,2),</p>
+<p>    high DECIMAL(12,2),</p>
+<p>    low DECIMAL(12,2),</p>
+<p>    close DECIMAL(12,2),</p>
+<p>    volume BIGINT,</p>
+<p>    PRIMARY KEY (symbol, date)</p>
+<p>);</code></pre></p>
+
+<p>---</p>
+
+<h2>Update Instructions</h2>
+
+<p>To update stock data:</p>
+
+<p>1. <strong>Add/Remove Stocks:</strong></p>
+<p>   - Update <code>/api/stock-categories</code> endpoint data</p>
+<p>   - Add stock info to <code>/api/stock-names</code> endpoint</p>
+<p>   - No code changes needed!</p>
+
+<p>2. <strong>Modify Categories:</strong></p>
+<p>   - Edit categories in the API response</p>
+<p>   - Changes reflect immediately on all dashboards</p>
+
+<p>3. <strong>Update Stock Names:</strong></p>
+<p>   - Modify name mappings in API</p>
+<p>   - All dashboards will show updated names</p>
+
+<p>4. <strong>Example API Response File:</strong></p>
+
+<p>Create <code>data/stock_categories.json</code>:</p>
+<pre><code>{
+<p>  "categories": {</p>
+<p>    "commodities": ["GOLD", "SILVER", "XAU", "XAG"],</p>
+<p>    "blue_chips": ["VCB", "VHM", "VIC", ...],</p>
+<p>    ...</p>
+<p>  }</p>
+<p>}</code></pre></p>
+
+<p>Create <code>data/stock_names.json</code>:</p>
+<pre><code>{
+<p>  "VCB": "Vietcombank - Ngân hàng TMCP Ngoại Thương Việt Nam",</p>
+<p>  "VHM": "Vinhomes - Công ty CP Vinhomes",</p>
+<p>  ...</p>
+<p>}</code></pre></p>
+
+<p>Then serve these files via the API endpoints!</p>
+
+</div></div>
+<footer class="footer"><div class="footer-container">
+<p>© 2024 Vietnam Stock Analytics Platform</p>
+</div></footer>
+</body></html>

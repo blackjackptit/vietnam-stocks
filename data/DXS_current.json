@@ -1,0 +1,12 @@
+{
+  "symbol": "DXS",
+  "price": 7450.0,
+  "change": 90.0,
+  "change_percent": 1.2228260869565217,
+  "volume": 1490900,
+  "high": 7550.0,
+  "low": 7360.0,
+  "open": 7370.0,
+  "timestamp": "2026-02-01T01:24:04.259066",
+  "source": "vnstock/VCI"
+}

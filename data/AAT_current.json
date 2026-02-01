@@ -1,0 +1,12 @@
+{
+  "symbol": "AAT",
+  "price": 3360.0,
+  "change": 10.0,
+  "change_percent": 0.2985074626865672,
+  "volume": 31100,
+  "high": 3360.0,
+  "low": 3320.0,
+  "open": 3360.0,
+  "timestamp": "2026-02-01T01:29:31.153258",
+  "source": "vnstock/VCI"
+}

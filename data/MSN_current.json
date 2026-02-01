@@ -1,0 +1,12 @@
+{
+  "symbol": "MSN",
+  "price": 84000.0,
+  "change": -100.0,
+  "change_percent": -0.11890606420927466,
+  "volume": 10777800,
+  "high": 85000.0,
+  "low": 83300.0,
+  "open": 84600.0,
+  "timestamp": "2026-02-01T08:53:59.889868",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "KSB",
+  "price": 17750.0,
+  "change": 300.0,
+  "change_percent": 1.7191977077363898,
+  "volume": 2603700,
+  "high": 18300.0,
+  "low": 17700.0,
+  "open": 17700.0,
+  "timestamp": "2026-02-01T08:52:56.068921",
+  "source": "vnstock/VCI"
+}

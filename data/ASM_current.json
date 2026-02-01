@@ -1,0 +1,12 @@
+{
+  "symbol": "ASM",
+  "price": 6320.0,
+  "change": 90.0,
+  "change_percent": 1.4446227929373996,
+  "volume": 488800,
+  "high": 6390.0,
+  "low": 6270.0,
+  "open": 6270.0,
+  "timestamp": "2026-02-01T01:30:15.778516",
+  "source": "vnstock/VCI"
+}

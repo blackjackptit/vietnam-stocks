@@ -1,0 +1,12 @@
+{
+  "symbol": "DPM",
+  "price": 23950.0,
+  "change": 50.0,
+  "change_percent": 0.20920502092050208,
+  "volume": 4599700,
+  "high": 24250.0,
+  "low": 23850.0,
+  "open": 24250.0,
+  "timestamp": "2026-02-01T01:23:36.240760",
+  "source": "vnstock/VCI"
+}

@@ -1,0 +1,12 @@
+{
+  "symbol": "AAM",
+  "price": 6850.0,
+  "change": 10.0,
+  "change_percent": 0.14619883040935672,
+  "volume": 2700,
+  "high": 6850.0,
+  "low": 6700.0,
+  "open": 6700.0,
+  "timestamp": "2026-02-01T01:29:27.498285",
+  "source": "vnstock/VCI"
+}

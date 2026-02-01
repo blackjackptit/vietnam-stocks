@@ -1,0 +1,12 @@
+{
+  "symbol": "LCG",
+  "price": 10200.0,
+  "change": 0.0,
+  "change_percent": 0.0,
+  "volume": 1572100,
+  "high": 10300.0,
+  "low": 10150.0,
+  "open": 10250.0,
+  "timestamp": "2026-02-01T08:53:10.507145",
+  "source": "vnstock/VCI"
+}
