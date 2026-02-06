@@ -453,7 +453,54 @@
             0%, 50%, 100% { opacity: 1; }
             25%, 75% { opacity: 0.3; }
         }
+
+        /* Activity Table */
+        .activity-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .activity-table thead {
+            background: #f8fafc;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .activity-table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .activity-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e5e7eb;
+            color: #334155;
+        }
+
+        .activity-table tbody tr:hover {
+            background: #f8fafc;
+        }
+
+        .activity-table code {
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 12px;
+            color: #dc2626;
+        }
+
+        .activity-table strong {
+            color: #1e293b;
+            font-weight: 600;
+        }
     </style>
+    <script src="js/collapsible.js"></script>
 </head>
 <body>
     <div class="container">
@@ -521,6 +568,60 @@
                 </div>
                 <div id="dataCollectionStatus">
                     <div class="loading">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Active Sessions -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-icon">👥</span>
+                    <h3 class="card-title">Active Sessions</h3>
+                </div>
+                <div id="sessionsStatus">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Session Statistics -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-icon">📊</span>
+                    <h3 class="card-title">Session Stats</h3>
+                </div>
+                <div id="sessionStats">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+
+            <!-- Active Users Table -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <span class="card-icon">🌐</span>
+                    <h3 class="card-title">Active Users & Connections</h3>
+                    <div style="margin-left: auto;" class="refresh-indicator">
+                        <span class="refresh-dot"></span>
+                        Auto-refresh every 10s
+                    </div>
+                </div>
+                <div id="activeUsersTable">
+                    <div class="loading">Loading...</div>
+                </div>
+            </div>
+
+            <!-- User Activity Log -->
+            <div class="card full-width">
+                <div class="card-header">
+                    <span class="card-icon">🎯</span>
+                    <h3 class="card-title">User Activity & Behavior</h3>
+                    <div style="margin-left: auto;" class="refresh-indicator">
+                        <span class="refresh-dot"></span>
+                        Auto-refresh every 10s
+                    </div>
+                </div>
+                <div class="log-container" id="userActivityLog">
+                    <div class="log-line info">
+                        <span class="timestamp">Loading...</span>
+                    </div>
                 </div>
             </div>
 
@@ -746,6 +847,147 @@
 
             // Load activity log
             loadActivityLog();
+
+            // Load session tracking data
+            loadSessionData();
+            loadUserActivity();
+        }
+
+        // ============================================================
+        // SESSION TRACKING FUNCTIONS
+        // ============================================================
+
+        async function loadSessionData() {
+            try {
+                // Load active sessions
+                const sessionsResp = await fetch(`${API_BASE}/api/sessions/active`);
+                const sessionsData = await sessionsResp.json();
+
+                // Load session stats
+                const statsResp = await fetch(`${API_BASE}/api/sessions/stats`);
+                const statsData = await statsResp.json();
+
+                // Display active sessions count
+                document.getElementById('sessionsStatus').innerHTML = `
+                    <div class="metric">
+                        <span class="metric-label">Active Sessions</span>
+                        <span class="metric-value success">${sessionsData.total_sessions}</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Total Page Views</span>
+                        <span class="metric-value">${statsData.total_page_views}</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Avg per Session</span>
+                        <span class="metric-value">${statsData.avg_page_views}</span>
+                    </div>
+                `;
+
+                // Display session statistics
+                let popularPagesHTML = statsData.popular_pages.slice(0, 5).map(p => `
+                    <div class="metric">
+                        <span class="metric-label">${p.page}</span>
+                        <span class="metric-value">${p.views} views</span>
+                    </div>
+                `).join('');
+
+                document.getElementById('sessionStats').innerHTML = `
+                    <div style="margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #e5e7eb;">
+                        <div style="font-weight: 600; margin-bottom: 8px; color: #1e293b;">Top Pages</div>
+                        ${popularPagesHTML || '<div class="metric"><span class="metric-label">No data yet</span></div>'}
+                    </div>
+                `;
+
+                // Display active users table
+                let usersTableHTML = '<table class="activity-table"><thead><tr>';
+                usersTableHTML += '<th>Session ID</th><th>Current Page</th><th>Page Views</th><th>Duration</th><th>Last Seen</th><th>IP Address</th></tr></thead><tbody>';
+
+                if (sessionsData.sessions.length === 0) {
+                    usersTableHTML += '<tr><td colspan="6" style="text-align: center; padding: 20px; color: #64748b;">No active sessions</td></tr>';
+                } else {
+                    sessionsData.sessions.forEach(session => {
+                        const duration = formatDuration(session.duration);
+                        const lastSeen = new Date(session.last_seen).toLocaleTimeString();
+                        const currentPage = session.current_page || 'N/A';
+
+                        usersTableHTML += `<tr>
+                            <td><code>${session.id}</code></td>
+                            <td><strong>${currentPage}</strong></td>
+                            <td>${session.page_views}</td>
+                            <td>${duration}</td>
+                            <td>${lastSeen}</td>
+                            <td><code>${session.ip_address}</code></td>
+                        </tr>`;
+                    });
+                }
+
+                usersTableHTML += '</tbody></table>';
+                document.getElementById('activeUsersTable').innerHTML = usersTableHTML;
+
+            } catch (error) {
+                console.error('Error loading session data:', error);
+                document.getElementById('sessionsStatus').innerHTML = `
+                    <div class="metric">
+                        <span class="metric-label">Error</span>
+                        <span class="metric-value error">Failed to load</span>
+                    </div>
+                `;
+            }
+        }
+
+        async function loadUserActivity() {
+            try {
+                const response = await fetch(`${API_BASE}/api/sessions/activity?limit=20`);
+                const data = await response.json();
+
+                let activityHTML = '';
+                if (data.activities.length === 0) {
+                    activityHTML = '<div class="log-line info"><span class="timestamp">No activity yet</span></div>';
+                } else {
+                    data.activities.forEach(activity => {
+                        const time = new Date(activity.timestamp).toLocaleTimeString();
+                        const typeClass = activity.type === 'page_view' ? 'success' : 'info';
+                        const icon = activity.type === 'page_view' ? '👁️' : '🔧';
+
+                        let message = '';
+                        if (activity.type === 'page_view') {
+                            message = `Page view: <strong>${activity.page}</strong>`;
+                        } else if (activity.type === 'api_call') {
+                            message = `API call: <code>${activity.details}</code>`;
+                        } else {
+                            message = activity.type;
+                        }
+
+                        activityHTML += `
+                            <div class="log-line ${typeClass}">
+                                <span class="timestamp">${time}</span>
+                                <span>${icon} ${message}</span>
+                                <span style="margin-left: auto; font-size: 0.85em; color: #64748b;">
+                                    IP: <code>${activity.ip}</code> | Session: <code>${activity.session_id.substring(0, 8)}...</code>
+                                </span>
+                            </div>
+                        `;
+                    });
+                }
+
+                document.getElementById('userActivityLog').innerHTML = activityHTML;
+
+            } catch (error) {
+                console.error('Error loading user activity:', error);
+            }
+        }
+
+        function formatDuration(seconds) {
+            if (seconds < 60) {
+                return `${seconds}s`;
+            } else if (seconds < 3600) {
+                const minutes = Math.floor(seconds / 60);
+                return `${minutes}m ${seconds % 60}s`;
+            } else {
+                const hours = Math.floor(seconds / 3600);
+                const minutes = Math.floor((seconds % 3600) / 60);
+                return `${hours}h ${minutes}m`;
+            }
         }
 
         function showOfflineStatus() {
@@ -1056,6 +1298,8 @@ Continue?
 
         // Auto-refresh every 10 seconds
         setInterval(loadSystemStatus, 10000);
+        setInterval(loadSessionData, 10000);
+        setInterval(loadUserActivity, 10000);
     </script>
 </body>
 </html>

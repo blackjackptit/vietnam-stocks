@@ -712,8 +712,8 @@
                                 <span>Price Forecasting</span>
                             </a>
                             <a href="dashboard_advanced.html" class="menu-item">
-                                <span class="menu-item-icon">💼</span>
-                                <span data-i18n="portfolio.title">Portfolio Analytics</span>
+                                <span class="menu-item-icon">📊</span>
+                                <span data-i18n="nav.portfolio_analytics">Portfolio Analytics</span>
                             </a>
                             <a href="macro_analysis.html" class="menu-item">
                                 <span class="menu-item-icon">🌍</span>
@@ -755,9 +755,9 @@
         </div>
 
         <!-- System Status -->
-        <div class="card">
+        <div class="card collapsible">
             <h2 data-i18n="trading.system_status">📊 System Status</h2>
-            <div class="grid-2">
+            <div class="card-content">            <div class="grid-2">
                 <div class="stats-box">
                     <div class="stats-number" id="systemStatus">
                         <span class="status-indicator inactive"></span> Inactive
@@ -791,16 +791,16 @@
         </div>
 
         <!-- API Configuration -->
-        <div class="card">
+        <div class="card collapsible">
             <h2 data-i18n="trading.broker_api">🔌 Broker API Configuration</h2>
-            <form id="apiConfigForm">
+            <div class="card-content">            <form id="apiConfigForm">
                 <div class="form-group">
                     <label data-i18n="trading.broker">Broker</label>
                     <select id="broker" required>
                         <option value="" data-i18n="trading.select_broker">-- Select Broker --</option>
                         <option value="vndirect">VNDirect</option>
                         <option value="ssi">SSI Securities</option>
-                        <option value="vps">VPS Securities</option>
+            </div>                        <option value="vps">VPS Securities</option>
                         <option value="tcbs">TCBS</option>
                         <option value="custom">Custom API</option>
                     </select>
@@ -840,15 +840,15 @@
         </div>
 
         <!-- Trading Rules -->
-        <div class="card">
+        <div class="card collapsible">
             <h2 data-i18n="trading.rules">📋 Trading Rules</h2>
-            <button class="btn btn-success" onclick="showAddRuleModal()" data-i18n="button.add_rule">
+            <div class="card-content">            <button class="btn btn-success" onclick="showAddRuleModal()" data-i18n="button.add_rule">
                 ➕ Add New Rule
             </button>
 
             <div style="margin-top: 30px;">
                 <h3 style="color: #1e293b; margin-bottom: 15px;" data-i18n="trading.active_rules">Active Rules</h3>
-                <ul class="rules-list" id="rulesList">
+            </div>                <ul class="rules-list" id="rulesList">
                     <!-- Rules will be populated here -->
                     <li class="rule-item buy">
                         <div class="rule-content">
@@ -877,8 +877,8 @@
                             </div>
                         </div>
                         <div class="rule-actions">
-                            <button class="btn" onclick="editRule(2)">✏️ Edit</button>
-                            <button class="btn btn-danger" onclick="deleteRule(2)">🗑️ Delete</button>
+                            <button class="btn" onclick="editRule(2)" data-i18n="button.edit">✏️ Edit</button>
+                            <button class="btn btn-danger" onclick="deleteRule(2)" data-i18n="button.delete">🗑️ Delete</button>
                         </div>
                     </li>
 
@@ -893,8 +893,8 @@
                             </div>
                         </div>
                         <div class="rule-actions">
-                            <button class="btn" onclick="editRule(3)">✏️ Edit</button>
-                            <button class="btn btn-danger" onclick="deleteRule(3)">🗑️ Delete</button>
+                            <button class="btn" onclick="editRule(3)" data-i18n="button.edit">✏️ Edit</button>
+                            <button class="btn btn-danger" onclick="deleteRule(3)" data-i18n="button.delete">🗑️ Delete</button>
                         </div>
                     </li>
                 </ul>
@@ -902,13 +902,13 @@
         </div>
 
         <!-- Risk Management -->
-        <div class="card">
+        <div class="card collapsible">
             <h2 data-i18n="advanced.risk_management">🛡️ Risk Management</h2>
-            <div class="grid-2">
+            <div class="card-content">            <div class="grid-2">
                 <div class="form-group">
                     <label data-i18n="trading.max_position_size">Max Position Size (VND)</label>
                     <input type="number" id="maxPosition" value="10000000" min="0">
-                    <div class="hint" data-i18n="trading.hint_max_position">Maximum investment per trade</div>
+            </div>                    <div class="hint" data-i18n="trading.hint_max_position">Maximum investment per trade</div>
                 </div>
 
                 <div class="form-group">
@@ -948,10 +948,10 @@
         </div>
 
         <!-- Trade Log -->
-        <div class="card">
+        <div class="card collapsible">
             <h2 data-i18n="trading.execution_log">📜 Trade Execution Log</h2>
-            <div class="trade-log" id="tradeLog">
-                <div class="trade-entry buy">
+            <div class="card-content">            <div class="trade-log" id="tradeLog">
+            </div>                <div class="trade-entry buy">
                     <div class="trade-time">2026-01-31 14:23:15</div>
                     <div class="trade-details">
                         🟢 BUY: VCB x 100 shares @ ₫86,500 | Rule: Oversold RSI
@@ -975,9 +975,9 @@
         </div>
 
         <!-- Backtesting -->
-        <div class="card">
-            <h2 data-i18n="trading.backtest_simulation">🧪 Backtesting & Simulation</h2>
-            <p style="color: #64748b; margin-bottom: 20px;" data-i18n="trading.backtest_description">
+        <div class="card collapsible">
+            </div>            <h2 data-i18n="trading.backtest_simulation">🧪 Backtesting & Simulation</h2>
+            <div class="card-content">            <p style="color: #64748b; margin-bottom: 20px;" data-i18n="trading.backtest_description">
                 Test your trading rules on historical data before enabling live trading.
             </p>
 
@@ -1001,7 +1001,7 @@
         </div>
     </div>
 
-    <!-- Backtest Results Modal -->
+            </div>    <!-- Backtest Results Modal -->
     <div id="backtestModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -1729,8 +1729,8 @@
                 <div class="footer-section">
                     <h3 data-i18n="menu.platform">Platform</h3>
                     <ul class="footer-links">
-                        <li><a href="API_SERVER_SETUP.html">API Documentation</a></li>
-                        <li><a href="README_API.html">Quick Start</a></li>
+                        <li><a href="../docs/api/API_SERVER_SETUP.html">API Documentation</a></li>
+                        <li><a href="../docs/api/README_API.html">Quick Start</a></li>
                     </ul>
                 </div>
             </div>

@@ -148,7 +148,6 @@ button.btn-primary,
     background: var(--gradient-red-primary);
     color: var(--text-inverse);
     border: none;
-    box-shadow: var(--shadow-red);
     transition: all 0.3s;
 }
 
@@ -157,14 +156,12 @@ button.btn-primary:hover:not(:disabled),
 .btn-generate:hover:not(:disabled) {
     background: var(--gradient-red-dark);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-red-lg);
 }
 
 .btn:disabled,
 button.btn-primary:disabled,
 .btn-generate:disabled {
     background: var(--color-gray-400);
-    box-shadow: none;
     cursor: not-allowed;
 }
 
@@ -182,7 +179,6 @@ button.btn-primary:disabled,
 .menu-btn {
     background: var(--gradient-red-primary);
     color: var(--text-inverse);
-    box-shadow: var(--shadow-red);
 }
 
 .menu-btn:hover {
@@ -193,7 +189,6 @@ button.btn-primary:disabled,
 .card {
     background: var(--bg-card);
     border: 1px solid var(--border-light);
-    box-shadow: var(--shadow-md);
 }
 
 .card h2,
@@ -213,7 +208,6 @@ button.btn-primary:disabled,
     background: var(--gradient-red-primary);
     color: var(--text-inverse);
     border-color: var(--primary-red);
-    box-shadow: var(--shadow-red);
 }
 
 .tab:hover:not(.active) {

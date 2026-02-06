@@ -1,0 +1,422 @@
+<!-- NEW PORTFOLIO ANALYTICS TAB STRUCTURE -->
+<!-- Replace the current portfolio tab with this cleaner 2-part structure -->
+
+<div class="tab-content active" id="portfolio">
+    <div class="card">
+        <h2>📊 Investment Plan Generator</h2>
+        <div class="alert alert-info">
+            Build your personalized investment portfolio in 4 clear steps
+        </div>
+
+        <!-- ============================================ -->
+        <!-- PART 1: OPTION FILTERS (User Input Section) -->
+        <!-- ============================================ -->
+        <div id="optionFiltersSection">
+
+            <!-- Step 1: Strategy Selection -->
+            <div style="margin-bottom: 30px; padding: 25px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 12px; border: 2px solid #f59e0b;">
+                <h3 style="color: #92400e; margin-bottom: 20px; font-size: 1.3em;">
+                    <span style="background: #f59e0b; color: white; border-radius: 50%; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; margin-right: 10px;">1</span>
+                    Choose Investment Strategy
+                </h3>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <!-- Smart Strategy Card -->
+                    <div id="smartStrategyCard" onclick="selectStrategy('smart')" style="cursor: pointer; padding: 20px; background: white; border: 3px solid #e2e8f0; border-radius: 12px; transition: all 0.3s;">
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <div style="font-size: 3.5em; margin-bottom: 10px;">🤖</div>
+                            <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2em;">Smart Strategies</h4>
+                            <p style="color: #64748b; font-size: 0.9em; margin: 0;">AI-powered selection</p>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background: #f1f5f9; border-radius: 6px; font-size: 0.85em; color: #475569;">
+                            ✓ Automated<br>✓ Optimized<br>✓ 4 Strategies
+                        </div>
+                    </div>
+
+                    <!-- Manual Strategy Card -->
+                    <div id="manualStrategyCard" onclick="selectStrategy('manual')" style="cursor: pointer; padding: 20px; background: white; border: 3px solid #e2e8f0; border-radius: 12px; transition: all 0.3s;">
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <div style="font-size: 3.5em; margin-bottom: 10px;">👤</div>
+                            <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2em;">Manual Selection</h4>
+                            <p style="color: #64748b; font-size: 0.9em; margin: 0;">Pick stocks yourself</p>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background: #f1f5f9; border-radius: 6px; font-size: 0.85em; color: #475569;">
+                            ✓ Full Control<br>✓ Any Stocks<br>✓ Custom Mix
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Smart Strategy Options (Hidden by default) -->
+                <div id="smartStrategyOptions" style="display: none; margin-top: 20px; padding: 20px; background: white; border-radius: 10px;">
+                    <h4 style="color: #5b21b6; margin-bottom: 15px;">Select one strategy:</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <label class="strategy-checkbox-label" data-strategy="balanced" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);">
+                            <input type="checkbox" class="strategy-checkbox" name="strategyChoice" value="balanced" onchange="handleStrategySelection(this)">
+                            <div class="strategy-content">
+                                <div class="strategy-title">⚖️ Balanced</div>
+                                <div class="strategy-desc">Risk-adjusted returns</div>
+                            </div>
+                            <div class="strategy-checkmark">✓</div>
+                        </label>
+                        <label class="strategy-checkbox-label" data-strategy="growth" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                            <input type="checkbox" class="strategy-checkbox" name="strategyChoice" value="growth" onchange="handleStrategySelection(this)">
+                            <div class="strategy-content">
+                                <div class="strategy-title">📈 High Growth</div>
+                                <div class="strategy-desc">Maximum returns</div>
+                            </div>
+                            <div class="strategy-checkmark">✓</div>
+                        </label>
+                        <label class="strategy-checkbox-label" data-strategy="conservative" style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);">
+                            <input type="checkbox" class="strategy-checkbox" name="strategyChoice" value="conservative" onchange="handleStrategySelection(this)">
+                            <div class="strategy-content">
+                                <div class="strategy-title">🛡️ Conservative</div>
+                                <div class="strategy-desc">Lowest risk</div>
+                            </div>
+                            <div class="strategy-checkmark">✓</div>
+                        </label>
+                        <label class="strategy-checkbox-label" data-strategy="bluechip" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                            <input type="checkbox" class="strategy-checkbox" name="strategyChoice" value="bluechip" onchange="handleStrategySelection(this)">
+                            <div class="strategy-content">
+                                <div class="strategy-title">⭐ Blue Chip</div>
+                                <div class="strategy-desc">Market leaders</div>
+                            </div>
+                            <div class="strategy-checkmark">✓</div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Portfolio Type -->
+            <div style="margin-bottom: 30px; padding: 25px; background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); border-radius: 12px; border: 2px solid #3b82f6;">
+                <h3 style="color: #1e40af; margin-bottom: 20px; font-size: 1.3em;">
+                    <span style="background: #3b82f6; color: white; border-radius: 50%; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; margin-right: 10px;">2</span>
+                    Choose Portfolio Type
+                </h3>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <!-- Existing Portfolio Card -->
+                    <div id="existingPortfolioCard" onclick="selectPortfolioType('existing')" style="cursor: pointer; padding: 20px; background: white; border: 3px solid #e2e8f0; border-radius: 12px; transition: all 0.3s;">
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <div style="font-size: 3.5em; margin-bottom: 10px;">📂</div>
+                            <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2em;">Existing Portfolio</h4>
+                            <p style="color: #64748b; font-size: 0.9em; margin: 0;">I already own stocks</p>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background: #f1f5f9; border-radius: 6px; font-size: 0.85em; color: #475569;">
+                            ✓ Analyze holdings<br>✓ Get advice<br>✓ Optimize
+                        </div>
+                    </div>
+
+                    <!-- New Portfolio Card -->
+                    <div id="newPortfolioCard" onclick="selectPortfolioType('new')" style="cursor: pointer; padding: 20px; background: white; border: 3px solid #e2e8f0; border-radius: 12px; transition: all 0.3s;">
+                        <div style="text-align: center; margin-bottom: 15px;">
+                            <div style="font-size: 3.5em; margin-bottom: 10px;">✨</div>
+                            <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2em;">New Portfolio</h4>
+                            <p style="color: #64748b; font-size: 0.9em; margin: 0;">Starting fresh</p>
+                        </div>
+                        <div style="text-align: center; padding: 10px; background: #f1f5f9; border-radius: 6px; font-size: 0.85em; color: #475569;">
+                            ✓ Build new<br>✓ Fresh start<br>✓ No holdings
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Existing Holdings Input (Hidden by default) -->
+                <div id="existingHoldingsInput" style="display: none; margin-top: 20px; padding: 20px; background: white; border-radius: 10px; border: 2px solid #f59e0b;">
+                    <h4 style="color: #92400e; margin-bottom: 15px;">📊 Enter Your Current Holdings</h4>
+                    <p style="color: #64748b; font-size: 0.9em; margin-bottom: 15px;">
+                        List all stocks you currently own. We'll analyze them and provide recommendations.
+                    </p>
+                    <div id="holdingsListContainer" style="display: grid; gap: 12px; margin-bottom: 15px;">
+                        <!-- Holdings rows will be added here dynamically -->
+                    </div>
+                    <button onclick="addHoldingRow()" style="padding: 10px 20px; background: #f59e0b; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                        ➕ Add Stock
+                    </button>
+                    <div style="margin-top: 15px; padding: 12px; background: #fef3c7; border-radius: 6px; border-left: 4px solid #f59e0b; font-size: 0.9em;">
+                        <strong>💡 Tip:</strong> Add all stocks you own. We'll calculate current value and suggest HOLD, BUY MORE, or SELL.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Preferred Stocks (Optional) -->
+            <div style="margin-bottom: 30px; padding: 25px; background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); border-radius: 12px; border: 2px solid #10b981;">
+                <h3 style="color: #065f46; margin-bottom: 20px; font-size: 1.3em;">
+                    <span style="background: #10b981; color: white; border-radius: 50%; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; margin-right: 10px;">3</span>
+                    Select Preferred Stocks
+                    <span style="font-size: 0.7em; color: #059669; font-weight: 500; margin-left: 10px;">(Optional)</span>
+                </h3>
+
+                <div style="padding: 20px; background: white; border-radius: 10px;">
+                    <p style="color: #64748b; font-size: 0.9em; margin-bottom: 15px;">
+                        Choose stocks you want to prioritize. The system will include these first, then add others to complete your portfolio.
+                    </p>
+                    <input type="text" class="search-box-small" id="preferredStocksSearchBox" placeholder="🔍 Search stocks..." oninput="filterPreferredStocks()" style="margin-bottom: 10px;">
+                    <div class="checkbox-controls">
+                        <button class="btn-small" onclick="clearAllPreferred()">✗ Clear All</button>
+                        <span class="selection-count" id="preferredCount" style="background: #10b981; color: white;">0 preferred</span>
+                    </div>
+                    <div class="checkbox-grid" id="preferredStocks" style="max-height: 250px; background: #f0fdf4;">
+                        <div style="grid-column: 1/-1; text-align: center; color: #64748b;">Loading...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Budget & Generate -->
+            <div style="margin-bottom: 30px; padding: 25px; background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-radius: 12px; border: 2px solid #0ea5e9;">
+                <h3 style="color: #075985; margin-bottom: 20px; font-size: 1.3em;">
+                    <span style="background: #0ea5e9; color: white; border-radius: 50%; width: 36px; height: 36px; display: inline-flex; align-items: center; justify-content: center; font-weight: 700; margin-right: 10px;">4</span>
+                    Enter Budget & Generate Plan
+                </h3>
+
+                <div style="background: white; padding: 20px; border-radius: 10px;">
+                    <label style="display: block; margin-bottom: 10px; color: #075985; font-weight: 600; font-size: 1.1em;">
+                        💰 Investment Budget (VND)
+                    </label>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                        <input type="text" id="investmentBudget" placeholder="100,000,000" style="flex: 1; padding: 16px; border: 2px solid #cbd5e1; border-radius: 8px; font-size: 1.2em; font-weight: 600;" oninput="formatBudgetInput(this)" onblur="formatBudgetInput(this)">
+                        <span style="color: #64748b; font-weight: 600; font-size: 1.1em;">VND</span>
+                    </div>
+                    <p style="margin: 0 0 20px 0; color: #64748b; font-size: 0.9em;">
+                        💡 The total amount you want to invest
+                    </p>
+
+                    <button onclick="generateInvestmentPlan()" style="width: 100%; padding: 20px; background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%); color: white; border: none; border-radius: 10px; font-size: 1.3em; font-weight: 700; cursor: pointer; box-shadow: 0 4px 16px rgba(14, 165, 233, 0.4); transition: all 0.3s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 24px rgba(14, 165, 233, 0.5)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 16px rgba(14, 165, 233, 0.4)'">
+                        🚀 Generate Investment Plan
+                    </button>
+                </div>
+            </div>
+
+        </div> <!-- End Option Filters Section -->
+
+        <!-- ================================================ -->
+        <!-- PART 2: INVESTMENT PLAN RESULTS (Hidden Initially) -->
+        <!-- ================================================ -->
+        <div id="investmentPlanResults" style="display: none;">
+
+            <!-- Results Header -->
+            <div style="margin-bottom: 30px; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; color: white;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                    <div>
+                        <h3 style="color: white; margin: 0 0 10px 0; font-size: 1.8em;">✅ Investment Plan Ready!</h3>
+                        <div id="planStrategyName" style="font-size: 1.1em; opacity: 0.9;"></div>
+                        <div id="planPortfolioType" style="font-size: 0.95em; opacity: 0.85; margin-top: 5px;"></div>
+                    </div>
+                    <button onclick="downloadPortfolioReport()" style="padding: 16px 32px; background: white; color: #667eea; border: none; border-radius: 8px; font-weight: 700; font-size: 1.1em; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: all 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        💾 Download Report
+                    </button>
+                </div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div class="metrics-grid" style="margin-bottom: 30px;">
+                <div class="metric-card">
+                    <div class="metric-label">Total Value</div>
+                    <div class="metric-value" id="portfolioValue">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Expected Return</div>
+                    <div class="metric-value" id="expectedReturn">0%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Portfolio Risk (σ)</div>
+                    <div class="metric-value" id="portfolioRisk">0%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Sharpe Ratio</div>
+                    <div class="metric-value" id="sharpeRatio">0</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Max Drawdown</div>
+                    <div class="metric-value" id="maxDrawdown">0%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Diversification</div>
+                    <div class="metric-value" id="diversification">0%</div>
+                </div>
+            </div>
+
+            <!-- Charts -->
+            <div class="chart-container" style="margin-bottom: 30px;">
+                <canvas id="allocationChart"></canvas>
+            </div>
+
+            <div class="chart-container" style="margin-bottom: 30px;">
+                <canvas id="efficientFrontierChart"></canvas>
+            </div>
+
+            <!-- Holdings Table -->
+            <div style="background: white; padding: 25px; border-radius: 12px; margin-bottom: 30px;">
+                <h3 style="color: #1e40af; margin-bottom: 20px;">📊 Recommended Holdings</h3>
+                <div id="holdingsTableContainer"></div>
+            </div>
+
+            <!-- Investment Summary -->
+            <div style="background: white; padding: 25px; border-radius: 12px;">
+                <h3 style="color: #1e40af; margin-bottom: 20px;">📋 Investment Summary</h3>
+                <div id="investmentSummaryContainer"></div>
+            </div>
+
+        </div> <!-- End Investment Plan Results -->
+
+    </div>
+</div>
+
+<!-- JavaScript Functions for New Flow -->
+<script>
+// Track current selections
+let currentStrategy = null;  // 'smart' or 'manual'
+let currentPortfolioType = null;  // 'existing' or 'new'
+let currentSmartStrategy = null;  // 'balanced', 'growth', etc.
+
+// Step 1: Select Strategy
+function selectStrategy(type) {
+    currentStrategy = type;
+
+    const smartCard = document.getElementById('smartStrategyCard');
+    const manualCard = document.getElementById('manualStrategyCard');
+    const smartOptions = document.getElementById('smartStrategyOptions');
+
+    if (type === 'smart') {
+        // Highlight smart card
+        smartCard.style.border = '3px solid #8b5cf6';
+        smartCard.style.background = 'linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%)';
+        manualCard.style.border = '3px solid #e2e8f0';
+        manualCard.style.background = 'white';
+
+        // Show smart strategy options
+        smartOptions.style.display = 'block';
+
+        // Auto-select Balanced if no strategy selected yet
+        if (!currentSmartStrategy) {
+            const balancedCheckbox = document.querySelector('.strategy-checkbox[value="balanced"]');
+            if (balancedCheckbox) {
+                balancedCheckbox.checked = true;
+                currentSmartStrategy = 'balanced';
+            }
+        }
+    } else {
+        // Highlight manual card
+        manualCard.style.border = '3px solid #3b82f6';
+        manualCard.style.background = 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)';
+        smartCard.style.border = '3px solid #e2e8f0';
+        smartCard.style.background = 'white';
+
+        // Hide smart strategy options
+        smartOptions.style.display = 'none';
+
+        // Uncheck all strategy checkboxes
+        document.querySelectorAll('.strategy-checkbox').forEach(cb => cb.checked = false);
+        currentSmartStrategy = null;
+    }
+
+    console.log('📊 Strategy selected:', type);
+}
+
+// Step 2: Select Portfolio Type
+function selectPortfolioType(type) {
+    currentPortfolioType = type;
+
+    const existingCard = document.getElementById('existingPortfolioCard');
+    const newCard = document.getElementById('newPortfolioCard');
+    const holdingsInput = document.getElementById('existingHoldingsInput');
+
+    if (type === 'existing') {
+        // Highlight existing card
+        existingCard.style.border = '3px solid #f59e0b';
+        existingCard.style.background = 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)';
+        newCard.style.border = '3px solid #e2e8f0';
+        newCard.style.background = 'white';
+
+        // Show holdings input
+        holdingsInput.style.display = 'block';
+
+        // Add first holding row if none exist
+        if (document.getElementById('holdingsListContainer').children.length === 0) {
+            addHoldingRow();
+        }
+    } else {
+        // Highlight new card
+        newCard.style.border = '3px solid #10b981';
+        newCard.style.background = 'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)';
+        existingCard.style.border = '3px solid #e2e8f0';
+        existingCard.style.background = 'white';
+
+        // Hide holdings input
+        holdingsInput.style.display = 'none';
+    }
+
+    console.log('📂 Portfolio type selected:', type);
+}
+
+// Add holding row function
+function addHoldingRow() {
+    const container = document.getElementById('holdingsListContainer');
+    const rowId = `holding-${Date.now()}`;
+
+    const row = document.createElement('div');
+    row.id = rowId;
+    row.style.cssText = 'display: grid; grid-template-columns: 2fr 1fr 1fr auto; gap: 10px; align-items: center;';
+    row.innerHTML = `
+        <input type="text" placeholder="Stock symbol (e.g., VCB)" style="padding: 10px; border: 2px solid #cbd5e1; border-radius: 6px;">
+        <input type="number" placeholder="Shares" style="padding: 10px; border: 2px solid #cbd5e1; border-radius: 6px;">
+        <input type="number" placeholder="Price" style="padding: 10px; border: 2px solid #cbd5e1; border-radius: 6px;">
+        <button onclick="removeHoldingRow('${rowId}')" style="padding: 10px 15px; background: #ef4444; color: white; border: none; border-radius: 6px; cursor: pointer;">✕</button>
+    `;
+
+    container.appendChild(row);
+}
+
+// Remove holding row function
+function removeHoldingRow(rowId) {
+    document.getElementById(rowId).remove();
+}
+
+// Generate Investment Plan - Main Function
+function generateInvestmentPlan() {
+    console.log('🚀 Generating investment plan...');
+
+    // Validate inputs
+    if (!currentStrategy) {
+        alert('⚠️ Please select a strategy (Smart or Manual)');
+        return;
+    }
+
+    if (!currentPortfolioType) {
+        alert('⚠️ Please select portfolio type (Existing or New)');
+        return;
+    }
+
+    const budget = parseBudget(document.getElementById('investmentBudget').value);
+    if (!budget || budget <= 0) {
+        alert('⚠️ Please enter a valid investment budget');
+        document.getElementById('investmentBudget').focus();
+        return;
+    }
+
+    // Hide filters, show results
+    document.getElementById('optionFiltersSection').style.display = 'none';
+    document.getElementById('investmentPlanResults').style.display = 'block';
+
+    // Update results header
+    const strategyNames = {
+        'balanced': '⚖️ Balanced Strategy',
+        'growth': '📈 High Growth Strategy',
+        'conservative': '🛡️ Conservative Strategy',
+        'bluechip': '⭐ Blue Chip Strategy'
+    };
+
+    let strategyText = currentStrategy === 'smart' && currentSmartStrategy
+        ? strategyNames[currentSmartStrategy]
+        : 'Manual Selection';
+
+    document.getElementById('planStrategyName').textContent = `Strategy: ${strategyText}`;
+    document.getElementById('planPortfolioType').textContent = currentPortfolioType === 'existing'
+        ? 'Portfolio Type: Existing Holdings + New Additions'
+        : 'Portfolio Type: New Portfolio';
+
+    // TODO: Call actual analysis function here
+    // For now, showing the section
+
+    // Scroll to results
+    document.getElementById('investmentPlanResults').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>

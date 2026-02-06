@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="css/theme.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Macro & Environmental Analysis - VNStock Analytics</title>
+    <title data-i18n="macro.title">Macro & Environmental Analysis - VNStock Analytics</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
     <style>
@@ -196,6 +196,11 @@
             font-size: 1.6em;
             font-weight: 700;
             letter-spacing: -0.5px;
+            text-align: left;
+        }
+
+        h3 {
+            text-align: left;
         }
 
         .factors-grid {
@@ -440,9 +445,9 @@
         }
 
         .alert-box.info {
-            background: #dbeafe;
-            border-color: #3b82f6;
-            color: #1e40af;
+            background: #fee2e2;
+            border-color: #dc2626;
+            color: #1f2937;
         }
 
         .tabs {
@@ -559,6 +564,311 @@
             font-size: 0.85em;
         }
 
+        /* News & Events Styles */
+        .news-filter-btn {
+            padding: 12px 24px;
+            background: white;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.875em;
+            transition: all 0.2s ease;
+            color: #374151;
+            letter-spacing: 0.01em;
+        }
+
+        .news-filter-btn:hover {
+            border-color: #9ca3af;
+            background: #f9fafb;
+            color: #111827;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .news-filter-btn.active {
+            background: #dc2626;
+            border-color: #dc2626;
+            color: white;
+            box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+        }
+
+        .news-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-left: 3px solid #dc2626;
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .news-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: #dc2626;
+            border-radius: 8px 0 0 8px;
+            transition: width 0.2s ease;
+        }
+
+        .news-item:hover {
+            border-color: #dc2626;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transform: translateX(4px);
+        }
+
+        .news-item:hover::before {
+            width: 4px;
+        }
+
+        .news-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .news-source {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            background: #f9fafb;
+            color: #374151;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .news-time {
+            color: #6b7280;
+            font-size: 0.8125em;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .news-title {
+            font-size: 1.125em;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 10px;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+        }
+
+        .news-summary {
+            color: #4b5563;
+            font-size: 0.9375em;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .news-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .news-tag {
+            padding: 5px 12px;
+            background: white;
+            color: #6b7280;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+        }
+
+        .event-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-left: 3px solid #dc2626;
+            border-radius: 6px;
+            padding: 18px 22px;
+            display: grid;
+            grid-template-columns: 130px 1fr auto;
+            gap: 24px;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .event-item:hover {
+            border-left-width: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transform: translateX(2px);
+        }
+
+        .event-time {
+            font-weight: 600;
+            color: #111827;
+            font-size: 0.9375em;
+            letter-spacing: -0.01em;
+        }
+
+        .event-date {
+            color: #6b7280;
+            font-size: 0.8125em;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .event-title {
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+
+        .event-desc {
+            color: #4b5563;
+            font-size: 0.875em;
+            line-height: 1.5;
+        }
+
+        .event-impact {
+            padding: 6px 16px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            border: 1px solid;
+        }
+
+        .impact-high {
+            background: white;
+            color: #dc2626;
+            border-color: #dc2626;
+        }
+
+        .impact-medium {
+            background: white;
+            color: #f59e0b;
+            border-color: #f59e0b;
+        }
+
+        .impact-low {
+            background: white;
+            color: #6b7280;
+            border-color: #e5e7eb;
+        }
+
+        .earnings-item {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 90px 1fr auto;
+            gap: 20px;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .earnings-item:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .earnings-date {
+            text-align: center;
+            padding: 12px 8px;
+            background: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-weight: 700;
+            color: #111827;
+            font-size: 0.875em;
+        }
+
+        .earnings-company {
+            font-weight: 700;
+            color: #111827;
+            font-size: 1.0625em;
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+
+        .earnings-estimate {
+            color: #6b7280;
+            font-size: 0.875em;
+        }
+
+        .earnings-badge {
+            padding: 8px 18px;
+            background: #dc2626;
+            color: white;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.8125em;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .corporate-action {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 18px;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .corporate-action:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+
+        .action-icon {
+            font-size: 2.2em;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f9fafb;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .action-title {
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+
+        .action-details {
+            color: #6b7280;
+            font-size: 0.875em;
+            line-height: 1.5;
+        }
+
+        .action-date {
+            padding: 8px 16px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 0.8125em;
+            color: #374151;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+        }
+
     </style>
     <script src="js/collapsible.js"></script>
     <script src="js/logo.js"></script>
@@ -605,11 +915,11 @@
                         <div class="menu-items">
                             <a href="price_forecast.html" class="menu-item">
                                 <span class="menu-item-icon">🔮</span>
-                                <span>Price Forecasting</span>
+                                <span data-i18n="macro.menu.price_forecasting">Price Forecasting</span>
                             </a>
                             <a href="dashboard_advanced.html" class="menu-item">
-                                <span class="menu-item-icon">💼</span>
-                                <span data-i18n="portfolio.title">Portfolio Analytics</span>
+                                <span class="menu-item-icon">📊</span>
+                                <span data-i18n="nav.portfolio_analytics">Portfolio Analytics</span>
                             </a>
                             <a href="macro_analysis.html" class="menu-item">
                                 <span class="menu-item-icon">🌍</span>
@@ -621,7 +931,7 @@
                         <div class="menu-items">
                             <a href="alerts_system.html" class="menu-item">
                                 <span class="menu-item-icon">🔔</span>
-                                <span>Price Alerts</span>
+                                <span data-i18n="macro.menu.price_alerts">Price Alerts</span>
                             </a>
                             <a href="trading_automation.html" class="menu-item">
                                 <span class="menu-item-icon">🤖</span>
@@ -721,15 +1031,15 @@
                     <canvas id="commoditiesChart"></canvas>
                 </div>
 
-                <h3 style="margin-top: 30px; color: #1e3a5f;" data-i18n="macro.sector_impact">Sector Impact Analysis</h3>
+                <h3 style="margin-top: 30px; color: #1e3a5f;" data-i18n="macro.subheader.sector_impact">Sector Impact Analysis</h3>
                 <table>
                     <thead>
                         <tr>
-                            <th data-i18n="macro.commodity">Commodity</th>
-                            <th data-i18n="macro.current_price">Current Price</th>
-                            <th data-i18n="table.change">Change</th>
-                            <th data-i18n="macro.impact_level">Impact Level</th>
-                            <th data-i18n="macro.affected_sectors">Affected Sectors</th>
+                            <th data-i18n="macro.table.commodity">Commodity</th>
+                            <th data-i18n="macro.table.current_price">Current Price</th>
+                            <th data-i18n="macro.table.change">Change</th>
+                            <th data-i18n="macro.table.impact_level">Impact Level</th>
+                            <th data-i18n="macro.table.affected_sectors">Affected Sectors</th>
                         </tr>
                     </thead>
                     <tbody id="commoditiesTable">
@@ -744,7 +1054,7 @@
                 <h2>⚠️ <span data-i18n="macro.geopolitical_assessment">Geopolitical Risk Assessment</span></h2>
                 <div id="geopoliticalRisks"></div>
 
-                <h3 style="margin-top: 30px; color: #1e3a5f;" data-i18n="macro.regional_tensions">Regional Tensions Impact</h3>
+                <h3 style="margin-top: 30px; color: #1e3a5f;" data-i18n="macro.subheader.regional_tensions">Regional Tensions Impact</h3>
                 <div class="chart-container">
                     <canvas id="geopoliticalChart"></canvas>
                 </div>
@@ -757,7 +1067,7 @@
                 <h2>📋 <span data-i18n="macro.policy_regulatory">Policy & Regulatory Changes</span></h2>
                 <div id="policyChanges"></div>
 
-                <h3 style="margin-top: 30px; color: #1e3a5f;" data-i18n="macro.policy_timeline">Policy Impact Timeline</h3>
+                <h3 style="margin-top: 30px; color: #1e3a5f;" data-i18n="macro.subheader.policy_timeline">Policy Impact Timeline</h3>
                 <div class="chart-container">
                     <canvas id="policyChart"></canvas>
                 </div>
@@ -766,9 +1076,98 @@
 
         <!-- News & Events Tab -->
         <div class="tab-content" id="news">
-            <div class="card">
-                <h2>📰 <span data-i18n="macro.market_news">Market News & Events</span></h2>
-                <div id="newsContainer"></div>
+            <!-- News Sources Filter -->
+            <div class="card" style="border: none; background: white; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);">
+                <h3 style="color: #111827; font-size: 1em; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 20px; color: #6b7280;">Filter News Sources</h3>
+                <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                    <button class="news-filter-btn active" onclick="filterNews('all')" data-source="all">
+                        All Sources
+                    </button>
+                    <button class="news-filter-btn" onclick="filterNews('vietnam')" data-source="vietnam">
+                        Vietnam
+                    </button>
+                    <button class="news-filter-btn" onclick="filterNews('global')" data-source="global">
+                        Global Markets
+                    </button>
+                    <button class="news-filter-btn" onclick="filterNews('economic')" data-source="economic">
+                        Economic Data
+                    </button>
+                    <button class="news-filter-btn" onclick="filterNews('corporate')" data-source="corporate">
+                        Corporate Actions
+                    </button>
+                    <button class="news-filter-btn" onclick="filterNews('earnings')" data-source="earnings">
+                        Earnings
+                    </button>
+                </div>
+            </div>
+
+            <!-- Market Summary & Key Insights -->
+            <div class="card collapsible" style="border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);">
+                <h3 style="color: #111827; font-size: 1.125em; font-weight: 700; letter-spacing: -0.01em;">📊 Market Summary & Key Insights</h3>
+                <div class="card-content">
+                    <div id="marketSummary" style="display: grid; gap: 20px;">
+                        <!-- Auto-generated summary will be inserted here -->
+                        <div style="padding: 20px; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-left: 4px solid #dc2626; border-radius: 8px;">
+                            <h4 style="margin: 0 0 12px 0; color: #991b1b; font-size: 0.95em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em;">Market Overview</h4>
+                            <p id="summaryOverview" style="margin: 0; color: #1f2937; line-height: 1.7; font-size: 0.95em;">
+                                Analyzing latest market trends, news sentiment, and upcoming economic events...
+                            </p>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                            <div style="padding: 16px; background: white; border: 1px solid #e5e7eb; border-radius: 8px;">
+                                <div style="font-size: 0.8em; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">News Sentiment</div>
+                                <div id="newsSentiment" style="font-size: 1.5em; font-weight: 700; color: #dc2626;">--</div>
+                                <div id="sentimentLabel" style="font-size: 0.85em; color: #6b7280; margin-top: 4px;">Analyzing...</div>
+                            </div>
+                            <div style="padding: 16px; background: white; border: 1px solid #e5e7eb; border-radius: 8px;">
+                                <div style="font-size: 0.8em; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Key Events This Week</div>
+                                <div id="eventCount" style="font-size: 1.5em; font-weight: 700; color: #dc2626;">--</div>
+                                <div style="font-size: 0.85em; color: #6b7280; margin-top: 4px;">Economic & Corporate</div>
+                            </div>
+                            <div style="padding: 16px; background: white; border: 1px solid #e5e7eb; border-radius: 8px;">
+                                <div style="font-size: 0.8em; font-weight: 600; color: #6b7280; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Top Story</div>
+                                <div id="topStory" style="font-size: 0.9em; font-weight: 600; color: #111827; line-height: 1.4; margin-top: 8px;">Loading...</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Economic Calendar -->
+            <div class="card collapsible" style="border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);">
+                <h3 style="color: #111827; font-size: 1.125em; font-weight: 700; letter-spacing: -0.01em;">Economic Calendar — This Week</h3>
+                <div class="card-content">
+                    <div id="economicCalendar" style="display: grid; gap: 12px;"></div>
+                </div>
+            </div>
+
+            <!-- Live News Feed -->
+            <div class="card collapsible" style="border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);">
+                <h3 style="color: #111827; font-size: 1.125em; font-weight: 700; letter-spacing: -0.01em; display: flex; align-items: center; gap: 12px; flex-wrap: nowrap;">
+                    <span style="flex-shrink: 0;">Latest Market News</span>
+                    <button onclick="event.stopPropagation(); refreshNews();" style="padding: 8px 18px; background: #dc2626; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 0.8125em; font-weight: 600; transition: all 0.2s; box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2); flex-shrink: 0;" onmouseover="this.style.background='#b91c1c'" onmouseout="this.style.background='#dc2626'">
+                        🔄 Refresh
+                    </button>
+                </h3>
+                <div class="card-content">
+                    <div id="newsContainer" style="display: grid; gap: 16px;"></div>
+                </div>
+            </div>
+
+            <!-- Earnings Calendar -->
+            <div class="card collapsible" style="border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);">
+                <h3 style="color: #111827; font-size: 1.125em; font-weight: 700; letter-spacing: -0.01em;">Upcoming Earnings Releases</h3>
+                <div class="card-content">
+                    <div id="earningsCalendar" style="display: grid; gap: 12px;"></div>
+                </div>
+            </div>
+
+            <!-- Corporate Actions -->
+            <div class="card collapsible" style="border: none; box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);">
+                <h3 style="color: #111827; font-size: 1.125em; font-weight: 700; letter-spacing: -0.01em;">Recent Corporate Actions</h3>
+                <div class="card-content">
+                    <div id="corporateActions" style="display: grid; gap: 12px;"></div>
+                </div>
             </div>
         </div>
 
@@ -794,9 +1193,19 @@
     <script>
         let charts = {};
 
+        // Translation fallback - if i18n.js hasn't loaded yet, return the key itself
+        if (typeof t !== 'function') {
+            window.t = function(key) {
+                // Extract the last part of the key as fallback
+                const parts = key.split('.');
+                return parts[parts.length - 1].replace(/_/g, ' ');
+            };
+        }
+
         // Environmental factors data
         const environmentalFactors = {
             oil_price: {
+                key: 'oil_prices',
                 name: 'Global Oil Prices',
                 icon: '⛽',
                 value: '$85.30',
@@ -808,6 +1217,7 @@
                 affected_negative: ['VJC', 'HVN', 'VNL', 'TCM']
             },
             interest_rate: {
+                key: 'interest_rates',
                 name: 'Interest Rates',
                 icon: '💰',
                 value: '4.5%',
@@ -819,6 +1229,7 @@
                 affected_negative: ['VHM', 'VIC', 'NVL', 'PDR']
             },
             usd_vnd: {
+                key: 'exchange_rate',
                 name: 'USD/VND Exchange Rate',
                 icon: '💱',
                 value: '24,250',
@@ -830,6 +1241,7 @@
                 affected_negative: ['VNM', 'SAB', 'MSN', 'MWG']
             },
             china_economy: {
+                key: 'china_growth',
                 name: 'China Economic Growth',
                 icon: '🇨🇳',
                 value: '5.2%',
@@ -841,6 +1253,7 @@
                 affected_negative: ['HPG', 'HSG', 'NKG', 'DCM']
             },
             us_fed_policy: {
+                key: 'us_fed',
                 name: 'US Federal Reserve Policy',
                 icon: '🏦',
                 value: 'Hawkish',
@@ -852,6 +1265,7 @@
                 affected_negative: ['VN-Index', 'Blue Chips', 'All Sectors']
             },
             inflation: {
+                key: 'vn_inflation',
                 name: 'Vietnam Inflation',
                 icon: '📈',
                 value: '3.2%',
@@ -863,6 +1277,7 @@
                 affected_negative: ['Consumer', 'Retail']
             },
             tech_war: {
+                key: 'tech_war',
                 name: 'US-China Tech War',
                 icon: '⚔️',
                 value: 'High Tension',
@@ -874,6 +1289,7 @@
                 affected_negative: []
             },
             supply_chain: {
+                key: 'supply_chain',
                 name: 'Global Supply Chain',
                 icon: '🚢',
                 value: 'Improving',
@@ -889,6 +1305,7 @@
         // Geopolitical risks
         const geopoliticalRisks = [
             {
+                key: 'south_china_sea',
                 event: 'South China Sea Tensions',
                 risk_level: 'medium',
                 probability: '40%',
@@ -898,6 +1315,7 @@
                 stocks_affected: ['VJC', 'HVN', 'VTO', 'VNL']
             },
             {
+                key: 'russia_ukraine',
                 event: 'Russia-Ukraine Conflict',
                 risk_level: 'high',
                 probability: '90%',
@@ -907,6 +1325,7 @@
                 stocks_affected: ['GAS', 'PLX', 'VNM', 'SAB']
             },
             {
+                key: 'middle_east',
                 event: 'Middle East Instability',
                 risk_level: 'medium',
                 probability: '50%',
@@ -916,6 +1335,7 @@
                 stocks_affected: ['PLX', 'PVD', 'BSR', 'VJC']
             },
             {
+                key: 'us_china',
                 event: 'US-China Trade Relations',
                 risk_level: 'low',
                 probability: '60%',
@@ -929,6 +1349,7 @@
         // Policy changes
         const policyChanges = [
             {
+                key: 'digital_tax',
                 policy: 'Digital Economy Tax Framework',
                 date: '2026-Q1',
                 type: 'Fiscal',
@@ -938,6 +1359,7 @@
                 stocks: ['FPT', 'CMG', 'VGI', 'MWG']
             },
             {
+                key: 'green_bonds',
                 policy: 'Green Bond Market Development',
                 date: '2025-Q4',
                 type: 'Environmental',
@@ -947,6 +1369,7 @@
                 stocks: ['POW', 'REE', 'VCB', 'TCB']
             },
             {
+                key: 'infrastructure',
                 policy: 'Infrastructure Investment Acceleration',
                 date: '2025-Q3',
                 type: 'Fiscal',
@@ -956,6 +1379,7 @@
                 stocks: ['HPG', 'HSG', 'CTD', 'HT1']
             },
             {
+                key: 'fdi_incentives',
                 policy: 'Foreign Investment Incentives',
                 date: '2025-Q2',
                 type: 'Regulatory',
@@ -966,54 +1390,8 @@
             }
         ];
 
-        // News items
-        const newsItems = [
-            {
-                title: 'Vietnam-EU Trade Agreement Expansion',
-                date: '2026-02-01',
-                sentiment: 'positive',
-                impact: 'High',
-                description: 'New trade provisions boost Vietnam exports to EU, particularly electronics and textiles',
-                affected_stocks: ['FPT', 'CMG', 'VGT', 'MSH'],
-                url: 'https://e.vnexpress.net/business'
-            },
-            {
-                title: 'Semiconductor Manufacturing Investment Wave',
-                date: '2026-01-30',
-                sentiment: 'positive',
-                impact: 'High',
-                description: 'Major semiconductor firms announce $5B investment in Vietnam facilities',
-                affected_stocks: ['FPT', 'CMG', 'REE', 'HPG'],
-                url: 'https://e.vnexpress.net/business'
-            },
-            {
-                title: 'ASEAN Digital Economy Framework Launched',
-                date: '2026-01-28',
-                sentiment: 'positive',
-                impact: 'High',
-                description: 'Regional digital trade framework accelerates e-commerce and fintech growth',
-                affected_stocks: ['MWG', 'FPT', 'VCB', 'TCB'],
-                url: 'https://e.vnexpress.net/business'
-            },
-            {
-                title: 'Green Energy Transition Accelerates',
-                date: '2026-01-25',
-                sentiment: 'positive',
-                impact: 'Medium',
-                description: 'Government announces 50% renewable energy target by 2030, boosting clean energy sector',
-                affected_stocks: ['POW', 'REE', 'GEG', 'PC1'],
-                url: 'https://e.vnexpress.net/business'
-            },
-            {
-                title: 'Infrastructure Mega-Projects Approved',
-                date: '2026-01-22',
-                sentiment: 'positive',
-                impact: 'High',
-                description: 'High-speed rail and port expansion projects worth $20B receive approval',
-                affected_stocks: ['HPG', 'HSG', 'CTD', 'HT1'],
-                url: 'https://e.vnexpress.net/business'
-            }
-        ];
+        // News data will be fetched from API
+        let newsItems = [];
 
         function updateReportTimestamp() {
             const now = new Date();
@@ -1029,12 +1407,12 @@
             document.getElementById('reportTimestamp').textContent = timestamp;
         }
 
-        function init() {
+        async function init() {
             updateReportTimestamp();
             renderEnvironmentalFactors();
             renderGeopoliticalRisks();
             renderPolicyChanges();
-            renderNews();
+            await renderNews(); // Fetch news from API
             renderCommoditiesImpact();
             renderCorrelationAnalysis();
             calculateOverallSentiment();
@@ -1055,27 +1433,37 @@
 
         function renderEnvironmentalFactors() {
             const container = document.getElementById('factorsGrid');
+            if (!container) {
+                console.error('factorsGrid container not found');
+                return;
+            }
+
             let html = '';
 
-            Object.values(environmentalFactors).forEach(factor => {
-                const changeClass = factor.trend === 'up' ? 'positive' : 'negative';
-                const impactColor = factor.impact === 'high' ? '#ef4444' :
-                                   factor.impact === 'medium' ? '#f59e0b' : '#10b981';
+            try {
+                Object.values(environmentalFactors).forEach(factor => {
+                    const changeClass = factor.trend === 'up' ? 'positive' : 'negative';
+                    const impactColor = factor.impact === 'high' ? '#ef4444' :
+                                       factor.impact === 'medium' ? '#f59e0b' : '#10b981';
 
-                html += `
-                    <div class="factor-card" style="border-left-color: ${impactColor};">
-                        <div class="factor-header">
-                            <div class="factor-title">${factor.name}</div>
-                            <div class="factor-icon">${factor.icon}</div>
-                        </div>
-                        <div class="factor-value">${factor.value}</div>
-                        <div class="factor-change ${changeClass}">${factor.change}</div>
-                        <p style="color: #64748b; font-size: 0.9em; margin-top: 10px;">
-                            ${factor.description}
-                        </p>
+                    // Use translation if available, otherwise use name
+                    const factorName = (typeof t === 'function' ? t('macro.factor.' + factor.key) : factor.name) || factor.name;
+                    const factorDesc = (typeof t === 'function' ? t('macro.factor.' + factor.key + '_desc') : factor.description) || factor.description;
+
+                    html += `
+                        <div class="factor-card" style="border-left-color: ${impactColor};">
+                            <div class="factor-header">
+                                <div class="factor-title">${factorName}</div>
+                                <div class="factor-icon">${factor.icon}</div>
+                            </div>
+                            <div class="factor-value">${factor.value}</div>
+                            <div class="factor-change ${changeClass}">${factor.change}</div>
+                            <p style="color: #64748b; font-size: 0.9em; margin-top: 10px;">
+                                ${factorDesc}
+                            </p>
                         <div class="factor-impact">
                             ${factor.affected_positive.length > 0 ? `
-                                <div class="impact-label">✅ ${t('macro.factor.positively_affected')}:</div>
+                                <div class="impact-label">✅ ${typeof t === 'function' ? t('macro.factor.positively_affected') : 'Positively Affected'}:</div>
                                 <div class="impact-stocks">
                                     ${factor.affected_positive.map(s =>
                                         `<span class="stock-tag high">${s}</span>`
@@ -1083,7 +1471,7 @@
                                 </div>
                             ` : ''}
                             ${factor.affected_negative.length > 0 ? `
-                                <div class="impact-label" style="margin-top: 10px;">❌ ${t('macro.factor.negatively_affected')}:</div>
+                                <div class="impact-label" style="margin-top: 10px;">❌ ${typeof t === 'function' ? t('macro.factor.negatively_affected') : 'Negatively Affected'}:</div>
                                 <div class="impact-stocks">
                                     ${factor.affected_negative.map(s =>
                                         `<span class="stock-tag negative">${s}</span>`
@@ -1093,9 +1481,13 @@
                         </div>
                     </div>
                 `;
-            });
+                });
 
-            container.innerHTML = html;
+                container.innerHTML = html;
+            } catch (error) {
+                console.error('Error rendering environmental factors:', error);
+                container.innerHTML = '<p style="color: #dc2626; padding: 20px;">Error loading environmental factors. Please refresh the page.</p>';
+            }
         }
 
         function renderGeopoliticalRisks() {
@@ -1106,26 +1498,33 @@
                 const riskClass = risk.risk_level === 'high' ? 'danger' :
                                  risk.risk_level === 'medium' ? 'warning' : 'info';
 
+                const riskTitle = typeof t === 'function' ? t('macro.geo.' + risk.key) : risk.event;
+                const riskDesc = typeof t === 'function' ? t('macro.geo.' + risk.key + '_desc') : risk.description;
+                const probLabel = typeof t === 'function' ? t('macro.risk.probability') : 'Probability';
+                const impactLabel = typeof t === 'function' ? t('macro.impact_label') : 'Impact';
+                const impactValue = typeof t === 'function' ? t('macro.level.' + risk.impact.toLowerCase()) : risk.impact;
+                const sectorsLabel = typeof t === 'function' ? t('macro.risk.sectors') : 'Affected Sectors';
+
                 html += `
                     <div class="alert-box ${riskClass}" style="margin-bottom: 20px;">
                         <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                            <h3 style="margin: 0;">${risk.event}</h3>
+                            <h3 style="margin: 0;">${riskTitle}</h3>
                             <span class="risk-level ${risk.risk_level}">${risk.risk_level.toUpperCase()} RISK</span>
                         </div>
-                        <p style="margin-bottom: 10px;">${risk.description}</p>
+                        <p style="margin-bottom: 10px;">${riskDesc}</p>
                         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px;">
                             <div>
-                                <strong>${t('macro.risk.probability')}:</strong> ${risk.probability}
+                                <strong>${probLabel}:</strong> ${risk.probability}
                             </div>
                             <div>
-                                <strong>${t('macro.impact_label')}:</strong> ${t('macro.level.' + risk.impact.toLowerCase())}
+                                <strong>${impactLabel}:</strong> ${impactValue}
                             </div>
                             <div>
-                                <strong>${t('macro.risk.sectors')}:</strong> ${risk.affected_sectors.join(', ')}
+                                <strong>${sectorsLabel}:</strong> ${risk.affected_sectors.join(', ')}
                             </div>
                         </div>
                         <div style="margin-top: 15px;">
-                            <strong>${t('macro.risk.affected_stocks')}:</strong>
+                            <strong>${typeof t === 'function' ? t('macro.risk.affected_stocks') : 'Affected Stocks'}:</strong>
                             ${risk.stocks_affected.map(s => `<span class="stock-tag">${s}</span>`).join(' ')}
                         </div>
                     </div>
@@ -1141,19 +1540,27 @@
         function renderRegionalTensionsChart() {
             const ctx = document.getElementById('geopoliticalChart');
 
+            // Translation helper
+            const tr = (key, fallback) => typeof t === 'function' ? t(key) : fallback;
+
             charts.geopolitical = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['South China Sea', 'Russia-Ukraine', 'Middle East', 'US-China Relations'],
+                    labels: [
+                        tr('macro.geo.south_china_sea', 'South China Sea Tensions'),
+                        tr('macro.geo.russia_ukraine', 'Russia-Ukraine War'),
+                        tr('macro.geo.middle_east', 'Middle East Conflicts'),
+                        tr('macro.geo.us_china', 'US-China Trade Tensions')
+                    ],
                     datasets: [{
-                        label: 'Risk Probability (%)',
+                        label: tr('macro.chart.risk_probability', 'Risk Probability (%)'),
                         data: [40, 90, 50, 60],
                         backgroundColor: 'rgba(239, 68, 68, 0.6)',
                         borderColor: '#ef4444',
                         borderWidth: 2,
                         yAxisID: 'y'
                     }, {
-                        label: 'Market Impact Score (0-100)',
+                        label: tr('macro.chart.market_impact', 'Market Impact Score'),
                         data: [75, 60, 80, 55],
                         backgroundColor: 'rgba(251, 146, 60, 0.6)',
                         borderColor: '#f97316',
@@ -1167,7 +1574,7 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Regional Geopolitical Tensions - Risk Assessment',
+                            text: tr('macro.chart.geopolitical_tensions', 'Geopolitical Tensions & Market Impact'),
                             font: { size: 16, weight: 'bold' }
                         },
                         legend: {
@@ -1196,13 +1603,13 @@
                             max: 100,
                             title: {
                                 display: true,
-                                text: 'Score / Probability (%)'
+                                text: tr('macro.chart.score_probability', 'Score / Probability (%)')
                             }
                         },
                         x: {
                             title: {
                                 display: true,
-                                text: 'Geopolitical Events'
+                                text: t('macro.chart.geopolitical_events')
                             }
                         }
                     }
@@ -1220,15 +1627,15 @@
 
                 html += `
                     <div class="news-item">
-                        <div class="news-title">${policy.policy}</div>
+                        <div class="news-title">${t('macro.policy.' + policy.key)}</div>
                         <div class="news-meta">
                             <span>📅 ${policy.date}</span>
-                            <span>📋 ${policy.type}</span>
+                            <span>📋 ${t('macro.policy.type_' + policy.type.toLowerCase())}</span>
                             <span style="background: ${impactBg}; color: ${impactColor}; padding: 2px 10px; border-radius: 10px; font-weight: 600;">
                                 ${t('macro.impact.' + policy.impact.toLowerCase())}
                             </span>
                         </div>
-                        <p style="color: #475569; margin-bottom: 10px;">${policy.description}</p>
+                        <p style="color: #475569; margin-bottom: 10px;">${t('macro.policy.' + policy.key + '_desc')}</p>
                         <div>
                             <strong>${t('macro.policy.affected_sectors')}:</strong> ${policy.affected.join(', ')}
                         </div>
@@ -1250,7 +1657,10 @@
             const ctx = document.getElementById('policyChart');
 
             // Extract policy data for chart
-            const labels = policyChanges.map(p => p.policy.substring(0, 25) + '...');
+            const labels = policyChanges.map(p => {
+                const translated = t('macro.policy.' + p.key);
+                return translated.length > 25 ? translated.substring(0, 25) + '...' : translated;
+            });
             const impactScores = policyChanges.map(p => p.impact === 'Positive' ? 75 : 40);
             const colors = policyChanges.map(p => p.impact === 'Positive' ? 'rgba(16, 185, 129, 0.7)' : 'rgba(239, 68, 68, 0.7)');
 
@@ -1273,7 +1683,7 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Policy & Regulatory Impact Timeline',
+                            text: t('macro.chart.policy_timeline'),
                             font: { size: 16, weight: 'bold' }
                         },
                         legend: {
@@ -1284,9 +1694,9 @@
                                 label: function(context) {
                                     const policy = policyChanges[context.dataIndex];
                                     return [
-                                        'Impact: ' + policy.impact,
-                                        'Type: ' + policy.type,
-                                        'Date: ' + policy.date
+                                        t('macro.impact_label') + ': ' + policy.impact,
+                                        t('macro.policy.type') + ': ' + policy.type,
+                                        t('macro.policy.date') + ': ' + policy.date
                                     ];
                                 }
                             }
@@ -1298,7 +1708,7 @@
                             max: 100,
                             title: {
                                 display: true,
-                                text: 'Impact Score (0-100)'
+                                text: t('macro.chart.impact_score')
                             }
                         }
                     }
@@ -1306,30 +1716,75 @@
             });
         }
 
-        function renderNews() {
+        async function fetchNews() {
+            try {
+                const response = await fetch('/api/news?limit=10');
+                const data = await response.json();
+
+                if (data.success && data.news && data.news.length > 0) {
+                    newsItems = data.news;
+                    return true;
+                } else {
+                    console.error('No news data received');
+                    return false;
+                }
+            } catch (error) {
+                console.error('Error fetching news:', error);
+                return false;
+            }
+        }
+
+        async function renderNews() {
             const container = document.getElementById('newsContainer');
+
+            // Show loading state
+            container.innerHTML = `
+                <div style="text-align: center; padding: 40px; color: #64748b;">
+                    <div style="font-size: 24px; margin-bottom: 10px;">⏳</div>
+                    <div>${t('macro.loading_news')}</div>
+                </div>
+            `;
+
+            // Fetch news from API
+            const success = await fetchNews();
+
             let html = '';
 
-            newsItems.forEach(news => {
-                html += `
-                    <div class="news-item">
-                        <div class="news-title">
-                            <a href="${news.url}" target="_blank" rel="noopener noreferrer" style="color: #1e3a5f; text-decoration: none;">
-                                ${news.title} 🔗
-                            </a>
-                        </div>
-                        <div class="news-meta">
-                            <span>📅 ${news.date}</span>
-                            <span class="news-sentiment ${news.sentiment}">${t('macro.sentiment.' + news.sentiment)}</span>
-                            <span>${t('macro.impact_label')}: ${t('macro.level.' + news.impact.toLowerCase())}</span>
-                        </div>
-                        <p style="color: #475569; margin-bottom: 10px;">${news.description}</p>
-                        <div>
-                            <strong>${t('common.affected')}:</strong> ${news.affected_stocks.join(', ')}
-                        </div>
+            if (!success || newsItems.length === 0) {
+                // Show error message if fetch failed
+                html = `
+                    <div style="background: #fee2e2; padding: 15px; border-radius: 8px; border-left: 4px solid #ef4444; margin-bottom: 20px;">
+                        <strong>⚠️ ${t('common.error')}:</strong> ${t('macro.news_load_error')}
                     </div>
                 `;
-            });
+            } else {
+                // Render news items
+                newsItems.forEach(news => {
+                    const affectedStocks = news.affected_stocks && news.affected_stocks.length > 0
+                        ? news.affected_stocks.join(', ')
+                        : t('common.none');
+
+                    html += `
+                        <div class="news-item">
+                            <div class="news-title">
+                                <a href="${news.url}" target="_blank" rel="noopener noreferrer" style="color: #1e3a5f; text-decoration: none; cursor: pointer;">
+                                    ${news.title} 🔗
+                                </a>
+                            </div>
+                            <div class="news-meta">
+                                <span>📅 ${news.date}</span>
+                                <span class="news-sentiment ${news.sentiment}">${t('macro.sentiment.' + news.sentiment)}</span>
+                                <span>${t('macro.impact_label')}: ${news.impact}</span>
+                            </div>
+                            ${news.description ? `<p style="color: #475569; margin-bottom: 10px;">${news.description}</p>` : ''}
+                            <div>
+                                <strong>${t('common.affected')}:</strong> ${affectedStocks}
+                                ${news.source ? `<span style="margin-left: 15px; color: #94a3b8; font-size: 0.9em;">📰 ${news.source}</span>` : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+            }
 
             container.innerHTML = html;
         }
@@ -1342,13 +1797,13 @@
                 data: {
                     labels: ['Jan 1', 'Jan 8', 'Jan 15', 'Jan 22', 'Jan 29'],
                     datasets: [{
-                        label: 'Oil Price ($/barrel)',
+                        label: t('macro.chart.oil_price_barrel'),
                         data: [78, 82, 85, 83, 85],
                         borderColor: '#ef4444',
                         backgroundColor: 'rgba(239, 68, 68, 0.1)',
                         yAxisID: 'y'
                     }, {
-                        label: 'VN-Index',
+                        label: t('macro.chart.vnindex'),
                         data: [1200, 1180, 1195, 1210, 1205],
                         borderColor: '#10b981',
                         backgroundColor: 'rgba(16, 185, 129, 0.1)',
@@ -1361,7 +1816,7 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Oil Price vs VN-Index Correlation'
+                            text: t('macro.chart.oil_vnindex')
                         }
                     },
                     scales: {
@@ -1369,13 +1824,13 @@
                             type: 'linear',
                             display: true,
                             position: 'left',
-                            title: { display: true, text: 'Oil Price ($)' }
+                            title: { display: true, text: t('macro.chart.oil_price') }
                         },
                         y1: {
                             type: 'linear',
                             display: true,
                             position: 'right',
-                            title: { display: true, text: 'VN-Index' },
+                            title: { display: true, text: t('macro.chart.vnindex') },
                             grid: { drawOnChartArea: false }
                         }
                     }
@@ -1386,32 +1841,32 @@
             const table = document.getElementById('commoditiesTable');
             table.innerHTML = `
                 <tr>
-                    <td>Crude Oil</td>
+                    <td>${t('macro.commodity.crude_oil')}</td>
                     <td>$85.30/barrel</td>
                     <td style="color: #10b981; font-weight: 600;">+2.5%</td>
-                    <td><span class="risk-level high">HIGH</span></td>
-                    <td>Oil & Gas (+), Airlines (-), Logistics (-)</td>
+                    <td><span class="risk-level high">${t('macro.level.high').toUpperCase()}</span></td>
+                    <td>${t('macro.commodity.impact_oil')}</td>
                 </tr>
                 <tr>
-                    <td>Gold</td>
+                    <td>${t('macro.commodity.gold')}</td>
                     <td>5,520,000 VND/g</td>
                     <td style="color: #10b981; font-weight: 600;">+1.2%</td>
-                    <td><span class="risk-level medium">MEDIUM</span></td>
-                    <td>Commodities (+), Safe Haven Demand</td>
+                    <td><span class="risk-level medium">${t('macro.level.medium').toUpperCase()}</span></td>
+                    <td>${t('macro.commodity.impact_gold')}</td>
                 </tr>
                 <tr>
-                    <td>Steel</td>
+                    <td>${t('macro.commodity.steel')}</td>
                     <td>$650/ton</td>
                     <td style="color: #ef4444; font-weight: 600;">-0.8%</td>
-                    <td><span class="risk-level medium">MEDIUM</span></td>
-                    <td>Steel (+), Construction (+)</td>
+                    <td><span class="risk-level medium">${t('macro.level.medium').toUpperCase()}</span></td>
+                    <td>${t('macro.commodity.impact_steel')}</td>
                 </tr>
                 <tr>
-                    <td>Natural Gas</td>
+                    <td>${t('macro.commodity.natural_gas')}</td>
                     <td>$2.85/MMBtu</td>
                     <td style="color: #10b981; font-weight: 600;">+3.5%</td>
-                    <td><span class="risk-level high">HIGH</span></td>
-                    <td>Utilities (-), Fertilizer (-)</td>
+                    <td><span class="risk-level high">${t('macro.level.high').toUpperCase()}</span></td>
+                    <td>${t('macro.commodity.impact_gas')}</td>
                 </tr>
             `;
         }
@@ -1447,14 +1902,14 @@
                     plugins: {
                         title: {
                             display: true,
-                            text: 'Factor-Sector Correlation Analysis'
+                            text: t('macro.chart.correlation_analysis')
                         }
                     },
                     scales: {
                         y: {
                             min: -1,
                             max: 1,
-                            title: { display: true, text: 'Correlation Coefficient' }
+                            title: { display: true, text: t('macro.chart.correlation_coefficient') }
                         }
                     }
                 }
@@ -1462,7 +1917,7 @@
 
             // Correlation matrix table
             const table = document.getElementById('correlationTable');
-            let html = '<thead><tr><th>Sector</th>';
+            let html = `<thead><tr><th>${t('macro.table.sector')}</th>`;
             factors.forEach(f => html += `<th>${f}</th>`);
             html += '</tr></thead><tbody>';
 
@@ -1548,10 +2003,10 @@
             if (environmentalFactors.interest_rate.trend === 'up') {
                 html += `
                     <div class="alert-box danger">
-                        <strong>🚨 Interest Rate Increase Alert</strong>
+                        <strong>🚨 ${t('macro.alert.interest_rate_increase')}</strong>
                         <p style="margin-top: 10px;">
-                            Rising interest rates negative for real estate.
-                            Consider: Reduce exposure to VHM, VIC, NVL. Increase banks: VCB, TCB
+                            ${t('macro.alert.rising_rates_negative')}
+                            ${t('macro.alert.consider')}: ${t('common.sell')} VHM, VIC, NVL. ${t('common.buy')} VCB, TCB
                         </p>
                     </div>
                 `;
@@ -1572,6 +2027,393 @@
 
             container.innerHTML = html;
         }
+
+        // News & Events Functionality
+        let currentNewsFilter = 'all';
+        let newsData = [];
+
+        // Sample news sources - In production, these would be RSS/API feeds
+        const newsSources = {
+            vietnam: [
+                { name: 'VnExpress', icon: '🇻🇳', url: 'https://vnexpress.net/rss/kinh-doanh.rss' },
+                { name: 'Cafef', icon: '☕', url: 'https://cafef.vn/rss/thi-truong.rss' },
+                { name: 'VietStock', icon: '📊', url: 'https://vietstock.vn/rss' }
+            ],
+            global: [
+                { name: 'Bloomberg', icon: '📈', url: 'https://feeds.bloomberg.com/markets/news.rss' },
+                { name: 'Reuters', icon: '🌍', url: 'https://www.reutersagency.com/feed/' },
+                { name: 'WSJ', icon: '📰', url: 'https://feeds.wsj.com/public/resources/xml/wsj/public/page/feed-atom.xml' },
+                { name: 'Financial Times', icon: '📊', url: 'https://www.ft.com/?format=rss' }
+            ]
+        };
+
+        // Mock news data (in production, fetch from RSS/API)
+        const mockNewsData = [
+            {
+                id: 1,
+                source: 'Bloomberg',
+                sourceIcon: '📈',
+                category: 'global',
+                time: '2 hours ago',
+                title: 'Fed Signals Potential Rate Cut in Q2 2026',
+                summary: 'Federal Reserve Chair Jerome Powell indicated that interest rate cuts may be on the table in the second quarter as inflation continues to moderate.',
+                tags: ['Fed', 'Interest Rates', 'US Economy'],
+                impact: 'high',
+                url: 'https://bloomberg.com'
+            },
+            {
+                id: 2,
+                source: 'VnExpress',
+                sourceIcon: '🇻🇳',
+                category: 'vietnam',
+                time: '3 hours ago',
+                title: 'VN-Index Rises 1.2% on Strong Banking Sector Performance',
+                summary: 'The VN-Index gained 14.5 points as banking stocks rallied, with VCB and TCB leading the advance on strong Q4 earnings expectations.',
+                tags: ['VN-Index', 'Banking', 'Stock Market'],
+                impact: 'high',
+                url: 'https://vnexpress.net'
+            },
+            {
+                id: 3,
+                source: 'Reuters',
+                sourceIcon: '🌍',
+                category: 'global',
+                time: '5 hours ago',
+                title: 'Oil Prices Surge 3% on Middle East Tensions',
+                summary: 'Brent crude jumped to $88/barrel amid escalating geopolitical risks in the Middle East, raising concerns about supply disruptions.',
+                tags: ['Oil', 'Commodities', 'Geopolitics'],
+                impact: 'high',
+                url: 'https://reuters.com'
+            },
+            {
+                id: 4,
+                source: 'Cafef',
+                sourceIcon: '☕',
+                category: 'vietnam',
+                time: '6 hours ago',
+                title: 'Foreign Investors Net Buy VND 500 Billion on HOSE',
+                summary: 'Foreign investors returned as net buyers with VND 500 billion in net buying value, focusing on VHM, VIC, and HPG stocks.',
+                tags: ['Foreign Investment', 'HOSE', 'Market Flow'],
+                impact: 'medium',
+                url: 'https://cafef.vn'
+            },
+            {
+                id: 5,
+                source: 'Financial Times',
+                sourceIcon: '📊',
+                category: 'global',
+                time: '8 hours ago',
+                title: 'China GDP Growth Exceeds Expectations at 5.2%',
+                summary: 'Chinese economy grew 5.2% in Q4, beating expectations and signaling resilience despite property sector challenges.',
+                tags: ['China', 'GDP', 'Economic Data'],
+                impact: 'medium',
+                url: 'https://ft.com'
+            },
+            {
+                id: 6,
+                source: 'VietStock',
+                sourceIcon: '📊',
+                category: 'vietnam',
+                time: '10 hours ago',
+                title: 'State Bank Keeps Interest Rates Steady at 4.5%',
+                summary: 'The State Bank of Vietnam maintained its policy rate at 4.5% citing balanced inflation and growth outlook.',
+                tags: ['SBV', 'Monetary Policy', 'Interest Rates'],
+                impact: 'high',
+                url: 'https://vietstock.vn'
+            }
+        ];
+
+        // Economic calendar mock data
+        const economicEvents = [
+            {
+                date: 'Feb 5',
+                time: '08:30',
+                title: 'US Non-Farm Payrolls',
+                description: 'January employment report',
+                impact: 'high',
+                expected: '180K jobs'
+            },
+            {
+                date: 'Feb 5',
+                time: '14:00',
+                title: 'Vietnam CPI (YoY)',
+                description: 'January inflation data',
+                impact: 'high',
+                expected: '3.4%'
+            },
+            {
+                date: 'Feb 6',
+                time: '10:00',
+                title: 'China Trade Balance',
+                description: 'January exports/imports',
+                impact: 'medium',
+                expected: '+$78.5B'
+            },
+            {
+                date: 'Feb 7',
+                time: '15:00',
+                title: 'ECB Interest Rate Decision',
+                description: 'February monetary policy meeting',
+                impact: 'high',
+                expected: '4.00%'
+            },
+            {
+                date: 'Feb 8',
+                time: '09:00',
+                title: 'Vietnam GDP Growth',
+                description: 'Q4 2025 economic growth',
+                impact: 'high',
+                expected: '6.5%'
+            }
+        ];
+
+        // Earnings calendar mock data
+        const earningsData = [
+            { date: 'Feb 5', symbol: 'VCB', name: 'Vietcombank', estimate: 'EPS: 4,200 VND', status: 'Before Market' },
+            { date: 'Feb 6', symbol: 'FPT', name: 'FPT Corporation', estimate: 'EPS: 3,800 VND', status: 'After Market' },
+            { date: 'Feb 7', symbol: 'VNM', name: 'Vinamilk', estimate: 'EPS: 2,500 VND', status: 'Before Market' },
+            { date: 'Feb 8', symbol: 'HPG', name: 'Hoa Phat Group', estimate: 'EPS: 1,900 VND', status: 'After Market' },
+            { date: 'Feb 9', symbol: 'TCB', name: 'Techcombank', estimate: 'EPS: 3,500 VND', status: 'Before Market' }
+        ];
+
+        // Corporate actions mock data
+        const corporateActionsData = [
+            { icon: '💰', type: 'Dividend', company: 'VCB - Vietcombank', details: 'Cash dividend 25% (2,500 VND/share)', date: 'Feb 15' },
+            { icon: '📊', type: 'Stock Split', company: 'MWG - Mobile World', details: '2-for-1 stock split', date: 'Feb 20' },
+            { icon: '🔔', type: 'AGM', company: 'VIC - Vingroup', details: 'Annual General Meeting', date: 'Mar 5' },
+            { icon: '💼', type: 'Rights Issue', company: 'HPG - Hoa Phat', details: 'Rights offering at 1:2 ratio', date: 'Mar 10' },
+            { icon: '🤝', type: 'M&A', company: 'FPT Corporation', details: 'Acquires AI startup for $50M', date: 'Feb 12' }
+        ];
+
+        // Filter news by category
+        function filterNews(category) {
+            currentNewsFilter = category;
+
+            // Update button states
+            document.querySelectorAll('.news-filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-source="${category}"]`).classList.add('active');
+
+            // Filter and display news
+            loadNews();
+        }
+
+        // Load and display news
+        // Update market summary with insights
+        function updateMarketSummary() {
+            // Calculate sentiment based on news impact
+            const highImpactNews = mockNewsData.filter(n => n.impact === 'high');
+            const positiveKeywords = ['rises', 'gains', 'rally', 'strong', 'growth', 'buy', 'increase'];
+            const negativeKeywords = ['falls', 'decline', 'weak', 'sell', 'decrease', 'tensions', 'risk'];
+
+            let sentimentScore = 0;
+            mockNewsData.forEach(news => {
+                const text = (news.title + ' ' + news.summary).toLowerCase();
+                positiveKeywords.forEach(word => {
+                    if (text.includes(word)) sentimentScore++;
+                });
+                negativeKeywords.forEach(word => {
+                    if (text.includes(word)) sentimentScore--;
+                });
+            });
+
+            // Update sentiment indicator
+            let sentiment, sentimentLabel, sentimentColor;
+            if (sentimentScore > 2) {
+                sentiment = '😊 Positive';
+                sentimentLabel = 'Bullish market sentiment';
+                sentimentColor = '#10b981';
+            } else if (sentimentScore < -2) {
+                sentiment = '😟 Negative';
+                sentimentLabel = 'Bearish market sentiment';
+                sentimentColor = '#ef4444';
+            } else {
+                sentiment = '😐 Neutral';
+                sentimentLabel = 'Mixed market sentiment';
+                sentimentColor = '#f59e0b';
+            }
+
+            document.getElementById('newsSentiment').textContent = sentiment;
+            document.getElementById('newsSentiment').style.color = sentimentColor;
+            document.getElementById('sentimentLabel').textContent = sentimentLabel;
+
+            // Count events
+            const totalEvents = economicEvents.length + earningsData.length + corporateActionsData.length;
+            document.getElementById('eventCount').textContent = totalEvents;
+
+            // Top story
+            const topStory = highImpactNews[0] || mockNewsData[0];
+            document.getElementById('topStory').textContent = topStory.title;
+
+            // Generate overview summary
+            const vietnamNews = mockNewsData.filter(n => n.category === 'vietnam').length;
+            const globalNews = mockNewsData.filter(n => n.category === 'global').length;
+            const highImpactCount = highImpactNews.length;
+
+            const overview = `The market is showing ${sentimentLabel.toLowerCase()} with ${highImpactCount} high-impact stories. ` +
+                `Currently tracking ${vietnamNews} Vietnam market updates and ${globalNews} global market developments. ` +
+                `This week features ${economicEvents.length} key economic indicators, ${earningsData.length} earnings releases, ` +
+                `and ${corporateActionsData.length} corporate actions that may influence trading decisions.`;
+
+            document.getElementById('summaryOverview').textContent = overview;
+        }
+
+        function loadNews() {
+            let filteredNews = mockNewsData;
+
+            if (currentNewsFilter !== 'all') {
+                filteredNews = mockNewsData.filter(news => news.category === currentNewsFilter);
+            }
+
+            const container = document.getElementById('newsContainer');
+
+            if (filteredNews.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #64748b; padding: 40px;">No news available for this category.</p>';
+                return;
+            }
+
+            let html = '';
+            filteredNews.forEach(news => {
+                html += `
+                    <div class="news-item" onclick="window.open('${news.url}', '_blank')">
+                        <div class="news-header">
+                            <span class="news-source">${news.sourceIcon} ${news.source}</span>
+                            <span class="news-time">⏰ ${news.time}</span>
+                        </div>
+                        <div class="news-title">${news.title}</div>
+                        <div class="news-summary">${news.summary}</div>
+                        <div class="news-tags">
+                            ${news.tags.map(tag => `<span class="news-tag">#${tag}</span>`).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Load economic calendar
+        function loadEconomicCalendar() {
+            const container = document.getElementById('economicCalendar');
+            let html = '';
+
+            economicEvents.forEach(event => {
+                const impactClass = event.impact === 'high' ? 'impact-high' : event.impact === 'medium' ? 'impact-medium' : 'impact-low';
+                html += `
+                    <div class="event-item">
+                        <div>
+                            <div class="event-date">${event.date}</div>
+                            <div class="event-time">${event.time}</div>
+                        </div>
+                        <div>
+                            <div class="event-title">${event.title}</div>
+                            <div class="event-desc">${event.description} - Expected: ${event.expected}</div>
+                        </div>
+                        <div class="event-impact ${impactClass}">
+                            ${event.impact.toUpperCase()} IMPACT
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Load earnings calendar
+        function loadEarningsCalendar() {
+            const container = document.getElementById('earningsCalendar');
+            let html = '';
+
+            earningsData.forEach(earnings => {
+                html += `
+                    <div class="earnings-item">
+                        <div class="earnings-date">${earnings.date}</div>
+                        <div>
+                            <div class="earnings-company">${earnings.symbol} - ${earnings.name}</div>
+                            <div class="earnings-estimate">${earnings.estimate}</div>
+                        </div>
+                        <div class="earnings-badge">${earnings.status}</div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Load corporate actions
+        function loadCorporateActions() {
+            const container = document.getElementById('corporateActions');
+            let html = '';
+
+            corporateActionsData.forEach(action => {
+                html += `
+                    <div class="corporate-action">
+                        <div class="action-icon">${action.icon}</div>
+                        <div>
+                            <div class="action-title">${action.type} - ${action.company}</div>
+                            <div class="action-details">${action.details}</div>
+                        </div>
+                        <div class="action-date">${action.date}</div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        // Refresh news feed
+        function refreshNews() {
+            console.log('🔄 Refreshing news feed...');
+            // In production, this would fetch new data from API
+            loadNews();
+            loadEconomicCalendar();
+            loadEarningsCalendar();
+            loadCorporateActions();
+            updateMarketSummary();
+
+            // Show refresh animation
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '🔄 Refreshing...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = '✅ Updated!';
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }, 1000);
+            }, 1500);
+        }
+
+        // Initialize news on page load
+        function initNews() {
+            loadNews();
+            loadEconomicCalendar();
+            loadEarningsCalendar();
+            loadCorporateActions();
+            updateMarketSummary();
+
+            // Initialize collapsible sections after content loads
+            setTimeout(() => {
+                if (typeof initializeCollapsibleSections === 'function') {
+                    initializeCollapsibleSections();
+
+                    // Add onclick handlers to collapsible headers
+                    document.querySelectorAll('.card.collapsible h3').forEach(header => {
+                        if (!header.onclick) {
+                            header.onclick = function() { toggleSection(this); };
+                        }
+                    });
+                }
+            }, 500);
+        }
+
+        // Call initNews after main init
+        document.addEventListener('DOMContentLoaded', () => {
+            initNews();
+        });
 
         // Initialize
         init();
@@ -1629,8 +2471,8 @@
                 <div class="footer-section">
                     <h3 data-i18n="menu.platform">Platform</h3>
                     <ul class="footer-links">
-                        <li><a href="API_SERVER_SETUP.html">API Documentation</a></li>
-                        <li><a href="README_API.html">Quick Start</a></li>
+                        <li><a href="../docs/api/API_SERVER_SETUP.html">API Documentation</a></li>
+                        <li><a href="../docs/api/README_API.html">Quick Start</a></li>
                     </ul>
                 </div>
             </div>

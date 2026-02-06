@@ -17,12 +17,49 @@ function addCollapsibleStyles() {
             user-select: none;
             display: flex;
             align-items: center;
-            justify-content: space-between;
             transition: background 0.2s;
             position: relative;
             margin: -10px -10px 20px -10px;
             padding: 10px 10px 20px 10px;
             border-radius: 8px 8px 0 0;
+            text-align: left;
+            letter-spacing: 0.02em;
+        }
+
+        /* Add spacing between emoji/icon and text in headings */
+        h1, h2, h3, h4, h5, h6 {
+            letter-spacing: 0.02em;
+        }
+
+        .card h2,
+        .card h3 {
+            letter-spacing: 0.02em;
+        }
+
+        /* Ensure minimum gap spacing between elements - at least 20px */
+        .grid {
+            gap: 20px;
+        }
+
+        .stats-grid, .metric-grid, .factor-grid, .filters-grid,
+        .factors-grid, .metrics-container, .controls-grid {
+            gap: 20px !important;
+        }
+
+        /* Card spacing - minimum 20px between cards */
+        .card {
+            margin-bottom: 20px;
+        }
+
+        /* Reset margins for cards in grid containers */
+        [style*="display: grid"] > .card,
+        [style*="display:grid"] > .card {
+            margin-top: 0 !important;
+        }
+
+        /* Section spacing - minimum 20px */
+        section, .section {
+            margin-bottom: 20px;
         }
 
         .card.collapsible h2:hover,
@@ -37,7 +74,8 @@ function addCollapsibleStyles() {
             color: #64748b;
             transition: transform 0.3s;
             flex-shrink: 0;
-            margin-left: 10px;
+            margin-left: auto;
+            padding-left: 15px;
         }
 
         .card.collapsible.collapsed h2::after,
@@ -72,7 +110,7 @@ function addCollapsibleStyles() {
             border-radius: 10px;
             align-items: center;
             justify-content: space-between;
-            box-shadow: 0 4px 15px rgba(196, 28, 22, 0.3);
+            gap: 20px;
         }
 
         .quick-actions-bar.active {
@@ -83,11 +121,13 @@ function addCollapsibleStyles() {
             color: white;
             font-weight: 600;
             font-size: 0.95em;
+            flex: 1;
         }
 
         .quick-actions-bar .actions {
             display: flex;
             gap: 10px;
+            flex-shrink: 0;
         }
 
         .quick-actions-bar button {
@@ -161,8 +201,17 @@ function toggleSection(header) {
 
 // Initialize collapsible sections
 function initializeCollapsibleSections() {
+    // Set max-height for expanded content
     document.querySelectorAll('.card.collapsible:not(.collapsed) .card-content').forEach(content => {
         content.style.maxHeight = 'none';
+    });
+
+    // Add click handlers to all collapsible headers if not already present
+    document.querySelectorAll('.card.collapsible h2, .card.collapsible h3').forEach(header => {
+        if (!header.onclick) {
+            header.onclick = function() { toggleSection(this); };
+            header.style.cursor = 'pointer';
+        }
     });
 }
 

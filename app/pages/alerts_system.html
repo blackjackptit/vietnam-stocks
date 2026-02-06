@@ -367,11 +367,13 @@
             font-size: 2.5em;
             font-weight: 700;
             margin-bottom: 5px;
+            color: white;
         }
 
         .stat-label {
             font-size: 0.9em;
             opacity: 0.9;
+            color: white;
         }
 
         /* Footer Styles */
@@ -477,8 +479,8 @@
                                 <span>Price Forecasting</span>
                             </a>
                             <a href="dashboard_advanced.html" class="menu-item">
-                                <span class="menu-item-icon">💼</span>
-                                <span data-i18n="portfolio.title">Portfolio Analytics</span>
+                                <span class="menu-item-icon">📊</span>
+                                <span data-i18n="nav.portfolio_analytics">Portfolio Analytics</span>
                             </a>
                             <a href="macro_analysis.html" class="menu-item">
                                 <span class="menu-item-icon">🌍</span>
@@ -532,8 +534,9 @@
         </div>
 
         <!-- Create Alert -->
-        <div class="card">
+        <div class="card collapsible">
             <h2 data-i18n="alerts.create_new">➕ Create New Alert</h2>
+            <div class="card-content">
             <div class="alert-form">
                 <div class="form-group">
                     <label for="alertStock">Stock Symbol</label>
@@ -543,46 +546,51 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="alertType">Alert Type</label>
+                    <label for="alertType" data-i18n="alerts.alert_type_label">Alert Type</label>
                     <select id="alertType">
-                        <option value="price_above">Price Above</option>
-                        <option value="price_below">Price Below</option>
-                        <option value="change_above">Change % Above</option>
-                        <option value="change_below">Change % Below</option>
-                        <option value="volume_spike">Volume Spike</option>
-                        <option value="rsi_oversold">RSI Oversold (<30)</option>
-                        <option value="rsi_overbought">RSI Overbought (>70)</option>
+                        <option value="price_above" data-i18n="alerts.type_price_above">Price Above</option>
+                        <option value="price_below" data-i18n="alerts.type_price_below">Price Below</option>
+                        <option value="change_above" data-i18n="alerts.type_change_above">Change % Above</option>
+                        <option value="change_below" data-i18n="alerts.type_change_below">Change % Below</option>
+                        <option value="volume_spike" data-i18n="alerts.type_volume_spike">Volume Spike</option>
+                        <option value="rsi_oversold" data-i18n="alerts.type_rsi_oversold">RSI Oversold (<30)</option>
+                        <option value="rsi_overbought" data-i18n="alerts.type_rsi_overbought">RSI Overbought (>70)</option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="alertValue">Target Value</label>
-                    <input type="number" id="alertValue" placeholder="Enter value" step="0.01">
+                    <label for="alertValue" data-i18n="alerts.target_value_label">Target Value</label>
+                    <input type="number" id="alertValue" data-i18n-placeholder="alerts.enter_value" placeholder="Enter value" step="0.01">
                 </div>
 
                 <button class="btn" onclick="createAlert()" style="width: 100%; margin-top: 8px;" data-i18n="button.create_alert">
                     🔔 Create Alert
                 </button>
             </div>
+            </div>
         </div>
 
         <!-- Active Alerts -->
-        <div class="card">
+        <div class="card collapsible">
             <h2>📋 Active Alerts</h2>
+            <div class="card-content">
             <div id="alertsList" class="alerts-list">
                 <div style="text-align: center; padding: 40px; color: #64748b;">
                     No active alerts. Create one above to start monitoring.
                 </div>
             </div>
+            </div>
         </div>
 
         <!-- Triggered Alerts History -->
-        <div class="card">
+        <div class="card collapsible">
             <h2 data-i18n="alerts.recently_triggered">🔥 Recently Triggered Alerts</h2>
+            <div class="card-content">
             <div id="triggeredList" class="alerts-list">
                 <div style="text-align: center; padding: 40px; color: #64748b;">
                     No triggered alerts yet.
                 </div>
+            </div>
             </div>
         </div>
     </div>
@@ -641,7 +649,7 @@
             const value = parseFloat(document.getElementById('alertValue').value);
 
             if (!stock || !value) {
-                showNotification('Please fill all fields', 'error');
+                showNotification(t('alerts.error_fill_fields'), 'error');
                 return;
             }
 
@@ -910,8 +918,8 @@
                 <div class="footer-section">
                     <h3 data-i18n="menu.platform">Platform</h3>
                     <ul class="footer-links">
-                        <li><a href="API_SERVER_SETUP.html">API Documentation</a></li>
-                        <li><a href="README_API.html">Quick Start</a></li>
+                        <li><a href="../docs/api/API_SERVER_SETUP.html">API Documentation</a></li>
+                        <li><a href="../docs/api/README_API.html">Quick Start</a></li>
                     </ul>
                 </div>
             </div>

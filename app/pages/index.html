@@ -244,12 +244,14 @@
             color: #1e293b;
             margin-bottom: 16px;
             letter-spacing: -0.5px;
+            text-align: center;
         }
 
         .section-subtitle {
             font-size: 1.2em;
             color: #64748b;
             margin-bottom: 48px;
+            text-align: center;
         }
 
         /* Card Grid */
@@ -395,7 +397,7 @@
         .cta-section {
             background: linear-gradient(135deg, #c41c16 0%, #991b1b 100%);
             color: white;
-            padding: 80px 24px;
+            padding: 80px 24px 20px;
             text-align: center;
         }
 
@@ -453,7 +455,7 @@
         .footer {
             background: #1e293b;
             color: #cbd5e1;
-            padding: 60px 24px 32px;
+            padding: 20px 24px 32px;
         }
 
         .footer-container {
@@ -522,6 +524,14 @@
             font-size: 0.95em;
         }
 
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .resources-grid {
+                grid-template-columns: 1fr;
+                max-width: 700px;
+                margin: 0 auto;
+            }
+        }
+
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2.2em;
@@ -541,6 +551,31 @@
 
             .cards-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .resources-section {
+                padding: 60px 24px;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .resource-card {
+                padding: 32px 24px;
+            }
+
+            .resource-icon {
+                font-size: 2em;
+            }
+
+            .resource-title {
+                font-size: 1.15em;
+            }
+
+            .resource-description {
+                font-size: 0.95em;
             }
 
             .nav-container {
@@ -597,8 +632,8 @@
                                 <span data-i18n="nav.forecast">Price Forecasting</span>
                             </a>
                             <a href="dashboard_advanced.html" class="menu-item">
-                                <span class="menu-item-icon">💼</span>
-                                <span data-i18n="portfolio.title">Portfolio Analytics</span>
+                                <span class="menu-item-icon">📊</span>
+                                <span data-i18n="nav.portfolio_analytics">Portfolio Analytics</span>
                             </a>
                             <a href="macro_analysis.html" class="menu-item">
                                 <span class="menu-item-icon">🌍</span>
@@ -610,7 +645,7 @@
                         <div class="menu-items">
                             <a href="alerts_system.html" class="menu-item">
                                 <span class="menu-item-icon">🔔</span>
-                                <span>Price Alerts</span>
+                                <span data-i18n="home.price_alerts">Price Alerts</span>
                             </a>
                             <a href="trading_automation.html" class="menu-item">
                                 <span class="menu-item-icon">🤖</span>
@@ -663,7 +698,7 @@
 
             <div class="hero-stats">
                 <div class="stat-item">
-                    <div class="stat-number" id="stockCount">233</div>
+                    <div class="stat-number" id="stockCount">195</div>
                     <div class="stat-label" data-i18n="stats.stocks_assets">Stocks & Assets</div>
                 </div>
                 <div class="stat-item">
@@ -675,7 +710,7 @@
                     <div class="stat-label" data-i18n="stats.indicators">Indicators</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-number">4</div>
+                    <div class="stat-number">7</div>
                     <div class="stat-label" data-i18n="stats.ai_models">AI Models</div>
                 </div>
             </div>
@@ -694,7 +729,7 @@
                 <div class="card-content">
                     <h3 class="card-title" data-i18n="nav.dashboard">Main Dashboard</h3>
                     <p class="card-description" data-i18n="home.dashboard_desc">
-                        Real-time monitoring of 233 Vietnamese stocks with live updates, interactive visualization, technical scores, and comprehensive performance tracking.
+                        Real-time monitoring of 195 Vietnamese stocks with live updates, interactive visualization, technical scores, and comprehensive performance tracking.
                     </p>
                     <div class="card-tags">
                         <span class="tag" data-i18n="tag.realtime_updates">Real-time Updates</span>
@@ -729,11 +764,11 @@
                 <div class="card-content">
                     <h3 class="card-title" data-i18n="home.ai_forecast">AI Price Forecast</h3>
                     <p class="card-description" data-i18n="home.forecast_desc">
-                        Machine learning predictions using 4 models. Statistical control charts with anomaly detection and investment recommendations.
+                        Machine learning predictions using 7 models. Statistical control charts with anomaly detection and investment recommendations.
                     </p>
                     <div class="card-tags">
                         <span class="tag" data-i18n="tag.ai_powered">AI Powered</span>
-                        <span class="tag" data-i18n="tag.four_models">4 Models</span>
+                        <span class="tag" data-i18n="tag.four_models">7 Models</span>
                         <span class="tag" data-i18n="tag.forecast_range">7-90 Days</span>
                     </div>
                 </div>
@@ -849,15 +884,15 @@
     <!-- Features Section -->
     <section class="features-section">
         <div class="features-container">
-            <h2 class="section-title" style="text-align: center;" data-i18n="home.why_choose">Why Choose Our Platform</h2>
-            <p class="section-subtitle" style="text-align: center;" data-i18n="home.trusted_description">Professional-grade tools trusted by serious investors</p>
+            <h2 class="section-title" data-i18n="home.why_choose">Why Choose Our Platform</h2>
+            <p class="section-subtitle" data-i18n="home.trusted_description">Professional-grade tools trusted by serious investors</p>
 
             <div class="features-grid">
                 <div class="feature-item">
                     <div class="feature-icon">🎯</div>
                     <h3 class="feature-title" data-i18n="home.comprehensive">Comprehensive Coverage</h3>
                     <p class="feature-text" data-i18n="home.coverage_text">
-                        233 Vietnamese stocks and commodities with real-time data and historical analysis.
+                        195 Vietnamese stocks and commodities with real-time data and historical analysis.
                     </p>
                 </div>
 
@@ -895,7 +930,7 @@
             <p class="cta-text" data-i18n="cta.subtitle">Join thousands of investors using professional analytics</p>
             <div class="cta-buttons">
                 <a href="dashboard.html" class="btn btn-primary" data-i18n="home.get_started">Get Started</a>
-                <a href="FEATURES_COMPLETE.html" class="btn btn-secondary" data-i18n="cta.view_features">View All Features</a>
+                <a href="../docs/development/FEATURES_COMPLETE.html" class="btn btn-secondary" data-i18n="cta.view_features">View All Features</a>
             </div>
         </div>
     </section>
@@ -927,10 +962,10 @@
                 <div class="footer-section">
                     <h3 data-i18n="footer.resources">Resources</h3>
                     <ul class="footer-links">
-                        <li><a href="QUICK_START.html" data-i18n="footer.quick_start">Quick Start Guide</a></li>
-                        <li><a href="FEATURES_COMPLETE.html" data-i18n="footer.features">Features</a></li>
-                        <li><a href="USER_GUIDE_ADVANCED.html" data-i18n="footer.user_guide">User Guide</a></li>
-                        <li><a href="MACRO_FACTORS_GUIDE.html" data-i18n="footer.macro_guide">Macro Guide</a></li>
+                        <li><a href="../docs/guides/QUICK_START.html" data-i18n="footer.quick_start">Quick Start Guide</a></li>
+                        <li><a href="../docs/development/FEATURES_COMPLETE.html" data-i18n="footer.features">Features</a></li>
+                        <li><a href="../docs/guides/USER_GUIDE_ADVANCED.html" data-i18n="footer.user_guide">User Guide</a></li>
+                        <li><a href="../docs/guides/MACRO_FACTORS_GUIDE.html" data-i18n="footer.macro_guide">Macro Guide</a></li>
                     </ul>
                 </div>
 
@@ -938,7 +973,7 @@
                     <h3 data-i18n="menu.platform">Platform</h3>
                     <ul class="footer-links">
                         <li><a href="monitor.html" data-i18n="trading.system_status">System Status</a></li>
-                        <li><a href="monitor.html">⚙️ <span data-i18n="trading.settings_status">Settings & Status</span></a></li>
+                        <li><a href="settings.html">⚙️ <span data-i18n="nav.settings">Settings</span></a></li>
                     </ul>
                 </div>
             </div>
@@ -1004,7 +1039,7 @@
                     }
                 } catch (error) {
                     // Fallback to default value if API fails
-                    document.getElementById('stockCount').textContent = 233;
+                    document.getElementById('stockCount').textContent = 195;
                 }
 
             } catch (error) {
@@ -1013,7 +1048,7 @@
                 const statusElement = document.getElementById('systemStatus');
                 statusElement.innerHTML = `
                     <span class="status-dot" style="background: #64748b;"></span>
-                    <span title="API server may not be running. Click to open monitor.">API Offline</span>
+                    <span title="${t('tooltip.api_offline')}">${t('status.api_offline')}</span>
                 `;
 
                 // Add click to open monitor even when offline
@@ -1022,7 +1057,7 @@
 
                 // Set default stock count
                 try {
-                    document.getElementById('stockCount').textContent = 233;
+                    document.getElementById('stockCount').textContent = 195;
                 } catch (e) {}
             }
         }

@@ -1,5 +1,5 @@
 // Stock Categories - Loaded from API
-let STOCK_CATEGORIES = {
+window.STOCK_CATEGORIES = {
     commodities: [],
     blue_chips: [],
     banks: [],
@@ -14,7 +14,7 @@ let STOCK_CATEGORIES = {
     all: []
 };
 
-let TOTAL_STOCKS_COUNT = 0;
+window.TOTAL_STOCKS_COUNT = 0;
 
 // Make categoriesLoaded available globally
 window.categoriesLoaded = false;
@@ -35,47 +35,75 @@ const FALLBACK_CATEGORIES = {
     all: []
 };
 
+// Helper function to apply fallback data
+function applyFallbackCategories() {
+    console.log('📦 Applying fallback stock categories...');
+    window.STOCK_CATEGORIES = { ...FALLBACK_CATEGORIES };
+    const allStockSymbols = [...new Set(Object.entries(window.STOCK_CATEGORIES)
+        .filter(([key]) => key !== 'commodities' && key !== 'all')
+        .flatMap(([_, symbols]) => symbols))];
+    window.STOCK_CATEGORIES.all = allStockSymbols.sort();
+    window.TOTAL_STOCKS_COUNT = [...new Set([...allStockSymbols, ...window.STOCK_CATEGORIES.commodities])].length;
+    window.categoriesLoaded = true;
+    console.log(`✅ Stock Categories loaded from fallback: ${window.TOTAL_STOCKS_COUNT} total stocks`);
+    console.log('Categories loaded flag:', window.categoriesLoaded);
+}
+
 // Load stock categories from API
 async function loadStockCategories() {
+    // Set a timeout to use fallback if API takes too long
+    const fallbackTimeout = setTimeout(() => {
+        if (!window.categoriesLoaded) {
+            console.warn('API timeout - using fallback data immediately');
+            applyFallbackCategories();
+        }
+    }, 2000); // Use fallback after 2 seconds
+
     try {
         // Use API_BASE_URL to ensure correct port (5000)
         const apiUrl = window.API_BASE_URL ? `${window.API_BASE_URL}/api/stock-categories` : '/api/stock-categories';
-        const response = await fetch(apiUrl);
+        const response = await fetch(apiUrl, { timeout: 3000 });
         const data = await response.json();
 
         if (data && data.categories) {
-            STOCK_CATEGORIES = data.categories;
+            clearTimeout(fallbackTimeout);
+            window.STOCK_CATEGORIES = data.categories;
 
             // Build 'all' category (excluding commodities)
-            const allStockSymbols = [...new Set(Object.entries(STOCK_CATEGORIES)
+            const allStockSymbols = [...new Set(Object.entries(window.STOCK_CATEGORIES)
                 .filter(([key]) => key !== 'commodities' && key !== 'all')
                 .flatMap(([_, symbols]) => symbols))];
-            STOCK_CATEGORIES.all = allStockSymbols.sort();
+            window.STOCK_CATEGORIES.all = allStockSymbols.sort();
 
             // Calculate total count
-            TOTAL_STOCKS_COUNT = [...new Set([...allStockSymbols, ...(STOCK_CATEGORIES.commodities || [])])].length;
+            window.TOTAL_STOCKS_COUNT = [...new Set([...allStockSymbols, ...(window.STOCK_CATEGORIES.commodities || [])])].length;
 
             window.categoriesLoaded = true;
-            console.log(`✓ Stock Categories loaded from API: ${TOTAL_STOCKS_COUNT} total stocks`);
+            console.log(`✓ Stock Categories loaded from API: ${window.TOTAL_STOCKS_COUNT} total stocks`);
             return true;
         }
     } catch (error) {
         console.warn('Failed to load categories from API, using fallback data:', error);
+        clearTimeout(fallbackTimeout);
     }
 
-    // Fallback to hardcoded data
-    STOCK_CATEGORIES = { ...FALLBACK_CATEGORIES };
-    const allStockSymbols = [...new Set(Object.entries(STOCK_CATEGORIES)
-        .filter(([key]) => key !== 'commodities' && key !== 'all')
-        .flatMap(([_, symbols]) => symbols))];
-    STOCK_CATEGORIES.all = allStockSymbols.sort();
-    TOTAL_STOCKS_COUNT = [...new Set([...allStockSymbols, ...STOCK_CATEGORIES.commodities])].length;
-    window.categoriesLoaded = true;
-    console.log(`✓ Stock Categories loaded from fallback: ${TOTAL_STOCKS_COUNT} total stocks`);
+    // Fallback to hardcoded data if not already loaded
+    if (!window.categoriesLoaded) {
+        applyFallbackCategories();
+    }
     return false;
 }
 
 // Auto-load on script load
 if (typeof window !== 'undefined') {
-    loadStockCategories();
+    console.log('🚀 stock-categories.js script loaded and executing...');
+    // Load fallback immediately so data is available synchronously
+    applyFallbackCategories();
+
+    // Then try to load from API in the background (will replace fallback if successful)
+    loadStockCategories().catch(err => {
+        console.error('Error loading stock categories from API:', err);
+        // Fallback already applied, so we're good
+    });
+    console.log('✓ stock-categories.js initialization complete');
 }

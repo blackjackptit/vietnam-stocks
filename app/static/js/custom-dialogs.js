@@ -3,6 +3,16 @@
  * Provides styled notifications, alerts, and confirmations
  */
 
+
+// Immediately export stub functions that will be replaced
+window.showAlert = window.showAlert || function(msg) { console.warn("showAlert not ready:", msg); };
+window.showConfirm = window.showConfirm || function(msg) { console.warn("showConfirm not ready:", msg); return Promise.resolve(false); };
+window.showDialog = window.showDialog || function(msg) { console.warn("showDialog not ready:", msg); };
+window.showNotification = window.showNotification || function(msg) { console.warn("showNotification not ready:", msg); };
+window.showSuccess = window.showSuccess || function(msg) { console.warn("showSuccess not ready:", msg); };
+window.showError = window.showError || function(msg) { console.warn("showError not ready:", msg); };
+window.showWarning = window.showWarning || function(msg) { console.warn("showWarning not ready:", msg); };
+window.showInfo = window.showInfo || function(msg) { console.warn("showInfo not ready:", msg); };
 // Create dialog container on page load
 if (typeof window !== 'undefined') {
     window.addEventListener('DOMContentLoaded', () => {
@@ -85,8 +95,9 @@ function showNotification(message, type = 'info', duration = 3000) {
  * Show an alert dialog (replaces window.alert)
  * @param {string} message - Message to display
  * @param {string} title - Dialog title (optional)
+ * @param {number} autoCloseDuration - Auto-close after ms (default: 3000, set to 0 to disable)
  */
-function showAlert(message, title = '⚠️ Alert') {
+function showAlert(message, title = '⚠️ Alert', autoCloseDuration = 3000) {
     return new Promise((resolve) => {
         const overlay = createOverlay();
         const dialog = document.createElement('div');
@@ -116,9 +127,23 @@ function showAlert(message, title = '⚠️ Alert') {
         // Focus the OK button
         setTimeout(() => dialog.querySelector('.dialog-btn-primary').focus(), 100);
 
+        // Auto-close after duration
+        let autoCloseTimer = null;
+        if (autoCloseDuration > 0) {
+            autoCloseTimer = setTimeout(() => {
+                overlay.classList.remove('show');
+                dialog.classList.remove('show');
+                setTimeout(() => {
+                    overlay.remove();
+                    resolve(true);
+                }, 300);
+            }, autoCloseDuration);
+        }
+
         // Resolve when closed
         overlay.addEventListener('click', (e) => {
             if (e.target === overlay || e.target.classList.contains('dialog-btn')) {
+                if (autoCloseTimer) clearTimeout(autoCloseTimer);
                 overlay.classList.remove('show');
                 dialog.classList.remove('show');
                 setTimeout(() => {
@@ -131,6 +156,7 @@ function showAlert(message, title = '⚠️ Alert') {
         // ESC key to close
         const handleEsc = (e) => {
             if (e.key === 'Escape') {
+                if (autoCloseTimer) clearTimeout(autoCloseTimer);
                 overlay.remove();
                 document.removeEventListener('keydown', handleEsc);
                 resolve(true);
@@ -219,8 +245,9 @@ function showConfirm(message, title = '❓ Confirm') {
  * @param {string} message - Message to display
  * @param {Array} buttons - Array of button configs [{label, action, primary}]
  * @param {string} title - Dialog title
+ * @param {number} autoCloseDuration - Auto-close after ms (default: 3000, set to 0 to disable)
  */
-function showDialog(message, buttons = [{label: 'OK', action: 'ok', primary: true}], title = 'Dialog') {
+function showDialog(message, buttons = [{label: 'OK', action: 'ok', primary: true}], title = 'Dialog', autoCloseDuration = 3000) {
     return new Promise((resolve) => {
         const overlay = createOverlay();
         const dialog = document.createElement('div');
@@ -251,9 +278,24 @@ function showDialog(message, buttons = [{label: 'OK', action: 'ok', primary: tru
             dialog.classList.add('show');
         }, 10);
 
+        // Auto-close after duration (use first button action as default)
+        let autoCloseTimer = null;
+        if (autoCloseDuration > 0) {
+            autoCloseTimer = setTimeout(() => {
+                const defaultAction = buttons[0]?.action || 'ok';
+                overlay.classList.remove('show');
+                dialog.classList.remove('show');
+                setTimeout(() => {
+                    overlay.remove();
+                    resolve(defaultAction);
+                }, 300);
+            }, autoCloseDuration);
+        }
+
         // Handle button clicks
         dialog.addEventListener('click', (e) => {
             if (e.target.classList.contains('dialog-btn')) {
+                if (autoCloseTimer) clearTimeout(autoCloseTimer);
                 const action = e.target.getAttribute('data-action');
                 overlay.classList.remove('show');
                 dialog.classList.remove('show');
@@ -267,6 +309,7 @@ function showDialog(message, buttons = [{label: 'OK', action: 'ok', primary: tru
         // ESC key to close
         const handleEsc = (e) => {
             if (e.key === 'Escape') {
+                if (autoCloseTimer) clearTimeout(autoCloseTimer);
                 overlay.remove();
                 document.removeEventListener('keydown', handleEsc);
                 resolve(null);
@@ -542,3 +585,13 @@ if (typeof window !== 'undefined') {
         }
     });
 }
+
+// Export functions to global scope
+window.showNotification = showNotification;
+window.showAlert = showAlert;
+window.showConfirm = showConfirm;
+window.showDialog = showDialog;
+window.showSuccess = showSuccess;
+window.showError = showError;
+window.showWarning = showWarning;
+window.showInfo = showInfo;

@@ -27,7 +27,7 @@
             background: #ffffff;
             border-bottom: 1px solid #e5e7eb;
             z-index: 1000;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            
         }
 
         .nav-container {
@@ -92,7 +92,7 @@
             background: white;
             border: 1px solid #e5e7eb;
             border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            
             min-width: 280px;
             opacity: 0;
             visibility: hidden;
@@ -227,7 +227,7 @@
             color: white;
             border-radius: 25px;
             font-weight: bold;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            
         }
 
         .live-dot {
@@ -279,7 +279,7 @@
 
         .stat-box:hover {
             transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            
         }
 
         .stat-box.buy {
@@ -467,13 +467,13 @@
             padding: 20px;
             border-radius: 10px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            
             transition: all 0.3s;
         }
 
         .summary-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            
         }
 
         .summary-number {
@@ -563,6 +563,7 @@
             color: #667eea;
         }
     </style>
+    <script src="js/collapsible.js"></script>
     <script src="js/data-api.js"></script>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <script src="js/api-config.js"></script>
@@ -612,8 +613,8 @@
                                 <span>Price Forecasting</span>
                             </a>
                             <a href="dashboard_advanced.html" class="menu-item">
-                                <span class="menu-item-icon">💼</span>
-                                <span data-i18n="portfolio.title">Portfolio Analytics</span>
+                                <span class="menu-item-icon">📊</span>
+                                <span data-i18n="nav.portfolio_analytics">Portfolio Analytics</span>
                             </a>
                             <a href="macro_analysis.html" class="menu-item">
                                 <span class="menu-item-icon">🌍</span>

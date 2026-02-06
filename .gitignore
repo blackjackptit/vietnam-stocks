@@ -39,6 +39,12 @@ yarn-error.log*
 *.sqlite
 *.sqlite3
 
+# Backup files
+*.bak
+*.bak2
+*.bak3
+*.backup_*
+
 # Temporary files
 tmp/
 temp/

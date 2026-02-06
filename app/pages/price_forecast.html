@@ -764,8 +764,8 @@
                                 <span>Price Forecasting</span>
                             </a>
                             <a href="dashboard_advanced.html" class="menu-item">
-                                <span class="menu-item-icon">💼</span>
-                                <span data-i18n="portfolio.title">Portfolio Analytics</span>
+                                <span class="menu-item-icon">📊</span>
+                                <span data-i18n="nav.portfolio_analytics">Portfolio Analytics</span>
                             </a>
                             <a href="macro_analysis.html" class="menu-item">
                                 <span class="menu-item-icon">🌍</span>
@@ -799,7 +799,7 @@
         <div class="header">
             <h1><span data-i18n="forecast.section_title">🔮 Price Forecast</span></h1>
             <p style="color: #666; font-size: 1.1em;" data-i18n="forecast.ai_powered">AI-Powered Stock Price Prediction</p>
-            <div style="margin-top: 15px; color: #64748b;" id="lastUpdated" data-i18n="common.select_stocks_to_begin">Select stocks to begin</div>
+            <div style="margin-top: 15px; color: #64748b;" id="lastUpdated"></div>
         </div>
 
         <!-- Stock Picker Controls -->
@@ -860,11 +860,12 @@
                     </div>
                 </div>
 
-                <div class="watchlist-summary">
-                    <div>
-                        <strong data-i18n="forecast.selected_label">Selected:</strong>
-                        <span id="forecastSelectionCount" data-i18n="forecast.n_selected" data-i18n-options='{"count": 0}'>0 selected</span>
-                        <span style="margin-left: 15px; color: #64748b;"><span id="selectedStocks" data-i18n="forecast.none">None</span></span>
+                <div class="watchlist-summary" style="background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); padding: 16px 20px; border-radius: 10px; border: 2px solid #cbd5e1; margin-top: 15px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <strong style="color: #1e293b; font-size: 1.05em;" data-i18n="forecast.selected_label">Selected:</strong>
+                        <span id="forecastSelectionCount"
+                              style="background: #3b82f6; color: white; padding: 6px 16px; border-radius: 20px; font-weight: 700; font-size: 1.05em; display: inline-block; min-width: 90px; text-align: center;">0 selected</span>
+                        <span style="color: #64748b; font-size: 0.95em;"><span id="selectedStocks" data-i18n="forecast.none">None</span></span>
                     </div>
                 </div>
             </div>
@@ -938,7 +939,7 @@
 
         <!-- Quick Actions Bar -->
         <div id="quickActionsBar" style="display: none; margin-bottom: 15px; padding: 12px 20px; background: linear-gradient(135deg, #c41c16 0%, #7f1d1d 100%); border-radius: 10px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(196, 28, 22, 0.3);">
-            <div style="color: white; font-weight: 600; font-size: 0.95em;">
+            <div style="color: white; font-weight: 600; font-size: 0.95em;" data-i18n="collapsible.tip">
                 💡 Tip: Click section headers to expand/collapse
             </div>
             <div style="display: flex; gap: 10px;">
@@ -1240,7 +1241,22 @@
 
         function updateForecastSelectionCount() {
             const checkboxes = document.querySelectorAll('#stockSelect input[type="checkbox"]:checked');
-            document.getElementById('forecastSelectionCount').textContent = `${checkboxes.length} selected`;
+            const count = checkboxes.length;
+            const countElement = document.getElementById('forecastSelectionCount');
+
+            // Update count text
+            countElement.textContent = `${count} selected`;
+
+            // Change color based on count
+            if (count === 0) {
+                countElement.style.background = '#94a3b8';
+            } else if (count <= 5) {
+                countElement.style.background = '#f59e0b'; // Orange for small selection
+            } else if (count <= 20) {
+                countElement.style.background = '#3b82f6'; // Blue for medium selection
+            } else {
+                countElement.style.background = '#10b981'; // Green for large selection
+            }
         }
 
         function selectAllForecastStocks() {
@@ -1816,6 +1832,13 @@
 
         function generateExponentialForecast(historical, days) {
             const predictions = [];
+
+            // Check if we have enough data
+            if (!historical || historical.length < 2) {
+                console.error('Insufficient historical data for exponential forecast');
+                return predictions;
+            }
+
             const alpha = 0.3; // Smoothing factor
             let smoothed = historical[0].close;
 
@@ -1823,7 +1846,9 @@
                 smoothed = alpha * point.close + (1 - alpha) * smoothed;
             });
 
-            const trend = (historical[historical.length - 1].close - historical[historical.length - 20].close) / 20;
+            // Calculate trend using available data (minimum 2 points, maximum 20)
+            const trendPeriod = Math.min(20, historical.length - 1);
+            const trend = (historical[historical.length - 1].close - historical[historical.length - 1 - trendPeriod].close) / trendPeriod;
 
             for (let i = 1; i <= days; i++) {
                 smoothed = smoothed + trend;
@@ -2019,6 +2044,13 @@
         function generateXGBoostForecast(historical, days) {
             // XGBoost-inspired gradient boosting forecast
             const predictions = [];
+
+            // Check if we have enough data (need at least 6 points for lag5)
+            if (!historical || historical.length < 6) {
+                console.error('Insufficient historical data for XGBoost forecast (need at least 6 data points)');
+                return predictions;
+            }
+
             const lastPrice = historical[historical.length - 1].close;
 
             // Feature engineering
@@ -2042,6 +2074,12 @@
                 features.push(f);
             }
 
+            // Check if features were created
+            if (features.length < 5) {
+                console.error('Insufficient features for XGBoost forecast');
+                return predictions;
+            }
+
             // Simplified boosting: learn from recent patterns
             const weights = {
                 lag1: 0.4,
@@ -2052,8 +2090,9 @@
             };
 
             // Calculate trend
-            const recentTrend = (features[features.length-1].target - features[features.length-5].target) /
-                                features[features.length-5].target / 4;
+            const trendIdx = Math.min(5, features.length);
+            const recentTrend = (features[features.length-1].target - features[features.length-trendIdx].target) /
+                                features[features.length-trendIdx].target / (trendIdx - 1);
 
             // Generate predictions
             let prevPrice = lastPrice;
@@ -3078,12 +3117,50 @@
             // Validate input
             if (!allHistoricals || typeof allHistoricals !== 'object') {
                 console.error('Invalid allHistoricals:', allHistoricals);
+
+                // Hide chart containers and show error
+                const metricsDiv = document.getElementById('accuracyMetrics');
+                const evaluationChartContainer = document.getElementById('evaluationChart')?.parentElement;
+                const errorDistChartContainer = document.getElementById('errorDistributionChart')?.parentElement;
+                const effectivenessDiv = document.getElementById('effectivenessScore');
+
+                if (evaluationChartContainer) evaluationChartContainer.style.display = 'none';
+                if (errorDistChartContainer) errorDistChartContainer.style.display = 'none';
+                if (effectivenessDiv) effectivenessDiv.style.display = 'none';
+
+                if (metricsDiv) {
+                    metricsDiv.innerHTML = `
+                        <div style="grid-column: 1/-1; background: #fee2e2; padding: 20px; border-radius: 8px; border-left: 4px solid #ef4444;">
+                            <div style="font-weight: 600; color: #991b1b; margin-bottom: 10px;">❌ Invalid Data</div>
+                            <div style="color: #7f1d1d;">Cannot generate evaluation: Invalid historical data format</div>
+                        </div>
+                    `;
+                }
                 return;
             }
 
             const histKeys = Object.keys(allHistoricals);
             if (histKeys.length === 0) {
                 console.error('allHistoricals is empty');
+
+                // Hide chart containers and show error
+                const metricsDiv = document.getElementById('accuracyMetrics');
+                const evaluationChartContainer = document.getElementById('evaluationChart')?.parentElement;
+                const errorDistChartContainer = document.getElementById('errorDistributionChart')?.parentElement;
+                const effectivenessDiv = document.getElementById('effectivenessScore');
+
+                if (evaluationChartContainer) evaluationChartContainer.style.display = 'none';
+                if (errorDistChartContainer) errorDistChartContainer.style.display = 'none';
+                if (effectivenessDiv) effectivenessDiv.style.display = 'none';
+
+                if (metricsDiv) {
+                    metricsDiv.innerHTML = `
+                        <div style="grid-column: 1/-1; background: #fee2e2; padding: 20px; border-radius: 8px; border-left: 4px solid #ef4444;">
+                            <div style="font-weight: 600; color: #991b1b; margin-bottom: 10px;">❌ No Data Available</div>
+                            <div style="color: #7f1d1d;">Cannot generate evaluation: No historical data available</div>
+                        </div>
+                    `;
+                }
                 return;
             }
 
@@ -3311,7 +3388,15 @@
                     charts.evaluation = null;
                 }
 
-                document.getElementById('effectivenessScore').innerHTML = '';
+                // Hide chart containers to prevent empty sections
+                const evaluationChartContainer = chartCanvas?.parentElement;
+                if (evaluationChartContainer) evaluationChartContainer.style.display = 'none';
+
+                const effectivenessDiv = document.getElementById('effectivenessScore');
+                if (effectivenessDiv) {
+                    effectivenessDiv.innerHTML = '';
+                    effectivenessDiv.style.display = 'none';
+                }
 
                 // Clear error distribution chart safely
                 const errorDistChart = document.getElementById('errorDistributionChart');
@@ -3319,6 +3404,10 @@
                     charts.errorDistribution.destroy();
                     charts.errorDistribution = null;
                 }
+
+                // Hide error distribution chart container
+                const errorDistChartContainer = errorDistChart?.parentElement;
+                if (errorDistChartContainer) errorDistChartContainer.style.display = 'none';
 
                 console.error('Evaluation failed: No metrics generated for any stocks using model:', evaluationModel);
                 return;
@@ -3337,6 +3426,15 @@
                 mape: safeAverage(allMetrics, 'mape'),
                 r2: safeAverage(allMetrics, 'r2')
             };
+
+            // Show chart containers before displaying charts
+            const evaluationChartContainer = document.getElementById('evaluationChart')?.parentElement;
+            const errorDistChartContainer = document.getElementById('errorDistributionChart')?.parentElement;
+            const effectivenessDiv = document.getElementById('effectivenessScore');
+
+            if (evaluationChartContainer) evaluationChartContainer.style.display = 'block';
+            if (errorDistChartContainer) errorDistChartContainer.style.display = 'block';
+            if (effectivenessDiv) effectivenessDiv.style.display = 'block';
 
             // Display metrics
             console.log('Displaying accuracy metrics...', avgMetrics);
@@ -4019,18 +4117,38 @@
                     historyKeys: Object.keys(evaluationHistoricals),
                     model: selectedModel
                 });
+
+                // Show chart containers before evaluation
+                const evaluationChartContainer = document.getElementById('evaluationChart')?.parentElement;
+                const errorDistChartContainer = document.getElementById('errorDistributionChart')?.parentElement;
+                const effectivenessDiv = document.getElementById('effectivenessScore');
+
+                if (evaluationChartContainer) evaluationChartContainer.style.display = 'block';
+                if (errorDistChartContainer) errorDistChartContainer.style.display = 'block';
+                if (effectivenessDiv) effectivenessDiv.style.display = 'block';
+
                 displayPredictionEvaluation(evaluationHistoricals, null, selectedModel);
                 console.log('=== Evaluation Update Complete ===');
             } catch (error) {
                 console.error('=== Error Updating Evaluation ===', error);
+
+                // Hide chart containers when error occurs
+                const evaluationChartContainer = document.getElementById('evaluationChart')?.parentElement;
+                const errorDistChartContainer = document.getElementById('errorDistributionChart')?.parentElement;
+                const effectivenessDiv = document.getElementById('effectivenessScore');
+
+                if (evaluationChartContainer) evaluationChartContainer.style.display = 'none';
+                if (errorDistChartContainer) errorDistChartContainer.style.display = 'none';
+                if (effectivenessDiv) effectivenessDiv.style.display = 'none';
+
                 if (metricsDiv) {
                     metricsDiv.innerHTML = `
                         <div style="grid-column: 1/-1; background: #fee2e2; padding: 20px; border-radius: 8px; border-left: 4px solid #ef4444;">
-                            <div style="font-weight: 600; color: #991b1b; margin-bottom: 10px;">❌ Error Updating Evaluation</div>
+                            <div style="font-weight: 600; color: #991b1b; margin-bottom: 10px;">❌ Unable to Generate Evaluation</div>
                             <div style="color: #7f1d1d; margin-bottom: 5px;">Failed to generate evaluation for ${selectedModel}</div>
                             <div style="color: #991b1b; font-size: 0.9em;">Error: ${error.message}</div>
                             <div style="color: #991b1b; font-size: 0.9em; margin-top: 10px;">
-                                Try selecting a different model like "Ensemble" or "Linear Regression"
+                                💡 Try selecting a different model like "Ensemble" or "Linear Regression"
                             </div>
                         </div>
                     `;
@@ -4163,8 +4281,8 @@
                 <div class="footer-section">
                     <h3 data-i18n="menu.platform">Platform</h3>
                     <ul class="footer-links">
-                        <li><a href="API_SERVER_SETUP.html">API Documentation</a></li>
-                        <li><a href="README_API.html">Quick Start</a></li>
+                        <li><a href="../docs/api/API_SERVER_SETUP.html">API Documentation</a></li>
+                        <li><a href="../docs/api/README_API.html">Quick Start</a></li>
                     </ul>
                 </div>
             </div>
