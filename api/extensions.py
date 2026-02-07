@@ -14,5 +14,8 @@ recent_activity = []  # List of recent page views and actions
 activity_lock = threading.Lock()
 SESSION_TIMEOUT = 1800  # 30 minutes
 
+# Long-lived cookie for plan ownership (1 year)
+PLAN_COOKIE_MAX_AGE = 365 * 24 * 3600
+
 # Simple in-memory watchlist storage (for demo purposes)
 watchlist_storage = []

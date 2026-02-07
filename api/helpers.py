@@ -86,6 +86,17 @@ def log_activity(session_id, activity_type, page=None, details=None):
                 active_sessions[session_id]['actions'].pop(0)
 
 
+def get_or_create_plan_owner():
+    """Get existing plan owner ID or create a new one (long-lived, persists across sessions)"""
+    owner_id = request.cookies.get('plan_owner_id')
+    if not owner_id:
+        # Fall back to session_id cookie for backward compatibility with existing plans
+        owner_id = request.cookies.get('session_id')
+    if not owner_id:
+        owner_id = str(uuid.uuid4())
+    return owner_id
+
+
 def cleanup_old_sessions():
     """Remove inactive sessions"""
     with activity_lock:

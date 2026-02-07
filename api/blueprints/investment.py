@@ -6,20 +6,27 @@ Investment plans API endpoints.
 from flask import Blueprint, jsonify, request, make_response
 import uuid as uuid_lib
 
-from api.helpers import query_db, get_or_create_session, log_activity
-from api.extensions import SESSION_TIMEOUT
+from api.helpers import query_db, get_or_create_session, get_or_create_plan_owner, log_activity
+from api.extensions import PLAN_COOKIE_MAX_AGE
 
 investment_bp = Blueprint('investment', __name__)
 
 
+def _set_plan_cookie(response, owner_id):
+    """Set the long-lived plan_owner_id cookie on a response."""
+    response.set_cookie('plan_owner_id', owner_id, max_age=PLAN_COOKIE_MAX_AGE, samesite='Lax')
+    return response
+
+
 @investment_bp.route('/api/investment-plans', methods=['GET'])
 def get_investment_plans():
-    """Get all investment plans for the current session"""
+    """Get all investment plans for the current user"""
     try:
+        owner_id = get_or_create_plan_owner()
         session_id = get_or_create_session()
         log_activity(session_id, 'view', 'investment-plans', 'View saved plans')
 
-        # Get all plans for this session
+        # Get all plans for this owner
         plans = query_db("""
             SELECT
                 plan_id,
@@ -36,7 +43,7 @@ def get_investment_plans():
             FROM investment_plans
             WHERE session_id = %s
             ORDER BY created_at DESC
-        """, [session_id])
+        """, [owner_id])
 
         # Get holdings for each plan
         result = []
@@ -81,7 +88,7 @@ def get_investment_plans():
             'data': result,
             'count': len(result)
         }))
-        response.set_cookie('session_id', session_id, max_age=SESSION_TIMEOUT)
+        _set_plan_cookie(response, owner_id)
         return response
 
     except Exception as e:
@@ -93,6 +100,7 @@ def get_investment_plans():
 def save_investment_plan():
     """Save a new investment plan"""
     try:
+        owner_id = get_or_create_plan_owner()
         session_id = get_or_create_session()
         data = request.get_json()
 
@@ -100,7 +108,7 @@ def save_investment_plan():
         if not data.get('name'):
             return jsonify({'success': False, 'error': 'Plan name is required'}), 400
 
-        # Insert plan
+        # Insert plan (session_id column stores the owner_id)
         plan_id = str(uuid_lib.uuid4())
         query_db("""
             INSERT INTO investment_plans (
@@ -117,7 +125,7 @@ def save_investment_plan():
             data.get('expectedReturn', 0),
             data.get('risk', 0),
             data.get('sharpeRatio', 0),
-            session_id
+            owner_id
         ])
 
         # Insert holdings
@@ -146,7 +154,7 @@ def save_investment_plan():
             'planId': str(plan_id),
             'message': 'Investment plan saved successfully'
         }))
-        response.set_cookie('session_id', session_id, max_age=SESSION_TIMEOUT)
+        _set_plan_cookie(response, owner_id)
         return response
 
     except Exception as e:
@@ -158,13 +166,14 @@ def save_investment_plan():
 def delete_investment_plan(plan_id):
     """Delete an investment plan"""
     try:
+        owner_id = get_or_create_plan_owner()
         session_id = get_or_create_session()
 
-        # Verify the plan belongs to this session
+        # Verify the plan belongs to this owner
         plan = query_db("""
             SELECT name FROM investment_plans
             WHERE plan_id = %s AND session_id = %s
-        """, [plan_id, session_id], one=True)
+        """, [plan_id, owner_id])
 
         if not plan:
             return jsonify({'success': False, 'error': 'Plan not found'}), 404
@@ -172,13 +181,13 @@ def delete_investment_plan(plan_id):
         # Delete the plan (holdings will be cascade deleted)
         query_db("DELETE FROM investment_plans WHERE plan_id = %s", [plan_id])
 
-        log_activity(session_id, 'delete', 'investment-plan', f'Deleted plan: {plan["name"]}')
+        log_activity(session_id, 'delete', 'investment-plan', f'Deleted plan: {plan[0]["name"]}')
 
         response = make_response(jsonify({
             'success': True,
             'message': 'Investment plan deleted successfully'
         }))
-        response.set_cookie('session_id', session_id, max_age=SESSION_TIMEOUT)
+        _set_plan_cookie(response, owner_id)
         return response
 
     except Exception as e:
