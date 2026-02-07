@@ -7,7 +7,7 @@ from flask import Blueprint, jsonify, request
 from datetime import datetime
 
 from api.helpers import query_db
-from api.extensions import db_pool
+import api.extensions as ext
 
 system_bp = Blueprint('system', __name__)
 
@@ -193,7 +193,7 @@ def manage_control(key):
             if new_value is None:
                 return jsonify({"success": False, "error": "Value required"}), 400
 
-            conn = db_pool.getconn()
+            conn = ext.db_pool.getconn()
             try:
                 with conn.cursor() as cursor:
                     cursor.execute("""
@@ -218,7 +218,7 @@ def manage_control(key):
                     else:
                         return jsonify({"success": False, "error": "Control not found"}), 404
             finally:
-                db_pool.putconn(conn)
+                ext.db_pool.putconn(conn)
 
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
@@ -236,7 +236,7 @@ def trigger_job():
 
         control_key = f'job.collect_{job_type}.trigger'
 
-        conn = db_pool.getconn()
+        conn = ext.db_pool.getconn()
         try:
             with conn.cursor() as cursor:
                 # Set trigger signal
@@ -260,7 +260,7 @@ def trigger_job():
                     "job_type": job_type
                 })
         finally:
-            db_pool.putconn(conn)
+            ext.db_pool.putconn(conn)
 
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500

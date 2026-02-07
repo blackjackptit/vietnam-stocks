@@ -18,6 +18,42 @@ def _set_plan_cookie(response, owner_id):
     return response
 
 
+@investment_bp.route('/api/investment-plans/claim', methods=['POST'])
+def claim_orphaned_plans():
+    """Adopt all orphaned plans in the database to the current user.
+    Useful for recovering plans lost due to expired session cookies."""
+    try:
+        owner_id = get_or_create_plan_owner()
+
+        # Count plans already owned
+        owned = query_db(
+            "SELECT COUNT(*) as count FROM investment_plans WHERE session_id = %s",
+            [owner_id], one=True
+        )
+
+        # Reassign all plans not owned by anyone with a current cookie
+        result = query_db(
+            "UPDATE investment_plans SET session_id = %s WHERE session_id != %s",
+            [owner_id, owner_id]
+        )
+
+        # Count after
+        total = query_db(
+            "SELECT COUNT(*) as count FROM investment_plans WHERE session_id = %s",
+            [owner_id], one=True
+        )
+
+        response = make_response(jsonify({
+            'success': True,
+            'message': 'Orphaned plans claimed',
+            'total_plans': total['count'] if total else 0
+        }))
+        _set_plan_cookie(response, owner_id)
+        return response
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
 @investment_bp.route('/api/investment-plans', methods=['GET'])
 def get_investment_plans():
     """Get all investment plans for the current user"""
@@ -25,6 +61,19 @@ def get_investment_plans():
         owner_id = get_or_create_plan_owner()
         session_id = get_or_create_session()
         log_activity(session_id, 'view', 'investment-plans', 'View saved plans')
+
+        # Auto-claim: if this owner has no plans but orphaned plans exist, adopt them
+        own_count = query_db(
+            "SELECT COUNT(*) as count FROM investment_plans WHERE session_id = %s",
+            [owner_id], one=True
+        )
+        if own_count and own_count['count'] == 0:
+            total_count = query_db("SELECT COUNT(*) as count FROM investment_plans", one=True)
+            if total_count and total_count['count'] > 0:
+                query_db(
+                    "UPDATE investment_plans SET session_id = %s",
+                    [owner_id]
+                )
 
         # Get all plans for this owner
         plans = query_db("""

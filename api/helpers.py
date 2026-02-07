@@ -7,15 +7,16 @@ from flask import request
 from psycopg2.extras import RealDictCursor
 import uuid
 
+import api.extensions as ext
 from api.extensions import (
-    db_pool, active_sessions, recent_activity,
+    active_sessions, recent_activity,
     activity_lock, SESSION_TIMEOUT
 )
 
 
 def query_db(query, args=(), one=False):
     """Execute query and return results"""
-    conn = db_pool.getconn()
+    conn = ext.db_pool.getconn()
     try:
         with conn.cursor(cursor_factory=RealDictCursor) as cursor:
             cursor.execute(query, args)
@@ -28,7 +29,7 @@ def query_db(query, args=(), one=False):
                 return cursor.fetchone()
             return cursor.fetchall()
     finally:
-        db_pool.putconn(conn)
+        ext.db_pool.putconn(conn)
 
 
 def get_or_create_session():
