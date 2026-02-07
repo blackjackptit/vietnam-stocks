@@ -211,6 +211,46 @@ def save_investment_plan():
         return jsonify({'success': False, 'error': str(e)}), 500
 
 
+@investment_bp.route('/api/investment-plans/<plan_id>', methods=['PUT'])
+def rename_investment_plan(plan_id):
+    """Rename an investment plan"""
+    try:
+        owner_id = get_or_create_plan_owner()
+        data = request.get_json()
+
+        new_name = (data.get('name') or '').strip()
+        if not new_name:
+            return jsonify({'success': False, 'error': 'Name is required'}), 400
+
+        # Verify the plan belongs to this owner
+        plan = query_db(
+            "SELECT name FROM investment_plans WHERE plan_id = %s AND session_id = %s",
+            [plan_id, owner_id], one=True
+        )
+        if not plan:
+            return jsonify({'success': False, 'error': 'Plan not found'}), 404
+
+        query_db(
+            "UPDATE investment_plans SET name = %s WHERE plan_id = %s",
+            [new_name, plan_id]
+        )
+
+        session_id = get_or_create_session()
+        log_activity(session_id, 'rename', 'investment-plan',
+                     f'Renamed plan: {plan["name"]} -> {new_name}')
+
+        response = make_response(jsonify({
+            'success': True,
+            'message': 'Plan renamed successfully'
+        }))
+        _set_plan_cookie(response, owner_id)
+        return response
+
+    except Exception as e:
+        print(f"Error renaming investment plan: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
 @investment_bp.route('/api/investment-plans/<plan_id>', methods=['DELETE'])
 def delete_investment_plan(plan_id):
     """Delete an investment plan"""

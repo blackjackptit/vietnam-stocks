@@ -5996,6 +5996,9 @@
                                 <button onclick="event.stopPropagation(); viewPlanDetails('${plan.id}');" style="padding: 10px 20px; background: #3b82f6; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; white-space: nowrap;">
                                     📊 <span data-i18n="portfolio.view_details">View Details</span>
                                 </button>
+                                <button onclick="event.stopPropagation(); renameSavedPlan('${plan.id}', '${plan.name.replace(/'/g, "\\'")}');" style="padding: 10px 20px; background: #f59e0b; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; white-space: nowrap;">
+                                    ✏️ <span data-i18n="button.rename">Rename</span>
+                                </button>
                                 <button onclick="event.stopPropagation(); deleteSavedPlan('${plan.id}');" style="padding: 10px 20px; background: #ef4444; color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; white-space: nowrap;">
                                     🗑️ <span data-i18n="button.delete">Delete</span>
                                 </button>
@@ -6238,6 +6241,34 @@
             if (modal) {
                 modal.remove();
             }
+        }
+
+        // Rename saved plan
+        function renameSavedPlan(planId, currentName) {
+            const newName = prompt('Enter new name for this plan:', currentName);
+            if (!newName || newName.trim() === '' || newName.trim() === currentName) {
+                return;
+            }
+
+            fetch(`/api/investment-plans/${planId}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                credentials: 'include',
+                body: JSON.stringify({ name: newName.trim() })
+            })
+            .then(response => response.json())
+            .then(result => {
+                if (result.success) {
+                    showSuccess('✅ Plan renamed successfully');
+                    loadSavedPlans();
+                } else {
+                    showAlert(`❌ Error renaming plan: ${result.error}`);
+                }
+            })
+            .catch(error => {
+                console.error('Error renaming plan:', error);
+                showAlert(`❌ Error renaming plan: ${error.message}`);
+            });
         }
 
         // Delete saved plan
