@@ -27,7 +27,7 @@ window.API_BASE_URL = API_BASE_URL;
  */
 window.apiFetch = function(endpoint, options = {}) {
     const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
-    console.log(`API Call: ${url}`);
+    // Remove verbose API call logging (use browser DevTools Network tab instead)
     return fetch(url, options);
 };
 

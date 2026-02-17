@@ -508,7 +508,7 @@
 
                 <div class="checkbox-group">
                     <input type="checkbox" id="autoRefresh">
-                    <label for="autoRefresh">Enable automatic data refresh</label>
+                    <label for="autoRefresh" data-i18n="settings.auto_refresh">Enable automatic data refresh</label>
                 </div>
             </div>
 
@@ -518,7 +518,7 @@
                 <p class="description">Configure API endpoints and connection settings</p>
 
                 <div class="form-group">
-                    <label for="apiBaseUrl">API Base URL</label>
+                    <label for="apiBaseUrl" data-i18n="settings.api_base_url">API Base URL</label>
                     <input type="text" id="apiBaseUrl" placeholder="http://localhost:5000">
                     <div class="hint">Base URL for API server</div>
                 </div>
@@ -531,7 +531,7 @@
 
                 <div class="checkbox-group">
                     <input type="checkbox" id="enableCache">
-                    <label for="enableCache">Enable data caching</label>
+                    <label for="enableCache" data-i18n="settings.enable_cache">Enable data caching</label>
                 </div>
 
                 <div class="form-group">
@@ -546,7 +546,7 @@
                 <p class="description">Customize the look and feel</p>
 
                 <div class="form-group">
-                    <label for="chartTheme">Chart Theme</label>
+                    <label for="chartTheme" data-i18n="settings.chart_theme">Chart Theme</label>
                     <select id="chartTheme">
                         <option value="light" data-i18n="option.light">Light</option>
                         <option value="dark" data-i18n="option.dark">Dark</option>
@@ -555,7 +555,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="chartType">Default Chart Type</label>
+                    <label for="chartType" data-i18n="settings.default_chart_type">Default Chart Type</label>
                     <select id="chartType">
                         <option value="line">Line Chart</option>
                         <option value="candlestick" data-i18n="option.candlestick">Candlestick</option>
@@ -565,16 +565,16 @@
 
                 <div class="checkbox-group">
                     <input type="checkbox" id="showGridLines">
-                    <label for="showGridLines">Show grid lines on charts</label>
+                    <label for="showGridLines" data-i18n="settings.show_grid">Show grid lines on charts</label>
                 </div>
 
                 <div class="checkbox-group">
                     <input type="checkbox" id="animateCharts">
-                    <label for="animateCharts">Animate chart transitions</label>
+                    <label for="animateCharts" data-i18n="settings.animate_charts">Animate chart transitions</label>
                 </div>
 
                 <div class="form-group">
-                    <label for="decimalPlaces">Price Decimal Places</label>
+                    <label for="decimalPlaces" data-i18n="settings.decimal_places">Price Decimal Places</label>
                     <input type="number" id="decimalPlaces" placeholder="2" min="0" max="4">
                 </div>
             </div>
@@ -586,27 +586,27 @@
 
                 <div class="checkbox-group">
                     <input type="checkbox" id="enableAlerts">
-                    <label for="enableAlerts">Enable price alerts</label>
+                    <label for="enableAlerts" data-i18n="settings.enable_price_alerts">Enable price alerts</label>
                 </div>
 
                 <div class="checkbox-group">
                     <input type="checkbox" id="enableSound">
-                    <label for="enableSound">Enable sound notifications</label>
+                    <label for="enableSound" data-i18n="settings.enable_sound">Enable sound notifications</label>
                 </div>
 
                 <div class="checkbox-group">
                     <input type="checkbox" id="enableBrowserNotif">
-                    <label for="enableBrowserNotif">Enable browser notifications</label>
+                    <label for="enableBrowserNotif" data-i18n="settings.enable_browser_notif">Enable browser notifications</label>
                 </div>
 
                 <div class="form-group">
-                    <label for="alertThreshold">Price Change Alert Threshold (%)</label>
+                    <label for="alertThreshold" data-i18n="settings.alert_threshold">Price Change Alert Threshold (%)</label>
                     <input type="number" id="alertThreshold" placeholder="5" min="1" max="50">
                     <div class="hint">Alert when price changes by this percentage</div>
                 </div>
 
                 <div class="form-group">
-                    <label for="volumeAlertMultiplier">Volume Alert Multiplier</label>
+                    <label for="volumeAlertMultiplier" data-i18n="settings.volume_multiplier">Volume Alert Multiplier</label>
                     <input type="number" id="volumeAlertMultiplier" placeholder="2" min="1" max="10">
                     <div class="hint">Alert when volume exceeds average by this multiplier</div>
                 </div>
@@ -618,7 +618,7 @@
                 <p class="description">Configure trading strategies and parameters</p>
 
                 <div class="form-group">
-                    <label for="tradingStrategy">Default Strategy</label>
+                    <label for="tradingStrategy" data-i18n="settings.trading_strategy">Default Strategy</label>
                     <select id="tradingStrategy">
                         <option value="momentum">Momentum Trading</option>
                         <option value="mean_reversion">Mean Reversion</option>
@@ -628,18 +628,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="stopLoss">Default Stop Loss (%)</label>
+                    <label for="stopLoss" data-i18n="settings.stop_loss">Default Stop Loss (%)</label>
                     <input type="number" id="stopLoss" placeholder="5" min="1" max="20">
                 </div>
 
                 <div class="form-group">
-                    <label for="takeProfit">Default Take Profit (%)</label>
+                    <label for="takeProfit" data-i18n="settings.take_profit">Default Take Profit (%)</label>
                     <input type="number" id="takeProfit" placeholder="10" min="1" max="50">
                 </div>
 
                 <div class="checkbox-group">
                     <input type="checkbox" id="enableAutoTrading">
-                    <label for="enableAutoTrading">Enable automated trading (USE WITH CAUTION)</label>
+                    <label for="enableAutoTrading" data-i18n="settings.enable_auto_trading">Enable automated trading (USE WITH CAUTION)</label>
                 </div>
             </div>
         </div>

@@ -862,6 +862,23 @@ const translations = {
         'settings.chart_update_interval': 'Chart Update Interval',
         'settings.api_timeout': 'API Timeout (ms)',
         'settings.cache_expiry': 'Cache Expiry (minutes)',
+        'settings.auto_refresh': 'Enable automatic data refresh',
+        'settings.api_base_url': 'API Base URL',
+        'settings.enable_cache': 'Enable data caching',
+        'settings.chart_theme': 'Chart Theme',
+        'settings.default_chart_type': 'Default Chart Type',
+        'settings.show_grid': 'Show grid lines on charts',
+        'settings.animate_charts': 'Animate chart transitions',
+        'settings.decimal_places': 'Price Decimal Places',
+        'settings.enable_price_alerts': 'Enable price alerts',
+        'settings.enable_sound': 'Enable sound notifications',
+        'settings.enable_browser_notif': 'Enable browser notifications',
+        'settings.alert_threshold': 'Price Change Alert Threshold (%)',
+        'settings.volume_multiplier': 'Volume Alert Multiplier',
+        'settings.trading_strategy': 'Default Strategy',
+        'settings.stop_loss': 'Default Stop Loss (%)',
+        'settings.take_profit': 'Default Take Profit (%)',
+        'settings.enable_auto_trading': 'Enable automated trading (USE WITH CAUTION)',
 
         // Options
         'option.low': 'Low',
@@ -2362,6 +2379,23 @@ const translations = {
         'settings.chart_update_interval': 'Khoảng Cập Nhật Biểu Đồ',
         'settings.api_timeout': 'Thời Gian Chờ API (ms)',
         'settings.cache_expiry': 'Thời Gian Hết Hạn Bộ Nhớ Cache (phút)',
+        'settings.auto_refresh': 'Bật tự động làm mới dữ liệu',
+        'settings.api_base_url': 'URL Cơ Sở API',
+        'settings.enable_cache': 'Bật bộ nhớ đệm dữ liệu',
+        'settings.chart_theme': 'Chủ Đề Biểu Đồ',
+        'settings.default_chart_type': 'Loại Biểu Đồ Mặc Định',
+        'settings.show_grid': 'Hiển thị đường lưới trên biểu đồ',
+        'settings.animate_charts': 'Hiệu ứng chuyển đổi biểu đồ',
+        'settings.decimal_places': 'Số Chữ Số Thập Phân Giá',
+        'settings.enable_price_alerts': 'Bật cảnh báo giá',
+        'settings.enable_sound': 'Bật thông báo âm thanh',
+        'settings.enable_browser_notif': 'Bật thông báo trình duyệt',
+        'settings.alert_threshold': 'Ngưỡng Cảnh Báo Thay Đổi Giá (%)',
+        'settings.volume_multiplier': 'Hệ Số Nhân Khối Lượng Cảnh Báo',
+        'settings.trading_strategy': 'Chiến Lược Mặc Định',
+        'settings.stop_loss': 'Cắt Lỗ Mặc Định (%)',
+        'settings.take_profit': 'Chốt Lãi Mặc Định (%)',
+        'settings.enable_auto_trading': 'Bật giao dịch tự động (SỬ DỤNG THẬN TRỌNG)',
 
         // Options
         'option.low': 'Thấp',
@@ -3303,6 +3337,9 @@ function initI18n() {
             currentLanguage = saved;
         }
 
+        // Set HTML lang attribute
+        document.documentElement.lang = currentLanguage;
+
         // Apply translations
         translatePage();
 
@@ -3346,6 +3383,9 @@ function switchLanguage(lang) {
     console.log(`Switching language to: ${lang}`);
     currentLanguage = lang;
     localStorage.setItem('language', lang);
+
+    // Update HTML lang attribute
+    document.documentElement.lang = lang;
 
     // Re-translate page
     translatePage();
