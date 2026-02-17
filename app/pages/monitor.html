@@ -500,7 +500,7 @@
             font-weight: 600;
         }
     </style>
-    <script src="js/collapsible.js"></script>
+    <!-- Note: collapsible.js is NOT loaded on monitor page - all sections should be visible -->
     <script src="js/i18n.js"></script>
 </head>
 <body>
@@ -1373,13 +1373,6 @@ Continue?
 
         // Initial load
         loadSystemStatus();
-
-        // Expand all sections by default for monitor dashboard (after collapsible system initializes)
-        setTimeout(() => {
-            if (typeof expandAllSections === 'function') {
-                expandAllSections();
-            }
-        }, 1000);
 
         // Auto-refresh every 10 seconds
         setInterval(loadSystemStatus, 10000);
