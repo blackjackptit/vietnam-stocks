@@ -890,17 +890,19 @@
                 translatePage();
 
                 // Display session statistics
-                let popularPagesHTML = statsData.popular_pages.slice(0, 5).map(p => `
-                    <div class="metric">
-                        <span class="metric-label">${p.page}</span>
-                        <span class="metric-value">${p.views} views</span>
-                    </div>
-                `).join('');
+                let popularPagesHTML = statsData.popular_pages && statsData.popular_pages.length > 0
+                    ? statsData.popular_pages.slice(0, 5).map(p => `
+                        <div class="metric">
+                            <span class="metric-label">${p.page}</span>
+                            <span class="metric-value">${p.views} views</span>
+                        </div>
+                    `).join('')
+                    : '<div class="metric"><span class="metric-label" data-i18n="monitor.no_activity">No data yet</span></div>';
 
                 document.getElementById('sessionStats').innerHTML = `
                     <div style="margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #e5e7eb;">
                         <div style="font-weight: 600; margin-bottom: 8px; color: #1e293b;" data-i18n="monitor.top_pages">Top Pages</div>
-                        ${popularPagesHTML || '<div class="metric"><span class="metric-label" data-i18n="monitor.no_activity">No data yet</span></div>'}
+                        ${popularPagesHTML}
                     </div>
                 `;
                 translatePage();
