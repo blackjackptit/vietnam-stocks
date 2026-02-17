@@ -175,9 +175,7 @@ class StockDataCollector:
                         data.get('low'),
                         data.get('price'),  # close price
                         data.get('volume'),
-                        data.get('change'),
-                        data.get('change_percent'),
-                        datetime.now()
+                        data.get('change_percent')
                     ))
 
                 # Insert or update using ON CONFLICT
@@ -186,7 +184,7 @@ class StockDataCollector:
                         cursor,
                         """
                         INSERT INTO stock_prices
-                            (stock_id, date, open, high, low, close, volume, change, change_percent, updated_at)
+                            (stock_id, date, open, high, low, close, volume, change_percent)
                         VALUES %s
                         ON CONFLICT (stock_id, date)
                         DO UPDATE SET
@@ -195,9 +193,7 @@ class StockDataCollector:
                             low = EXCLUDED.low,
                             close = EXCLUDED.close,
                             volume = EXCLUDED.volume,
-                            change = EXCLUDED.change,
-                            change_percent = EXCLUDED.change_percent,
-                            updated_at = EXCLUDED.updated_at
+                            change_percent = EXCLUDED.change_percent
                         """,
                         records
                     )
