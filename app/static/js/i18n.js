@@ -859,6 +859,9 @@ const translations = {
         'settings.enable_autotrading': 'Enable Auto-Trading',
         'settings.max_daily_trades': 'Maximum Daily Trades',
         'settings.default_order_type': 'Default Order Type',
+        'settings.chart_update_interval': 'Chart Update Interval',
+        'settings.api_timeout': 'API Timeout (ms)',
+        'settings.cache_expiry': 'Cache Expiry (minutes)',
 
         // Options
         'option.low': 'Low',
@@ -2356,6 +2359,9 @@ const translations = {
         'settings.enable_autotrading': 'Bật Giao Dịch Tự Động',
         'settings.max_daily_trades': 'Số Giao Dịch Tối Đa Hàng Ngày',
         'settings.default_order_type': 'Loại Lệnh Mặc Định',
+        'settings.chart_update_interval': 'Khoảng Cập Nhật Biểu Đồ',
+        'settings.api_timeout': 'Thời Gian Chờ API (ms)',
+        'settings.cache_expiry': 'Thời Gian Hết Hạn Bộ Nhớ Cache (phút)',
 
         // Options
         'option.low': 'Thấp',
