@@ -501,6 +501,7 @@
         }
     </style>
     <script src="js/collapsible.js"></script>
+    <script src="js/i18n.js"></script>
 </head>
 <body>
     <div class="container">
@@ -512,10 +513,10 @@
             </div>
             <div class="header-content">
                 <h1>
-                    System Monitor & Settings
-                    <span class="monitor-badge">🔍 Live</span>
+                    <span data-i18n="monitor.title">System Monitor & Settings</span>
+                    <span class="monitor-badge">🔍 <span data-i18n="monitor.live">Live</span></span>
                 </h1>
-                <p>Real-time monitoring and configuration for Vietnamese Stock Analytics</p>
+                <p data-i18n="monitor.subtitle">Real-time monitoring and configuration for Vietnamese Stock Analytics</p>
             </div>
         </div>
 
@@ -531,10 +532,10 @@
             <div class="card">
                 <div class="card-header">
                     <span class="card-icon">🖥️</span>
-                    <h3 class="card-title">API Server</h3>
+                    <h3 class="card-title" data-i18n="monitor.api_server">API Server</h3>
                 </div>
                 <div id="apiStatus">
-                    <div class="loading">Loading...</div>
+                    <div class="loading" data-i18n="common.loading">Loading...</div>
                 </div>
             </div>
 
@@ -542,10 +543,10 @@
             <div class="card">
                 <div class="card-header">
                     <span class="card-icon">🗄️</span>
-                    <h3 class="card-title">Database</h3>
+                    <h3 class="card-title" data-i18n="monitor.database">Database</h3>
                 </div>
                 <div id="databaseStatus">
-                    <div class="loading">Loading...</div>
+                    <div class="loading" data-i18n="common.loading">Loading...</div>
                 </div>
             </div>
 
@@ -553,10 +554,10 @@
             <div class="card">
                 <div class="card-header">
                     <span class="card-icon">⏰</span>
-                    <h3 class="card-title">Scheduler</h3>
+                    <h3 class="card-title" data-i18n="monitor.scheduler">Scheduler</h3>
                 </div>
                 <div id="schedulerStatus">
-                    <div class="loading">Loading...</div>
+                    <div class="loading" data-i18n="common.loading">Loading...</div>
                 </div>
             </div>
 
@@ -564,10 +565,10 @@
             <div class="card">
                 <div class="card-header">
                     <span class="card-icon">📡</span>
-                    <h3 class="card-title">Data Collection</h3>
+                    <h3 class="card-title" data-i18n="monitor.data_collection">Data Collection</h3>
                 </div>
                 <div id="dataCollectionStatus">
-                    <div class="loading">Loading...</div>
+                    <div class="loading" data-i18n="common.loading">Loading...</div>
                 </div>
             </div>
 
@@ -575,10 +576,10 @@
             <div class="card">
                 <div class="card-header">
                     <span class="card-icon">👥</span>
-                    <h3 class="card-title">Active Sessions</h3>
+                    <h3 class="card-title" data-i18n="monitor.active_sessions">Active Sessions</h3>
                 </div>
                 <div id="sessionsStatus">
-                    <div class="loading">Loading...</div>
+                    <div class="loading" data-i18n="common.loading">Loading...</div>
                 </div>
             </div>
 
@@ -586,10 +587,10 @@
             <div class="card">
                 <div class="card-header">
                     <span class="card-icon">📊</span>
-                    <h3 class="card-title">Session Stats</h3>
+                    <h3 class="card-title" data-i18n="monitor.session_stats">Session Stats</h3>
                 </div>
                 <div id="sessionStats">
-                    <div class="loading">Loading...</div>
+                    <div class="loading" data-i18n="common.loading">Loading...</div>
                 </div>
             </div>
 
@@ -597,14 +598,14 @@
             <div class="card full-width">
                 <div class="card-header">
                     <span class="card-icon">🌐</span>
-                    <h3 class="card-title">Active Users & Connections</h3>
+                    <h3 class="card-title" data-i18n="monitor.active_users">Active Users & Connections</h3>
                     <div style="margin-left: auto;" class="refresh-indicator">
                         <span class="refresh-dot"></span>
-                        Auto-refresh every 10s
+                        <span data-i18n="monitor.auto_refresh">Auto-refresh every 10s</span>
                     </div>
                 </div>
                 <div id="activeUsersTable">
-                    <div class="loading">Loading...</div>
+                    <div class="loading" data-i18n="common.loading">Loading...</div>
                 </div>
             </div>
 
@@ -612,15 +613,15 @@
             <div class="card full-width">
                 <div class="card-header">
                     <span class="card-icon">🎯</span>
-                    <h3 class="card-title">User Activity & Behavior</h3>
+                    <h3 class="card-title" data-i18n="monitor.user_activity">User Activity & Behavior</h3>
                     <div style="margin-left: auto;" class="refresh-indicator">
                         <span class="refresh-dot"></span>
-                        Auto-refresh every 10s
+                        <span data-i18n="monitor.auto_refresh">Auto-refresh every 10s</span>
                     </div>
                 </div>
                 <div class="log-container" id="userActivityLog">
                     <div class="log-line info">
-                        <span class="timestamp">Loading...</span>
+                        <span class="timestamp" data-i18n="common.loading">Loading...</span>
                     </div>
                 </div>
             </div>
@@ -629,10 +630,10 @@
             <div class="card full-width">
                 <div class="card-header">
                     <span class="card-icon">⚙️</span>
-                    <h3 class="card-title">Collection Settings</h3>
+                    <h3 class="card-title" data-i18n="monitor.collection_settings">Collection Settings</h3>
                 </div>
                 <div id="settingsContent">
-                    <div class="loading">Loading settings...</div>
+                    <div class="loading" data-i18n="monitor.loading_settings">Loading settings...</div>
                 </div>
             </div>
 
@@ -640,26 +641,26 @@
             <div class="card full-width">
                 <div class="card-header">
                     <span class="card-icon">⚡</span>
-                    <h3 class="card-title">Quick Actions</h3>
+                    <h3 class="card-title" data-i18n="monitor.quick_actions">Quick Actions</h3>
                 </div>
                 <div class="actions">
                     <button class="btn btn-success" onclick="collectStockData()">
-                        📈 Collect Stock Data Now
+                        <span data-i18n="monitor.collect_stock">📈 Collect Stock Data Now</span>
                     </button>
                     <button class="btn btn-success" onclick="collectMacroData()">
-                        🌍 Collect Macro Data Now
+                        <span data-i18n="monitor.collect_macro">🌍 Collect Macro Data Now</span>
                     </button>
                     <button class="btn" onclick="viewSchedule()">
-                        📅 View Schedule
+                        <span data-i18n="monitor.view_schedule">📅 View Schedule</span>
                     </button>
                     <button class="btn btn-secondary" onclick="viewLogs()">
-                        📋 View Logs
+                        <span data-i18n="monitor.view_logs">📋 View Logs</span>
                     </button>
                     <button class="btn btn-secondary" onclick="editSettings()">
-                        🔧 Edit Settings
+                        <span data-i18n="monitor.edit_settings">🔧 Edit Settings</span>
                     </button>
                     <button class="btn btn-danger" onclick="restartScheduler()">
-                        🔄 Restart Scheduler
+                        <span data-i18n="monitor.restart_scheduler">🔄 Restart Scheduler</span>
                     </button>
                 </div>
             </div>
@@ -668,15 +669,15 @@
             <div class="card full-width">
                 <div class="card-header">
                     <span class="card-icon">📜</span>
-                    <h3 class="card-title">Recent Activity</h3>
+                    <h3 class="card-title" data-i18n="monitor.recent_activity">Recent Activity</h3>
                     <div style="margin-left: auto;" class="refresh-indicator">
                         <span class="refresh-dot"></span>
-                        Auto-refresh every 10s
+                        <span data-i18n="monitor.auto_refresh">Auto-refresh every 10s</span>
                     </div>
                 </div>
                 <div class="log-container" id="activityLog">
                     <div class="log-line info">
-                        <span class="timestamp">Loading...</span>
+                        <span class="timestamp" data-i18n="common.loading">Loading...</span>
                     </div>
                 </div>
             </div>
@@ -762,50 +763,52 @@
             // Update API status
             document.getElementById('apiStatus').innerHTML = `
                 <div class="metric">
-                    <span class="metric-label">Status</span>
+                    <span class="metric-label" data-i18n="monitor.status">Status</span>
                     <span class="metric-value success">${status.api.status}</span>
                 </div>
                 <div class="metric">
-                    <span class="metric-label">Message</span>
+                    <span class="metric-label" data-i18n="monitor.message">Message</span>
                     <span class="metric-value">${status.api.message}</span>
                 </div>
                 <div class="metric">
-                    <span class="metric-label">Endpoint</span>
+                    <span class="metric-label" data-i18n="monitor.endpoint">Endpoint</span>
                     <span class="metric-value" style="font-size: 12px;">${API_BASE || 'localhost:5000'}</span>
                 </div>
             `;
+            translatePage();
 
             // Update database status
             const dbStatusClass = status.database.status === 'connected' ? 'success' : 'error';
             document.getElementById('databaseStatus').innerHTML = `
                 <div class="metric">
-                    <span class="metric-label">Connection</span>
+                    <span class="metric-label" data-i18n="monitor.connection">Connection</span>
                     <span class="metric-value ${dbStatusClass}">${status.database.status}</span>
                 </div>
                 <div class="metric">
-                    <span class="metric-label">Active Stocks</span>
+                    <span class="metric-label" data-i18n="monitor.active_stocks">Active Stocks</span>
                     <span class="metric-value">${status.database.stock_count}</span>
                 </div>
                 <div class="metric">
-                    <span class="metric-label">Message</span>
+                    <span class="metric-label" data-i18n="monitor.message">Message</span>
                     <span class="metric-value" style="font-size: 12px;">${status.database.message}</span>
                 </div>
             `;
+            translatePage();
 
             // Update scheduler status
             const schedulerClass = status.scheduler.status === 'running' ? 'success' :
                                   status.scheduler.status === 'stopped' ? 'warning' : 'error';
             document.getElementById('schedulerStatus').innerHTML = `
                 <div class="metric">
-                    <span class="metric-label">Status</span>
+                    <span class="metric-label" data-i18n="monitor.status">Status</span>
                     <span class="metric-value ${schedulerClass}">${status.scheduler.status}</span>
                 </div>
                 <div class="metric">
-                    <span class="metric-label">Process ID</span>
+                    <span class="metric-label" data-i18n="monitor.process_id">Process ID</span>
                     <span class="metric-value">${status.scheduler.pid || 'N/A'}</span>
                 </div>
                 <div class="metric">
-                    <span class="metric-label">Message</span>
+                    <span class="metric-label" data-i18n="monitor.message">Message</span>
                     <span class="metric-value" style="font-size: 12px;">${status.scheduler.message}</span>
                 </div>
                 ${status.scheduler.status === 'stopped' ? `
@@ -818,29 +821,31 @@
                 </div>
                 `}
             `;
+            translatePage();
 
             // Update data collection status
             document.getElementById('dataCollectionStatus').innerHTML = `
                 <div class="metric">
-                    <span class="metric-label">Last Stock Update</span>
+                    <span class="metric-label" data-i18n="monitor.last_stock_update">Last Stock Update</span>
                     <span class="metric-value">${status.data_collection.last_stock_update ?
                         new Date(status.data_collection.last_stock_update).toLocaleString() : 'Never'}</span>
                 </div>
                 <div class="metric">
-                    <span class="metric-label">Last Index Update</span>
+                    <span class="metric-label" data-i18n="monitor.last_index_update">Last Index Update</span>
                     <span class="metric-value">${status.data_collection.last_index_update ?
                         new Date(status.data_collection.last_index_update).toLocaleString() : 'Never'}</span>
                 </div>
                 <div class="metric">
-                    <span class="metric-label">Last Macro Update</span>
+                    <span class="metric-label" data-i18n="monitor.last_macro_update">Last Macro Update</span>
                     <span class="metric-value">${status.data_collection.last_macro_update ?
                         new Date(status.data_collection.last_macro_update).toLocaleString() : 'Never'}</span>
                 </div>
                 <div class="metric">
-                    <span class="metric-label">Today's Updates</span>
+                    <span class="metric-label" data-i18n="monitor.todays_updates">Today's Updates</span>
                     <span class="metric-value success">${status.data_collection.stock_count_today} stocks</span>
                 </div>
             `;
+            translatePage();
 
             // Load settings
             loadSettings();
@@ -870,18 +875,19 @@
                 // Display active sessions count
                 document.getElementById('sessionsStatus').innerHTML = `
                     <div class="metric">
-                        <span class="metric-label">Active Sessions</span>
+                        <span class="metric-label" data-i18n="monitor.active_sessions">Active Sessions</span>
                         <span class="metric-value success">${sessionsData.total_sessions}</span>
                     </div>
                     <div class="metric">
-                        <span class="metric-label">Total Page Views</span>
+                        <span class="metric-label" data-i18n="monitor.total_page_views">Total Page Views</span>
                         <span class="metric-value">${statsData.total_page_views}</span>
                     </div>
                     <div class="metric">
-                        <span class="metric-label">Avg per Session</span>
+                        <span class="metric-label" data-i18n="monitor.avg_per_session">Avg per Session</span>
                         <span class="metric-value">${statsData.avg_page_views}</span>
                     </div>
                 `;
+                translatePage();
 
                 // Display session statistics
                 let popularPagesHTML = statsData.popular_pages.slice(0, 5).map(p => `
@@ -893,17 +899,18 @@
 
                 document.getElementById('sessionStats').innerHTML = `
                     <div style="margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #e5e7eb;">
-                        <div style="font-weight: 600; margin-bottom: 8px; color: #1e293b;">Top Pages</div>
-                        ${popularPagesHTML || '<div class="metric"><span class="metric-label">No data yet</span></div>'}
+                        <div style="font-weight: 600; margin-bottom: 8px; color: #1e293b;" data-i18n="monitor.top_pages">Top Pages</div>
+                        ${popularPagesHTML || '<div class="metric"><span class="metric-label" data-i18n="monitor.no_activity">No data yet</span></div>'}
                     </div>
                 `;
+                translatePage();
 
                 // Display active users table
                 let usersTableHTML = '<table class="activity-table"><thead><tr>';
-                usersTableHTML += '<th>Session ID</th><th>Current Page</th><th>Page Views</th><th>Duration</th><th>Last Seen</th><th>IP Address</th></tr></thead><tbody>';
+                usersTableHTML += '<th data-i18n="monitor.session_id">Session ID</th><th data-i18n="monitor.current_page">Current Page</th><th data-i18n="monitor.page_views">Page Views</th><th data-i18n="monitor.duration">Duration</th><th data-i18n="monitor.last_seen">Last Seen</th><th data-i18n="monitor.ip_address">IP Address</th></tr></thead><tbody>';
 
                 if (sessionsData.sessions.length === 0) {
-                    usersTableHTML += '<tr><td colspan="6" style="text-align: center; padding: 20px; color: #64748b;">No active sessions</td></tr>';
+                    usersTableHTML += '<tr><td colspan="6" style="text-align: center; padding: 20px; color: #64748b;" data-i18n="monitor.no_active_sessions">No active sessions</td></tr>';
                 } else {
                     sessionsData.sessions.forEach(session => {
                         const duration = formatDuration(session.duration);
@@ -923,6 +930,7 @@
 
                 usersTableHTML += '</tbody></table>';
                 document.getElementById('activeUsersTable').innerHTML = usersTableHTML;
+                translatePage();
 
             } catch (error) {
                 console.error('Error loading session data:', error);
@@ -932,6 +940,7 @@
                         <span class="metric-value error">Failed to load</span>
                     </div>
                 `;
+                translatePage();
             }
         }
 
@@ -942,7 +951,7 @@
 
                 let activityHTML = '';
                 if (data.activities.length === 0) {
-                    activityHTML = '<div class="log-line info"><span class="timestamp">No activity yet</span></div>';
+                    activityHTML = '<div class="log-line info"><span class="timestamp" data-i18n="monitor.no_activity">No activity yet</span></div>';
                 } else {
                     data.activities.forEach(activity => {
                         const time = new Date(activity.timestamp).toLocaleTimeString();
@@ -971,6 +980,7 @@
                 }
 
                 document.getElementById('userActivityLog').innerHTML = activityHTML;
+                translatePage();
 
             } catch (error) {
                 console.error('Error loading user activity:', error);
@@ -1126,24 +1136,27 @@
                     }).join('');
 
                     document.getElementById('activityLog').innerHTML = logHTML;
+                    translatePage();
                 } else {
                     // Fallback to default messages
                     const now = new Date();
                     document.getElementById('activityLog').innerHTML = `
                         <div class="log-line info">
                             <span class="timestamp">${now.toLocaleTimeString()}</span>
-                            No activity log available. Run database migration first.
+                            <span data-i18n="monitor.no_activity">No activity log available. Run database migration first.</span>
                         </div>
                     `;
+                    translatePage();
                 }
             } catch (error) {
                 const now = new Date();
                 document.getElementById('activityLog').innerHTML = `
                     <div class="log-line warning">
                         <span class="timestamp">${now.toLocaleTimeString()}</span>
-                        Cannot load activity log (API may be offline)
+                        <span>Cannot load activity log (API may be offline)</span>
                     </div>
                 `;
+                translatePage();
             }
         }
 
@@ -1292,6 +1305,9 @@ Continue?
         function startAPIServer() {
             alert('To start API server, run:\npython api_server.py\n\nOr in background:\nnohup python api_server.py > /tmp/api_server.log 2>&1 &');
         }
+
+        // Initialize i18n
+        initI18n();
 
         // Initial load
         loadSystemStatus();
