@@ -702,9 +702,11 @@
 
         // Load system status
         async function loadSystemStatus() {
-            const result = await checkAPIServer();
+            try {
+                const result = await checkAPIServer();
+                console.log('API check result:', result);
 
-            if (!result.running) {
+                if (!result.running) {
                 // API server is offline
                 document.getElementById('statusBar').innerHTML = `
                     <div class="status-item">
@@ -724,6 +726,8 @@
             }
 
             const status = result.data;
+            console.log('System status data:', status);
+            console.log('Data collection status:', status.data_collection);
             const overallClass = status.overall === 'healthy' ? 'online' :
                                status.overall === 'warning' ? 'warning' : 'offline';
 
@@ -856,6 +860,29 @@
             // Load session tracking data
             loadSessionData();
             loadUserActivity();
+
+            } catch (error) {
+                console.error('Error loading system status:', error);
+                // Show error state
+                document.getElementById('dataCollectionStatus').innerHTML = `
+                    <div class="metric">
+                        <span class="metric-label">Error</span>
+                        <span class="metric-value error">${error.message}</span>
+                    </div>
+                `;
+                document.getElementById('sessionsStatus').innerHTML = `
+                    <div class="metric">
+                        <span class="metric-label">Error</span>
+                        <span class="metric-value error">Failed to load</span>
+                    </div>
+                `;
+                document.getElementById('sessionStats').innerHTML = `
+                    <div class="metric">
+                        <span class="metric-label">Error</span>
+                        <span class="metric-value error">Failed to load</span>
+                    </div>
+                `;
+            }
         }
 
         // ============================================================
