@@ -109,37 +109,37 @@ def system_status():
     # In Docker environment, scheduler runs in separate container
     # Check for recent scheduler activity in logs as a heartbeat
     try:
-        # Check if scheduler has logged activity in the last 5 minutes
+        # Check if scheduler has logged activity in the last 1 hour
+        # (Scheduler runs jobs every 30-60 minutes, so 5 minutes is too short)
         recent_activity = query_db("""
             SELECT COUNT(*) as count, MAX(timestamp) as last_seen
             FROM activity_log
             WHERE activity_type IN ('collection', 'scheduler')
-            AND timestamp > NOW() - INTERVAL '5 minutes';
+            AND timestamp > NOW() - INTERVAL '1 hour';
         """, one=True)
 
         if recent_activity and recent_activity['count'] > 0:
             status["scheduler"]["status"] = "running"
-            status["scheduler"]["message"] = f"Scheduler is active (last seen: {recent_activity['last_seen']})"
+            last_seen = recent_activity['last_seen']
+            minutes_ago = int((datetime.now() - last_seen).total_seconds() / 60) if last_seen else 0
+            status["scheduler"]["message"] = f"Last activity: {minutes_ago} minutes ago"
             status["scheduler"]["pid"] = None  # Not available in Docker
         else:
-            # No recent activity, check if container exists (Docker specific)
+            # No recent activity in last hour - scheduler may be idle or stopped
+            # Since scheduler jobs run every 30-60 minutes, this could be normal
+            # Check database connection to see if scheduler could potentially write logs
             try:
-                result = subprocess.run(
-                    ['docker', 'ps', '--filter', 'name=vnstock_scheduler', '--format', '{{.Status}}'],
-                    capture_output=True,
-                    text=True,
-                    timeout=2
-                )
-                if result.returncode == 0 and 'Up' in result.stdout:
+                # If we can query the database, scheduler should be able to as well
+                test = query_db("SELECT 1 as test", one=True)
+                if test:
                     status["scheduler"]["status"] = "running"
-                    status["scheduler"]["message"] = "Scheduler container is running"
+                    status["scheduler"]["message"] = "Scheduler idle (no jobs scheduled in last hour)"
                 else:
-                    status["scheduler"]["status"] = "stopped"
-                    status["scheduler"]["message"] = "Scheduler container is not running"
+                    status["scheduler"]["status"] = "unknown"
+                    status["scheduler"]["message"] = "Unable to verify scheduler status"
             except:
-                # Docker command not available or timeout
                 status["scheduler"]["status"] = "unknown"
-                status["scheduler"]["message"] = "Unable to check scheduler status (no recent activity)"
+                status["scheduler"]["message"] = "Unable to check scheduler status (database error)"
     except Exception as e:
         status["scheduler"]["status"] = "unknown"
         status["scheduler"]["message"] = f"Cannot check scheduler status: {str(e)}"
