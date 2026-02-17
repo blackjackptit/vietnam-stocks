@@ -6189,9 +6189,18 @@
                     const profitSign = priceChange >= 0 ? '+' : '';
 
                     detailsHTML += `
-                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <tr style="border-bottom: 1px solid #e2e8f0;" data-symbol="${holding.symbol}">
                             <td style="padding: 12px; font-weight: 600;">${getStockDisplayName(holding.symbol)}</td>
-                            <td style="padding: 12px; text-align: right;">${shares.toLocaleString()}</td>
+                            <td style="padding: 12px; text-align: right;">
+                                <input type="number"
+                                    class="shares-input"
+                                    data-symbol="${holding.symbol}"
+                                    value="${shares}"
+                                    min="0"
+                                    step="1"
+                                    style="width: 100px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; text-align: right; font-family: inherit;"
+                                    onchange="markPlanAsEdited()">
+                            </td>
                             <td style="padding: 12px; text-align: right;">${Math.round(buyPrice).toLocaleString()}</td>
                             <td style="padding: 12px; text-align: right;">${Math.round(currentPrice).toLocaleString()}</td>
                             <td style="padding: 12px; text-align: right; color: ${profitColor}; font-weight: 600;">
@@ -6213,9 +6222,18 @@
                     const buyPrice = parseFloat(holding.buyPrice) || 0;
                     const shares = parseFloat(holding.shares) || 0;
                     detailsHTML += `
-                        <tr style="border-bottom: 1px solid #e2e8f0;">
+                        <tr style="border-bottom: 1px solid #e2e8f0;" data-symbol="${holding.symbol}">
                             <td style="padding: 12px; font-weight: 600;">${getStockDisplayName(holding.symbol)}</td>
-                            <td style="padding: 12px; text-align: right;">${shares.toLocaleString()}</td>
+                            <td style="padding: 12px; text-align: right;">
+                                <input type="number"
+                                    class="shares-input"
+                                    data-symbol="${holding.symbol}"
+                                    value="${shares}"
+                                    min="0"
+                                    step="1"
+                                    style="width: 100px; padding: 6px; border: 1px solid #cbd5e1; border-radius: 4px; text-align: right; font-family: inherit;"
+                                    onchange="markPlanAsEdited()">
+                            </td>
                             <td style="padding: 12px; text-align: right;">${buyPrice > 0 ? Math.round(buyPrice).toLocaleString() : 'N/A'}</td>
                             <td style="padding: 12px; text-align: right; color: #94a3b8;">N/A</td>
                             <td style="padding: 12px; text-align: right; color: #94a3b8;">N/A</td>
@@ -6235,10 +6253,16 @@
                     </table>
                     </div>
 
-                    <div style="margin-top: 30px; text-align: right;">
-                        <button onclick="closeViewDetails()" style="padding: 12px 24px; background: #e5e7eb; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
-                            <span data-i18n="button.close">Close</span>
-                        </button>
+                    <div style="margin-top: 30px; display: flex; justify-content: space-between; align-items: center;">
+                        <div id="planEditStatus" style="color: #64748b; font-size: 0.9em;"></div>
+                        <div style="display: flex; gap: 10px;">
+                            <button id="savePlanChangesBtn" onclick="savePlanChanges('${plan.id}')" style="padding: 12px 24px; background: #10b981; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; display: none;">
+                                💾 Save Changes
+                            </button>
+                            <button onclick="closeViewDetails()" style="padding: 12px 24px; background: #e5e7eb; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                                <span data-i18n="button.close">Close</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             `;
@@ -6260,6 +6284,73 @@
             const modal = document.getElementById('planDetailsModal');
             if (modal) {
                 modal.remove();
+            }
+        }
+
+        // Mark plan as edited (show save button)
+        function markPlanAsEdited() {
+            const saveBtn = document.getElementById('savePlanChangesBtn');
+            const statusDiv = document.getElementById('planEditStatus');
+            if (saveBtn) {
+                saveBtn.style.display = 'block';
+            }
+            if (statusDiv) {
+                statusDiv.textContent = '✏️ Unsaved changes';
+                statusDiv.style.color = '#f59e0b';
+            }
+        }
+
+        // Save plan changes
+        async function savePlanChanges(planId) {
+            const saveBtn = document.getElementById('savePlanChangesBtn');
+            const statusDiv = document.getElementById('planEditStatus');
+
+            try {
+                // Collect all edited shares
+                const holdings = [];
+                document.querySelectorAll('.shares-input').forEach(input => {
+                    holdings.push({
+                        symbol: input.dataset.symbol,
+                        shares: parseFloat(input.value) || 0
+                    });
+                });
+
+                // Disable button during save
+                saveBtn.disabled = true;
+                saveBtn.textContent = '💾 Saving...';
+                statusDiv.textContent = '⏳ Saving changes...';
+                statusDiv.style.color = '#3b82f6';
+
+                const response = await fetch(`/api/investment-plans/${planId}/holdings`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ holdings })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    statusDiv.textContent = '✅ Changes saved successfully!';
+                    statusDiv.style.color = '#10b981';
+                    saveBtn.style.display = 'none';
+                    saveBtn.disabled = false;
+                    saveBtn.textContent = '💾 Save Changes';
+
+                    // Refresh the plan list
+                    setTimeout(() => {
+                        loadSavedPlans();
+                    }, 1000);
+                } else {
+                    throw new Error(result.error || 'Failed to save changes');
+                }
+            } catch (error) {
+                console.error('Error saving plan changes:', error);
+                statusDiv.textContent = '❌ Error saving changes';
+                statusDiv.style.color = '#ef4444';
+                saveBtn.disabled = false;
+                saveBtn.textContent = '💾 Save Changes';
+                showAlert('⚠️ Error saving changes: ' + error.message);
             }
         }
 

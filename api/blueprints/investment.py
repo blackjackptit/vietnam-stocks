@@ -251,6 +251,55 @@ def rename_investment_plan(plan_id):
         return jsonify({'success': False, 'error': str(e)}), 500
 
 
+@investment_bp.route('/api/investment-plans/<plan_id>/holdings', methods=['PUT'])
+def update_plan_holdings(plan_id):
+    """Update holdings (shares) for an investment plan"""
+    try:
+        owner_id = get_or_create_plan_owner()
+        data = request.get_json()
+
+        holdings = data.get('holdings', [])
+        if not holdings or not isinstance(holdings, list):
+            return jsonify({'success': False, 'error': 'Holdings array is required'}), 400
+
+        # Verify the plan belongs to this owner
+        plan = query_db(
+            "SELECT name FROM investment_plans WHERE plan_id = %s AND session_id = %s",
+            [plan_id, owner_id], one=True
+        )
+        if not plan:
+            return jsonify({'success': False, 'error': 'Plan not found'}), 404
+
+        # Update each holding's shares
+        for holding in holdings:
+            symbol = holding.get('symbol')
+            shares = holding.get('shares')
+
+            if not symbol or shares is None:
+                continue
+
+            query_db("""
+                UPDATE investment_plan_holdings
+                SET shares = %s
+                WHERE plan_id = %s AND symbol = %s
+            """, [shares, plan_id, symbol])
+
+        session_id = get_or_create_session()
+        log_activity(session_id, 'update', 'investment-plan',
+                     f'Updated holdings for plan: {plan["name"]}')
+
+        response = make_response(jsonify({
+            'success': True,
+            'message': 'Holdings updated successfully'
+        }))
+        _set_plan_cookie(response, owner_id)
+        return response
+
+    except Exception as e:
+        print(f"Error updating plan holdings: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
 @investment_bp.route('/api/investment-plans/<plan_id>', methods=['DELETE'])
 def delete_investment_plan(plan_id):
     """Delete an investment plan"""
