@@ -802,10 +802,13 @@
             // Update scheduler status
             const schedulerClass = status.scheduler.status === 'running' ? 'success' :
                                   status.scheduler.status === 'stopped' ? 'warning' : 'error';
+            const schedulerIcon = status.scheduler.status === 'running' ? '✅' :
+                                 status.scheduler.status === 'stopped' ? '⏸️' : '❓';
+
             document.getElementById('schedulerStatus').innerHTML = `
                 <div class="metric">
                     <span class="metric-label" data-i18n="monitor.status">Status</span>
-                    <span class="metric-value ${schedulerClass}">${status.scheduler.status}</span>
+                    <span class="metric-value ${schedulerClass}">${schedulerIcon} ${status.scheduler.status}</span>
                 </div>
                 <div class="metric">
                     <span class="metric-label" data-i18n="monitor.process_id">Process ID</span>
@@ -813,17 +816,17 @@
                 </div>
                 <div class="metric">
                     <span class="metric-label" data-i18n="monitor.message">Message</span>
-                    <span class="metric-value" style="font-size: 12px;">${status.scheduler.message}</span>
+                    <span class="metric-value" style="font-size: 13px; color: #64748b; word-break: break-word;">${status.scheduler.message}</span>
                 </div>
                 ${status.scheduler.status === 'stopped' ? `
                 <div class="actions" style="margin-top: 15px;">
                     <button class="btn btn-success" onclick="startScheduler()">▶️ Start Scheduler</button>
                 </div>
-                ` : `
+                ` : status.scheduler.status === 'running' ? `
                 <div class="actions" style="margin-top: 15px;">
                     <button class="btn btn-danger" onclick="stopScheduler()">⏹️ Stop Scheduler</button>
                 </div>
-                `}
+                ` : ''}
             `;
             translatePage();
 
@@ -1370,6 +1373,13 @@ Continue?
 
         // Initial load
         loadSystemStatus();
+
+        // Expand all sections by default for monitor dashboard (after collapsible system initializes)
+        setTimeout(() => {
+            if (typeof expandAllSections === 'function') {
+                expandAllSections();
+            }
+        }, 1000);
 
         // Auto-refresh every 10 seconds
         setInterval(loadSystemStatus, 10000);
