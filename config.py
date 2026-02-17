@@ -4,6 +4,7 @@ Contains database, API, and application settings
 """
 
 import os
+import tempfile
 from pathlib import Path
 
 # Base directory
@@ -28,6 +29,15 @@ DATABASE_URL = (
 )
 
 # Connection pool settings
+# Tuning guidelines:
+# - min_connections: Keep warm connections ready (2-5 for small apps, 5-10 for medium)
+# - max_connections: Must be less than PostgreSQL max_connections (default 100)
+#   * Small deployment (1-10 concurrent users): 10-20
+#   * Medium deployment (10-50 concurrent users): 20-50
+#   * Large deployment (50+ concurrent users): 50-100
+# - idle_timeout: Time in ms before closing idle connections (30000 = 30 seconds)
+#   * Lower timeout (10-20s) for bursty traffic to free connections quickly
+#   * Higher timeout (60-120s) for steady traffic to reduce connection overhead
 DATABASE_POOL = {
     'min_connections': int(os.getenv('DB_POOL_MIN', 2)),
     'max_connections': int(os.getenv('DB_POOL_MAX', 20)),
@@ -139,7 +149,8 @@ DATA_SOURCES = {
 COLLECTION_CONFIG = {
     'rate_limit_delay': float(os.getenv('COLLECTION_RATE_LIMIT_DELAY', 0.3)),
     'max_retries': int(os.getenv('COLLECTION_MAX_RETRIES', 3)),
-    'log_file': os.getenv('COLLECTION_LOG_FILE', '/tmp/stock_scheduler.log'),
+    # Use platform-independent temp directory (works on Windows, Linux, Mac)
+    'log_file': os.getenv('COLLECTION_LOG_FILE', os.path.join(tempfile.gettempdir(), 'stock_scheduler.log')),
     'log_level': os.getenv('COLLECTION_LOG_LEVEL', 'INFO'),
 }
 
@@ -275,6 +286,52 @@ def load_env_file(env_path=None):
 
 # Load .env file if it exists
 load_env_file()
+
+
+# ════════════════════════════════════════════════════════════════
+# CONFIGURATION VALIDATION
+# ════════════════════════════════════════════════════════════════
+
+def validate_config():
+    """
+    Validate configuration settings on startup
+    Raises ValueError if critical configuration is missing or invalid
+    """
+    errors = []
+
+    # Validate database configuration
+    if not DATABASE.get('database'):
+        errors.append("DB_NAME is required")
+    if not DATABASE.get('user'):
+        errors.append("DB_USER is required")
+    if not DATABASE.get('password'):
+        errors.append("DB_PASSWORD is required")
+
+    # Validate pool settings
+    if DATABASE_POOL['min_connections'] < 1:
+        errors.append("DB_POOL_MIN must be at least 1")
+    if DATABASE_POOL['max_connections'] < DATABASE_POOL['min_connections']:
+        errors.append("DB_POOL_MAX must be >= DB_POOL_MIN")
+    if DATABASE_POOL['max_connections'] > 100:
+        errors.append("DB_POOL_MAX should not exceed 100 (PostgreSQL limit)")
+
+    # Validate API server settings
+    if not (1024 <= API_SERVER['port'] <= 65535):
+        errors.append("API_PORT must be between 1024 and 65535")
+
+    # Check for default security secrets in production
+    if ENVIRONMENT == 'production':
+        if SECRET_KEY == 'change_this_to_a_random_secret_key':
+            errors.append("JWT_SECRET must be changed in production")
+        if SESSION_SECRET == 'change_this_to_another_random_secret':
+            errors.append("SESSION_SECRET must be changed in production")
+        if DATABASE['password'] == 'vnstock_password_change_in_production':
+            errors.append("DB_PASSWORD must be changed in production")
+
+    if errors:
+        raise ValueError(f"Configuration validation failed:\n  - " + "\n  - ".join(errors))
+
+    return True
 
 
 # ════════════════════════════════════════════════════════════════

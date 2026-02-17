@@ -3,10 +3,13 @@ Market indices and watchlist endpoints.
 2 routes: /api/indices, /api/watchlist
 """
 
+import logging
 from flask import Blueprint, jsonify, request
 
 from api.helpers import query_db
 from api.extensions import watchlist_storage
+
+logger = logging.getLogger(__name__)
 
 market_bp = Blueprint('market', __name__)
 
@@ -50,9 +53,20 @@ def handle_watchlist():
         # If empty, return a default watchlist with popular stocks
         if not watchlist_storage:
             default_watchlist = ['VNM', 'VCB', 'FPT', 'HPG', 'VIC', 'VHM', 'GAS', 'ACB', 'BID', 'MSN']
-            return jsonify(default_watchlist)
+            logger.info("Returning default watchlist (no saved watchlist found)")
+            # Return metadata to indicate this is default data
+            return jsonify({
+                'watchlist': default_watchlist,
+                'is_default': True,
+                'count': len(default_watchlist)
+            })
 
-        return jsonify(watchlist_storage)
+        logger.debug(f"Returning saved watchlist with {len(watchlist_storage)} stocks")
+        return jsonify({
+            'watchlist': watchlist_storage,
+            'is_default': False,
+            'count': len(watchlist_storage)
+        })
 
     elif request.method == 'POST':
         # Update watchlist
@@ -78,8 +92,15 @@ def handle_watchlist():
                 'watchlist': watchlist_storage,
                 'count': len(watchlist_storage)
             })
-        except Exception as e:
+        except ValueError as e:
+            logger.warning(f"Invalid watchlist data format: {e}")
             return jsonify({
                 'success': False,
-                'error': str(e)
+                'error': f'Invalid data format: {str(e)}'
+            }), 400
+        except Exception as e:
+            logger.error(f"Unexpected error updating watchlist: {e}", exc_info=True)
+            return jsonify({
+                'success': False,
+                'error': 'An internal error occurred while updating watchlist'
             }), 500

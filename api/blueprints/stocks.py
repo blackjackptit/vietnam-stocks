@@ -3,10 +3,13 @@ Stock-related API endpoints.
 14 routes: /api/stocks, /api/stock/<symbol>/*, search, categories, compatibility endpoints.
 """
 
+import logging
 from flask import Blueprint, jsonify, request
 from datetime import datetime, timedelta
 
 from api.helpers import query_db
+
+logger = logging.getLogger(__name__)
 
 stocks_bp = Blueprint('stocks', __name__)
 
@@ -71,11 +74,33 @@ def get_stock_current_price(symbol):
 
 @stocks_bp.route('/api/stock/<symbol>/history', methods=['GET'])
 def get_stock_history(symbol):
-    """Get historical prices for a stock"""
+    """Get historical prices for a stock
+
+    Args:
+        symbol: Stock symbol (from URL path)
+        days: Number of days of history to fetch (query param, default=30, max=365)
+
+    Returns:
+        JSON with historical price data
+    """
     days = request.args.get('days', default=30, type=int)
+
+    # Validate days parameter
+    if days < 1:
+        logger.warning(f"Invalid days parameter: {days} (must be >= 1)")
+        return jsonify({
+            'success': False,
+            'error': 'Days parameter must be at least 1'
+        }), 400
+
+    if days > 365:
+        logger.warning(f"Days parameter {days} exceeds maximum (365), capping to 365")
+        days = 365  # Cap to 1 year maximum
+
     date_from = (datetime.now() - timedelta(days=days)).date()
 
-    history = query_db("""
+    try:
+        history = query_db("""
         SELECT
             sp.date,
             sp.open,
@@ -91,12 +116,19 @@ def get_stock_history(symbol):
         ORDER BY sp.date ASC;
     """, (symbol, date_from))
 
-    return jsonify({
-        "success": True,
-        "symbol": symbol,
-        "data": history,
-        "count": len(history)
-    })
+        logger.debug(f"Retrieved {len(history)} days of history for {symbol}")
+        return jsonify({
+            "success": True,
+            "symbol": symbol,
+            "data": history,
+            "count": len(history)
+        })
+    except Exception as e:
+        logger.error(f"Error fetching history for {symbol}: {e}", exc_info=True)
+        return jsonify({
+            'success': False,
+            'error': f'Failed to fetch historical data for {symbol}'
+        }), 500
 
 
 @stocks_bp.route('/api/latest-prices', methods=['GET'])
