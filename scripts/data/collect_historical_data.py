@@ -56,6 +56,12 @@ def collect_historical_data(symbol, days=90):
         inserted = 0
         for _, row in df.iterrows():
             try:
+                # vnstock returns prices in thousands, multiply by 1000 for VND
+                open_price = float(row.get('open', 0)) * 1000
+                high_price = float(row.get('high', 0)) * 1000
+                low_price = float(row.get('low', 0)) * 1000
+                close_price = float(row.get('close', 0)) * 1000
+
                 cursor.execute("""
                     INSERT INTO stock_prices (stock_id, date, open, high, low, close, volume, change_percent)
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
@@ -69,10 +75,10 @@ def collect_historical_data(symbol, days=90):
                 """, (
                     stock_id,
                     row['time'],
-                    row.get('open', 0),
-                    row.get('high', 0),
-                    row.get('low', 0),
-                    row.get('close', 0),
+                    open_price,
+                    high_price,
+                    low_price,
+                    close_price,
                     row.get('volume', 0),
                     row.get('changePercent', 0)
                 ))

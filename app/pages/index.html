@@ -698,7 +698,7 @@
 
             <div class="hero-stats">
                 <div class="stat-item">
-                    <div class="stat-number" id="stockCount">195</div>
+                    <div class="stat-number" id="stockCount">1553</div>
                     <div class="stat-label" data-i18n="stats.stocks_assets">Stocks & Assets</div>
                 </div>
                 <div class="stat-item">
@@ -1039,7 +1039,7 @@
                     }
                 } catch (error) {
                     // Fallback to default value if API fails
-                    document.getElementById('stockCount').textContent = 195;
+                    document.getElementById('stockCount').textContent = window.TOTAL_STOCKS_COUNT || 1553;
                 }
 
             } catch (error) {
@@ -1057,7 +1057,7 @@
 
                 // Set default stock count
                 try {
-                    document.getElementById('stockCount').textContent = 195;
+                    document.getElementById('stockCount').textContent = window.TOTAL_STOCKS_COUNT || 1553;
                 } catch (e) {}
             }
         }

@@ -2125,7 +2125,7 @@
                     return;
                 }
 
-                // Build allStocks from all categories (195 stocks)
+                // Build allStocks from all categories (dynamically loaded)
                 allStocks = [...new Set([
                     ...window.STOCK_CATEGORIES.all,
                     ...(window.STOCK_CATEGORIES.commodities || [])
@@ -6154,6 +6154,7 @@
                                 <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1; white-space: nowrap;">Current Price</th>
                                 <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1; white-space: nowrap;">Price Change</th>
                                 <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1; white-space: nowrap;">P/L</th>
+                                <th style="padding: 12px; text-align: center; border-bottom: 2px solid #cbd5e1; white-space: nowrap;">Chart</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -6191,6 +6192,11 @@
                             <td style="padding: 12px; text-align: right; color: ${profitColor}; font-weight: 700;">
                                 ${profitSign}${Math.round(profitLoss).toLocaleString()} VND
                             </td>
+                            <td style="padding: 12px; text-align: center;">
+                                <a href="advanced_charts.html?symbol=${holding.symbol}" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; background: #3b82f6; color: white; text-decoration: none; border-radius: 6px; font-size: 0.85em; font-weight: 600; transition: background 0.2s;" onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
+                                    📈 Chart
+                                </a>
+                            </td>
                         </tr>
                     `;
                 } catch (error) {
@@ -6205,6 +6211,11 @@
                             <td style="padding: 12px; text-align: right; color: #94a3b8;">N/A</td>
                             <td style="padding: 12px; text-align: right; color: #94a3b8;">N/A</td>
                             <td style="padding: 12px; text-align: right; color: #94a3b8;">N/A</td>
+                            <td style="padding: 12px; text-align: center;">
+                                <a href="advanced_charts.html?symbol=${holding.symbol}" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; padding: 6px 12px; background: #3b82f6; color: white; text-decoration: none; border-radius: 6px; font-size: 0.85em; font-weight: 600; transition: background 0.2s;" onmouseover="this.style.background='#2563eb'" onmouseout="this.style.background='#3b82f6'">
+                                    📈 Chart
+                                </a>
+                            </td>
                         </tr>
                     `;
                 }

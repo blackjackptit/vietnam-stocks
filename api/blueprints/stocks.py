@@ -442,10 +442,24 @@ def get_stock_categories():
         SELECT symbol, sector, category, exchange
         FROM stocks
         WHERE is_active = TRUE
+        AND symbol !~ '^[0-9]'  -- Exclude bonds/certificates
+        AND LENGTH(symbol) <= 5  -- Real stocks have 3-5 chars
         ORDER BY symbol;
     """)
 
-    # Build categories dynamically from database
+    # Hardcoded category memberships (fallback when sector/category data missing)
+    BLUE_CHIPS = {'VCB', 'VHM', 'VIC', 'VNM', 'HPG', 'GAS', 'MSN', 'TCB', 'VPB', 'MBB', 'BID', 'CTG', 'VRE', 'SAB', 'PLX', 'MWG', 'SSI', 'FPT', 'VJC', 'GVR', 'POW', 'VCI', 'NVL', 'HDB', 'TPB', 'HVN', 'PVD'}
+    BANKS = {'VCB', 'TCB', 'MBB', 'VPB', 'CTG', 'BID', 'ACB', 'STB', 'HDB', 'TPB', 'VIB', 'MSB', 'SHB', 'EIB', 'LPB', 'OCB', 'VAB', 'VBB', 'BAB', 'BVB', 'NVB', 'PGB', 'SGB', 'ABB', 'NAB'}
+    REAL_ESTATE = {'VHM', 'VIC', 'NVL', 'PDR', 'DXG', 'KDH', 'BCM', 'DIG', 'HDG', 'NLG', 'DXS', 'SCR', 'CEO', 'HDC', 'LDG', 'QCG', 'TCH', 'TDH', 'AGG', 'CII', 'HQC', 'IDC', 'IJC', 'KBC', 'LHG', 'NBB', 'NTL', 'OGC', 'PPI', 'SZL', 'TDC', 'TIX', 'VCG', 'VPI', 'VRE', 'ASM', 'C32', 'CCL', 'CTD', 'DPR', 'FCN', 'HUT', 'ITA', 'LCG', 'NHA', 'PIT', 'PTL', 'SJS', 'TDM', 'THG', 'UIC'}
+    TECH = {'FPT', 'CMG', 'VGI', 'SAM', 'ITD', 'ELC', 'SGT', 'ICT', 'DGW', 'CTR', 'FOX', 'VNT', 'SHI', 'SVT', 'ONE', 'VTP', 'SGN', 'CMX', 'TTN', 'NET', 'ITC', 'SCS', 'MMC', 'TDG', 'STG', 'VIT', 'DAG', 'AST', 'ALT', 'PTI', 'TEG'}
+    CONSUMER = {'VNM', 'MSN', 'MWG', 'PNJ', 'SAB', 'VHC', 'DGC', 'KDC', 'FRT', 'DBC', 'MCH', 'VCF', 'QNS', 'BBC', 'VGC', 'ASP', 'SAV', 'ANV', 'ACL', 'DRC', 'TRI', 'VTO', 'HNG', 'VNE', 'TLG', 'PAN', 'LAF', 'SBT', 'TAC', 'TCM', 'VFG', 'AGF', 'HAG', 'SJD', 'CHP', 'VHG', 'KLF', 'HT1', 'SRC'}
+    OIL_GAS = {'GAS', 'PLX', 'PVD', 'PVS', 'PVT', 'PVB', 'PVG', 'PVC', 'PVX', 'BSR', 'OIL', 'PVE', 'PVA', 'PVO', 'PCT', 'CNG', 'GEG', 'PTB', 'PTC'}
+    AFFORDABLE = {'VPB', 'STB', 'HDB', 'SHB', 'MBB', 'ACB', 'FPT', 'POW', 'DGC', 'GEX', 'MSB', 'VIB', 'TPB', 'OCB', 'LPB', 'EIB', 'VCI', 'SHS', 'AGR', 'AAM', 'DCM', 'DPM', 'DGW', 'PVT', 'BMI', 'BMP', 'CMG', 'PHR', 'DBD', 'NT2', 'REE', 'VSH', 'BWE', 'TNG', 'QCG', 'HVN', 'VJC', 'PAN', 'GMD', 'VCS'}
+    INDUSTRIAL = {'HPG', 'HSG', 'NKG', 'VCS', 'TVN', 'DTL', 'TLH', 'VGS', 'HT1', 'TIS', 'VIS', 'DGW', 'TMP', 'POM', 'TRA', 'AAA', 'AAT', 'CSV', 'KSB', 'SBT', 'FIT', 'PHR', 'DCM', 'DPM', 'BMP', 'DGC', 'DDG', 'BMI', 'HMC', 'C32', 'LBM', 'VGC'}
+    TRANSPORTATION = {'VJC', 'HVN', 'VTP', 'VSC', 'GMD', 'VOS', 'HAH', 'PHP', 'SCS', 'VST', 'TCL', 'VFC', 'SFI', 'TMS', 'DVP', 'PJT', 'ACV', 'STG', 'VTO', 'MWG'}
+    UTILITIES = {'POW', 'GAS', 'NT2', 'REE', 'PC1', 'PPC', 'VSH', 'BWE', 'SBA', 'TNG', 'HND', 'TBC', 'HJS', 'SJD', 'SJE'}
+
+    # Build categories
     categories = {
         'commodities': [],
         'blue_chips': [],
@@ -463,41 +477,39 @@ def get_stock_categories():
 
     for stock in stocks:
         symbol = stock['symbol']
-        sector = (stock['sector'] or '').lower()
-        category = (stock['category'] or '').lower()
-
-        # Categorize based on sector
-        if 'bank' in sector or 'financial' in sector:
-            categories['banks'].append(symbol)
-        if 'real estate' in sector or 'property' in sector:
-            categories['real_estate'].append(symbol)
-        if 'tech' in sector or 'it' in sector:
-            categories['tech'].append(symbol)
-        if 'consumer' in sector or 'retail' in sector:
-            categories['consumer'].append(symbol)
-        if 'oil' in sector or 'gas' in sector or 'energy' in sector:
-            categories['oil_gas'].append(symbol)
-        if 'industrial' in sector or 'materials' in sector or 'manufacturing' in sector:
-            categories['industrial'].append(symbol)
-        if 'transport' in sector or 'aviation' in sector or 'logistics' in sector:
-            categories['transportation'].append(symbol)
-        if 'utilities' in sector or 'power' in sector or 'electricity' in sector:
-            categories['utilities'].append(symbol)
 
         # Commodities
         if 'COPPER' in symbol or 'GOLD' in symbol or 'SILVER' in symbol:
             categories['commodities'].append(symbol)
 
-        # Blue chips (major stocks with high market cap)
-        if category == 'large_cap' or symbol in ['VNM', 'VIC', 'VCB', 'FPT', 'HPG', 'GAS', 'MSN', 'VHM', 'TCB', 'VRE', 'MWG', 'PLX', 'VPB', 'BID', 'CTG', 'POW', 'SAB', 'MBB', 'ACB', 'SSI']:
+        # Use hardcoded categories
+        if symbol in BLUE_CHIPS:
             categories['blue_chips'].append(symbol)
+        if symbol in BANKS:
+            categories['banks'].append(symbol)
+        if symbol in REAL_ESTATE:
+            categories['real_estate'].append(symbol)
+        if symbol in TECH:
+            categories['tech'].append(symbol)
+        if symbol in CONSUMER:
+            categories['consumer'].append(symbol)
+        if symbol in OIL_GAS:
+            categories['oil_gas'].append(symbol)
+        if symbol in AFFORDABLE:
+            categories['affordable'].append(symbol)
+        if symbol in INDUSTRIAL:
+            categories['industrial'].append(symbol)
+        if symbol in TRANSPORTATION:
+            categories['transportation'].append(symbol)
+        if symbol in UTILITIES:
+            categories['utilities'].append(symbol)
 
     # Remove duplicates and sort
     for key in categories:
         categories[key] = sorted(list(set(categories[key])))
 
-    # Build 'all' category (all stocks)
-    all_symbols = [stock['symbol'] for stock in stocks]
+    # Build 'all' category (excluding commodities, real stocks only)
+    all_symbols = [stock['symbol'] for stock in stocks if 'COPPER' not in stock['symbol'] and 'GOLD' not in stock['symbol'] and 'SILVER' not in stock['symbol']]
     categories['all'] = sorted(list(set(all_symbols)))
 
     return jsonify({

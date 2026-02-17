@@ -109,7 +109,7 @@ const translations = {
         'dashboard.sector_allocation': 'Sector Allocation',
         'dashboard.top_performers': 'Top Performers',
         'dashboard.top_losers': 'Top Losers',
-        'dashboard.monitoring_desc': 'Real-time monitoring of 195 Vietnamese stocks with performance tracking',
+        'dashboard.monitoring_desc': 'Real-time monitoring of {count} Vietnamese stocks with performance tracking',
         'dashboard.select_stocks_monitor': 'Select Stocks to Monitor',
         'dashboard.search_placeholder': 'Search stocks by symbol or name...',
         'dashboard.customize_watchlist': 'Customize your watchlist with stocks and commodities',
@@ -679,7 +679,7 @@ const translations = {
         'tip.preferred_stocks': 'Select stocks you want to prioritize in your portfolio. The system will include these first, then recommend additional stocks to optimize your allocation.',
         'tip.how_it_works': 'How it works: Selected preferred stocks will be included first (with at least 10% allocation each). The system will then optimize the remaining budget across other suitable stocks.',
         'tip.ai_recommendations': 'Let AI analyze all stocks and recommend the best options based on real market data, returns, and risk metrics.',
-        'tip.strategy_checkbox': 'How it works: Select a strategy checkbox above. AI will analyze all 195 stocks using real market data and automatically select the top performers for you. Results appear in "Preferred Stocks" section above.',
+        'tip.strategy_checkbox': 'How it works: Select a strategy checkbox above. AI will analyze all stocks using real market data and automatically select the top performers for you. Results appear in "Preferred Stocks" section above.',
         'help.enter_holdings': 'Enter your existing stock holdings. We\'ll analyze them and suggest what to do with each stock (HOLD, BUY MORE, or SELL) plus recommend new additions.',
         'help.search_preferred': 'Search preferred stocks...',
         'help.recommendations_applied': 'Recommendations Applied',
@@ -811,7 +811,7 @@ const translations = {
         'home.automation_description_1': 'Automated execution of trading strategies based on technical signals',
         'home.automation_description_2': 'Set custom rules for entry, exit, stop-loss, and position sizing',
         'home.trusted_description': 'Professional-grade tools trusted by serious investors',
-        'home.coverage_description': '195 Vietnamese stocks and commodities with real-time data and historical analysis',
+        'home.coverage_description': '1,553+ Vietnamese stocks and commodities with real-time data and historical analysis',
         'home.ai_description': 'Machine learning forecasts, anomaly detection, and automated investment recommendations',
         'home.professional_tools': 'Professional Tools',
         'home.tools_full_description': 'Charts, technical indicators, and risk analysis tools',
@@ -959,7 +959,7 @@ const translations = {
         'alerts.page_title': '🔔 Price Alerts',
 
         // Card descriptions
-        'home.dashboard_desc': 'Real-time monitoring of 195 Vietnamese stocks with live updates, interactive visualization, technical scores, and comprehensive performance tracking.',
+        'home.dashboard_desc': 'Real-time monitoring of 1,553+ Vietnamese stocks with live updates, interactive visualization, technical scores, and comprehensive performance tracking.',
         'home.history_desc': 'Deep dive into price history with moving averages, RSI, MACD, and volume analysis. Multiple timeframes from 30 days to 1 year.',
         'home.forecast_desc': 'Machine learning predictions using 7 models. Statistical control charts with anomaly detection and investment recommendations.',
         'home.advanced_desc': 'Portfolio optimization, strategy backtesting, risk management with VaR/CVaR, ML forecasting, and pattern recognition.',
@@ -969,7 +969,7 @@ const translations = {
         'home.automation_desc': 'Automated execution of trading strategies based on technical signals. Set custom rules for entry, exit, stop-loss, and position sizing.',
 
         // Feature text
-        'home.coverage_text': '195 Vietnamese stocks and commodities with real-time data and historical analysis.',
+        'home.coverage_text': '1,553+ Vietnamese stocks and commodities with real-time data and historical analysis.',
         'home.ai_text': 'Machine learning forecasts, anomaly detection, and automated investment recommendations.',
         'home.tools_text': '30+ technical indicators, advanced charts, and institutional-grade analytics.',
         'home.risk_text': 'VaR, CVaR, portfolio optimization, and comprehensive risk analysis tools.',
@@ -1641,7 +1641,7 @@ const translations = {
         'dashboard.sector_allocation': 'Phân Bổ Ngành',
         'dashboard.top_performers': 'Tăng Mạnh Nhất',
         'dashboard.top_losers': 'Giảm Mạnh Nhất',
-        'dashboard.monitoring_desc': 'Giám sát thời gian thực 195 cổ phiếu Việt Nam với theo dõi hiệu suất',
+        'dashboard.monitoring_desc': 'Giám sát thời gian thực {count} cổ phiếu Việt Nam với theo dõi hiệu suất',
         'dashboard.select_stocks_monitor': 'Chọn Cổ Phiếu Để Giám Sát',
         'dashboard.search_placeholder': 'Tìm kiếm cổ phiếu theo mã hoặc tên...',
         'dashboard.customize_watchlist': 'Tùy chỉnh danh sách theo dõi của bạn với cổ phiếu và hàng hóa',
@@ -2273,7 +2273,7 @@ const translations = {
         'tip.preferred_stocks': 'Chọn các cổ phiếu bạn muốn ưu tiên trong danh mục. Hệ thống sẽ bao gồm chúng trước, sau đó khuyến nghị các cổ phiếu bổ sung để tối ưu hóa phân bổ.',
         'tip.how_it_works': 'Cách hoạt động: Các cổ phiếu ưu tiên đã chọn sẽ được bao gồm trước (với ít nhất 10% phân bổ mỗi cổ). Sau đó hệ thống sẽ tối ưu hóa ngân sách còn lại trên các cổ phiếu phù hợp khác.',
         'tip.ai_recommendations': 'Để AI phân tích tất cả cổ phiếu và khuyến nghị các lựa chọn tốt nhất dựa trên dữ liệu thị trường thực, lợi nhuận và chỉ số rủi ro.',
-        'tip.strategy_checkbox': 'Cách hoạt động: Chọn một chiến lược ở trên. AI sẽ phân tích tất cả 195 cổ phiếu bằng dữ liệu thị trường thực và tự động chọn những cổ phiếu hoạt động tốt nhất. Kết quả xuất hiện trong phần "Cổ Phiếu Ưu Tiên" ở trên.',
+        'tip.strategy_checkbox': 'Cách hoạt động: Chọn một chiến lược ở trên. AI sẽ phân tích tất cả cổ phiếu bằng dữ liệu thị trường thực và tự động chọn những cổ phiếu hoạt động tốt nhất. Kết quả xuất hiện trong phần "Cổ Phiếu Ưu Tiên" ở trên.',
         'help.enter_holdings': 'Nhập các cổ phiếu hiện tại của bạn. Chúng tôi sẽ phân tích và gợi ý hành động cho từng cổ phiếu (GIỮ, MUA THÊM, hoặc BÁN) cộng với khuyến nghị bổ sung mới.',
         'help.search_preferred': 'Tìm kiếm cổ phiếu ưu tiên...',
         'help.recommendations_applied': 'Đã Áp Dụng Khuyến Nghị',
@@ -2404,7 +2404,7 @@ const translations = {
         'home.automation_description_1': 'Thực thi tự động các chiến lược giao dịch dựa trên tín hiệu kỹ thuật',
         'home.automation_description_2': 'Đặt quy tắc tùy chỉnh cho vào lệnh, thoát lệnh, cắt lỗ và kích thước vị thế',
         'home.trusted_description': 'Công cụ cấp chuyên nghiệp được tin tưởng bởi các nhà đầu tư nghiêm túc',
-        'home.coverage_description': '195 cổ phiếu và hàng hóa Việt Nam với dữ liệu thời gian thực và phân tích lịch sử',
+        'home.coverage_description': '1.553+ cổ phiếu và hàng hóa Việt Nam với dữ liệu thời gian thực và phân tích lịch sử',
         'home.ai_description': 'Dự báo học máy, phát hiện bất thường và khuyến nghị đầu tư tự động',
         'home.professional_tools': 'Công Cụ Chuyên Nghiệp',
         'home.tools_full_description': 'Biểu đồ, chỉ báo kỹ thuật và công cụ phân tích rủi ro',
@@ -2552,7 +2552,7 @@ const translations = {
         'alerts.page_title': '🔔 Cảnh Báo Giá',
 
         // Card descriptions
-        'home.dashboard_desc': 'Giám sát thời gian thực 195 cổ phiếu Việt Nam với cập nhật trực tiếp, trực quan hóa tương tác, điểm số kỹ thuật và theo dõi hiệu suất toàn diện.',
+        'home.dashboard_desc': 'Giám sát thời gian thực 1.553+ cổ phiếu Việt Nam với cập nhật trực tiếp, trực quan hóa tương tác, điểm số kỹ thuật và theo dõi hiệu suất toàn diện.',
         'home.history_desc': 'Phân tích sâu lịch sử giá với đường trung bình động, RSI, MACD và phân tích khối lượng. Nhiều khung thời gian từ 30 ngày đến 1 năm.',
         'home.forecast_desc': 'Dự đoán học máy sử dụng 4 mô hình. Biểu đồ kiểm soát thống kê với phát hiện bất thường và khuyến nghị đầu tư.',
         'home.advanced_desc': 'Tối ưu hóa danh mục, kiểm tra chiến lược ngược, quản lý rủi ro với VaR/CVaR, dự báo ML và nhận dạng mẫu.',
@@ -2562,7 +2562,7 @@ const translations = {
         'home.automation_desc': 'Thực thi tự động các chiến lược giao dịch dựa trên tín hiệu kỹ thuật. Đặt quy tắc tùy chỉnh cho vào lệnh, thoát lệnh, cắt lỗ và kích thước vị thế.',
 
         // Feature text
-        'home.coverage_text': '195 cổ phiếu và hàng hóa Việt Nam với dữ liệu thời gian thực và phân tích lịch sử.',
+        'home.coverage_text': '1.553+ cổ phiếu và hàng hóa Việt Nam với dữ liệu thời gian thực và phân tích lịch sử.',
         'home.ai_text': 'Dự báo học máy, phát hiện bất thường và khuyến nghị đầu tư tự động.',
         'home.tools_text': '30+ chỉ báo kỹ thuật, biểu đồ nâng cao và phân tích chuyên nghiệp.',
         'home.risk_text': 'VaR, CVaR, tối ưu hóa danh mục và công cụ phân tích rủi ro toàn diện.',

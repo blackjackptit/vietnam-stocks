@@ -714,7 +714,7 @@
             <h3 style="margin-bottom: 15px; color: #0f2027;" data-i18n="filter.by_category">📂 Filter by Category</h3>
             <div class="filter-tabs">
                 <div class="filter-tab active" data-category="all_assets" onclick="filterByCategory('all_assets')" style="background: #1e3c72; color: white; border-color: #1e3c72; font-weight: 700;">
-                    🌐 All Assets (195)
+                    🌐 <span data-i18n="category.all_assets">All Assets</span> (<span id="totalAssetsCount">1553</span>)
                 </div>
                 <div class="filter-tab" data-category="commodities" onclick="filterByCategory('commodities')" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; font-weight: 700; border-color: #f59e0b;" data-i18n="category.commodities">
                     💎 Commodities
@@ -754,7 +754,7 @@
                 </div>
             </div>
             <div style="font-size: 0.85em; color: #64748b; margin-bottom: 15px; font-weight: 500;">
-                💡 <strong>Tip:</strong> Use "All Assets (195)" to see all Vietnamese stocks including commodities. Use category filters to narrow down your selection.
+                💡 <strong>Tip:</strong> Use "All Assets" to see all Vietnamese stocks including commodities. Use category filters to narrow down your selection.
             </div>
 
             <!-- Search Box -->
@@ -886,7 +886,7 @@
             '#ec4899', '#06b6d4', '#84cc16', '#f97316', '#ef4444'
         ];
 
-        // Using shared STOCK_CATEGORIES from stock-categories.js (195 stocks)
+        // Using shared STOCK_CATEGORIES from stock-categories.js (dynamically loaded)
         console.log(`Historical Analysis Dashboard: ${TOTAL_STOCKS_COUNT} stocks loaded`);
 
         let currentCategory = 'all_assets';
@@ -898,6 +898,17 @@
             await loadStockList();
             updateAnalysisTimestamp();
             setInterval(checkForUpdates, 5000); // Check every 5 seconds
+
+            // Update total assets count when categories load
+            const updateCount = setInterval(() => {
+                if (window.categoriesLoaded && window.TOTAL_STOCKS_COUNT > 0) {
+                    const countEl = document.getElementById('totalAssetsCount');
+                    if (countEl) {
+                        countEl.textContent = window.TOTAL_STOCKS_COUNT;
+                    }
+                    clearInterval(updateCount);
+                }
+            }, 100);
 
             // Initialize collapsible sections
             if (typeof initializeCollapsibleSections === 'function') {
