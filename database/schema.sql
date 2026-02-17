@@ -449,6 +449,43 @@ CREATE TRIGGER update_position_gain_loss BEFORE UPDATE ON portfolio_positions
     EXECUTE FUNCTION calculate_position_gain_loss();
 
 -- ═══════════════════════════════════════════════════════════════
+-- 17. INVESTMENT PLANS (Dashboard Advanced Feature)
+-- ═══════════════════════════════════════════════════════════════
+
+CREATE TABLE investment_plans (
+    plan_id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+    name VARCHAR(255) NOT NULL,
+    notes TEXT,
+    strategy TEXT,
+    strategy_name VARCHAR(255),
+    budget NUMERIC(15,2),
+    expected_return NUMERIC(10,4),
+    risk_level NUMERIC(10,4),
+    sharpe_ratio NUMERIC(10,4),
+    session_id VARCHAR(255) NOT NULL,
+    metadata JSONB,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE investment_plan_holdings (
+    id SERIAL PRIMARY KEY,
+    plan_id UUID NOT NULL REFERENCES investment_plans(plan_id) ON DELETE CASCADE,
+    symbol VARCHAR(20) NOT NULL,
+    shares NUMERIC(15,4),
+    buy_price NUMERIC(15,2),
+    price_at_creation NUMERIC(15,2),
+    allocation_percent NUMERIC(10,4),
+    amount NUMERIC(15,2),
+    expected_return NUMERIC(10,4),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Indexes for investment_plans
+CREATE INDEX idx_investment_plans_session ON investment_plans(session_id);
+CREATE INDEX idx_investment_plan_holdings_plan ON investment_plan_holdings(plan_id);
+
+-- ═══════════════════════════════════════════════════════════════
 -- GRANTS (Adjust based on your security requirements)
 -- ═══════════════════════════════════════════════════════════════
 
@@ -475,6 +512,8 @@ COMMENT ON TABLE portfolios IS 'User investment portfolios';
 COMMENT ON TABLE price_alerts IS 'Price alert rules and triggers';
 COMMENT ON TABLE trading_strategies IS 'User-defined or system trading strategies';
 COMMENT ON TABLE audit_log IS 'System-wide audit trail for security and debugging';
+COMMENT ON TABLE investment_plans IS 'User-created investment plans with strategy and performance metrics';
+COMMENT ON TABLE investment_plan_holdings IS 'Stock allocations within investment plans';
 
 -- ═══════════════════════════════════════════════════════════════
 -- SAMPLE DATA (Optional - for development/testing)
