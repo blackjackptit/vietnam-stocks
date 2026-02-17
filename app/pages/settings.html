@@ -346,6 +346,51 @@
         .footer-links a:hover {
             color: #c41c16;
         }
+
+        /* Responsive Design */
+        /* Tablet breakpoint (768px - 1200px) */
+        @media (max-width: 1200px) and (min-width: 769px) {
+            .settings-card {
+                padding: 24px;
+            }
+
+            .form-group input[type="text"],
+            .form-group input[type="number"],
+            .form-group select {
+                font-size: 15px;
+            }
+        }
+
+        /* Mobile breakpoint (768px and below) */
+        @media (max-width: 768px) {
+            .container {
+                max-width: 100%;
+                padding: 15px;
+            }
+
+            .settings-card {
+                padding: 20px;
+                margin-bottom: 15px;
+            }
+
+            .settings-card h2 {
+                font-size: 1.3em;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            .btn {
+                padding: 12px 24px;
+                font-size: 0.95em;
+            }
+
+            .footer-links {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
     </style>
     <script src="js/custom-dialogs.js"></script>
     <script src="js/api-config.js"></script>

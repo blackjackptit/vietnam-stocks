@@ -360,6 +360,19 @@
             margin-bottom: 20px;
         }
 
+        /* Tablet breakpoint */
+        @media (max-width: 1200px) and (min-width: 769px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+        }
+
+        /* Mobile breakpoint */
         @media (max-width: 768px) {
             .grid {
                 grid-template-columns: 1fr;
@@ -1014,10 +1027,24 @@
 
         // Initialize
         async function init() {
-            await loadStockNames();
-            renderStockGrid();
-            updateSelectedCount();
-            startPolling();
+            try {
+                await loadStockNames();
+                renderStockGrid();
+                updateSelectedCount();
+                startPolling();
+            } catch (error) {
+                console.error('Initialization error:', error);
+                // Show user-friendly error message
+                const grid = document.getElementById('stockGrid');
+                if (grid) {
+                    grid.innerHTML = `
+                        <div style="grid-column: 1/-1; text-align: center; padding: 40px;">
+                            <p style="color: #dc2626; font-size: 1.1em; margin-bottom: 10px;">⚠️ Failed to load dashboard</p>
+                            <p style="color: #64748b;">Please check your connection and <a href="javascript:location.reload()" style="color: #c41c16; text-decoration: underline;">reload the page</a></p>
+                        </div>
+                    `;
+                }
+            }
         }
 
         // Load stock names from API
