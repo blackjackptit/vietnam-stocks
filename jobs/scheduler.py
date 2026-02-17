@@ -23,7 +23,8 @@ from config import (
     DATA_COLLECTION,
     MARKET_HOURS,
     DATA_SOURCES,
-    COLLECTION_CONFIG
+    COLLECTION_CONFIG,
+    get_database_connection
 )
 
 # Import job modules
@@ -43,6 +44,22 @@ logging.basicConfig(
 )
 
 logger = logging.getLogger('scheduler')
+
+
+def log_activity(activity_type, activity, details, status='info'):
+    """Log activity to database activity_log table"""
+    try:
+        conn = get_database_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO activity_log (activity_type, activity, details, status)
+            VALUES (%s, %s, %s, %s);
+        """, (activity_type, activity, details, status))
+        conn.commit()
+        cursor.close()
+        conn.close()
+    except Exception as e:
+        logger.error(f"Failed to log activity to database: {e}")
 
 
 class DataScheduler:
@@ -70,10 +87,13 @@ class DataScheduler:
             logger.info("=" * 70)
             logger.info("Starting stock data collection job")
             logger.info("=" * 70)
+            log_activity('scheduler', 'Stock collection started', 'Automated stock data collection job triggered', 'info')
             collector = StockDataCollector()
             collector.run()
+            log_activity('collection', 'Stock collection completed', 'Stock data collection finished successfully', 'success')
         except Exception as e:
             logger.error(f"Stock collection job failed: {e}", exc_info=True)
+            log_activity('collection', 'Stock collection failed', str(e), 'error')
 
     def collect_macro(self):
         """Job: Collect macro data"""
@@ -81,10 +101,13 @@ class DataScheduler:
             logger.info("=" * 70)
             logger.info("Starting macro data collection job")
             logger.info("=" * 70)
+            log_activity('scheduler', 'Macro collection started', 'Automated macro data collection job triggered', 'info')
             collector = MacroDataCollector()
             collector.run()
+            log_activity('collection', 'Macro collection completed', 'Macro data collection finished successfully', 'success')
         except Exception as e:
             logger.error(f"Macro collection job failed: {e}", exc_info=True)
+            log_activity('collection', 'Macro collection failed', str(e), 'error')
 
     def setup_jobs(self):
         """Setup all scheduled jobs based on configuration"""
