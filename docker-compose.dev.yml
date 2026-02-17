@@ -1,0 +1,36 @@
+# Development overrides for docker-compose
+# Usage: docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: base
+    environment:
+      DEBUG: "true"
+      NODE_ENV: development
+      LOG_LEVEL: debug
+    volumes:
+      # Mount source code for live reloading
+      - ./api:/app/api
+      - ./app:/app/app
+      - ./src:/app/src
+      - ./scripts:/app/scripts
+      - ./config.py:/app/config.py
+      - ./run.py:/app/run.py
+      - ./api_server.py:/app/api_server.py
+    command: python run.py
+
+  scheduler:
+    environment:
+      LOG_LEVEL: debug
+    volumes:
+      # Mount source code for live reloading
+      - ./jobs:/app/jobs
+      - ./src:/app/src
+      - ./scripts:/app/scripts
+      - ./config.py:/app/config.py
+
+  pgadmin:
+    profiles: []  # Enable pgadmin in dev mode

@@ -13,10 +13,31 @@ A comprehensive, bilingual (Vietnamese/English) stock analysis and trading platf
 - **Bilingual Interface** - Full Vietnamese and English language support
 - **Advanced Charts** - Interactive visualizations with Chart.js
 
+## 🐳 Docker Deployment
+
+This project includes complete Docker support for easy deployment:
+
+- **Dockerfile** - Optimized Python 3.11 image
+- **docker-compose.yml** - Multi-service orchestration
+- **docker-compose.dev.yml** - Development with live reload
+- **Makefile** - Convenient command shortcuts
+
+Quick commands using Makefile:
+```bash
+make setup      # Initial environment setup
+make up         # Start all services
+make logs       # View logs
+make db-init    # Initialize database
+make status     # Check service health
+make down       # Stop services
+```
+
+For detailed Docker documentation, see [DOCKER_SETUP.md](DOCKER_SETUP.md).
+
 ## 📁 Project Structure
 
 ```
-vietnam-stocks/
+vn-stock-analytics/
 ├── app/                    # Application files
 │   ├── pages/             # HTML application pages (15 files)
 │   │   ├── index.html              # Homepage
@@ -80,9 +101,8 @@ vietnam-stocks/
 │       └── IMPLEMENTATION_COMPLETE.md
 │
 ├── database/              # Database setup and migrations
-│   ├── docker-compose.yml
-│   ├── init.sql
-│   └── schema.sql
+│   ├── schema.sql
+│   └── seed_data.sql
 │
 ├── data/                  # Data files
 │   └── (JSON data files)
@@ -100,27 +120,73 @@ vietnam-stocks/
 │
 ├── api_server.py          # Main Flask API server
 ├── config.py              # Configuration settings
+├── run.py                 # Application entry point
+├── Dockerfile             # Docker image definition
+├── docker-compose.yml     # Docker services orchestration
+├── docker-compose.dev.yml # Development overrides
+├── docker-entrypoint.sh   # Container startup script
+├── Makefile               # Docker command shortcuts
 ├── .env                   # Environment variables (not in git)
-├── .env.example           # Environment variables template
-├── .gitignore            # Git ignore rules
+├── .env.example           # Environment template (manual)
+├── .env.docker            # Environment template (Docker)
+├── .dockerignore          # Docker build exclusions
+├── .gitignore             # Git ignore rules
 ├── requirements.txt       # Python dependencies
-└── README.md             # This file
+├── README.md              # This file
+└── DOCKER_SETUP.md        # Complete Docker guide
 ```
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### Option 1: Docker (Recommended) 🐳
 
-- Python 3.14+
-- PostgreSQL 15+ (or Docker)
-- Node.js (for localtunnel if exposing publicly)
-
-### Installation
+**Prerequisites**: Docker 20.10+ and Docker Compose 2.0+
 
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd vietnam-stocks
+   cd vn-stock-analytics
+   ```
+
+2. **Configure environment**
+   ```bash
+   cp .env.docker .env
+   # Edit .env and update passwords/secrets
+   ```
+
+3. **Start all services**
+   ```bash
+   docker compose up -d
+   ```
+
+4. **Initialize database** (first time only)
+   ```bash
+   docker compose exec app python scripts/data/sync_data_to_db.py
+   ```
+
+5. **Access the application**
+   - Web Interface: http://localhost:5000
+   - API Health: http://localhost:5000/health
+   - PgAdmin: http://localhost:5050 (optional)
+
+**Useful commands:**
+```bash
+docker compose logs -f              # View logs
+docker compose ps                   # Check status
+docker compose down                 # Stop services
+docker compose restart              # Restart services
+```
+
+See [DOCKER_SETUP.md](DOCKER_SETUP.md) for complete Docker documentation.
+
+### Option 2: Manual Installation
+
+**Prerequisites**: Python 3.11+, PostgreSQL 15+
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd vn-stock-analytics
    ```
 
 2. **Set up Python environment**

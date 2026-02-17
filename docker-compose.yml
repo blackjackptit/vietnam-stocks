@@ -1,0 +1,150 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: vnstock_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-vnstock_db}
+      POSTGRES_USER: ${DB_USER:-vnstock_user}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-vnstock_password_change_in_production}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --locale=en_US.UTF-8"
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+      - ./database/seed_data.sql:/docker-entrypoint-initdb.d/02-seed_data.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-vnstock_user} -d ${DB_NAME:-vnstock_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - vnstock_network
+
+  # Flask API Server
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vnstock_app
+    restart: unless-stopped
+    environment:
+      # Database
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-vnstock_db}
+      DB_USER: ${DB_USER:-vnstock_user}
+      DB_PASSWORD: ${DB_PASSWORD:-vnstock_password_change_in_production}
+
+      # API Server
+      API_HOST: 0.0.0.0
+      API_PORT: ${API_PORT:-5000}
+      DEBUG: ${DEBUG:-false}
+
+      # Application
+      NODE_ENV: ${NODE_ENV:-production}
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+
+      # Security
+      JWT_SECRET: ${JWT_SECRET:-change_this_to_a_random_secret_key}
+      SESSION_SECRET: ${SESSION_SECRET:-change_this_to_another_random_secret}
+
+      # Data Collection
+      AUTO_COLLECT_ENABLED: ${AUTO_COLLECT_ENABLED:-true}
+      STOCK_COLLECTION_ENABLED: ${STOCK_COLLECTION_ENABLED:-true}
+      STOCK_COLLECTION_INTERVAL: ${STOCK_COLLECTION_INTERVAL:-3600}
+
+      # Refresh Intervals
+      PRICE_UPDATE_INTERVAL: ${PRICE_UPDATE_INTERVAL:-300}
+      INDICATOR_UPDATE_INTERVAL: ${INDICATOR_UPDATE_INTERVAL:-3600}
+      FORECAST_UPDATE_INTERVAL: ${FORECAST_UPDATE_INTERVAL:-86400}
+    ports:
+      - "${API_PORT:-5000}:5000"
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+      - ./logs:/app/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - vnstock_network
+
+  # Background Job Scheduler
+  scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vnstock_scheduler
+    restart: unless-stopped
+    command: python jobs/scheduler.py
+    environment:
+      # Database
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-vnstock_db}
+      DB_USER: ${DB_USER:-vnstock_user}
+      DB_PASSWORD: ${DB_PASSWORD:-vnstock_password_change_in_production}
+
+      # Data Collection
+      AUTO_COLLECT_ENABLED: ${AUTO_COLLECT_ENABLED:-true}
+      STOCK_COLLECTION_ENABLED: ${STOCK_COLLECTION_ENABLED:-true}
+      STOCK_COLLECTION_INTERVAL: ${STOCK_COLLECTION_INTERVAL:-3600}
+      MACRO_COLLECTION_ENABLED: ${MACRO_COLLECTION_ENABLED:-true}
+      MACRO_COLLECTION_INTERVAL: ${MACRO_COLLECTION_INTERVAL:-86400}
+
+      # Market Hours
+      MARKET_OPEN_HOUR: ${MARKET_OPEN_HOUR:-9}
+      MARKET_CLOSE_HOUR: ${MARKET_CLOSE_HOUR:-15}
+      MARKET_DAYS: ${MARKET_DAYS:-mon-fri}
+
+      # Logging
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      COLLECTION_LOG_FILE: /app/logs/scheduler.log
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+      - ./logs:/app/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - vnstock_network
+
+  # PgAdmin (Optional - Database Management UI)
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: vnstock_pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@vnstock.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin123}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "${PGADMIN_PORT:-5050}:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    networks:
+      - vnstock_network
+    profiles:
+      - tools
+
+volumes:
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+networks:
+  vnstock_network:
+    driver: bridge
