@@ -37,17 +37,13 @@ def get_indices():
     })
 
 
-@market_bp.route('/api/watchlist', methods=['GET', 'POST', 'OPTIONS'])
+@market_bp.route('/api/watchlist', methods=['GET', 'POST'])
 def handle_watchlist():
-    """Get or update user watchlist"""
-    # Handle CORS preflight
-    if request.method == 'OPTIONS':
-        response = jsonify({'status': 'ok'})
-        response.headers.add('Access-Control-Allow-Origin', '*')
-        response.headers.add('Access-Control-Allow-Headers', 'Content-Type')
-        response.headers.add('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
-        return response
+    """Get or update user watchlist
 
+    CORS is handled automatically by flask-cors in api/__init__.py
+    No need for manual OPTIONS handling or Access-Control headers
+    """
     if request.method == 'GET':
         # Return current watchlist as array (for frontend compatibility)
         # If empty, return a default watchlist with popular stocks
