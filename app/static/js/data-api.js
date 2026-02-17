@@ -68,7 +68,20 @@ const DataAPI = {
             if (response.ok) {
                 const result = await response.json();
                 if (result.success) {
-                    return result;
+                    // Normalize data: convert string numbers to actual numbers
+                    return {
+                        success: true,
+                        symbol: result.symbol,
+                        name: result.name,
+                        date: result.date,
+                        open: parseFloat(result.open) || 0,
+                        high: parseFloat(result.high) || 0,
+                        low: parseFloat(result.low) || 0,
+                        price: parseFloat(result.price) || 0,
+                        volume: parseInt(result.volume) || 0,
+                        change: parseFloat(result.change) || 0,
+                        change_percent: parseFloat(result.change_percent) || 0
+                    };
                 }
             }
 
@@ -95,7 +108,17 @@ const DataAPI = {
             if (response.ok) {
                 const result = await response.json();
                 if (result.success && result.data && result.data.length > 0) {
-                    return result.data;
+                    // Normalize data: convert string numbers to actual numbers
+                    return result.data.map(item => ({
+                        date: item.date,
+                        open: parseFloat(item.open) || 0,
+                        high: parseFloat(item.high) || 0,
+                        low: parseFloat(item.low) || 0,
+                        close: parseFloat(item.close) || 0,
+                        volume: parseInt(item.volume) || 0,
+                        change: parseFloat(item.change) || 0,
+                        change_percent: parseFloat(item.change_percent) || 0
+                    }));
                 }
             }
 
