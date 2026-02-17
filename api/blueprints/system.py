@@ -106,21 +106,40 @@ def system_status():
         status["database"]["message"] = str(e)
 
     # Check scheduler process
+    # In Docker environment, scheduler runs in separate container
+    # Check for recent scheduler activity in logs as a heartbeat
     try:
-        result = subprocess.run(
-            ['pgrep', '-f', 'jobs/scheduler.py'],
-            capture_output=True,
-            text=True
-        )
+        # Check if scheduler has logged activity in the last 5 minutes
+        recent_activity = query_db("""
+            SELECT COUNT(*) as count, MAX(timestamp) as last_seen
+            FROM activity_log
+            WHERE activity_type IN ('collection', 'scheduler')
+            AND timestamp > NOW() - INTERVAL '5 minutes';
+        """, one=True)
 
-        if result.returncode == 0 and result.stdout.strip():
-            pids = result.stdout.strip().split('\n')
+        if recent_activity and recent_activity['count'] > 0:
             status["scheduler"]["status"] = "running"
-            status["scheduler"]["message"] = f"Scheduler is running (PID: {pids[0]})"
-            status["scheduler"]["pid"] = int(pids[0])
+            status["scheduler"]["message"] = f"Scheduler is active (last seen: {recent_activity['last_seen']})"
+            status["scheduler"]["pid"] = None  # Not available in Docker
         else:
-            status["scheduler"]["status"] = "stopped"
-            status["scheduler"]["message"] = "Scheduler is not running"
+            # No recent activity, check if container exists (Docker specific)
+            try:
+                result = subprocess.run(
+                    ['docker', 'ps', '--filter', 'name=vnstock_scheduler', '--format', '{{.Status}}'],
+                    capture_output=True,
+                    text=True,
+                    timeout=2
+                )
+                if result.returncode == 0 and 'Up' in result.stdout:
+                    status["scheduler"]["status"] = "running"
+                    status["scheduler"]["message"] = "Scheduler container is running"
+                else:
+                    status["scheduler"]["status"] = "stopped"
+                    status["scheduler"]["message"] = "Scheduler container is not running"
+            except:
+                # Docker command not available or timeout
+                status["scheduler"]["status"] = "unknown"
+                status["scheduler"]["message"] = "Unable to check scheduler status (no recent activity)"
     except Exception as e:
         status["scheduler"]["status"] = "unknown"
         status["scheduler"]["message"] = f"Cannot check scheduler status: {str(e)}"
