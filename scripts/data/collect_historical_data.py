@@ -108,10 +108,11 @@ def main():
         FROM stocks s
         LEFT JOIN stock_prices sp ON s.id = sp.stock_id
         WHERE s.is_active = TRUE
+          AND s.symbol !~ '^[0-9]'  -- Exclude bonds/certificates (start with numbers)
+          AND LENGTH(s.symbol) <= 5  -- Real stocks have 3-5 character symbols
         GROUP BY s.id, s.symbol, s.name
         HAVING COUNT(sp.id) < 30
-        ORDER BY s.symbol
-        LIMIT 50;
+        ORDER BY s.symbol;
     """)
 
     stocks = cursor.fetchall()
