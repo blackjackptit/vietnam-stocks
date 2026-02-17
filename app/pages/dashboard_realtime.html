@@ -648,8 +648,8 @@
                 <div class="live-dot"></div>
                 LIVE
             </div>
-            <h1>📊 Vietnamese Stock Monitor</h1>
-            <p class="subtitle">Real-time Technical Analysis Dashboard</p>
+            <h1 data-i18n="realtime.title">📊 Vietnamese Stock Monitor</h1>
+            <p class="subtitle" data-i18n="realtime.subtitle">Real-time Technical Analysis Dashboard</p>
             <div style="margin-top: 15px;">
                 <a href="index.html" style="display: inline-block; padding: 10px 25px; background: #64748b; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; margin-right: 10px;">
                 </a>
@@ -689,46 +689,46 @@
 
         <div class="grid">
             <div class="card">
-                <h2>📈 Top Recommendations</h2>
+                <h2 data-i18n="realtime.top_recommendations">📈 Top Recommendations</h2>
                 <div id="topStocks">
-                    <div class="loading">Waiting for data...</div>
+                    <div class="loading" data-i18n="realtime.waiting_data">Waiting for data...</div>
                 </div>
             </div>
 
             <div class="card">
-                <h2>📊 Score Distribution</h2>
+                <h2 data-i18n="realtime.score_distribution">📊 Score Distribution</h2>
                 <div class="chart-container">
                     <canvas id="scoreChart"></canvas>
                 </div>
             </div>
 
             <div class="card">
-                <h2>🎯 Technical Indicators</h2>
+                <h2 data-i18n="realtime.technical_indicators">🎯 Technical Indicators</h2>
                 <div id="indicators">
-                    <div class="loading">Loading indicators...</div>
+                    <div class="loading" data-i18n="realtime.loading_indicators">Loading indicators...</div>
                 </div>
             </div>
         </div>
 
         <div class="grid">
             <div class="card">
-                <h2>💰 Budget Allocation (10M VND)</h2>
+                <h2 data-i18n="realtime.budget_allocation">💰 Budget Allocation (10M VND)</h2>
                 <div id="allocation">
-                    <div class="loading">Calculating allocation...</div>
+                    <div class="loading" data-i18n="realtime.calculating_allocation">Calculating allocation...</div>
                 </div>
             </div>
 
             <div class="card">
-                <h2>📉 RSI Overview</h2>
+                <h2 data-i18n="realtime.rsi_overview">📉 RSI Overview</h2>
                 <div class="chart-container">
                     <canvas id="rsiChart"></canvas>
                 </div>
             </div>
 
             <div class="card">
-                <h2>⚡ Market Signals</h2>
+                <h2 data-i18n="realtime.market_signals">⚡ Market Signals</h2>
                 <div id="signals">
-                    <div class="loading">Analyzing signals...</div>
+                    <div class="loading" data-i18n="realtime.analyzing_signals">Analyzing signals...</div>
                 </div>
             </div>
         </div>
@@ -1097,6 +1097,9 @@
                 if (arrow) arrow.textContent = '▼';
             }
         });
+
+        // Initialize i18n
+        initI18n();
     </script>
 </body>
 </html>
