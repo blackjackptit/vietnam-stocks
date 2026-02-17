@@ -3651,7 +3651,16 @@
                 existingHoldingsHTML = `
                     <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; border: 2px solid #f59e0b;">
                         <h4 style="color: #92400e; margin-bottom: 15px; font-size: 1.1em; font-weight: 600;">💼 Your Current Holdings - Action Recommendations</h4>
-                        <table style="width: 100%; border-collapse: collapse;">
+                        <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+                            <colgroup>
+                                <col style="width: 10%;">
+                                <col style="width: 8%;">
+                                <col style="width: 10%;">
+                                <col style="width: 10%;">
+                                <col style="width: 12%;">
+                                <col style="width: 15%;">
+                                <col style="width: 35%;">
+                            </colgroup>
                             <thead>
                                 <tr style="background: #fef3c7;">
                                     <th style="padding: 12px; text-align: left; border-bottom: 2px solid #f59e0b;">Stock</th>
@@ -3705,7 +3714,7 @@
                             <td style="padding: 12px; text-align: center; font-weight: 700; color: ${actionColor}; white-space: nowrap;">
                                 ${action}
                             </td>
-                            <td style="padding: 12px; font-size: 0.9em; color: #64748b;">
+                            <td style="padding: 12px; font-size: 0.9em; color: #64748b; word-wrap: break-word;">
                                 ${recommendation}
                             </td>
                         </tr>
