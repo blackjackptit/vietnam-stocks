@@ -54,7 +54,7 @@ def get_stock_current_price(symbol):
             sp.low,
             sp.close as price,
             sp.volume,
-            sp.change,
+            (sp.close - sp.open) as change,
             sp.change_percent
         FROM stocks s
         JOIN stock_prices sp ON s.id = sp.stock_id
@@ -83,7 +83,7 @@ def get_stock_history(symbol):
             sp.low,
             sp.close,
             sp.volume,
-            sp.change,
+            (sp.close - sp.open) as change,
             sp.change_percent
         FROM stocks s
         JOIN stock_prices sp ON s.id = sp.stock_id
@@ -111,7 +111,7 @@ def get_latest_prices():
             s.exchange,
             sp.date,
             sp.close as price,
-            sp.change,
+            (sp.close - sp.open) as change,
             sp.change_percent,
             sp.volume
         FROM stocks s
@@ -147,8 +147,8 @@ def get_latest():
             sp.low,
             sp.close,
             sp.volume,
-            sp.change,
-            sp.change_percent
+            sp.change_percent,
+            (sp.close - sp.open) as change
         FROM stocks s
         JOIN LATERAL (
             SELECT * FROM stock_prices
@@ -196,7 +196,7 @@ def get_top_gainers():
             s.symbol,
             s.name,
             sp.close as price,
-            sp.change,
+            (sp.close - sp.open) as change,
             sp.change_percent,
             sp.volume
         FROM stocks s
@@ -227,7 +227,7 @@ def get_top_losers():
             s.symbol,
             s.name,
             sp.close as price,
-            sp.change,
+            (sp.close - sp.open) as change,
             sp.change_percent,
             sp.volume
         FROM stocks s
@@ -315,7 +315,7 @@ def get_current_json(symbol):
         SELECT
             s.symbol,
             sp.close as price,
-            sp.change,
+            (sp.close - sp.open) as change,
             sp.change_percent,
             sp.volume,
             sp.high,
