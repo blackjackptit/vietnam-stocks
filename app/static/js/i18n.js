@@ -209,6 +209,7 @@ const translations = {
 
         // Portfolio/Advanced
         'portfolio.title': 'Portfolio Analytics',
+        'portfolio.plan_generator': '📊 Investment Plan Generator',
         'portfolio.subtitle': 'Advanced portfolio analysis and optimization',
         'portfolio.analyze_button': '📈 Analyze Portfolio',
         'portfolio.investment_budget': 'Investment Budget',
@@ -1740,6 +1741,7 @@ const translations = {
 
         // Portfolio/Advanced
         'portfolio.title': 'Phân Tích Danh Mục',
+        'portfolio.plan_generator': '📊 Trình Tạo Kế Hoạch Đầu Tư',
         'portfolio.subtitle': 'Phân tích và tối ưu hóa danh mục đầu tư nâng cao',
         'portfolio.analyze_button': '📈 Phân Tích Danh Mục',
         'portfolio.investment_budget': 'Ngân Sách Đầu Tư',
