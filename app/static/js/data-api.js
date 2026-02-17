@@ -63,9 +63,22 @@ const DataAPI = {
      */
     async getCurrentPrice(symbol) {
         try {
-            const response = await fetch(`${this.baseURL}/data/${symbol}_current.json`);
-            if (!response.ok) throw new Error(`No data for ${symbol}`);
-            return await response.json();
+            // Try API endpoint first (real-time data from database)
+            const response = await fetch(`${this.baseURL}/api/stock/${symbol}/current`);
+            if (response.ok) {
+                const result = await response.json();
+                if (result.success) {
+                    return result;
+                }
+            }
+
+            // Fallback to static JSON file if API fails
+            const fallbackResponse = await fetch(`${this.baseURL}/data/${symbol}_current.json`);
+            if (fallbackResponse.ok) {
+                return await fallbackResponse.json();
+            }
+
+            throw new Error(`No data for ${symbol}`);
         } catch (error) {
             console.error(`Error fetching current price for ${symbol}:`, error);
             return null;
@@ -75,11 +88,24 @@ const DataAPI = {
     /**
      * Get historical data for a stock
      */
-    async getHistoricalData(symbol) {
+    async getHistoricalData(symbol, days = 365) {
         try {
-            const response = await fetch(`${this.baseURL}/data/${symbol}_history.json`);
-            if (!response.ok) throw new Error(`No history for ${symbol}`);
-            return await response.json();
+            // Try API endpoint first (real-time data from database)
+            const response = await fetch(`${this.baseURL}/api/stock/${symbol}/history?days=${days}`);
+            if (response.ok) {
+                const result = await response.json();
+                if (result.success && result.data && result.data.length > 0) {
+                    return result.data;
+                }
+            }
+
+            // Fallback to static JSON file if API fails
+            const fallbackResponse = await fetch(`${this.baseURL}/data/${symbol}_history.json`);
+            if (fallbackResponse.ok) {
+                return await fallbackResponse.json();
+            }
+
+            throw new Error(`No history for ${symbol}`);
         } catch (error) {
             console.error(`Error fetching history for ${symbol}:`, error);
             return [];
