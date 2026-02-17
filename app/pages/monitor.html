@@ -573,7 +573,7 @@
             </div>
 
             <!-- Active Sessions -->
-            <div class="card">
+            <div class="card" id="sessionsCard" style="display: none;">
                 <div class="card-header">
                     <span class="card-icon">👥</span>
                     <h3 class="card-title" data-i18n="monitor.active_sessions">Active Sessions</h3>
@@ -584,7 +584,7 @@
             </div>
 
             <!-- Session Statistics -->
-            <div class="card">
+            <div class="card" id="sessionStatsCard" style="display: none;">
                 <div class="card-header">
                     <span class="card-icon">📊</span>
                     <h3 class="card-title" data-i18n="monitor.session_stats">Session Stats</h3>
@@ -595,7 +595,7 @@
             </div>
 
             <!-- Active Users Table -->
-            <div class="card full-width">
+            <div class="card full-width" id="activeUsersCard" style="display: none;">
                 <div class="card-header">
                     <span class="card-icon">🌐</span>
                     <h3 class="card-title" data-i18n="monitor.active_users">Active Users & Connections</h3>
@@ -610,7 +610,7 @@
             </div>
 
             <!-- User Activity Log -->
-            <div class="card full-width">
+            <div class="card full-width" id="userActivityCard" style="display: none;">
                 <div class="card-header">
                     <span class="card-icon">🎯</span>
                     <h3 class="card-title" data-i18n="monitor.user_activity">User Activity & Behavior</h3>
@@ -899,6 +899,24 @@
                 const statsResp = await fetch(`${API_BASE}/api/sessions/stats`);
                 const statsData = await statsResp.json();
 
+                // Check if we have any meaningful data
+                const hasPageViews = statsData.total_page_views > 0;
+                const hasActiveSessions = sessionsData.sessions && sessionsData.sessions.some(s => s.page_views > 0);
+
+                // Only show cards if we have actual user activity (not just API calls)
+                if (!hasPageViews && !hasActiveSessions) {
+                    // Hide all session cards - no user activity yet
+                    document.getElementById('sessionsCard').style.display = 'none';
+                    document.getElementById('sessionStatsCard').style.display = 'none';
+                    document.getElementById('activeUsersCard').style.display = 'none';
+                    return;
+                }
+
+                // Show cards since we have data
+                document.getElementById('sessionsCard').style.display = 'block';
+                document.getElementById('sessionStatsCard').style.display = 'block';
+                document.getElementById('activeUsersCard').style.display = 'block';
+
                 // Display active sessions count
                 document.getElementById('sessionsStatus').innerHTML = `
                     <div class="metric">
@@ -977,6 +995,18 @@
             try {
                 const response = await fetch(`${API_BASE}/api/sessions/activity?limit=20`);
                 const data = await response.json();
+
+                // Check if we have any page_view activities (not just API calls)
+                const hasUserActivity = data.activities && data.activities.some(a => a.type === 'page_view');
+
+                if (!hasUserActivity) {
+                    // Hide user activity card - no page views yet
+                    document.getElementById('userActivityCard').style.display = 'none';
+                    return;
+                }
+
+                // Show card since we have user activity
+                document.getElementById('userActivityCard').style.display = 'block';
 
                 let activityHTML = '';
                 if (data.activities.length === 0) {
