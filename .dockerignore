@@ -27,8 +27,8 @@ ENV/
 .gitignore
 .gitattributes
 
-# Documentation (not needed in container)
-docs/
+# Documentation (HTML docs are needed for footer links)
+# docs/ - REMOVED: HTML docs should be included
 *.md
 !README.md
 
