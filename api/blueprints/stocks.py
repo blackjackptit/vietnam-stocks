@@ -515,5 +515,6 @@ def get_stock_categories():
     return jsonify({
         'success': True,
         'categories': categories,
-        'total': len(categories['all'])
+        'total': len(categories['all']),
+        'total_stocks': len(categories['all'])
     })

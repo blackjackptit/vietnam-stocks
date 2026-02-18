@@ -69,14 +69,19 @@ async function loadStockCategories() {
             clearTimeout(fallbackTimeout);
             window.STOCK_CATEGORIES = data.categories;
 
-            // Build 'all' category (excluding commodities)
-            const allStockSymbols = [...new Set(Object.entries(window.STOCK_CATEGORIES)
-                .filter(([key]) => key !== 'commodities' && key !== 'all')
-                .flatMap(([_, symbols]) => symbols))];
-            window.STOCK_CATEGORIES.all = allStockSymbols.sort();
+            // Use total_stocks from API if available, otherwise calculate
+            if (data.total_stocks) {
+                window.TOTAL_STOCKS_COUNT = data.total_stocks;
+            } else {
+                // Build 'all' category (excluding commodities)
+                const allStockSymbols = [...new Set(Object.entries(window.STOCK_CATEGORIES)
+                    .filter(([key]) => key !== 'commodities' && key !== 'all')
+                    .flatMap(([_, symbols]) => symbols))];
+                window.STOCK_CATEGORIES.all = allStockSymbols.sort();
 
-            // Calculate total count
-            window.TOTAL_STOCKS_COUNT = [...new Set([...allStockSymbols, ...(window.STOCK_CATEGORIES.commodities || [])])].length;
+                // Calculate total count
+                window.TOTAL_STOCKS_COUNT = [...new Set([...allStockSymbols, ...(window.STOCK_CATEGORIES.commodities || [])])].length;
+            }
 
             window.categoriesLoaded = true;
             console.log(`✓ Stock Categories loaded from API: ${window.TOTAL_STOCKS_COUNT} total stocks`);
