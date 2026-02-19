@@ -1076,7 +1076,7 @@
                             <div id="smartStrategyCard" onclick="selectStrategy('smart')" style="cursor: pointer; padding: 20px; background: white; border: 3px solid #e2e8f0; border-radius: 12px; transition: all 0.3s;">
                                 <div style="text-align: center; margin-bottom: 15px;">
                                     <div style="font-size: 3.5em; margin-bottom: 10px;">🤖</div>
-                                    <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2em;">Smart Strategies</h4>
+                                    <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2em;" data-i18n="dashboard.smart_strategies">Smart Strategies</h4>
                                     <p style="color: #64748b; font-size: 0.9em; margin: 0;">AI-powered selection</p>
                                 </div>
                                 <div style="text-align: center; padding: 10px; background: #f1f5f9; border-radius: 6px; font-size: 0.85em; color: #475569;">
@@ -1087,7 +1087,7 @@
                             <div id="manualStrategyCard" onclick="selectStrategy('manual')" style="cursor: pointer; padding: 20px; background: white; border: 3px solid #e2e8f0; border-radius: 12px; transition: all 0.3s;">
                                 <div style="text-align: center; margin-bottom: 15px;">
                                     <div style="font-size: 3.5em; margin-bottom: 10px;">👤</div>
-                                    <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2em;">Manual Selection</h4>
+                                    <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2em;" data-i18n="dashboard.manual_selection">Manual Selection</h4>
                                     <p style="color: #64748b; font-size: 0.9em; margin: 0;">Pick stocks yourself</p>
                                 </div>
                                 <div style="text-align: center; padding: 10px; background: #f1f5f9; border-radius: 6px; font-size: 0.85em; color: #475569;">
@@ -1149,7 +1149,7 @@
                             <div id="existingPortfolioCard" onclick="selectPortfolioType('existing')" style="cursor: pointer; padding: 20px; background: white; border: 3px solid #e2e8f0; border-radius: 12px; transition: all 0.3s;">
                                 <div style="text-align: center; margin-bottom: 15px;">
                                     <div style="font-size: 3.5em; margin-bottom: 10px;">📂</div>
-                                    <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2em;">Existing Portfolio</h4>
+                                    <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2em;" data-i18n="dashboard.existing_portfolio">Existing Portfolio</h4>
                                     <p style="color: #64748b; font-size: 0.9em; margin: 0;">I already own stocks</p>
                                 </div>
                                 <div style="text-align: center; padding: 10px; background: #f1f5f9; border-radius: 6px; font-size: 0.85em; color: #475569;">
@@ -1160,7 +1160,7 @@
                             <div id="newPortfolioCard" onclick="selectPortfolioType('new')" style="cursor: pointer; padding: 20px; background: white; border: 3px solid #e2e8f0; border-radius: 12px; transition: all 0.3s;">
                                 <div style="text-align: center; margin-bottom: 15px;">
                                     <div style="font-size: 3.5em; margin-bottom: 10px;">✨</div>
-                                    <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2em;">New Portfolio</h4>
+                                    <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2em;" data-i18n="dashboard.new_portfolio">New Portfolio</h4>
                                     <p style="color: #64748b; font-size: 0.9em; margin: 0;">Starting fresh</p>
                                 </div>
                                 <div style="text-align: center; padding: 10px; background: #f1f5f9; border-radius: 6px; font-size: 0.85em; color: #475569;">
@@ -3663,13 +3663,13 @@
                             </colgroup>
                             <thead>
                                 <tr style="background: #fef3c7;">
-                                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #f59e0b;">Stock</th>
-                                    <th style="padding: 12px; text-align: right; border-bottom: 2px solid #f59e0b;">Shares</th>
-                                    <th style="padding: 12px; text-align: right; border-bottom: 2px solid #f59e0b;">Buy Price</th>
-                                    <th style="padding: 12px; text-align: right; border-bottom: 2px solid #f59e0b;">Current</th>
-                                    <th style="padding: 12px; text-align: right; border-bottom: 2px solid #f59e0b;">Profit/Loss</th>
-                                    <th style="padding: 12px; text-align: center; border-bottom: 2px solid #f59e0b;">Action</th>
-                                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #f59e0b;">Recommendation</th>
+                                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #f59e0b;" data-i18n="table.stock">Stock</th>
+                                    <th style="padding: 12px; text-align: right; border-bottom: 2px solid #f59e0b;" data-i18n="table.shares">Shares</th>
+                                    <th style="padding: 12px; text-align: right; border-bottom: 2px solid #f59e0b;" data-i18n="table.buy_price">Buy Price</th>
+                                    <th style="padding: 12px; text-align: right; border-bottom: 2px solid #f59e0b;" data-i18n="table.current">Current</th>
+                                    <th style="padding: 12px; text-align: right; border-bottom: 2px solid #f59e0b;" data-i18n="table.profit_loss">Profit/Loss</th>
+                                    <th style="padding: 12px; text-align: center; border-bottom: 2px solid #f59e0b;" data-i18n="table.action">Action</th>
+                                    <th style="padding: 12px; text-align: left; border-bottom: 2px solid #f59e0b;" data-i18n="table.recommendation">Recommendation</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -3746,13 +3746,13 @@
                 <table style="width: 100%; border-collapse: collapse;">
                     <thead>
                         <tr style="background: #f1f5f9;">
-                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #cbd5e1;">Stock</th>
-                            <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;">Allocation</th>
-                            <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;">Amount (VND)</th>
-                            <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;">Shares</th>
+                            <th style="padding: 12px; text-align: left; border-bottom: 2px solid #cbd5e1;" data-i18n="table.stock">Stock</th>
+                            <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;" data-i18n="table.allocation">Allocation</th>
+                            <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;" data-i18n="table.amount_vnd">Amount (VND)</th>
+                            <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;" data-i18n="table.shares">Shares</th>
                             <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;" data-i18n="table.price">Price</th>
-                            <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;">Exp. Return</th>
-                            <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;">Risk</th>
+                            <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;" data-i18n="table.exp_return">Exp. Return</th>
+                            <th style="padding: 12px; text-align: right; border-bottom: 2px solid #cbd5e1;" data-i18n="table.risk">Risk</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -4288,7 +4288,7 @@
             });
 
             // Generate risk table
-            let html = '<table><thead><tr><th>Stock</th><th>Beta</th><th>Volatility</th><th>VaR (95%)</th><th>Risk Grade</th></tr></thead><tbody>';
+            let html = '<table><thead><tr><th data-i18n="table.stock">Stock</th><th data-i18n="table.beta">Beta</th><th data-i18n="table.volatility">Volatility</th><th data-i18n="table.var_95">VaR (95%)</th><th data-i18n="table.risk_grade">Risk Grade</th></tr></thead><tbody>';
             stocks.forEach(symbol => {
                 const beta = (0.5 + Math.random() * 1.5).toFixed(2);
                 const vol = (15 + Math.random() * 20).toFixed(1);

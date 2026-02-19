@@ -553,6 +553,45 @@ const translations = {
         'table.volatility': 'Volatility',
         'table.var_95': 'VaR (95%)',
         'table.risk_grade': 'Risk Grade',
+        'table.pnl': 'P&L',
+        'table.pnl_percent': 'P&L %',
+        'table.rule': 'Rule',
+        'table.amount_vnd': 'Amount (VND)',
+
+        // Options
+        'option.strong_buy': 'STRONG BUY',
+        'option.buy': 'BUY',
+        'option.hold': 'HOLD',
+        'option.sell': 'SELL',
+        'option.strong_sell': 'STRONG SELL',
+        'option.all': 'All',
+        'option.1d': '1 Day',
+        'option.5d': '5 Days',
+        'option.1mo': '1 Month',
+        'option.3mo': '3 Months',
+        'option.6mo': '6 Months',
+        'option.1y': '1 Year',
+
+        // Monitor
+        'monitor.start_api_server': 'Start API Server',
+
+        // Settings Options
+        'settings.option.conservative': 'Conservative (Low Risk)',
+        'settings.option.moderate': 'Moderate (Balanced)',
+        'settings.option.aggressive': 'Aggressive (High Risk)',
+        'settings.option.5s_realtime': '5 seconds (Real-time)',
+        'settings.option.10s': '10 seconds',
+        'settings.option.30s': '30 seconds',
+        'settings.option.momentum': 'Momentum Trading',
+        'settings.option.mean_reversion': 'Mean Reversion',
+        'settings.option.trend_following': 'Trend Following',
+        'settings.option.value_investing': 'Value Investing',
+
+        // Strategy Panel
+        'dashboard.smart_strategies': 'Smart Strategies',
+        'dashboard.manual_selection': 'Manual Selection',
+        'dashboard.existing_portfolio': 'Existing Portfolio',
+        'dashboard.new_portfolio': 'New Portfolio',
 
         // Metric Labels
         'metric.total_return': 'Total Return',
@@ -752,6 +791,8 @@ const translations = {
 
         // Buttons
         'button.cancel': 'Cancel',
+        'button.close': 'Close',
+        'button.rename': '✏️ Rename',
         'button.create_alert': 'Create Alert',
         'button.reset_defaults': 'Reset to Defaults',
         'button.save_settings': 'Save Settings',
@@ -863,6 +904,7 @@ const translations = {
         'settings.realtime_frequency': 'Real-time Update Frequency',
         'settings.api_endpoint': 'API Endpoint',
         'settings.api_key': 'API Key',
+        'settings.api_key_hint': "Your broker's API key (kept secure)",
         'settings.theme': 'Theme',
         'settings.chart_type': 'Chart Type',
         'settings.default_timerange': 'Default Time Range',
@@ -2085,6 +2127,45 @@ const translations = {
         'table.volatility': 'Biến Động',
         'table.var_95': 'VaR (95%)',
         'table.risk_grade': 'Xếp Hạng Rủi Ro',
+        'table.pnl': 'Lãi/Lỗ',
+        'table.pnl_percent': 'Lãi/Lỗ %',
+        'table.rule': 'Quy Tắc',
+        'table.amount_vnd': 'Số Tiền (VND)',
+
+        // Options
+        'option.strong_buy': 'MUA MẠNH',
+        'option.buy': 'MUA',
+        'option.hold': 'GIỮ',
+        'option.sell': 'BÁN',
+        'option.strong_sell': 'BÁN MẠNH',
+        'option.all': 'Tất Cả',
+        'option.1d': '1 Ngày',
+        'option.5d': '5 Ngày',
+        'option.1mo': '1 Tháng',
+        'option.3mo': '3 Tháng',
+        'option.6mo': '6 Tháng',
+        'option.1y': '1 Năm',
+
+        // Monitor
+        'monitor.start_api_server': 'Khởi Động Máy Chủ API',
+
+        // Settings Options
+        'settings.option.conservative': 'Thận Trọng (Rủi Ro Thấp)',
+        'settings.option.moderate': 'Vừa Phải (Cân Bằng)',
+        'settings.option.aggressive': 'Tích Cực (Rủi Ro Cao)',
+        'settings.option.5s_realtime': '5 giây (Thời Gian Thực)',
+        'settings.option.10s': '10 giây',
+        'settings.option.30s': '30 giây',
+        'settings.option.momentum': 'Giao Dịch Động Lượng',
+        'settings.option.mean_reversion': 'Hồi Quy Trung Bình',
+        'settings.option.trend_following': 'Theo Xu Hướng',
+        'settings.option.value_investing': 'Đầu Tư Giá Trị',
+
+        // Strategy Panel
+        'dashboard.smart_strategies': 'Chiến Lược Thông Minh',
+        'dashboard.manual_selection': 'Chọn Thủ Công',
+        'dashboard.existing_portfolio': 'Danh Mục Hiện Có',
+        'dashboard.new_portfolio': 'Danh Mục Mới',
 
         // Metric Labels
         'metric.total_return': 'Tổng Lợi Nhuận',
@@ -2345,6 +2426,9 @@ const translations = {
         'trading.success_risk_saved': 'Đã lưu cài đặt quản lý rủi ro!',
 
         // Buttons
+        'button.cancel': 'Hủy',
+        'button.close': 'Đóng',
+        'button.rename': '✏️ Đổi Tên',
         'button.create_alert': 'Tạo Cảnh Báo',
         'button.reset_defaults': 'Đặt Lại Mặc Định',
         'button.save_settings': 'Lưu Cài Đặt',
@@ -2456,6 +2540,7 @@ const translations = {
         'settings.realtime_frequency': 'Tần Suất Cập Nhật Thời Gian Thực',
         'settings.api_endpoint': 'Điểm Cuối API',
         'settings.api_key': 'Khóa API',
+        'settings.api_key_hint': 'Khóa API của nhà môi giới (được bảo mật)',
         'settings.theme': 'Giao Diện',
         'settings.chart_type': 'Loại Biểu Đồ',
         'settings.default_timerange': 'Phạm Vi Thời Gian Mặc Định',
