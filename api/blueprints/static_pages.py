@@ -3,7 +3,7 @@ Static file serving and API documentation.
 3 routes: /, static files, /api docs
 """
 
-from flask import Blueprint, jsonify, send_file
+from flask import Blueprint, jsonify, send_file, make_response
 from pathlib import Path
 
 static_pages_bp = Blueprint('static_pages', __name__)
@@ -17,7 +17,10 @@ def index():
     """Serve the homepage"""
     homepage_path = BASE_DIR / 'app' / 'pages' / 'index.html'
     if homepage_path.exists():
-        return send_file(homepage_path)
+        response = make_response(send_file(homepage_path))
+        response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate'
+        response.headers['Pragma'] = 'no-cache'
+        return response
     else:
         return jsonify({
             "error": "Homepage not found",
@@ -41,7 +44,11 @@ def serve_static(filename):
 
     for file_path in search_paths:
         if file_path.exists() and file_path.is_file():
-            return send_file(file_path)
+            response = make_response(send_file(file_path))
+            if file_path.suffix == '.html':
+                response.headers['Cache-Control'] = 'no-store, no-cache, must-revalidate'
+                response.headers['Pragma'] = 'no-cache'
+            return response
 
     return jsonify({"error": f"File not found: {filename}"}), 404
 

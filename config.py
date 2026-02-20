@@ -113,7 +113,7 @@ DATA_COLLECTION = {
     'stock': {
         'enabled': os.getenv('STOCK_COLLECTION_ENABLED', 'true').lower() == 'true',
         'interval': int(os.getenv('STOCK_COLLECTION_INTERVAL', 3600)),  # seconds
-        'market_hours_only': os.getenv('STOCK_COLLECTION_MARKET_HOURS_ONLY', 'true').lower() == 'true',
+        'market_hours_only': os.getenv('STOCK_COLLECTION_MARKET_HOURS_ONLY', 'false').lower() == 'true',
         'end_of_day': os.getenv('STOCK_COLLECTION_END_OF_DAY', 'true').lower() == 'true',
     },
 
@@ -149,7 +149,7 @@ DATA_SOURCES = {
 
 # Rate limiting and retry configuration
 COLLECTION_CONFIG = {
-    'rate_limit_delay': float(os.getenv('COLLECTION_RATE_LIMIT_DELAY', 0.3)),
+    'rate_limit_delay': float(os.getenv('COLLECTION_RATE_LIMIT_DELAY', 3.1)),  # 20 req/min limit = ~3.1s per request
     'max_retries': int(os.getenv('COLLECTION_MAX_RETRIES', 3)),
     # Use platform-independent temp directory (works on Windows, Linux, Mac)
     'log_file': os.getenv('COLLECTION_LOG_FILE', os.path.join(tempfile.gettempdir(), 'stock_scheduler.log')),
