@@ -166,6 +166,111 @@ def get_latest_prices():
     })
 
 
+def _compute_technical_analysis(symbol, historical_data):
+    """Compute technical analysis and signals for a stock"""
+    if not historical_data or len(historical_data) < 5:
+        return {
+            'score': 0,
+            'recommendation': 'HOLD',
+            'emoji': '⚪',
+            'signals': [],
+            'indicators': {}
+        }
+
+    prices = [float(h['close']) for h in historical_data]
+    signals = []
+    score = 0
+
+    # 1. Detect support levels (local minima)
+    support_found = False
+    for i in range(2, len(prices) - 2):
+        if prices[i] < prices[i-1] and prices[i] < prices[i+1] and \
+           prices[i] < prices[i-2] and prices[i] < prices[i+2]:
+            signals.append(f"🟢 Support Level at {prices[i]:.0f}")
+            support_found = True
+            score += 15
+            break
+
+    # 2. Detect resistance levels (local maxima)
+    resistance_found = False
+    for i in range(2, len(prices) - 2):
+        if prices[i] > prices[i-1] and prices[i] > prices[i+1] and \
+           prices[i] > prices[i-2] and prices[i] > prices[i+2]:
+            signals.append(f"🔴 Resistance Level at {prices[i]:.0f}")
+            resistance_found = True
+            score -= 15
+            break
+
+    # 3. Detect trend direction (last 3+ price movements)
+    recent_uptrend = 0
+    recent_downtrend = 0
+    for i in range(len(prices) - 1, max(len(prices) - 5, 0), -1):
+        if i > 0:
+            if float(prices[i]) > float(prices[i-1]):
+                recent_uptrend += 1
+                recent_downtrend = 0
+            else:
+                recent_downtrend += 1
+                recent_uptrend = 0
+
+    if recent_uptrend >= 3:
+        signals.append("🟢 Recent Uptrend Detected")
+        score += 20
+    elif recent_downtrend >= 3:
+        signals.append("🔴 Recent Downtrend Detected")
+        score -= 20
+
+    # 4. Detect volatility
+    returns = []
+    for i in range(1, len(prices)):
+        # Convert to float to handle decimal.Decimal from database
+        price_i = float(prices[i])
+        price_i_1 = float(prices[i-1])
+        if price_i_1 != 0:
+            returns.append(abs((price_i - price_i_1) / price_i_1))
+
+    if returns:
+        avg_return = float(sum(returns) / len(returns))
+        recent_return = float(returns[-1])
+        if recent_return > avg_return * 1.5:
+            if float(prices[-1]) > float(prices[-2]):
+                signals.append("🟢 High Volatility with Upward Movement")
+                score += 10
+            else:
+                signals.append("🔴 High Volatility with Downward Movement")
+                score -= 10
+
+    # 5. Volume trend (if we have the data)
+    if len(historical_data) >= 2:
+        recent_vol = historical_data[-1].get('volume', 0)
+        prev_vol = historical_data[-2].get('volume', 0)
+        if prev_vol > 0 and recent_vol > prev_vol * 1.2:
+            signals.append("🟢 Volume Spike Detected")
+            score += 5
+
+    # Determine recommendation based on score
+    if score > 20:
+        recommendation = 'BUY'
+        emoji = '🟢'
+    elif score < -20:
+        recommendation = 'SELL'
+        emoji = '🔴'
+    else:
+        recommendation = 'HOLD'
+        emoji = '⚪'
+
+    return {
+        'score': score,
+        'recommendation': recommendation,
+        'emoji': emoji,
+        'signals': signals,
+        'indicators': {
+            'support_level': min(prices) if support_found else None,
+            'resistance_level': max(prices) if resistance_found else None
+        }
+    }
+
+
 @stocks_bp.route('/api/latest', methods=['GET'])
 def get_latest():
     """Get latest data for all stocks (compatibility endpoint for dashboard_history.html)"""
@@ -196,6 +301,28 @@ def get_latest():
     all_results = {}
     for row in prices:
         symbol = row['symbol']
+
+        # Get historical data for technical analysis
+        historical = query_db("""
+            SELECT
+                date,
+                open,
+                high,
+                low,
+                close,
+                volume
+            FROM stock_prices
+            WHERE stock_id = (SELECT id FROM stocks WHERE symbol = %s)
+            ORDER BY date DESC
+            LIMIT 60
+        """, (symbol,))
+
+        # Reverse to get chronological order
+        historical = list(reversed(historical)) if historical else []
+
+        # Compute technical analysis
+        analysis = _compute_technical_analysis(symbol, historical)
+
         all_results[symbol] = {
             'symbol': symbol,
             'name': row['name'],
@@ -207,7 +334,8 @@ def get_latest():
             'price': float(row['close']) if row['close'] else 0,
             'volume': int(row['volume']) if row['volume'] else 0,
             'change': float(row['change']) if row['change'] else 0,
-            'change_percent': float(row['change_percent']) if row['change_percent'] else 0
+            'change_percent': float(row['change_percent']) if row['change_percent'] else 0,
+            'analysis': analysis
         }
 
     return jsonify({
