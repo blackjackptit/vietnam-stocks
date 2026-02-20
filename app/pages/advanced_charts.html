@@ -1271,6 +1271,8 @@
             try {
                 const historicalData = await DataAPI.getHistoricalData(stock);
                 console.log(`Loaded ${historicalData?.length || 0} historical records for ${stock}`);
+                console.log(`First record:`, historicalData?.[0]);
+                console.log(`Last record (TODAY):`, historicalData?.[historicalData.length - 1]);
 
                 if (!historicalData || historicalData.length === 0) {
                     alert(t('msg.no_data_for_stock', {stock}));
@@ -1280,12 +1282,15 @@
                 // Convert API data format to chart format and limit to timeframe
                 const data = historicalData.slice(-days).map(item => ({
                     date: new Date(item.date),
-                    open: item.open,
-                    high: item.high,
-                    low: item.low,
-                    close: item.close,
-                    volume: item.volume
+                    open: parseFloat(item.open),
+                    high: parseFloat(item.high),
+                    low: parseFloat(item.low),
+                    close: parseFloat(item.close),
+                    volume: parseInt(item.volume)
                 }));
+                console.log(`Raw API last 3 records:`, historicalData.slice(-3));
+                console.log(`Parsed chart data (${data.length} records):`, data.slice(-3));
+                console.log(`Date check: last date object =`, data[data.length-1]?.date, `ISO =`, data[data.length-1]?.date?.toISOString());
 
                 console.log(`Processing ${data.length} records for ${timeframe} timeframe`);
 
@@ -1326,17 +1331,31 @@
             const ma20 = calculateMA(data.map(d => d.close), 20);
             const ma50 = calculateMA(data.map(d => d.close), 50);
 
+            // Debug: check labels
+            const labels = data.map(d => d.date.toLocaleDateString());
+            const closeData = data.map(d => d.close);
+            console.log(`Chart labels (last 5):`, labels.slice(-5));
+            console.log(`Chart close prices (last 5):`, closeData.slice(-5));
+            console.log(`Total data points to render: ${data.length}`);
+            console.log(`Total labels: ${labels.length}`);
+            console.log(`Total close prices: ${closeData.length}`);
+
             charts.candlestick = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: data.map(d => d.date.toLocaleDateString()),
+                    labels: labels,
                     datasets: [{
                         label: 'Close Price',
-                        data: data.map(d => d.close),
+                        data: closeData,
                         borderColor: '#3498db',
                         backgroundColor: 'rgba(52, 152, 219, 0.1)',
                         borderWidth: 2,
-                        fill: true
+                        fill: true,
+                        pointRadius: 4,
+                        pointBackgroundColor: '#3498db',
+                        pointBorderColor: '#2c3e50',
+                        pointBorderWidth: 1,
+                        pointHoverRadius: 6
                     }, {
                         label: 'MA20',
                         data: ma20,
@@ -1358,9 +1377,26 @@
                         title: {
                             display: true,
                             text: `${currentStock} - Candlestick Chart`
+                        },
+                        filler: {
+                            propagate: true
                         }
                     },
                     scales: {
+                        x: {
+                            type: 'category',
+                            ticks: {
+                                autoSkip: false,
+                                maxRotation: 45,
+                                minRotation: 0,
+                                callback: function(value, index) {
+                                    // Show every label (no skipping)
+                                    return labels[index] || '';
+                                }
+                            },
+                            min: 0,
+                            max: labels.length - 1
+                        },
                         y: {
                             ticks: {
                                 callback: function(value) {
