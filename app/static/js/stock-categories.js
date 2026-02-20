@@ -51,22 +51,21 @@ function applyFallbackCategories() {
 
 // Load stock categories from API
 async function loadStockCategories() {
-    // Set a timeout to use fallback if API takes too long
-    const fallbackTimeout = setTimeout(() => {
-        if (!window.categoriesLoaded) {
-            console.warn('API timeout - using fallback data immediately');
-            applyFallbackCategories();
-        }
-    }, 2000); // Use fallback after 2 seconds
+    // Don't use early timeout - wait for API response
+    // The fallback is already applied on page load, so we just need to try to replace it
 
     try {
         // Use API_BASE_URL to ensure correct port (5000)
         const apiUrl = window.API_BASE_URL ? `${window.API_BASE_URL}/api/stock-categories` : '/api/stock-categories';
-        const response = await fetch(apiUrl, { timeout: 3000 });
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 5000); // 5 second timeout for API
+
+        const response = await fetch(apiUrl, { signal: controller.signal });
+        clearTimeout(timeout);
+
         const data = await response.json();
 
         if (data && data.categories) {
-            clearTimeout(fallbackTimeout);
             window.STOCK_CATEGORIES = data.categories;
 
             // Use total_stocks from API if available, otherwise calculate
@@ -85,11 +84,13 @@ async function loadStockCategories() {
 
             window.categoriesLoaded = true;
             console.log(`✓ Stock Categories loaded from API: ${window.TOTAL_STOCKS_COUNT} total stocks`);
+
+            // Trigger page refresh event to update UI with new data
+            window.dispatchEvent(new Event('categoriesUpdated'));
             return true;
         }
     } catch (error) {
         console.warn('Failed to load categories from API, using fallback data:', error);
-        clearTimeout(fallbackTimeout);
     }
 
     // Fallback to hardcoded data if not already loaded

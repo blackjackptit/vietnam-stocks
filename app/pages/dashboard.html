@@ -1042,6 +1042,21 @@
                     }
                 }, 100);
 
+                // Listen for categories update from API (in case it loads later than fallback)
+                window.addEventListener('categoriesUpdated', () => {
+                    console.log(`📊 Stock categories updated from API: ${window.TOTAL_STOCKS_COUNT} total stocks`);
+                    // Refresh the grid to show new data
+                    renderStockGrid();
+                    // Update the monitoring description with new count
+                    const descEl = document.querySelector('[data-i18n="dashboard.monitoring_desc"]');
+                    if (descEl) {
+                        const countSpan = descEl.querySelector('span');
+                        if (countSpan) {
+                            countSpan.textContent = window.TOTAL_STOCKS_COUNT;
+                        }
+                    }
+                });
+
                 renderStockGrid();
                 updateSelectedCount();
                 startPolling();
