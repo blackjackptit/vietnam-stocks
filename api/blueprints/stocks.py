@@ -302,27 +302,6 @@ def get_latest():
     for row in prices:
         symbol = row['symbol']
 
-        # Get historical data for technical analysis
-        historical = query_db("""
-            SELECT
-                date,
-                open,
-                high,
-                low,
-                close,
-                volume
-            FROM stock_prices
-            WHERE stock_id = (SELECT id FROM stocks WHERE symbol = %s)
-            ORDER BY date DESC
-            LIMIT 60
-        """, (symbol,))
-
-        # Reverse to get chronological order
-        historical = list(reversed(historical)) if historical else []
-
-        # Compute technical analysis
-        analysis = _compute_technical_analysis(symbol, historical)
-
         all_results[symbol] = {
             'symbol': symbol,
             'name': row['name'],
@@ -335,7 +314,7 @@ def get_latest():
             'volume': int(row['volume']) if row['volume'] else 0,
             'change': float(row['change']) if row['change'] else 0,
             'change_percent': float(row['change_percent']) if row['change_percent'] else 0,
-            'analysis': analysis
+            'analysis': {}  # Empty analysis - use /api/stock-analysis endpoint
         }
 
     return jsonify({
@@ -344,6 +323,50 @@ def get_latest():
         'total': len(all_results),
         'timestamp': datetime.now().isoformat()
     })
+
+
+@stocks_bp.route('/api/stock-analysis/<symbol>', methods=['GET'])
+def get_stock_analysis(symbol):
+    """Get technical analysis for a specific stock"""
+    try:
+        # Get historical data for the stock (last 60 days)
+        historical = query_db("""
+            SELECT
+                date,
+                open,
+                high,
+                low,
+                close,
+                volume
+            FROM stock_prices
+            WHERE stock_id = (SELECT id FROM stocks WHERE symbol = %s)
+            ORDER BY date DESC
+            LIMIT 60
+        """, (symbol.upper(),))
+
+        if not historical:
+            return jsonify({
+                'success': False,
+                'error': f'No data found for {symbol}'
+            }), 404
+
+        # Reverse to get chronological order
+        historical = list(reversed(historical))
+
+        # Compute technical analysis
+        analysis = _compute_technical_analysis(symbol, historical)
+
+        return jsonify({
+            'success': True,
+            'symbol': symbol,
+            'analysis': analysis
+        })
+    except Exception as e:
+        logger.error(f"Error computing analysis for {symbol}: {e}")
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
 
 
 @stocks_bp.route('/api/top-gainers', methods=['GET'])

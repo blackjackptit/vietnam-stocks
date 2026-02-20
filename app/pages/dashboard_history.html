@@ -1583,53 +1583,82 @@
             // Support both single stock and array of stocks
             const stocks = Array.isArray(allStockData) ? allStockData : [allStockData];
 
-            let html = '';
+            // Show loading state
+            const analysisPanel = document.getElementById('analysisPanel');
+            analysisPanel.innerHTML = `
+                <div style="text-align: center; padding: 40px;">
+                    <p style="color: #64748b;">Loading technical analysis...</p>
+                </div>
+            `;
 
-            stocks.forEach((stockData, index) => {
-                const symbol = stockData.symbol || `Stock ${index + 1}`;
-                const analysis = stockData.analysis || {};
-                const signals = analysis.signals || [];
+            // Fetch analysis for each stock
+            Promise.all(stocks.map(stockData =>
+                fetch(`${window.API_BASE_URL || ''}/api/stock-analysis/${stockData.symbol}`)
+                    .then(r => r.json())
+                    .then(data => ({
+                        symbol: stockData.symbol,
+                        analysis: data.analysis || {}
+                    }))
+                    .catch(err => ({
+                        symbol: stockData.symbol,
+                        analysis: {}
+                    }))
+            )).then(results => {
+                let html = '';
 
-                const recClass = analysis.score > 20 ? 'buy' : analysis.score < -20 ? 'sell' : 'hold';
-                const recText = analysis.recommendation || 'HOLD';
+                results.forEach((result, index) => {
+                    const symbol = result.symbol;
+                    const analysis = result.analysis || {};
+                    const signals = analysis.signals || [];
 
-                html += `
-                    <div style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #e5e7eb;">
-                        <h4 style="font-size: 1.2em; font-weight: 700; color: #1f2937; margin-bottom: 15px;">
-                            📈 ${symbol} Analysis
-                        </h4>
+                    const recClass = analysis.score > 20 ? 'buy' : analysis.score < -20 ? 'sell' : 'hold';
+                    const recText = analysis.recommendation || 'HOLD';
 
-                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px;">
-                            <div style="padding: 20px; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-left: 4px solid #dc2626; border-radius: 8px;">
-                                <div style="font-size: 0.85em; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Recommendation</div>
-                                <div class="recommendation-badge ${recClass}" style="display: inline-block;">
-                                    ${analysis.emoji || '⚪'} ${recText}
+                    html += `
+                        <div style="margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid #e5e7eb;">
+                            <h4 style="font-size: 1.2em; font-weight: 700; color: #1f2937; margin-bottom: 15px;">
+                                📈 ${symbol} Analysis
+                            </h4>
+
+                            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px;">
+                                <div style="padding: 20px; background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%); border-left: 4px solid #dc2626; border-radius: 8px;">
+                                    <div style="font-size: 0.85em; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Recommendation</div>
+                                    <div class="recommendation-badge ${recClass}" style="display: inline-block;">
+                                        ${analysis.emoji || '⚪'} ${recText}
+                                    </div>
+                                </div>
+                                <div style="padding: 20px; background: linear-gradient(135deg, #f8fafc 0%, #e5e7eb 100%); border-left: 4px solid #64748b; border-radius: 8px;">
+                                    <div style="font-size: 0.85em; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Technical Score</div>
+                                    <div style="font-size: 1.8em; font-weight: 700; color: #1f2937;">${analysis.score || 0}</div>
                                 </div>
                             </div>
-                            <div style="padding: 20px; background: linear-gradient(135deg, #f8fafc 0%, #e5e7eb 100%); border-left: 4px solid #64748b; border-radius: 8px;">
-                                <div style="font-size: 0.85em; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px;">Technical Score</div>
-                                <div style="font-size: 1.8em; font-weight: 700; color: #1f2937;">${analysis.score || 0}</div>
+
+                            <div class="analysis-panel">
+                                <h3 data-i18n="section.technical_signals" style="text-align: left;">📊 Technical Signals</h3>
+                                <ul class="signal-list">
+                                    ${signals.length > 0 ?
+                                        signals.map(signal => {
+                                            const icon = signal.includes('🟢') ? '🟢' :
+                                                       signal.includes('🔴') ? '🔴' : '⚪';
+                                            return `<li><span class="signal-icon">${icon}</span> ${signal.replace(/🟢|🔴|⚪/g, '').trim()}</li>`;
+                                        }).join('')
+                                        : '<li style="color: #64748b;">No signals detected</li>'
+                                    }
+                                </ul>
                             </div>
                         </div>
+                    `;
+                });
 
-                        <div class="analysis-panel">
-                            <h3 data-i18n="section.technical_signals" style="text-align: left;">📊 Technical Signals</h3>
-                            <ul class="signal-list">
-                                ${signals.length > 0 ?
-                                    signals.map(signal => {
-                                        const icon = signal.includes('🟢') ? '🟢' :
-                                                   signal.includes('🔴') ? '🔴' : '⚪';
-                                        return `<li><span class="signal-icon">${icon}</span> ${signal.replace(/🟢|🔴|⚪/g, '').trim()}</li>`;
-                                    }).join('')
-                                    : '<li style="color: #64748b;">No signals detected</li>'
-                                }
-                            </ul>
-                        </div>
+                analysisPanel.innerHTML = html;
+            }).catch(err => {
+                console.error('Error loading analysis:', err);
+                analysisPanel.innerHTML = `
+                    <div style="text-align: center; padding: 40px; color: #dc2626;">
+                        <p>Error loading technical analysis</p>
                     </div>
                 `;
             });
-
-            document.getElementById('analysisPanel').innerHTML = html;
         }
 
         function renderStatistics(allHistories) {
