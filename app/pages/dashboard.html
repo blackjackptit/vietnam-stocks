@@ -1237,7 +1237,7 @@
                 lastDataHash = dataHash;
 
                 latestData = data;
-                displayData(data);
+                await displayData(data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -1273,7 +1273,7 @@
             };
         }
 
-        function displayData(data) {
+        async function displayData(data) {
             // Update timestamp
             const timestamp = new Date(data.timestamp);
             const options = {
@@ -1293,25 +1293,56 @@
 
             // Support both 'all_results' and 'stocks' property names
             const allData = data.all_results || data.stocks || {};
+
+            // First pass: populate basic data
             Object.entries(allData).forEach(([symbol, result]) => {
                 if (watchlist.includes(symbol)) {
-                    // Calculate technical analysis if not present
-                    if (!result.analysis) {
+                    // Use fallback analysis for now
+                    if (!result.analysis || !result.analysis.score) {
                         result.analysis = calculateTechnicalAnalysis(result);
                     }
                     filteredResults[symbol] = result;
                 }
             });
 
-            // Update summary
-            const allStocks = Object.values(filteredResults);
+            // Fetch detailed analysis for each stock asynchronously
+            Promise.all(watchlist.map(symbol =>
+                fetch(`${window.API_BASE_URL || ''}/api/stock-analysis/${symbol}`)
+                    .then(r => r.json())
+                    .then(data => {
+                        if (data.success && filteredResults[symbol]) {
+                            filteredResults[symbol].analysis = data.analysis;
+                        }
+                    })
+                    .catch(err => console.warn(`Error fetching analysis for ${symbol}:`, err))
+            )).then(() => {
+                // After all analysis data is loaded, update displays
+                updateDashboardDisplays(Object.values(filteredResults));
+            });
+
+            // Update summary with current data (will be updated again when analysis loads)
+            updateDashboardDisplays(Object.values(filteredResults));
+        }
+
+        function updateDashboardDisplays(allStocks) {
+            if (!allStocks || allStocks.length === 0) return;
+
             document.getElementById('totalStocks').textContent = allStocks.length;
 
             const counts = {
-                strongBuy: allStocks.filter(s => s.analysis?.recommendation === 'STRONG BUY').length,
+                strongBuy: allStocks.filter(s => {
+                    const rec = s.analysis?.recommendation || s.analysis?.emoji;
+                    return rec === 'STRONG BUY' || rec === '🟢';
+                }).length,
                 buy: allStocks.filter(s => s.analysis?.recommendation === 'BUY').length,
-                hold: allStocks.filter(s => s.analysis?.recommendation === 'HOLD').length,
-                sell: allStocks.filter(s => s.analysis?.recommendation === 'SELL').length
+                hold: allStocks.filter(s => {
+                    const rec = s.analysis?.recommendation;
+                    return rec === 'HOLD' || rec === undefined;
+                }).length,
+                sell: allStocks.filter(s => {
+                    const rec = s.analysis?.recommendation;
+                    return rec === 'SELL' || rec === 'STRONG SELL';
+                }).length
             };
 
             document.getElementById('strongBuyCount').textContent = counts.strongBuy;
@@ -1329,6 +1360,15 @@
             renderRSIChart(allStocks);
             renderSectorChart(allStocks);
             renderPriceVolumeChart(allStocks);
+            const timestamp = new Date().toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
             renderStockTable(allStocks, timestamp);
         }
 
