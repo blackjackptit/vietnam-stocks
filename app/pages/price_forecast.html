@@ -4280,6 +4280,45 @@
                 if (arrow) arrow.textContent = '▼';
             }
         });
+
+        // Update prediction chart when model selection changes
+        const modelSelectElement = document.getElementById('modelSelect');
+        if (modelSelectElement) {
+            modelSelectElement.addEventListener('change', function() {
+                // Only update if forecast has already been generated (data exists)
+                if (Object.keys(forecastData).length > 0) {
+                    const modelType = this.value;
+                    const historicalStockDataCache = {};
+
+                    // Rebuild historical data for each stock in the forecast
+                    for (const symbol of Object.keys(forecastData)) {
+                        if (historicalStockData[symbol]) {
+                            historicalStockDataCache[symbol] = generateHistoricalData(symbol, 60);
+                        }
+                    }
+
+                    // Regenerate forecasts with new model
+                    const forecastDays = parseInt(document.getElementById('forecastDays').value);
+                    const updatedForecasts = {};
+
+                    for (const symbol of Object.keys(forecastData)) {
+                        if (historicalStockDataCache[symbol]) {
+                            const forecast = generateForecastData(historicalStockDataCache[symbol], forecastDays, modelType);
+                            updatedForecasts[symbol] = forecast;
+                        }
+                    }
+
+                    // Update the forecast data and refresh displays
+                    forecastData = updatedForecasts;
+                    displayForecastChart(historicalStockDataCache, updatedForecasts);
+                    displayForecastMetrics(updatedForecasts);
+                    displayModelComparison(Object.values(updatedForecasts)[0].models);
+                    displayPredictionsTable(updatedForecasts);
+
+                    console.log('✅ Forecast chart updated with model:', modelType);
+                }
+            });
+        }
     </script>
 
     <footer class="footer">
