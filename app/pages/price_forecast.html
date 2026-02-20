@@ -1127,6 +1127,8 @@
         let charts = {};
         let allStocks = [];
         let stockNames = {}; // Stock symbol to name mapping
+        let cachedEvaluationMetrics = null; // Cache evaluation metrics to prevent recalculation with random noise
+        let cachedEvaluationModel = null; // Track which model metrics were cached for
 
         const stockColors = [
             '#c41c16', '#10b981', '#ef4444', '#f59e0b', '#991b1b',
@@ -1492,6 +1494,12 @@
         }
 
         function generateForecast() {
+            // Clear cached evaluation metrics when generating new forecast
+            // This ensures fresh calculations with new random noise
+            cachedEvaluationMetrics = null;
+            cachedEvaluationModel = null;
+            console.log('🔄 Cleared cached evaluation metrics for new forecast');
+
             // Check if stocks are selected
             const checkboxes = document.querySelectorAll('#stockSelect input[type="checkbox"]:checked');
             const currentlySelected = Array.from(checkboxes).map(cb => cb.value);
@@ -3169,6 +3177,14 @@
             // For evaluation, we'll use the last N days of historical data as "actual" values
             // and compare them with predictions made from earlier data
 
+            // Check cache first - if same model and data, reuse cached metrics
+            const evaluationModel = modelType || document.getElementById('evaluationModelSelect')?.value || document.getElementById('modelSelect').value;
+            if (cachedEvaluationMetrics && cachedEvaluationModel === evaluationModel) {
+                console.log('✅ Using cached evaluation metrics for model:', evaluationModel);
+                displayEvaluationResults(cachedEvaluationMetrics, evaluationModel);
+                return;
+            }
+
             // Validate input
             if (!allHistoricals || typeof allHistoricals !== 'object') {
                 console.error('Invalid allHistoricals:', allHistoricals);
@@ -3491,6 +3507,17 @@
             if (errorDistChartContainer) errorDistChartContainer.style.display = 'block';
             if (effectivenessDiv) effectivenessDiv.style.display = 'block';
 
+            // Cache metrics to prevent recalculation with random noise on subsequent calls
+            cachedEvaluationMetrics = {
+                avgMetrics: avgMetrics,
+                allMetrics: allMetrics,
+                allErrors: allErrors,
+                successfulEvaluations: successfulEvaluations,
+                skippedStocks: skippedStocks
+            };
+            cachedEvaluationModel = evaluationModel;
+            console.log('💾 Cached evaluation metrics for model:', evaluationModel);
+
             // Display metrics
             console.log('Displaying accuracy metrics...', avgMetrics);
             displayAccuracyMetrics(avgMetrics, allMetrics);
@@ -3535,6 +3562,28 @@
 
             console.log('=== displayPredictionEvaluation END - SUCCESS ===');
             console.log(`Generated metrics for ${allMetrics.length} stocks`);
+        }
+
+        function displayEvaluationResults(cachedData, modelType) {
+            // Helper function to display evaluation results from cache
+            const { avgMetrics, allMetrics, allErrors, successfulEvaluations, skippedStocks } = cachedData;
+
+            // Show chart containers
+            const evaluationChartContainer = document.getElementById('evaluationChart')?.parentElement;
+            const errorDistChartContainer = document.getElementById('errorDistributionChart')?.parentElement;
+            const effectivenessDiv = document.getElementById('effectivenessScore');
+
+            if (evaluationChartContainer) evaluationChartContainer.style.display = 'block';
+            if (errorDistChartContainer) errorDistChartContainer.style.display = 'block';
+            if (effectivenessDiv) effectivenessDiv.style.display = 'block';
+
+            // Display all components
+            displayAccuracyMetrics(avgMetrics, allMetrics);
+            displayEvaluationChart(allMetrics, modelType);
+            displayEffectivenessScore(avgMetrics, modelType);
+            displayErrorDistribution(allErrors);
+
+            console.log('✅ Displayed cached evaluation results for model:', modelType);
         }
 
         function displayAccuracyMetrics(avgMetrics, allMetrics) {
