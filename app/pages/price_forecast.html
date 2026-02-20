@@ -2663,6 +2663,16 @@
         function detectAnomalies(prices, mean, stdDev, ucl, lcl) {
             const anomalies = [];
 
+            console.log(`Anomaly Detection Debug:`, {
+                priceCount: prices.length,
+                mean: mean.toFixed(2),
+                stdDev: stdDev.toFixed(2),
+                ucl: ucl.toFixed(2),
+                lcl: lcl.toFixed(2),
+                minPrice: Math.min(...prices).toFixed(2),
+                maxPrice: Math.max(...prices).toFixed(2)
+            });
+
             // 1. Out of control points
             prices.forEach((price, i) => {
                 if (price > ucl) {
@@ -2671,19 +2681,25 @@
                     anomalies.push({ type: 'out_low', index: i, severity: 'high' });
                 }
             });
+            console.log(`Out of control points: ${anomalies.length}`);
 
             // 2. Trend detection (7+ consecutive increasing or decreasing)
             for (let i = 6; i < prices.length; i++) {
                 let increasing = true, decreasing = true;
-                for (let j = 0; j < 7; j++) {
+                // Check 7 consecutive points from most recent backwards
+                for (let j = 0; j < 6; j++) {
+                    // For increasing: later price (lower index) > earlier price (higher index)
                     if (prices[i - j] <= prices[i - j - 1]) increasing = false;
+                    // For decreasing: later price (lower index) < earlier price (higher index)
                     if (prices[i - j] >= prices[i - j - 1]) decreasing = false;
                 }
                 if (increasing) {
                     anomalies.push({ type: 'uptrend', index: i, severity: 'medium' });
+                    console.log(`✓ Uptrend detected at index ${i}`);
                 }
                 if (decreasing) {
                     anomalies.push({ type: 'downtrend', index: i, severity: 'medium' });
+                    console.log(`✓ Downtrend detected at index ${i}`);
                 }
             }
 
@@ -2696,9 +2712,11 @@
                 }
                 if (allAbove) {
                     anomalies.push({ type: 'shift_high', index: i, severity: 'medium' });
+                    console.log(`✓ Shift high detected at index ${i}, mean=${mean}`);
                 }
                 if (allBelow) {
                     anomalies.push({ type: 'shift_low', index: i, severity: 'medium' });
+                    console.log(`✓ Shift low detected at index ${i}, mean=${mean}`);
                 }
             }
 
@@ -2729,6 +2747,22 @@
             const hasDowntrend = analysis.anomalies.some(a => a.type === 'downtrend');
             const shiftHigh = analysis.anomalies.some(a => a.type === 'shift_high');
             const shiftLow = analysis.anomalies.some(a => a.type === 'shift_low');
+
+            // Debug: log detected patterns
+            console.log(`Pattern Detection Debug for ${symbol}:`, {
+                totalAnomalies: analysis.anomalies.length,
+                outOfControlHigh,
+                outOfControlLow,
+                hasUptrend,
+                hasDowntrend,
+                shiftHigh,
+                shiftLow,
+                recentTrend: analysis.recentTrend,
+                isOverSold: analysis.isOverSold,
+                isOverBought: analysis.isOverBought,
+                forecastTrend,
+                anomalies: analysis.anomalies.map(a => a.type)
+            });
 
             // BUY signals
             if (analysis.isOverSold) {
