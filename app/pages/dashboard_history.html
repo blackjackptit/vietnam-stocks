@@ -913,6 +913,26 @@
                 }
             }, 100);
 
+            // Check if a symbol was passed via URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const symbolParam = urlParams.get('symbol');
+            if (symbolParam) {
+                const symbol = symbolParam.toUpperCase();
+                console.log(`📌 Auto-selecting stock from URL parameter: ${symbol}`);
+
+                // Wait a bit for DOM to be ready
+                setTimeout(() => {
+                    const checkbox = document.getElementById(`hist_${symbol}`);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                        updateHistorySelectionCount();
+                        console.log(`✅ Stock ${symbol} auto-selected`);
+                    } else {
+                        console.warn(`⚠️ Stock ${symbol} not found in list`);
+                    }
+                }, 500);
+            }
+
             // Initialize collapsible sections
             if (typeof initializeCollapsibleSections === 'function') {
                 initializeCollapsibleSections();
