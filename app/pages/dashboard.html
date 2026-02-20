@@ -1294,6 +1294,8 @@
             // Support both 'all_results' and 'stocks' property names
             const allData = data.all_results || data.stocks || {};
 
+            console.log(`📥 displayData: API has ${Object.keys(allData).length} stocks, watchlist: ${watchlist.join(', ')}`);
+
             // First pass: populate basic data
             Object.entries(allData).forEach(([symbol, result]) => {
                 if (watchlist.includes(symbol)) {
@@ -1325,8 +1327,12 @@
         }
 
         function updateDashboardDisplays(allStocks) {
-            if (!allStocks || allStocks.length === 0) return;
+            if (!allStocks || allStocks.length === 0) {
+                console.warn('⚠️ updateDashboardDisplays called with empty stocks array. Selected stocks:', [...selectedStocks]);
+                return;
+            }
 
+            console.log(`📊 Updating dashboard displays with ${allStocks.length} stocks`);
             document.getElementById('totalStocks').textContent = allStocks.length;
 
             const counts = {
@@ -1360,15 +1366,7 @@
             renderRSIChart(allStocks);
             renderSectorChart(allStocks);
             renderPriceVolumeChart(allStocks);
-            const timestamp = new Date().toLocaleString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: false
-            });
+            const timestamp = new Date(); // Pass Date object, not string
             renderStockTable(allStocks, timestamp);
         }
 
@@ -1806,10 +1804,25 @@
         function renderStockTable(stocks, dataTimestamp) {
             const tbody = document.getElementById('stockTableBody');
 
+            // Check if stocks array is empty or invalid
+            if (!stocks || stocks.length === 0) {
+                console.warn('⚠️ No stocks to display in detailed analysis table');
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="11" style="text-align: center; padding: 40px; color: #64748b; font-size: 0.95em;">
+                            📊 Select stocks from the watchlist above and click "Apply Watchlist" to see detailed analysis
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
             const sorted = stocks.sort((a, b) => (b.analysis?.score || 0) - (a.analysis?.score || 0));
 
             // Format timestamp once for all rows
-            const timeString = dataTimestamp.toLocaleTimeString('en-US', {
+            // Handle both Date objects and strings
+            const timestamp = dataTimestamp instanceof Date ? dataTimestamp : new Date(dataTimestamp);
+            const timeString = timestamp.toLocaleTimeString('en-US', {
                 hour: '2-digit',
                 minute: '2-digit',
                 second: '2-digit',
