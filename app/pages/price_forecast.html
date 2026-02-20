@@ -4336,7 +4336,13 @@
                     displayModelComparison(Object.values(updatedForecasts)[0].models);
                     displayPredictionsTable(updatedForecasts);
 
-                    console.log('✅ Forecast chart updated with model:', modelType);
+                    // Also update evaluation metrics with new model
+                    if (evaluationHistoricals && Object.keys(evaluationHistoricals).length > 0) {
+                        console.log('🔄 Updating evaluation metrics with model:', modelType);
+                        displayPredictionEvaluation(evaluationHistoricals, null, modelType);
+                    }
+
+                    console.log('✅ Forecast chart and evaluation metrics updated with model:', modelType);
                 }
             });
         }
