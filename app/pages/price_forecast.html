@@ -1143,6 +1143,27 @@
         async function init() {
             await loadStockNames();
             await loadStockList();
+
+            // Check if a symbol was passed via URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const symbolParam = urlParams.get('symbol');
+            if (symbolParam) {
+                const symbol = symbolParam.toUpperCase();
+                console.log(`📌 Auto-selecting stock from URL parameter: ${symbol}`);
+
+                // Wait a bit for DOM to be ready
+                setTimeout(() => {
+                    const checkbox = document.getElementById(`fcast_${symbol}`);
+                    if (checkbox) {
+                        checkbox.checked = true;
+                        updateForecastSelectionCount();
+                        updateSelection();
+                        console.log(`✅ Stock ${symbol} auto-selected`);
+                    } else {
+                        console.warn(`⚠️ Stock ${symbol} not found in list`);
+                    }
+                }, 500);
+            }
         }
 
         // Load stock names from API

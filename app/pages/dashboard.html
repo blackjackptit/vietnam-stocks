@@ -1005,11 +1005,11 @@
                                 <th data-i18n="table.recommendation">Recommendation</th>
                                 <th data-i18n="table.signals">Signals</th>
                                 <th data-i18n="table.last_update">Last Update</th>
-                                <th data-i18n="table.chart">Chart</th>
+                                <th data-i18n="table.actions">Actions</th>
                             </tr>
                         </thead>
                         <tbody id="stockTableBody">
-                            <tr><td colspan="11" class="loading" data-i18n="common.waiting_data">Waiting for data...</td></tr>
+                            <tr><td colspan="12" class="loading" data-i18n="common.waiting_data">Waiting for data...</td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -1839,7 +1839,7 @@
                 console.warn('⚠️ No stocks to display in detailed analysis table');
                 tbody.innerHTML = `
                     <tr>
-                        <td colspan="11" style="text-align: center; padding: 40px; color: #64748b; font-size: 0.95em;">
+                        <td colspan="12" style="text-align: center; padding: 40px; color: #64748b; font-size: 0.95em;">
                             📊 Select stocks from the watchlist above and click "Apply Watchlist" to see detailed analysis
                         </td>
                     </tr>
@@ -1941,7 +1941,12 @@
                         <td><span class="badge ${recClass}">${recText}</span></td>
                         <td style="font-size: 0.85em;">${signals}</td>
                         <td style="font-size: 0.85em; color: #64748b;">${timeString}</td>
-                        <td style="text-align: center;">
+                        <td style="text-align: center; display: flex; gap: 8px; justify-content: center;">
+                            <a href="price_forecast.html?symbol=${stock.symbol}"
+                               title="View Price Forecast for ${stock.symbol}"
+                               style="color: #8b5cf6; text-decoration: none; font-size: 1.2em; cursor: pointer;">
+                                🔮
+                            </a>
                             <a href="advanced_charts.html?symbol=${stock.symbol}"
                                title="View Advanced Charts for ${stock.symbol}"
                                style="color: #3b82f6; text-decoration: none; font-size: 1.2em;">
