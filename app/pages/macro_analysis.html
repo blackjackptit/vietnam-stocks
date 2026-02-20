@@ -1409,6 +1409,7 @@
 
         async function init() {
             updateReportTimestamp();
+            await loadMacroIndicators(); // Fetch macro data from API
             renderEnvironmentalFactors();
             renderGeopoliticalRisks();
             renderPolicyChanges();
@@ -1417,6 +1418,47 @@
             renderCorrelationAnalysis();
             calculateOverallSentiment();
             generateAlerts();
+        }
+
+        async function loadMacroIndicators() {
+            try {
+                const response = await fetch('/api/macro-indicators');
+                const result = await response.json();
+
+                if (!result.success || !result.indicators) {
+                    console.warn('Failed to load macro indicators from API');
+                    return;
+                }
+
+                // Map API indicators to display elements
+                const indicators = result.indicators;
+
+                // USD/VND Rate
+                const usdVnd = indicators.find(i => i.indicator_type === 'usd_vnd');
+                if (usdVnd) {
+                    const value = parseFloat(usdVnd.value).toLocaleString('vi-VN', {
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 0
+                    });
+                    document.getElementById('exchangeRate').textContent = value;
+                    environmentalFactors.usd_vnd.value = value;
+                    console.log(`✓ Updated USD/VND: ${value}`);
+                }
+
+                // Oil Price (if available)
+                const oilPrice = indicators.find(i => i.indicator_type === 'oil_price');
+                if (oilPrice) {
+                    const value = '$' + parseFloat(oilPrice.value).toFixed(2);
+                    document.getElementById('oilPrice').textContent = value;
+                    environmentalFactors.oil_price.value = value;
+                    console.log(`✓ Updated Oil Price: ${value}`);
+                }
+
+                console.log('✓ Macro indicators loaded from API:', result.count, 'indicators');
+            } catch (error) {
+                console.error('Error loading macro indicators from API:', error);
+                // Fall back to hardcoded values
+            }
         }
 
         function switchTab(tabName) {

@@ -100,3 +100,41 @@ def handle_watchlist():
                 'success': False,
                 'error': 'An internal error occurred while updating watchlist'
             }), 500
+
+
+@market_bp.route('/api/macro-indicators', methods=['GET'])
+def get_macro_indicators():
+    """Get latest macro economic indicators"""
+    try:
+        indicators = query_db("""
+            SELECT
+                id,
+                indicator_type,
+                country,
+                date,
+                value,
+                unit,
+                source,
+                created_at
+            FROM macro_indicators
+            ORDER BY indicator_type, date DESC;
+        """)
+
+        # Group by indicator type and get latest
+        latest_indicators = {}
+        for indicator in indicators:
+            key = indicator['indicator_type']
+            if key not in latest_indicators:
+                latest_indicators[key] = indicator
+
+        return jsonify({
+            "success": True,
+            "indicators": list(latest_indicators.values()),
+            "count": len(latest_indicators)
+        })
+    except Exception as e:
+        logger.error(f"Error retrieving macro indicators: {e}", exc_info=True)
+        return jsonify({
+            "success": False,
+            "error": f"Failed to retrieve macro indicators: {str(e)}"
+        }), 500
