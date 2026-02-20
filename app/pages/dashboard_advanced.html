@@ -3867,19 +3867,19 @@
                         <td style="padding: 12px; text-align: right; color: ${returnColor}; font-weight: 600;">${stock.expectedReturn.toFixed(1)}%</td>
                         <td style="padding: 12px; text-align: right; color: ${riskColor}; font-weight: 600;">${stock.risk.toFixed(1)}%</td>
                         <td style="padding: 12px; text-align: center;">
-                            <button onclick="openStockChart('${stock.symbol}')" style="
+                            <a href="advanced_charts.html?symbol=${stock.symbol}" style="
                                 background: #3b82f6;
                                 color: white;
-                                border: none;
                                 padding: 6px 12px;
                                 border-radius: 6px;
-                                cursor: pointer;
+                                text-decoration: none;
                                 font-weight: 600;
                                 font-size: 0.9em;
+                                display: inline-block;
                                 transition: all 0.2s;
                             " onmouseover="this.style.background='#1d4ed8'" onmouseout="this.style.background='#3b82f6'">
-                                📈 View
-                            </button>
+                                📈 Chart
+                            </a>
                         </td>
                     </tr>
                 `;
@@ -7229,238 +7229,6 @@
                 }
             }
         }
-
-        // Stock Chart Modal for Portfolio Tracking
-        function openStockChart(symbol) {
-            // Create modal if it doesn't exist
-            if (!document.getElementById('stockChartModal')) {
-                const modal = document.createElement('div');
-                modal.id = 'stockChartModal';
-                modal.style.cssText = `
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0,0,0,0.5);
-                    display: none;
-                    z-index: 10000;
-                    align-items: center;
-                    justify-content: center;
-                `;
-                modal.innerHTML = `
-                    <div style="
-                        background: white;
-                        border-radius: 12px;
-                        width: 90%;
-                        max-width: 1200px;
-                        max-height: 90vh;
-                        overflow: auto;
-                        box-shadow: 0 20px 25px rgba(0,0,0,0.15);
-                    ">
-                        <div style="
-                            display: flex;
-                            justify-content: space-between;
-                            align-items: center;
-                            padding: 20px;
-                            border-bottom: 1px solid #e5e7eb;
-                            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                            color: white;
-                        ">
-                            <h2 style="margin: 0; font-size: 1.5em;">
-                                📊 <span id="modalStockSymbol">STOCK</span> - Advanced Chart
-                            </h2>
-                            <button onclick="closeStockChart()" style="
-                                background: rgba(255,255,255,0.2);
-                                border: none;
-                                color: white;
-                                font-size: 1.5em;
-                                cursor: pointer;
-                                padding: 0 10px;
-                            ">×</button>
-                        </div>
-                        <div style="padding: 20px;">
-                            <div id="stockChartContainer">
-                                <div style="text-align: center; padding: 40px; color: #64748b;">
-                                    <p>Loading chart data...</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                document.body.appendChild(modal);
-            }
-
-            const modal = document.getElementById('stockChartModal');
-            document.getElementById('modalStockSymbol').textContent = symbol;
-            modal.style.display = 'flex';
-
-            // Load chart data
-            loadStockAdvancedChart(symbol);
-        }
-
-        function closeStockChart() {
-            const modal = document.getElementById('stockChartModal');
-            if (modal) modal.style.display = 'none';
-        }
-
-        async function loadStockAdvancedChart(symbol) {
-            try {
-                const container = document.getElementById('stockChartContainer');
-                container.innerHTML = '<div style="text-align: center; padding: 40px; color: #64748b;">Loading chart data...</div>';
-
-                // Get historical data
-                const historical = await DataAPI.getHistoricalData(symbol);
-
-                if (!historical || historical.length === 0) {
-                    container.innerHTML = '<div style="text-align: center; padding: 40px; color: #dc2626;">No data available for ' + symbol + '</div>';
-                    return;
-                }
-
-                // Create canvas for chart
-                const canvas = document.createElement('canvas');
-                canvas.style.maxHeight = '500px';
-                canvas.id = 'tempStockChart';
-                container.innerHTML = '';
-                container.appendChild(canvas);
-
-                // Prepare data
-                const prices = historical.map(h => h.close);
-                const dates = historical.map(h => {
-                    const d = new Date(h.date);
-                    return (d.getMonth() + 1) + '/' + d.getDate();
-                });
-
-                // Calculate moving averages
-                const sma20 = calculateSMA(prices, 20);
-                const sma50 = calculateSMA(prices, 50);
-
-                // Create Chart.js chart
-                const ctx = canvas.getContext('2d');
-                new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: dates,
-                        datasets: [
-                            {
-                                label: 'Price',
-                                data: prices,
-                                borderColor: '#3b82f6',
-                                backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                                borderWidth: 2,
-                                tension: 0.4,
-                                fill: true,
-                                pointRadius: 3,
-                                pointHoverRadius: 5
-                            },
-                            {
-                                label: 'SMA 20',
-                                data: sma20,
-                                borderColor: '#f59e0b',
-                                borderWidth: 1.5,
-                                borderDash: [5, 5],
-                                fill: false,
-                                pointRadius: 0,
-                                tension: 0.4
-                            },
-                            {
-                                label: 'SMA 50',
-                                data: sma50,
-                                borderColor: '#ef4444',
-                                borderWidth: 1.5,
-                                borderDash: [5, 5],
-                                fill: false,
-                                pointRadius: 0,
-                                tension: 0.4
-                            }
-                        ]
-                    },
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: true,
-                        plugins: {
-                            legend: {
-                                display: true,
-                                position: 'top',
-                                labels: { usePointStyle: true }
-                            },
-                            title: {
-                                display: true,
-                                text: symbol + ' - 60 Day Price Chart with Moving Averages',
-                                font: { size: 14, weight: 'bold' }
-                            }
-                        },
-                        scales: {
-                            y: {
-                                beginAtZero: false,
-                                ticks: { callback: v => v.toLocaleString() }
-                            }
-                        }
-                    }
-                });
-
-                // Add statistics below chart
-                const stats = calculateChartStats(historical);
-                const statsHTML = `
-                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px;">
-                        <div style="background: #f0f9ff; padding: 15px; border-radius: 8px; text-align: center;">
-                            <div style="font-size: 0.85em; color: #64748b; margin-bottom: 5px;">Current Price</div>
-                            <div style="font-size: 1.5em; font-weight: 700; color: #3b82f6;">${stats.current.toLocaleString()}</div>
-                        </div>
-                        <div style="background: #f0fdf4; padding: 15px; border-radius: 8px; text-align: center;">
-                            <div style="font-size: 0.85em; color: #64748b; margin-bottom: 5px;">60-Day High</div>
-                            <div style="font-size: 1.5em; font-weight: 700; color: #10b981;">${stats.high.toLocaleString()}</div>
-                        </div>
-                        <div style="background: #fef2f2; padding: 15px; border-radius: 8px; text-align: center;">
-                            <div style="font-size: 0.85em; color: #64748b; margin-bottom: 5px;">60-Day Low</div>
-                            <div style="font-size: 1.5em; font-weight: 700; color: #ef4444;">${stats.low.toLocaleString()}</div>
-                        </div>
-                        <div style="background: #fdf2f8; padding: 15px; border-radius: 8px; text-align: center;">
-                            <div style="font-size: 0.85em; color: #64748b; margin-bottom: 5px;">Change (60D)</div>
-                            <div style="font-size: 1.5em; font-weight: 700; color: ${stats.change >= 0 ? '#10b981' : '#ef4444'};">
-                                ${stats.change >= 0 ? '+' : ''}${stats.change.toFixed(2)}%
-                            </div>
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += statsHTML;
-
-            } catch (error) {
-                console.error('Error loading chart:', error);
-                container.innerHTML = '<div style="text-align: center; padding: 40px; color: #dc2626;">Error loading chart data</div>';
-            }
-        }
-
-        function calculateSMA(prices, period) {
-            const result = [];
-            for (let i = 0; i < prices.length; i++) {
-                if (i < period - 1) {
-                    result.push(null);
-                } else {
-                    const avg = prices.slice(i - period + 1, i + 1).reduce((a, b) => a + b, 0) / period;
-                    result.push(avg);
-                }
-            }
-            return result;
-        }
-
-        function calculateChartStats(historical) {
-            const prices = historical.map(h => h.close);
-            const current = prices[prices.length - 1];
-            const high = Math.max(...prices);
-            const low = Math.min(...prices);
-            const change = ((current - prices[0]) / prices[0]) * 100;
-
-            return { current, high, low, change };
-        }
-
-        // Close modal when clicking outside
-        window.addEventListener('click', (e) => {
-            const modal = document.getElementById('stockChartModal');
-            if (modal && e.target === modal) {
-                closeStockChart();
-            }
-        });
     </script>
 
     <footer class="footer">
