@@ -1275,6 +1275,8 @@
             };
         }
 
+        let lastFilteredHash = null; // Track the last filtered data to avoid duplicate updates
+
         async function displayData(data) {
             // Update timestamp
             const timestamp = new Date(data.timestamp);
@@ -1308,6 +1310,26 @@
                     filteredResults[symbol] = result;
                 }
             });
+
+            // Create a hash of filtered basic data to check if anything actually changed
+            const basicDataHash = JSON.stringify(
+                Object.keys(filteredResults).sort().map(symbol => {
+                    const s = filteredResults[symbol];
+                    return {
+                        symbol: s.symbol,
+                        price: s.price,
+                        change_percent: s.change_percent,
+                        volume: s.volume
+                    };
+                })
+            );
+
+            // Skip if the basic data is identical to what we had before
+            if (basicDataHash === lastFilteredHash) {
+                console.log('⏭️  Filtered data unchanged, skipping table update');
+                return;
+            }
+            lastFilteredHash = basicDataHash;
 
             // Update displays immediately with basic data
             updateDashboardDisplays(Object.values(filteredResults), false);
