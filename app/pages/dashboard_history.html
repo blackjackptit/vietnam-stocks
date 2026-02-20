@@ -921,12 +921,16 @@
                 console.log(`📌 Auto-selecting stock from URL parameter: ${symbol}`);
 
                 // Wait a bit for DOM to be ready
-                setTimeout(() => {
+                setTimeout(async () => {
                     const checkbox = document.getElementById(`hist_${symbol}`);
                     if (checkbox) {
                         checkbox.checked = true;
                         updateHistorySelectionCount();
                         console.log(`✅ Stock ${symbol} auto-selected`);
+
+                        // Load and display the historical analysis for the selected stock
+                        await loadStockHistory();
+                        console.log(`📊 Historical analysis loaded for ${symbol}`);
                     } else {
                         console.warn(`⚠️ Stock ${symbol} not found in list`);
                     }
