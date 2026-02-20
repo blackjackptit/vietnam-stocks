@@ -1024,6 +1024,7 @@
         let charts = {};
         let lastDataHash = null;
         let lastTableDataHash = null; // Track last table render to prevent unnecessary rerenders
+        let lastAnalysisHash = null; // Track if analysis changed significantly
         let stockNames = {}; // Stock symbol to name mapping
 
         // Initialize
@@ -1824,22 +1825,44 @@
                 return;
             }
 
-            // Create a hash of the table data to avoid unnecessary rerenders
-            const tableDataHash = JSON.stringify(stocks.map(s => ({
+            // Create hashes to detect changes
+            // Sort before hashing to ensure consistent order
+            const sortedForHash = [...stocks].sort((a, b) => (b.analysis?.score || 0) - (a.analysis?.score || 0));
+
+            // Hash of basic market data (price, volume, change)
+            const basicDataHash = JSON.stringify(sortedForHash.map(s => ({
                 symbol: s.symbol,
                 price: s.price,
                 change_percent: s.change_percent,
-                volume: s.volume,
-                score: s.analysis?.score
+                volume: s.volume
             })));
 
-            // Skip rerender if data hasn't changed
-            if (tableDataHash === lastTableDataHash) {
-                console.log('⏭️  Table data unchanged, skipping rerender');
+            // Hash of analysis data
+            const analysisDataHash = JSON.stringify(sortedForHash.map(s => ({
+                symbol: s.symbol,
+                score: s.analysis?.score,
+                recommendation: s.analysis?.recommendation,
+                rsi: s.analysis?.indicators?.rsi
+            })));
+
+            // Check if ANYTHING changed
+            const basicChanged = basicDataHash !== lastTableDataHash;
+            const analysisChanged = analysisDataHash !== lastAnalysisHash;
+
+            if (!basicChanged && !analysisChanged) {
+                console.log(`⏭️  All data unchanged (${stocks.length} stocks), skipping rerender`);
                 return;
             }
-            lastTableDataHash = tableDataHash;
-            console.log('🔄 Rerendering table with updated data');
+
+            // Update hashes
+            lastTableDataHash = basicDataHash;
+            lastAnalysisHash = analysisDataHash;
+
+            if (basicChanged) {
+                console.log(`🔄 Market data changed, rerendering table (${stocks.length} stocks)`);
+            } else if (analysisChanged) {
+                console.log(`🔄 Analysis data changed, rerendering table (${stocks.length} stocks)`);
+            }
 
             const sorted = stocks.sort((a, b) => (b.analysis?.score || 0) - (a.analysis?.score || 0));
 
