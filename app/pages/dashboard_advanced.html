@@ -1146,7 +1146,7 @@
 
                         <div class="card-content">
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                            <div id="existingPortfolioCard" onclick="selectPortfolioType('existing')" style="cursor: pointer; padding: 20px; background: white; border: 3px solid #e2e8f0; border-radius: 12px; transition: all 0.3s;">
+                            <div id="existingPortfolioCard" onclick="console.log('existingPortfolioCard clicked'); selectPortfolioType('existing')" style="cursor: pointer; padding: 20px; background: white; border: 3px solid #e2e8f0; border-radius: 12px; transition: all 0.3s;">
                                 <div style="text-align: center; margin-bottom: 15px;">
                                     <div style="font-size: 3.5em; margin-bottom: 10px;">📂</div>
                                     <h4 style="color: #1e40af; margin: 0 0 10px 0; font-size: 1.2em;" data-i18n="dashboard.existing_portfolio">Existing Portfolio</h4>
@@ -1171,11 +1171,23 @@
 
                         <div id="existingHoldingsInput" style="display: none; margin-top: 20px; padding: 20px; background: #f9fafb; border-radius: 10px; border: 2px solid #dc2626;">
                             <h4 style="color: #1f2937; margin-bottom: 15px;">📊 Enter Your Current Holdings</h4>
+
+                            <!-- Load from saved plan -->
+                            <div style="margin-bottom: 15px; padding: 14px; background: #eff6ff; border-radius: 8px; border: 1px solid #bfdbfe;">
+                                <label style="display: block; font-weight: 600; color: #1e40af; margin-bottom: 8px; font-size: 0.95em;">📂 Load from Saved Plan (optional)</label>
+                                <div style="display: flex; gap: 10px;">
+                                    <select id="savedPlanSelect" onchange="loadHoldingsFromSavedPlan()" style="flex: 1; height: 38px; padding: 0 12px; border: 1px solid #93c5fd; border-radius: 6px; font-size: 0.95em; background: white;">
+                                        <option value="">-- Select a saved plan --</option>
+                                    </select>
+                                    <button onclick="loadHoldingsFromSavedPlan()" style="height: 38px; padding: 0 16px; background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%); color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; white-space: nowrap;">Load</button>
+                                </div>
+                            </div>
+
                             <p style="color: #64748b; font-size: 0.9em; margin-bottom: 15px;">
-                                List all stocks you currently own. We'll analyze them and provide recommendations.
+                                Or enter manually — list all stocks you currently own.
                             </p>
                             <div id="holdingsListContainer" style="display: grid; gap: 12px; margin-bottom: 15px;"></div>
-                            <button onclick="addHoldingRow()" style="padding: 10px 20px; background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
+                            <button onclick="console.log('Add Stock button clicked'); addHoldingRow()" style="padding: 10px 20px; background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;">
                                 ➕ Add Stock
                             </button>
                             <div style="margin-top: 15px; padding: 12px; background: #fee2e2; border-radius: 6px; border-left: 4px solid #dc2626; font-size: 0.9em; color: #1f2937;">
@@ -1275,6 +1287,8 @@
 
                         <div class="chart-container" style="margin-bottom: 30px;"><canvas id="allocationChart"></canvas></div>
                         <div class="chart-container" style="margin-bottom: 30px;"><canvas id="efficientFrontierChart"></canvas></div>
+
+                        <div id="existingHoldingsSummary"></div>
 
                         <div class="card collapsible" style="background: #f9fafb; padding: 25px; border-radius: 12px; margin-bottom: 20px; border: 1px solid #e5e7eb;">
                             <h3 style="color: #1e40af; margin-bottom: 20px; font-size: 1.2em; font-weight: 700; cursor: pointer;">📊 <span data-i18n="portfolio.recommended_holdings">Recommended Holdings</span></h3>
@@ -1925,6 +1939,7 @@
 
         // Step 2: Select Portfolio Type
         function selectPortfolioType(type) {
+            console.log('selectPortfolioType called:', type);
             currentPortfolioType = type;
 
             // Update card styles
@@ -1940,6 +1955,9 @@
                 // Show holdings input
                 document.getElementById('existingHoldingsInput').style.display = 'block';
 
+                // Populate saved plan dropdown
+                populateSavedPlanDropdown();
+
                 // Add first row if empty
                 if (document.getElementById('holdingsListContainer').children.length === 0) {
                     addHoldingRow();
@@ -1953,6 +1971,81 @@
                 // Hide holdings input
                 document.getElementById('existingHoldingsInput').style.display = 'none';
             }
+        }
+
+        // Populate saved plan dropdown in existing holdings section
+        async function populateSavedPlanDropdown() {
+            const select = document.getElementById('savedPlanSelect');
+            if (!select) return;
+            select.innerHTML = '<option value="">-- Select a saved plan --</option>';
+            try {
+                const response = await fetch('/api/investment-plans', { credentials: 'include' });
+                const result = await response.json();
+                if (result.success && result.data && result.data.length > 0) {
+                    result.data.forEach(plan => {
+                        const option = document.createElement('option');
+                        option.value = plan.id;
+                        option.textContent = plan.name + (plan.createdDate ? ' (' + new Date(plan.createdDate).toLocaleDateString() + ')' : '');
+                        option.dataset.holdings = JSON.stringify(plan.holdings || []);
+                        select.appendChild(option);
+                    });
+                }
+            } catch (error) {
+                console.error('Error loading saved plans for dropdown:', error);
+            }
+        }
+
+        // Load holdings from selected saved plan into the holdings form
+        function loadHoldingsFromSavedPlan() {
+            const select = document.getElementById('savedPlanSelect');
+            if (!select || !select.value) {
+                showAlert('Please select a saved plan first.');
+                return;
+            }
+            const selectedOption = select.options[select.selectedIndex];
+            let holdings = [];
+            try {
+                holdings = JSON.parse(selectedOption.dataset.holdings || '[]');
+            } catch (e) {
+                showAlert('Error reading plan data.');
+                return;
+            }
+            if (holdings.length === 0) {
+                showAlert('The selected plan has no holdings.');
+                return;
+            }
+            // Clear existing rows
+            const container = document.getElementById('holdingsListContainer');
+            container.innerHTML = '';
+            holdingRowCounter = 0;
+            // Add a row for each holding
+            holdings.forEach(h => {
+                holdingRowCounter++;
+                const row = document.createElement('div');
+                row.id = `holding-row-${holdingRowCounter}`;
+                row.style.cssText = 'display: grid; grid-template-columns: 2fr 1.5fr 1.5fr 1fr auto; gap: 10px; align-items: center; margin-bottom: 10px; padding: 12px; background: #f8fafc; border-radius: 6px; border: 1px solid #e5e7eb;';
+                const stockOptions = allStocks.map(sym => `<option value="${sym}" ${sym === h.symbol ? 'selected' : ''}>${sym} - ${stockNames[sym] || sym}</option>`).join('');
+                row.innerHTML = `
+                    <select class="holding-stock-select" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.95em;">
+                        <option value="">Select Stock...</option>
+                        ${stockOptions}
+                    </select>
+                    <input type="number" placeholder="Shares owned" class="holding-shares" min="1" value="${h.shares || ''}"
+                           style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.95em;">
+                    <input type="number" placeholder="Buy price (VND)" class="holding-buy-price" min="0" step="1000" value="${h.buyPrice || h.priceAtCreation || ''}"
+                           style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.95em;">
+                    <div class="holding-current-value" style="font-weight: 600; color: #1e293b; font-size: 0.9em; text-align: center;">-</div>
+                    <button onclick="removeHoldingRow('holding-row-${holdingRowCounter}')"
+                            style="padding: 6px 10px; background: #ef4444; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 0.9em;">✕</button>
+                `;
+                container.appendChild(row);
+                const selectEl = row.querySelector('.holding-stock-select');
+                const sharesInput = row.querySelector('.holding-shares');
+                selectEl.addEventListener('change', () => updateHoldingValue(row));
+                sharesInput.addEventListener('input', () => updateHoldingValue(row));
+                updateHoldingValue(row);
+            });
+            showSuccess(`Loaded ${holdings.length} holdings from "${selectedOption.textContent.split(' (')[0]}"`);
         }
 
         // Add holding row
@@ -2988,7 +3081,7 @@
                 existingSection.style.display = 'block';
                 budgetLabel.textContent = 'Additional Cash Flow / New Investment (VND)';
                 // Add one initial row
-                if (document.getElementById('existingHoldingsList').children.length === 0) {
+                if (document.getElementById('holdingsListContainer').children.length === 0) {
                     addHoldingRow();
                 }
             } else {
@@ -2998,24 +3091,22 @@
         }
 
         function addHoldingRow() {
-            // Check if stocks are loaded
-            if (!allStocks || allStocks.length === 0) {
-                showAlert('Loading stock data... Please wait a moment and try again.');
-                return;
-            }
-
             holdingRowCounter++;
             const container = document.getElementById('holdingsListContainer');
+            console.log('addHoldingRow called, counter=', holdingRowCounter, 'container=', container, 'allStocks=', allStocks.length);
+
+            // Build datalist id for this row
+            const datalistId = `stock-datalist-${holdingRowCounter}`;
+            const stockOptions = (allStocks || []).map(sym => `<option value="${sym}">${sym} - ${stockNames[sym] || sym}</option>`).join('');
 
             const row = document.createElement('div');
             row.id = `holding-row-${holdingRowCounter}`;
             row.style.cssText = 'display: grid; grid-template-columns: 2fr 1.5fr 1.5fr 1fr auto; gap: 10px; align-items: center; margin-bottom: 10px; padding: 12px; background: #f8fafc; border-radius: 6px; border: 1px solid #e5e7eb;';
 
             row.innerHTML = `
-                <select class="holding-stock-select" style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.95em;">
-                    <option value="">Select Stock...</option>
-                    ${allStocks.map(symbol => `<option value="${symbol}">${symbol} - ${stockNames[symbol] || symbol}</option>`).join('')}
-                </select>
+                <datalist id="${datalistId}">${stockOptions}</datalist>
+                <input type="text" list="${datalistId}" placeholder="Type stock symbol..." class="holding-stock-select"
+                       style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.95em; text-transform: uppercase;">
                 <input type="number" placeholder="Shares owned" class="holding-shares" min="1"
                        style="padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 0.95em;">
                 <input type="number" placeholder="Buy price (VND)" class="holding-buy-price" min="0" step="1000"
@@ -3029,11 +3120,12 @@
 
             container.appendChild(row);
 
-            // Add event listener to calculate current value when stock is selected
-            const selectElement = row.querySelector('.holding-stock-select');
+            // Add event listeners to calculate current value when stock/shares change
+            const stockInput = row.querySelector('.holding-stock-select');
             const sharesInput = row.querySelector('.holding-shares');
 
-            selectElement.addEventListener('change', () => updateHoldingValue(row));
+            stockInput.addEventListener('change', () => updateHoldingValue(row));
+            stockInput.addEventListener('input', () => { stockInput.value = stockInput.value.toUpperCase(); updateHoldingValue(row); });
             sharesInput.addEventListener('input', () => updateHoldingValue(row));
         }
 
@@ -3067,35 +3159,28 @@
             }
         }
 
-        async function getExistingHoldings() {
-            const rows = document.querySelectorAll('#existingHoldingsList > div');
+        function getExistingHoldings() {
+            const rows = document.querySelectorAll('#holdingsListContainer > div');
             const holdings = [];
 
-            for (const row of rows) {
-                const symbol = row.querySelector('.holding-stock-select').value;
+            rows.forEach(row => {
+                const symbol = (row.querySelector('.holding-stock-select').value || '').trim().toUpperCase();
                 const shares = parseFloat(row.querySelector('.holding-shares').value);
                 const buyPrice = parseFloat(row.querySelector('.holding-buy-price').value);
 
                 if (symbol && shares > 0 && buyPrice > 0) {
-                    try {
-                        const currentData = await DataAPI.getCurrentPrice(symbol);
-                        if (currentData && currentData.price) {
-                            holdings.push({
-                                symbol,
-                                shares,
-                                buyPrice,
-                                currentPrice: currentData.price,
-                                currentValue: currentData.price * shares,
-                                totalCost: buyPrice * shares,
-                                profitLoss: (currentData.price - buyPrice) * shares,
-                                profitLossPercent: ((currentData.price - buyPrice) / buyPrice) * 100
-                            });
-                        }
-                    } catch (error) {
-                        console.error(`Error loading data for ${symbol}:`, error);
-                    }
+                    holdings.push({
+                        symbol,
+                        shares,
+                        buyPrice,
+                        currentPrice: buyPrice,
+                        currentValue: buyPrice * shares,
+                        totalCost: buyPrice * shares,
+                        profitLoss: 0,
+                        profitLossPercent: 0
+                    });
                 }
-            }
+            });
 
             return holdings;
         }
@@ -3143,7 +3228,16 @@
                 // Get existing holdings if applicable
                 let existingHoldings = [];
                 if (currentPortfolioType === 'existing') {
-                    existingHoldings = await getExistingHoldings();
+                    const rows = document.querySelectorAll('#holdingsListContainer > div');
+                    console.log('🔍 Holdings container rows found:', rows.length);
+                    rows.forEach((row, i) => {
+                        const sym = row.querySelector('.holding-stock-select')?.value;
+                        const shr = row.querySelector('.holding-shares')?.value;
+                        const bp  = row.querySelector('.holding-buy-price')?.value;
+                        console.log(`  Row ${i}: symbol="${sym}" shares="${shr}" buyPrice="${bp}"`);
+                    });
+                    existingHoldings = getExistingHoldings();
+                    console.log('📦 getExistingHoldings() returned:', existingHoldings.length, 'holdings');
                     if (existingHoldings.length === 0) {
                         console.log('❌ Validation failed: No existing holdings');
                         showAlert('⚠️ Please add at least one existing holding (Step 2)');
@@ -3646,6 +3740,8 @@
             }
 
             // Show existing holdings recommendations if applicable
+            const existingHoldingsSummaryEl = document.getElementById('existingHoldingsSummary');
+            if (existingHoldingsSummaryEl) existingHoldingsSummaryEl.innerHTML = '';
             let existingHoldingsHTML = '';
             if (portfolioType === 'existing' && existingHoldings.length > 0) {
                 existingHoldingsHTML = `
@@ -3727,8 +3823,7 @@
                     </div>
                 `;
 
-                // Insert before allocation table
-                document.getElementById('investmentAllocation').insertAdjacentHTML('beforebegin', existingHoldingsHTML);
+                document.getElementById('existingHoldingsSummary').innerHTML = existingHoldingsHTML;
             }
 
             // Allocation table header changes based on portfolio type
@@ -5708,12 +5803,17 @@
 
                 doc.setFontSize(10);
                 doc.setTextColor(0, 0, 0);
+                const ensureNumber = (val) => {
+                    const num = typeof val === 'string' ? parseFloat(val) : (val ?? 0);
+                    return isFinite(num) ? num : 0;
+                };
+
                 const metrics = [
-                    `Expected Return: ${(portfolioAnalysisResults.totalReturn ?? 0).toFixed(2)}%`,
-                    `Risk (Volatility): ${(portfolioAnalysisResults.riskLevel ?? 0).toFixed(2)}%`,
-                    `Sharpe Ratio: ${(portfolioAnalysisResults.sharpeRatio ?? 0).toFixed(2)}`,
-                    `Max Drawdown: ${(portfolioAnalysisResults.maxDrawdown ?? 0).toFixed(2)}%`,
-                    `Diversification: ${(portfolioAnalysisResults.diversification ?? 0).toFixed(2)}%`
+                    `Expected Return: ${ensureNumber(portfolioAnalysisResults.totalReturn).toFixed(2)}%`,
+                    `Risk (Volatility): ${ensureNumber(portfolioAnalysisResults.riskLevel).toFixed(2)}%`,
+                    `Sharpe Ratio: ${ensureNumber(portfolioAnalysisResults.sharpeRatio).toFixed(2)}`,
+                    `Max Drawdown: ${ensureNumber(portfolioAnalysisResults.maxDrawdown).toFixed(2)}%`,
+                    `Diversification: ${ensureNumber(portfolioAnalysisResults.diversification).toFixed(2)}%`
                 ];
 
                 metrics.forEach(metric => {
@@ -5763,7 +5863,8 @@
                     doc.text(String(holding.shares || 0), 60, yPos);
                     doc.text(formatCurrency(holding.price || 0, false), 90, yPos);
                     doc.text(formatCurrency(holding.amount || 0, false), 120, yPos);
-                    doc.text(`${(holding.percentage || 0).toFixed(1)}%`, 155, yPos);
+                    const percentage = typeof holding.percentage === 'string' ? parseFloat(holding.percentage) : (holding.percentage || 0);
+                    doc.text(`${isFinite(percentage) ? percentage.toFixed(1) : '0.0'}%`, 155, yPos);
                     yPos += 7;
                 });
 
