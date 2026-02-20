@@ -4411,36 +4411,155 @@
                 return;
             }
 
-            document.getElementById('patternResults').style.display = 'block';
+            try {
+                // Get historical data for the stock
+                const historical = await DataAPI.getHistoricalData(stock);
+                if (!historical || historical.length < 5) {
+                    showAlert('Insufficient data for pattern detection');
+                    return;
+                }
 
-            // Mock pattern detection
-            const patterns = [
-                { name: 'Ascending Triangle', confidence: 85, bullish: true },
-                { name: 'Support Level at 45,000', confidence: 92, bullish: true },
-                { name: 'Bullish Engulfing', confidence: 78, bullish: true }
-            ];
+                const prices = historical.map(h => h.close);
+                const patterns = [];
 
-            document.getElementById('patternAlert').textContent =
-                `Found ${patterns.length} patterns for ${stock}`;
+                console.log(`Pattern Detection for ${stock}:`, {
+                    dataPoints: prices.length,
+                    minPrice: Math.min(...prices),
+                    maxPrice: Math.max(...prices)
+                });
 
-            let html = '<div style="display: grid; gap: 15px;">';
-            patterns.forEach(p => {
-                html += `
-                    <div style="background: ${p.bullish ? '#dcfce7' : '#fee2e2'};
-                                padding: 15px; border-radius: 8px;
-                                border-left: 4px solid ${p.bullish ? '#10b981' : '#ef4444'};">
-                        <div style="display: flex; justify-content: space-between;">
-                            <strong>${p.bullish ? '📈' : '📉'} ${p.name}</strong>
-                            <span style="font-weight: 600;">Confidence: ${p.confidence}%</span>
-                        </div>
-                        <div style="margin-top: 5px; color: #64748b;">
-                            ${p.bullish ? 'Bullish' : 'Bearish'} signal detected
-                        </div>
-                    </div>
-                `;
-            });
-            html += '</div>';
-            document.getElementById('patternList').innerHTML = html;
+                // 1. Detect support levels (local minima)
+                for (let i = 2; i < prices.length - 2; i++) {
+                    if (prices[i] < prices[i-1] && prices[i] < prices[i+1] &&
+                        prices[i] < prices[i-2] && prices[i] < prices[i+2]) {
+                        patterns.push({
+                            name: `Support Level at ${formatPrice(prices[i])}`,
+                            confidence: 75,
+                            bullish: true,
+                            type: 'support'
+                        });
+                        console.log(`✓ Support level detected at ${prices[i]}`);
+                    }
+                }
+
+                // 2. Detect resistance levels (local maxima)
+                for (let i = 2; i < prices.length - 2; i++) {
+                    if (prices[i] > prices[i-1] && prices[i] > prices[i+1] &&
+                        prices[i] > prices[i-2] && prices[i] > prices[i+2]) {
+                        patterns.push({
+                            name: `Resistance Level at ${formatPrice(prices[i])}`,
+                            confidence: 75,
+                            bullish: false,
+                            type: 'resistance'
+                        });
+                        console.log(`✓ Resistance level detected at ${prices[i]}`);
+                    }
+                }
+
+                // 3. Detect bullish engulfing
+                for (let i = 1; i < prices.length; i++) {
+                    const currClose = historical[i].close;
+                    const currOpen = historical[i].open;
+                    const prevClose = historical[i-1].close;
+
+                    if (currOpen < prevClose && currClose > prevClose && currClose > prevClose * 1.01) {
+                        patterns.push({
+                            name: 'Bullish Engulfing',
+                            confidence: 80,
+                            bullish: true,
+                            type: 'engulfing'
+                        });
+                        console.log(`✓ Bullish engulfing detected at index ${i}`);
+                        break;
+                    }
+                }
+
+                // 4. Detect uptrend/downtrend (3+ consecutive movements)
+                let upTrendCount = 0;
+                let downTrendCount = 0;
+                for (let i = 1; i < prices.length; i++) {
+                    if (prices[i] > prices[i-1]) {
+                        upTrendCount++;
+                        downTrendCount = 0;
+                    } else {
+                        downTrendCount++;
+                        upTrendCount = 0;
+                    }
+
+                    if (upTrendCount >= 3 && !patterns.find(p => p.type === 'uptrend')) {
+                        patterns.push({
+                            name: `Uptrend (${upTrendCount}+ consecutive increases)`,
+                            confidence: 70,
+                            bullish: true,
+                            type: 'uptrend'
+                        });
+                        console.log(`✓ Uptrend detected`);
+                    }
+
+                    if (downTrendCount >= 3 && !patterns.find(p => p.type === 'downtrend')) {
+                        patterns.push({
+                            name: `Downtrend (${downTrendCount}+ consecutive decreases)`,
+                            confidence: 70,
+                            bullish: false,
+                            type: 'downtrend'
+                        });
+                        console.log(`✓ Downtrend detected`);
+                    }
+                }
+
+                // 5. Detect volatility spike
+                const returns = [];
+                for (let i = 1; i < prices.length; i++) {
+                    returns.push(Math.abs((prices[i] - prices[i-1]) / prices[i-1]));
+                }
+                const avgReturn = returns.reduce((a,b) => a+b) / returns.length;
+                const recentReturn = returns[returns.length - 1];
+
+                if (recentReturn > avgReturn * 2) {
+                    patterns.push({
+                        name: 'High Volatility Detected',
+                        confidence: 65,
+                        bullish: recentReturn > 0,
+                        type: 'volatility'
+                    });
+                    console.log(`✓ Volatility spike detected`);
+                }
+
+                document.getElementById('patternResults').style.display = 'block';
+
+                if (patterns.length === 0) {
+                    document.getElementById('patternAlert').textContent =
+                        `No clear patterns detected for ${stock}`;
+                    document.getElementById('patternList').innerHTML =
+                        '<p style="color: #64748b;">Data is stable. No significant patterns detected.</p>';
+                } else {
+                    document.getElementById('patternAlert').textContent =
+                        `✓ Found ${patterns.length} pattern(s) for ${stock}`;
+
+                    let html = '<div style="display: grid; gap: 15px;">';
+                    patterns.forEach(p => {
+                        html += `
+                            <div style="background: ${p.bullish ? '#dcfce7' : '#fee2e2'};
+                                        padding: 15px; border-radius: 8px;
+                                        border-left: 4px solid ${p.bullish ? '#10b981' : '#ef4444'};">
+                                <div style="display: flex; justify-content: space-between;">
+                                    <strong>${p.bullish ? '📈' : '📉'} ${p.name}</strong>
+                                    <span style="font-weight: 600;">Confidence: ${p.confidence}%</span>
+                                </div>
+                                <div style="margin-top: 5px; color: #64748b;">
+                                    ${p.bullish ? 'Bullish' : 'Bearish'} signal
+                                </div>
+                            </div>
+                        `;
+                    });
+                    html += '</div>';
+                    document.getElementById('patternList').innerHTML = html;
+                }
+
+            } catch (error) {
+                console.error('Pattern detection error:', error);
+                showAlert('Error detecting patterns. Please try again.');
+            }
         }
 
         async function runMLForecast() {
