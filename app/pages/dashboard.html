@@ -1023,6 +1023,7 @@
         let latestData = null;
         let charts = {};
         let lastDataHash = null;
+        let lastTableDataHash = null; // Track last table render to prevent unnecessary rerenders
         let stockNames = {}; // Stock symbol to name mapping
 
         // Initialize
@@ -1307,6 +1308,9 @@
                 }
             });
 
+            // Update displays immediately with basic data
+            updateDashboardDisplays(Object.values(filteredResults), false);
+
             // Fetch detailed analysis for each stock asynchronously
             Promise.all(watchlist.map(symbol =>
                 fetch(`${window.API_BASE_URL || ''}/api/stock-analysis/${symbol}`)
@@ -1318,21 +1322,20 @@
                     })
                     .catch(err => console.warn(`Error fetching analysis for ${symbol}:`, err))
             )).then(() => {
-                // After all analysis data is loaded, update displays
-                updateDashboardDisplays(Object.values(filteredResults));
+                // After all analysis data is loaded, update displays with full data
+                updateDashboardDisplays(Object.values(filteredResults), true);
             });
-
-            // Update summary with current data (will be updated again when analysis loads)
-            updateDashboardDisplays(Object.values(filteredResults));
         }
 
-        function updateDashboardDisplays(allStocks) {
+        function updateDashboardDisplays(allStocks, updateCharts = true) {
             if (!allStocks || allStocks.length === 0) {
                 console.warn('⚠️ updateDashboardDisplays called with empty stocks array. Selected stocks:', [...selectedStocks]);
                 return;
             }
 
-            console.log(`📊 Updating dashboard displays with ${allStocks.length} stocks`);
+            console.log(`📊 Updating dashboard displays with ${allStocks.length} stocks${updateCharts ? ' (full update)' : ' (table only)'}`);
+
+            // Always update summary counts - these are fast
             document.getElementById('totalStocks').textContent = allStocks.length;
 
             const counts = {
@@ -1360,12 +1363,16 @@
                 (allStocks.reduce((sum, s) => sum + (s.analysis?.score || 0), 0) / allStocks.length).toFixed(1) : 0;
             document.getElementById('avgScore').textContent = avgScore;
 
-            // Render visualizations
-            renderHeatmap(allStocks);
-            renderScoreChart(allStocks);
-            renderRSIChart(allStocks);
-            renderSectorChart(allStocks);
-            renderPriceVolumeChart(allStocks);
+            // Only update charts on full updates to reduce flickering
+            if (updateCharts) {
+                renderHeatmap(allStocks);
+                renderScoreChart(allStocks);
+                renderRSIChart(allStocks);
+                renderSectorChart(allStocks);
+                renderPriceVolumeChart(allStocks);
+            }
+
+            // Always update table with latest data
             const timestamp = new Date(); // Pass Date object, not string
             renderStockTable(allStocks, timestamp);
         }
@@ -1816,6 +1823,23 @@
                 `;
                 return;
             }
+
+            // Create a hash of the table data to avoid unnecessary rerenders
+            const tableDataHash = JSON.stringify(stocks.map(s => ({
+                symbol: s.symbol,
+                price: s.price,
+                change_percent: s.change_percent,
+                volume: s.volume,
+                score: s.analysis?.score
+            })));
+
+            // Skip rerender if data hasn't changed
+            if (tableDataHash === lastTableDataHash) {
+                console.log('⏭️  Table data unchanged, skipping rerender');
+                return;
+            }
+            lastTableDataHash = tableDataHash;
+            console.log('🔄 Rerendering table with updated data');
 
             const sorted = stocks.sort((a, b) => (b.analysis?.score || 0) - (a.analysis?.score || 0));
 
