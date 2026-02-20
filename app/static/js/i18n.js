@@ -168,6 +168,7 @@ const translations = {
         'table.last_update': 'Last Update',
         'table.timestamp': 'Timestamp',
         'table.chart': 'Chart',
+        'table.actions': 'Actions',
 
         // Time periods
         'period.7d': '7D',

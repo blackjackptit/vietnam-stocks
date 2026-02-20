@@ -455,6 +455,31 @@
             font-weight: 600;
             color: #475569;
             border-bottom: 2px solid #cbd5e1;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .stock-table th:hover {
+            background: #e2e8f0;
+        }
+
+        .stock-table th.sortable::after {
+            content: ' ⇅';
+            opacity: 0.5;
+            font-size: 0.85em;
+        }
+
+        .stock-table th.sort-asc::after {
+            content: ' ↑';
+            opacity: 1;
+            color: #3b82f6;
+        }
+
+        .stock-table th.sort-desc::after {
+            content: ' ↓';
+            opacity: 1;
+            color: #3b82f6;
         }
 
         .stock-table td {
@@ -995,14 +1020,14 @@
                     <table class="stock-table" id="stockTable" style="width: 100%;">
                         <thead>
                             <tr>
-                                <th data-i18n="table.symbol">Symbol</th>
-                                <th data-i18n="table.price">Price</th>
-                                <th data-i18n="table.change">Change</th>
-                                <th data-i18n="table.volume">Volume</th>
-                                <th data-i18n="table.t_plus">T+2 Valid</th>
-                                <th data-i18n="table.score">Score</th>
-                                <th data-i18n="table.rsi">RSI</th>
-                                <th data-i18n="table.recommendation">Recommendation</th>
+                                <th data-i18n="table.symbol" onclick="sortTable('symbol')" class="sortable">Symbol</th>
+                                <th data-i18n="table.price" onclick="sortTable('price')" class="sortable">Price</th>
+                                <th data-i18n="table.change" onclick="sortTable('change')" class="sortable">Change</th>
+                                <th data-i18n="table.volume" onclick="sortTable('volume')" class="sortable">Volume</th>
+                                <th data-i18n="table.t_plus" onclick="sortTable('t_plus')" class="sortable">T+2 Valid</th>
+                                <th data-i18n="table.score" onclick="sortTable('score')" class="sortable">Score</th>
+                                <th data-i18n="table.rsi" onclick="sortTable('rsi')" class="sortable">RSI</th>
+                                <th data-i18n="table.recommendation" onclick="sortTable('recommendation')" class="sortable">Recommendation</th>
                                 <th data-i18n="table.signals">Signals</th>
                                 <th data-i18n="table.last_update">Last Update</th>
                                 <th data-i18n="table.actions">Actions</th>
@@ -1026,6 +1051,9 @@
         let lastTableDataHash = null; // Track last table render to prevent unnecessary rerenders
         let lastAnalysisHash = null; // Track if analysis changed significantly
         let stockNames = {}; // Stock symbol to name mapping
+        let currentSortField = 'score'; // Default sort by score
+        let currentSortOrder = 'desc'; // asc or desc
+        let tableData = []; // Store current table data for sorting
 
         // Initialize
         async function init() {
@@ -1824,6 +1852,148 @@
             });
         }
 
+        function sortTable(field) {
+            // Toggle sort order if same field clicked, otherwise sort ascending
+            if (currentSortField === field) {
+                currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSortField = field;
+                currentSortOrder = 'desc'; // Default to descending for new sort
+            }
+
+            // Sort the table data
+            let sorted = [...tableData];
+            sorted.sort((a, b) => {
+                let aVal, bVal;
+
+                switch (field) {
+                    case 'symbol':
+                        aVal = a.symbol.toUpperCase();
+                        bVal = b.symbol.toUpperCase();
+                        break;
+                    case 'price':
+                        aVal = a.price || 0;
+                        bVal = b.price || 0;
+                        break;
+                    case 'change':
+                        aVal = a.change_percent || 0;
+                        bVal = b.change_percent || 0;
+                        break;
+                    case 'volume':
+                        aVal = a.volume || 0;
+                        bVal = b.volume || 0;
+                        break;
+                    case 'score':
+                        aVal = a.analysis?.score || 0;
+                        bVal = b.analysis?.score || 0;
+                        break;
+                    case 'rsi':
+                        aVal = a.analysis?.indicators?.rsi || 0;
+                        bVal = b.analysis?.indicators?.rsi || 0;
+                        break;
+                    case 'recommendation':
+                        aVal = a.analysis?.recommendation || 'HOLD';
+                        bVal = b.analysis?.recommendation || 'HOLD';
+                        // Sort with BUY at top: STRONG BUY > BUY > HOLD > SELL > STRONG SELL
+                        const recOrder = { 'STRONG BUY': 5, 'BUY': 4, 'HOLD': 3, 'SELL': 2, 'STRONG SELL': 1 };
+                        aVal = recOrder[aVal] || 0;
+                        bVal = recOrder[bVal] || 0;
+                        break;
+                    case 't_plus':
+                        // T+2 date - all same, no sorting needed
+                        return 0;
+                    default:
+                        return 0;
+                }
+
+                // Handle string comparison vs numeric
+                if (typeof aVal === 'string' && typeof bVal === 'string') {
+                    return currentSortOrder === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+                } else {
+                    return currentSortOrder === 'asc' ? aVal - bVal : bVal - aVal;
+                }
+            });
+
+            // Update sort indicators
+            document.querySelectorAll('.stock-table th').forEach(th => {
+                th.classList.remove('sort-asc', 'sort-desc');
+            });
+            document.querySelectorAll(`.stock-table th[onclick*="sortTable('${field}')"]`).forEach(th => {
+                th.classList.add(currentSortOrder === 'asc' ? 'sort-asc' : 'sort-desc');
+            });
+
+            // Rerender table with sorted data
+            renderSortedTable(sorted);
+            console.log(`📊 Table sorted by ${field} (${currentSortOrder})`);
+        }
+
+        function renderSortedTable(stocks) {
+            const tbody = document.getElementById('stockTableBody');
+            const timeString = new Date().toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            });
+            const t2Date = calculateT2Date();
+
+            const html = stocks.map(stock => {
+                const analysis = stock.analysis || {};
+                const indicators = analysis.indicators || {};
+
+                // Generate trading signals based on available data
+                const generatedSignals = [];
+                const rsi = indicators.rsi || 0;
+                const changePercent = stock.change_percent || 0;
+
+                if (rsi > 70) generatedSignals.push('📈 Overbought');
+                else if (rsi < 30) generatedSignals.push('📉 Oversold');
+
+                if (changePercent > 5) generatedSignals.push('🚀 Strong Up');
+                else if (changePercent < -5) generatedSignals.push('⚠️ Sharp Drop');
+                else if (changePercent > 2) generatedSignals.push('✅ Rising');
+                else if (changePercent < -2) generatedSignals.push('🔻 Falling');
+
+                const signals = (analysis.signals && analysis.signals.length > 0)
+                    ? analysis.signals.slice(0, 2).join(', ')
+                    : generatedSignals.slice(0, 2).join(', ') || '—';
+
+                const recClass = analysis.score > 20 ? 'buy' : analysis.score < -20 ? 'sell' : 'hold';
+                const recText = analysis.recommendation || 'HOLD';
+
+                return `
+                    <tr>
+                        <td><strong>${stock.symbol}</strong></td>
+                        <td>${formatPrice(stock.price || 0)} VND</td>
+                        <td style="color: ${stock.change_percent > 0 ? '#10b981' : '#ef4444'};">
+                            ${stock.change_percent > 0 ? '+' : ''}${(stock.change_percent || 0).toFixed(2)}%
+                        </td>
+                        <td>${formatVolume(stock.volume || 0)}</td>
+                        <td style="font-size: 0.85em; color: #3b82f6; font-weight: 500;">${t2Date}</td>
+                        <td><strong>${analysis.score || 0}</strong></td>
+                        <td>${(indicators.rsi || 0).toFixed(1)}</td>
+                        <td><span class="badge ${recClass}">${recText}</span></td>
+                        <td style="font-size: 0.85em;">${signals}</td>
+                        <td style="font-size: 0.85em; color: #64748b;">${timeString}</td>
+                        <td style="text-align: center; display: flex; gap: 8px; justify-content: center;">
+                            <a href="price_forecast.html?symbol=${stock.symbol}"
+                               title="View Price Forecast for ${stock.symbol}"
+                               style="color: #8b5cf6; text-decoration: none; font-size: 1.2em; cursor: pointer;">
+                                🔮
+                            </a>
+                            <a href="advanced_charts.html?symbol=${stock.symbol}"
+                               title="View Advanced Charts for ${stock.symbol}"
+                               style="color: #3b82f6; text-decoration: none; font-size: 1.2em;">
+                                📈
+                            </a>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+
+            tbody.innerHTML = html;
+        }
+
         function clearTableFilters() {
             document.getElementById('filterSymbol').value = '';
             document.getElementById('filterRecommendation').value = '';
@@ -1886,78 +2056,16 @@
                 console.log(`🔄 Analysis data changed, rerendering table (${stocks.length} stocks)`);
             }
 
-            const sorted = stocks.sort((a, b) => (b.analysis?.score || 0) - (a.analysis?.score || 0));
+            // Store data for sorting
+            tableData = stocks;
 
-            // Format timestamp once for all rows
-            // Handle both Date objects and strings
-            const timestamp = dataTimestamp instanceof Date ? dataTimestamp : new Date(dataTimestamp);
-            const timeString = timestamp.toLocaleTimeString('en-US', {
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit',
-                hour12: false
-            });
+            // Sort by current sort field and render
+            let sorted = [...stocks];
+            if (currentSortField === 'score') {
+                sorted.sort((a, b) => (b.analysis?.score || 0) - (a.analysis?.score || 0));
+            }
 
-            // Calculate T+2 date once for all rows
-            const t2Date = calculateT2Date();
-
-            const html = sorted.map(stock => {
-                const analysis = stock.analysis || {};
-                const indicators = analysis.indicators || {};
-
-                // Generate trading signals based on available data
-                const generatedSignals = [];
-                const rsi = indicators.rsi || 0;
-                const changePercent = stock.change_percent || 0;
-
-                // RSI Signals
-                if (rsi > 70) generatedSignals.push('📈 Overbought');
-                else if (rsi < 30) generatedSignals.push('📉 Oversold');
-
-                // Price Movement Signals
-                if (changePercent > 5) generatedSignals.push('🚀 Strong Up');
-                else if (changePercent < -5) generatedSignals.push('⚠️ Sharp Drop');
-                else if (changePercent > 2) generatedSignals.push('✅ Rising');
-                else if (changePercent < -2) generatedSignals.push('🔻 Falling');
-
-                const signals = (analysis.signals && analysis.signals.length > 0)
-                    ? analysis.signals.slice(0, 2).join(', ')
-                    : generatedSignals.slice(0, 2).join(', ') || '—';
-
-                const recClass = analysis.score > 20 ? 'buy' : analysis.score < -20 ? 'sell' : 'hold';
-                const recText = analysis.recommendation || 'HOLD';
-
-                return `
-                    <tr>
-                        <td><strong>${stock.symbol}</strong></td>
-                        <td>${formatPrice(stock.price || 0)} VND</td>
-                        <td style="color: ${stock.change_percent > 0 ? '#10b981' : '#ef4444'};">
-                            ${stock.change_percent > 0 ? '+' : ''}${(stock.change_percent || 0).toFixed(2)}%
-                        </td>
-                        <td>${formatVolume(stock.volume || 0)}</td>
-                        <td style="font-size: 0.85em; color: #3b82f6; font-weight: 500;">${t2Date}</td>
-                        <td><strong>${analysis.score || 0}</strong></td>
-                        <td>${(indicators.rsi || 0).toFixed(1)}</td>
-                        <td><span class="badge ${recClass}">${recText}</span></td>
-                        <td style="font-size: 0.85em;">${signals}</td>
-                        <td style="font-size: 0.85em; color: #64748b;">${timeString}</td>
-                        <td style="text-align: center; display: flex; gap: 8px; justify-content: center;">
-                            <a href="price_forecast.html?symbol=${stock.symbol}"
-                               title="View Price Forecast for ${stock.symbol}"
-                               style="color: #8b5cf6; text-decoration: none; font-size: 1.2em; cursor: pointer;">
-                                🔮
-                            </a>
-                            <a href="advanced_charts.html?symbol=${stock.symbol}"
-                               title="View Advanced Charts for ${stock.symbol}"
-                               style="color: #3b82f6; text-decoration: none; font-size: 1.2em;">
-                                📈
-                            </a>
-                        </td>
-                    </tr>
-                `;
-            }).join('');
-
-            tbody.innerHTML = html;
+            renderSortedTable(sorted);
 
             // Reapply filters after table update
             filterStockTable();
