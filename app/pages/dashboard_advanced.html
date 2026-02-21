@@ -1951,13 +1951,33 @@
                 // Show holdings input
                 document.getElementById('existingHoldingsInput').style.display = 'block';
 
-                // Populate saved plan dropdown
-                populateSavedPlanDropdown();
+                // Populate saved plan dropdown and auto-load first plan with holdings
+                populateSavedPlanDropdown().then(() => {
+                    // Auto-select first saved plan if available
+                    const select = document.getElementById('savedPlanSelect');
+                    if (select && select.options.length > 1) {
+                        // Select first saved plan (index 1, skipping the placeholder at index 0)
+                        select.selectedIndex = 1;
+                        console.log('📊 Auto-selected first saved plan:', select.options[1]?.textContent);
 
-                // Add first row if empty
-                if (document.getElementById('holdingsListContainer').children.length === 0) {
-                    addHoldingRow();
-                }
+                        // Auto-load holdings from selected plan
+                        setTimeout(() => {
+                            loadHoldingsFromSavedPlan();
+                        }, 200);
+                    } else {
+                        // No saved plans, add empty row
+                        if (document.getElementById('holdingsListContainer').children.length === 0) {
+                            console.log('📝 No saved plans, adding empty holding row');
+                            addHoldingRow();
+                        }
+                    }
+                }).catch(error => {
+                    console.error('Error auto-loading holdings:', error);
+                    // Fallback: add empty row
+                    if (document.getElementById('holdingsListContainer').children.length === 0) {
+                        addHoldingRow();
+                    }
+                });
             } else {
                 newCard.style.border = '3px solid #dc2626';
                 newCard.style.background = 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)';
