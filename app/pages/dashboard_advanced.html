@@ -3304,6 +3304,7 @@
                                 ...(window.STOCK_CATEGORIES.banks || [])
                             ];
                             stocksToAnalyze = [...new Set(growthStocks)]; // Remove duplicates
+                            console.log(`📊 Growth strategy: ${stocksToAnalyze.length} stocks`);
                             break;
                         case 'conservative':
                             // Conservative: Blue chips and banks (stable, large-cap)
@@ -3312,10 +3313,14 @@
                                 ...(window.STOCK_CATEGORIES.banks || [])
                             ];
                             stocksToAnalyze = [...new Set(conservativeStocks)]; // Remove duplicates
+                            console.log(`🛡️ Conservative strategy: ${stocksToAnalyze.length} stocks`);
                             break;
                         case 'bluechip':
                             // Blue chip: Only blue chip stocks
                             stocksToAnalyze = window.STOCK_CATEGORIES.blue_chips || [];
+                            console.log(`⭐ Blue chip strategy: ${stocksToAnalyze.length} stocks`);
+                            console.log(`📋 Blue chip stocks being analyzed:`, stocksToAnalyze);
+                            console.log(`🔍 Is AAV in blue_chips? ${stocksToAnalyze.includes('AAV')}`);
                             break;
                         case 'risky':
                             // Risky: Exclude blue chips and banks, focus on smaller companies
@@ -3323,6 +3328,7 @@
                             const blueChipsSet = new Set(window.STOCK_CATEGORIES.blue_chips || []);
                             const banksSet = new Set(window.STOCK_CATEGORIES.banks || []);
                             stocksToAnalyze = [...allStocksSet].filter(s => !blueChipsSet.has(s) && !banksSet.has(s));
+                            console.log(`🎲 Risky strategy: ${stocksToAnalyze.length} stocks`);
                             break;
                     }
                 }
@@ -3442,6 +3448,9 @@
                         // Blue chips with best performance
                         stockAnalysis.sort((a, b) => b.performance3M - a.performance3M);
                         selectedStocks = stockAnalysis.slice(0, 8).map(s => s.symbol);
+                        console.log(`📊 Analyzed ${stockAnalysis.length} blue chip stocks`);
+                        console.log(`✅ Selected blue chip stocks:`, selectedStocks);
+                        console.log(`🔍 AAV in selected stocks? ${selectedStocks.includes('AAV')}`);
                         strategyName = '⭐ Blue Chip Strategy';
                         criteriaDescription = 'Selected top blue chip stocks with best recent performance. These are market leaders with strong fundamentals.';
                         break;
