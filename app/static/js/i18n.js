@@ -1070,6 +1070,7 @@ const translations = {
         'macro.tab.geopolitical': 'Geopolitical Risks',
         'macro.tab.policy': 'Policy Changes',
         'macro.tab.news': 'News & Events',
+        'macro.tab.company_status': 'Company Status',
         'macro.tab.correlation': 'Factor Correlation',
 
         // Macro sections
@@ -1084,6 +1085,10 @@ const translations = {
         'macro.factor_correlation': 'Environmental Factor Correlation',
         'macro.correlation_desc': 'How different environmental factors correlate with Vietnamese stock market sectors',
         'macro.correlation_matrix': 'Correlation Matrix',
+
+        // Company Status
+        'macro.company_status': 'Company Status Analysis',
+        'macro.company_status_desc': 'Real-time company health indicators, operational status, and fundamental metrics for listed stocks',
 
         // Macro table headers
         'macro.commodity': 'Commodity',
@@ -2715,6 +2720,7 @@ const translations = {
         'macro.tab.geopolitical': 'Rủi Ro Địa Chính Trị',
         'macro.tab.policy': 'Thay Đổi Chính Sách',
         'macro.tab.news': 'Tin Tức & Sự Kiện',
+        'macro.tab.company_status': 'Trạng Thái Công Ty',
         'macro.tab.correlation': 'Tương Quan Yếu Tố',
 
         // Macro sections
@@ -2729,6 +2735,10 @@ const translations = {
         'macro.factor_correlation': 'Tương Quan Yếu Tố Môi Trường',
         'macro.correlation_desc': 'Mối tương quan giữa các yếu tố môi trường với các ngành thị trường chứng khoán Việt Nam',
         'macro.correlation_matrix': 'Ma Trận Tương Quan',
+
+        // Company Status
+        'macro.company_status': 'Phân Tích Trạng Thái Công Ty',
+        'macro.company_status_desc': 'Chỉ số sức khỏe công ty thực tế, trạng thái hoạt động và các chỉ số cơ bản của cổ phiếu niêm yết',
 
         // Macro table headers
         'macro.commodity': 'Hàng Hóa',

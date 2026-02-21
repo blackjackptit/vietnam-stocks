@@ -953,6 +953,630 @@
             transition: opacity 0.3s;
         }
 
+        /* Mobile Responsive Design */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 20px 16px;
+            }
+
+            .nav-container {
+                padding: 0 16px;
+            }
+
+            .header {
+                padding: 24px;
+            }
+
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .card {
+                padding: 16px;
+                margin-bottom: 16px;
+            }
+
+            .card h2 {
+                font-size: 1.3em;
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 15px;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 12px;
+            }
+
+            .metric-card {
+                padding: 15px;
+            }
+
+            .metric-value {
+                font-size: 1.5em;
+            }
+
+            .metric-label {
+                font-size: 0.85em;
+            }
+
+            .chart-container {
+                height: 300px;
+            }
+
+            .chart-container.large {
+                height: 350px;
+            }
+
+            .tabs {
+                padding: 0 16px;
+            }
+
+            .tab {
+                padding: 10px 16px;
+                font-size: 0.9em;
+            }
+        }
+
+        /* Tablet - Medium devices (768px - 1024px) */
+        @media (max-width: 768px) {
+            .nav-container {
+                height: 60px;
+                padding: 0 12px;
+            }
+
+            .logo-text {
+                font-size: 1.1em;
+            }
+
+            .page-title {
+                font-size: 0.9em;
+                padding-left: 12px;
+            }
+
+            .menu-btn {
+                padding: 8px 16px;
+                font-size: 0.85em;
+            }
+
+            .container {
+                padding: 16px 12px;
+            }
+
+            .header {
+                padding: 16px;
+                margin-bottom: 16px;
+            }
+
+            .header h1 {
+                font-size: 1.5em;
+                margin-bottom: 8px;
+            }
+
+            .header p {
+                font-size: 0.9em;
+            }
+
+            .card {
+                padding: 12px;
+                margin-bottom: 12px;
+            }
+
+            .card h2 {
+                font-size: 1.1em;
+                padding-bottom: 8px;
+                margin-bottom: 15px;
+            }
+
+            .card h3 {
+                font-size: 1em;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .feature-box {
+                padding: 18px;
+            }
+
+            .feature-box h3 {
+                font-size: 1.1em;
+            }
+
+            .feature-box p {
+                font-size: 0.9em;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+                margin: 16px 0;
+            }
+
+            .metric-card {
+                padding: 12px;
+            }
+
+            .metric-value {
+                font-size: 1.3em;
+            }
+
+            .metric-label {
+                font-size: 0.8em;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9em;
+                margin-top: 16px;
+            }
+
+            .chart-container {
+                height: 250px;
+                margin-top: 20px;
+            }
+
+            .chart-container.large {
+                height: 280px;
+            }
+
+            .tabs {
+                padding: 0 12px;
+                gap: 8px;
+            }
+
+            .tab {
+                padding: 8px 12px;
+                font-size: 0.8em;
+                border-radius: 6px;
+            }
+
+            .tab-content {
+                padding: 0 12px;
+            }
+
+            /* Strategy cards layout */
+            #smartStrategyOptions {
+                margin-top: 16px;
+                padding: 16px;
+            }
+
+            #smartStrategyOptions > div {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
+            .strategy-checkbox-label {
+                padding: 12px 14px;
+                font-size: 0.9em;
+            }
+
+            .strategy-title {
+                font-size: 0.95em;
+            }
+
+            .strategy-desc {
+                font-size: 0.8em;
+            }
+
+            /* Portfolio type cards */
+            .portfolio-type-card {
+                padding: 16px;
+            }
+
+            .portfolio-icon {
+                font-size: 2.2em;
+            }
+
+            .portfolio-title {
+                font-size: 1em;
+            }
+
+            .portfolio-desc {
+                font-size: 0.85em;
+            }
+
+            /* Risk config */
+            #riskyStrategyConfig {
+                margin-top: 16px;
+                padding: 16px;
+            }
+
+            #riskyStrategyConfig > div {
+                grid-template-columns: 1fr !important;
+            }
+
+            /* Input and form elements */
+            input, select, textarea {
+                font-size: 16px;
+                padding: 10px;
+            }
+
+            label {
+                font-size: 0.9em;
+                margin-bottom: 6px;
+            }
+
+            table {
+                font-size: 0.85em;
+            }
+
+            table thead th,
+            table tbody td {
+                padding: 8px;
+            }
+        }
+
+        /* Mobile - Small devices (480px - 767px) */
+        @media (max-width: 480px) {
+            * {
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            body {
+                font-size: 14px;
+            }
+
+            .top-nav {
+                border-bottom: 1px solid #e5e7eb;
+            }
+
+            .nav-container {
+                height: 56px;
+                padding: 0 8px;
+                flex-wrap: wrap;
+            }
+
+            .logo-section {
+                gap: 8px;
+            }
+
+            .logo-text {
+                font-size: 0.95em;
+            }
+
+            .page-title {
+                display: none;
+            }
+
+            .menu-btn {
+                padding: 8px 12px;
+                font-size: 0.75em;
+                gap: 4px;
+            }
+
+            .container {
+                padding: 12px 8px;
+                max-width: 100%;
+            }
+
+            .header {
+                padding: 12px;
+                margin-bottom: 12px;
+                border-radius: 8px;
+            }
+
+            .header h1 {
+                font-size: 1.2em;
+                margin-bottom: 6px;
+            }
+
+            .header p {
+                font-size: 0.8em;
+                line-height: 1.4;
+            }
+
+            .card {
+                padding: 10px;
+                margin-bottom: 10px;
+                border-radius: 8px;
+            }
+
+            .card h2 {
+                font-size: 1em;
+                margin-bottom: 10px;
+                padding-bottom: 6px;
+            }
+
+            .card h3 {
+                font-size: 0.95em;
+            }
+
+            .card h4 {
+                font-size: 0.9em;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .feature-box {
+                padding: 14px;
+                border-radius: 10px;
+            }
+
+            .feature-box h3 {
+                font-size: 1em;
+                margin-bottom: 8px;
+            }
+
+            .feature-box p {
+                font-size: 0.85em;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+                margin: 12px 0;
+            }
+
+            .metric-card {
+                padding: 10px;
+                text-align: center;
+            }
+
+            .metric-value {
+                font-size: 1.2em;
+                font-weight: 700;
+            }
+
+            .metric-label {
+                font-size: 0.75em;
+                margin-bottom: 4px;
+            }
+
+            .btn {
+                width: 100%;
+                padding: 12px 16px;
+                font-size: 0.9em;
+                margin-top: 12px;
+                margin-bottom: 8px;
+            }
+
+            .chart-container {
+                height: 200px;
+                margin-top: 16px;
+            }
+
+            .chart-container.large {
+                height: 230px;
+            }
+
+            .tabs {
+                padding: 0 8px;
+                gap: 6px;
+                margin-bottom: 16px;
+                flex-wrap: wrap;
+            }
+
+            .tab {
+                padding: 6px 10px;
+                font-size: 0.75em;
+                border-radius: 4px;
+                flex: 1;
+                min-width: 70px;
+            }
+
+            .tab-content {
+                padding: 0 8px;
+            }
+
+            /* Strategy cards - single column on mobile */
+            #smartStrategyOptions {
+                margin-top: 12px;
+                padding: 12px;
+            }
+
+            #smartStrategyOptions > div {
+                grid-template-columns: 1fr !important;
+            }
+
+            .strategy-checkbox-label {
+                padding: 12px;
+                border-radius: 8px;
+                font-size: 0.85em;
+            }
+
+            .strategy-content {
+                gap: 8px;
+            }
+
+            .strategy-title {
+                font-size: 0.9em;
+            }
+
+            .strategy-desc {
+                font-size: 0.75em;
+            }
+
+            .strategy-checkmark {
+                width: 24px;
+                height: 24px;
+                font-size: 1em;
+            }
+
+            /* Portfolio type cards */
+            .portfolio-type-card {
+                padding: 12px;
+                border-radius: 8px;
+            }
+
+            .portfolio-icon {
+                font-size: 2em;
+            }
+
+            .portfolio-title {
+                font-size: 0.95em;
+            }
+
+            .portfolio-desc {
+                font-size: 0.8em;
+            }
+
+            /* Risky config */
+            #riskyStrategyConfig {
+                margin-top: 12px;
+                padding: 12px;
+                border-radius: 8px;
+            }
+
+            #riskyStrategyConfig > h4 {
+                font-size: 0.9em;
+                margin-bottom: 12px;
+            }
+
+            #riskyStrategyConfig > div {
+                grid-template-columns: 1fr !important;
+                gap: 12px;
+            }
+
+            #riskyStrategyConfig label {
+                font-size: 0.85em;
+            }
+
+            #riskyStrategyConfig input {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            /* Form inputs - important for mobile UX */
+            input,
+            select,
+            textarea {
+                width: 100%;
+                padding: 12px;
+                font-size: 16px;
+                border-radius: 6px;
+                border: 2px solid #e5e7eb;
+                font-family: inherit;
+                -webkit-appearance: none;
+                appearance: none;
+            }
+
+            input:focus,
+            select:focus,
+            textarea:focus {
+                border-color: #c41c16;
+                outline: none;
+                box-shadow: 0 0 0 3px rgba(196, 28, 22, 0.1);
+            }
+
+            label {
+                font-size: 0.85em;
+                display: block;
+                margin-bottom: 6px;
+                font-weight: 500;
+            }
+
+            /* Table responsiveness */
+            table {
+                font-size: 0.8em;
+                overflow-x: auto;
+                display: block;
+            }
+
+            table thead,
+            table tbody {
+                display: block;
+                width: 100%;
+            }
+
+            table thead th,
+            table tbody td {
+                padding: 6px;
+                text-align: left;
+            }
+
+            table tr {
+                display: block;
+                margin-bottom: 12px;
+                border: 1px solid #e5e7eb;
+                border-radius: 4px;
+            }
+
+            table td::before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: #64748b;
+                min-width: 100px;
+                display: inline-block;
+            }
+
+            /* Scrollable containers */
+            .card-content {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Adjust warning/status boxes */
+            #marginCallWarning,
+            #marginStatusGood {
+                padding: 12px;
+                margin-bottom: 12px;
+                border-radius: 8px;
+            }
+
+            #marginCallWarning > div,
+            #marginStatusGood > div {
+                gap: 10px;
+            }
+
+            #marginCallWarning > div > div:first-child,
+            #marginStatusGood > div > div:first-child {
+                font-size: 2em;
+                min-width: 50px;
+            }
+
+            #marginCallWarning h3,
+            #marginStatusGood h3 {
+                font-size: 0.95em;
+                margin-bottom: 6px;
+            }
+
+            #marginCallWarning p,
+            #marginStatusGood p {
+                font-size: 0.8em;
+            }
+        }
+
+        /* Extra small devices (under 480px) */
+        @media (max-width: 380px) {
+            .logo-text {
+                font-size: 0.85em;
+            }
+
+            .header h1 {
+                font-size: 1em;
+            }
+
+            .card h2 {
+                font-size: 0.95em;
+            }
+
+            .strategy-checkbox-label {
+                padding: 10px;
+                font-size: 0.8em;
+            }
+
+            .btn {
+                font-size: 0.85em;
+                padding: 10px 12px;
+            }
+
+            .metric-value {
+                font-size: 1em;
+            }
+
+            input,
+            select {
+                font-size: 14px;
+            }
+        }
+
     </style>
     <script src="js/collapsible.js"></script>
     <script src="js/logo.js"></script>
@@ -962,6 +1586,7 @@
     <script src="js/custom-dialogs.js"></script>
     <script src="js/i18n.js"></script>
     <script src="js/currency.js"></script>
+    <script src="js/exchange-utils.js"></script>
 </head>
 <body>
     <nav class="top-nav">
@@ -1091,7 +1716,7 @@
         <div class="tab-content active" id="portfolio">
             <h2 style="margin-bottom: 20px;" data-i18n="portfolio.plan_generator">📊 Investment Plan Generator</h2>
             <div class="alert alert-info" style="margin-bottom: 30px;">
-                Build your personalized investment portfolio in 4 clear steps
+                Build your personalized investment portfolio in 5 simple steps
             </div>
 
             <!-- PART 1: OPTION FILTERS -->
@@ -1279,7 +1904,15 @@
                             <p style="color: #64748b; font-size: 0.9em; margin-bottom: 15px;">
                                 Choose stocks you want to prioritize. The system will include these first.
                             </p>
-                            <input type="text" class="search-box-small" id="portfolioSearchBox" placeholder="🔍 Search stocks..." oninput="filterPortfolioStocks()" style="margin-bottom: 10px;">
+                            <div style="display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap;">
+                                <input type="text" class="search-box-small" id="portfolioSearchBox" placeholder="🔍 Search stocks..." oninput="filterPortfolioStocks()" style="flex: 1; min-width: 150px; padding: 10px; border: 2px solid #e5e7eb; border-radius: 6px;">
+                                <select id="portfolioExchangeFilter" style="padding: 10px 12px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.95em; cursor: pointer;" onchange="filterPortfolioStocks()">
+                                    <option value="">All Exchanges</option>
+                                    <option value="HOSE">🏛️ HOSE</option>
+                                    <option value="HNX">📍 HNX</option>
+                                    <option value="UPCOM">⭐ UPCOM</option>
+                                </select>
+                            </div>
                             <div class="checkbox-controls">
                                 <button class="btn-small" onclick="clearAllPortfolio()">✗ Clear All</button>
                                 <span class="selection-count" id="portfolioCount" style="background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); color: white;">0 selected</span>
@@ -2232,6 +2865,14 @@
 
         async function init() {
             try {
+                // Check for stock parameter from macro analysis or other sources
+                const urlParams = new URLSearchParams(window.location.search);
+                const stockParam = urlParams.get('stock');
+                if (stockParam) {
+                    console.log('📌 Stock parameter detected from URL:', stockParam);
+                    window.stockFromMacroAnalysis = stockParam;
+                }
+
                 // CRITICAL: Ensure analysis lock is false on page load
                 isAnalyzingRecommendations = false;
                 console.log('🚀 Page initialized - isAnalyzingRecommendations:', isAnalyzingRecommendations);
@@ -2326,6 +2967,21 @@
 
                 console.log(`✓ Loaded ${allStocks.length} stocks for portfolio analytics`);
 
+                // Load stocks with exchange info
+                try {
+                    const response = await fetch('/api/stocks');
+                    const data = await response.json();
+                    if (data.success && data.stocks) {
+                        window.stocksWithExchange = {};
+                        data.stocks.forEach(stock => {
+                            window.stocksWithExchange[stock.symbol] = stock;
+                        });
+                        console.log('✓ Loaded exchange data for stocks');
+                    }
+                } catch (error) {
+                    console.log('Exchange data not available, continuing without it');
+                }
+
                 // Populate all dropdowns
                 populateDropdowns();
 
@@ -2389,18 +3045,53 @@
             populateCheckboxContainer('riskStocks', 'risk');
             populateCheckboxContainer('correlationStocks', 'correlation');
             populateCheckboxContainer('preferredStocks', 'preferred');
+
+            // Auto-select stock from macro analysis if provided
+            if (window.stockFromMacroAnalysis) {
+                const stockSymbol = window.stockFromMacroAnalysis;
+                console.log('🎯 Auto-selecting stock from macro analysis:', stockSymbol);
+
+                // Auto-select in portfolio stocks
+                const portfolioCheckbox = document.getElementById(`portfolio_${stockSymbol}`);
+                if (portfolioCheckbox) {
+                    portfolioCheckbox.checked = true;
+                    updatePortfolioCount();
+                    console.log('✅ Stock selected in portfolio stocks');
+                }
+
+                // Scroll to portfolio section
+                const portfolioSection = document.getElementById('portfolioStocks');
+                if (portfolioSection) {
+                    setTimeout(() => {
+                        portfolioSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                }
+            }
         }
 
         function populateCheckboxContainer(containerId, prefix) {
             const container = document.getElementById(containerId);
             if (!container) return;
 
-            container.innerHTML = allStocks.map(symbol => `
-                <div class="checkbox-item">
-                    <input type="checkbox" id="${prefix}_${symbol}" value="${symbol}" onchange="update${prefix.charAt(0).toUpperCase() + prefix.slice(1)}Count()">
-                    <label for="${prefix}_${symbol}" title="${getStockDisplayName(symbol)}">${getStockDisplayName(symbol)}</label>
-                </div>
-            `).join('');
+            // Build HTML with exchange info if available
+            container.innerHTML = allStocks.map(symbol => {
+                const displayName = getStockDisplayName(symbol);
+                let label = displayName;
+
+                // Add exchange info if available from stocksWithExchange
+                if (window.stocksWithExchange && window.stocksWithExchange[symbol]) {
+                    const exchange = window.stocksWithExchange[symbol].exchange;
+                    const exchangeDisplay = getExchangeDisplay(exchange);
+                    label = `${displayName} (${exchangeDisplay})`;
+                }
+
+                return `
+                    <div class="checkbox-item" data-exchange="${window.stocksWithExchange && window.stocksWithExchange[symbol] ? window.stocksWithExchange[symbol].exchange : ''}">
+                        <input type="checkbox" id="${prefix}_${symbol}" value="${symbol}" onchange="update${prefix.charAt(0).toUpperCase() + prefix.slice(1)}Count()">
+                        <label for="${prefix}_${symbol}" title="${label}">${label}</label>
+                    </div>
+                `;
+            }).join('');
 
             // Initialize count
             window[`update${prefix.charAt(0).toUpperCase() + prefix.slice(1)}Count`]();
@@ -2439,9 +3130,20 @@
 
         function filterPortfolioStocks() {
             const searchTerm = document.getElementById('portfolioSearchBox').value.toLowerCase();
+            const exchangeFilter = document.getElementById('portfolioExchangeFilter') ? document.getElementById('portfolioExchangeFilter').value : '';
+
             document.querySelectorAll('#portfolioStocks .checkbox-item').forEach(item => {
                 const label = item.querySelector('label').textContent.toLowerCase();
-                item.classList.toggle('hidden', !label.includes(searchTerm));
+                const exchange = item.getAttribute('data-exchange') || '';
+
+                // Check search term
+                const matchesSearch = label.includes(searchTerm);
+
+                // Check exchange filter
+                const matchesExchange = !exchangeFilter || exchange === exchangeFilter;
+
+                // Show if both match
+                item.classList.toggle('hidden', !(matchesSearch && matchesExchange));
             });
         }
 

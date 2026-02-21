@@ -536,6 +536,7 @@
     <script src="js/custom-dialogs.js"></script>
     <script src="js/i18n.js"></script>
     <script src="js/currency.js"></script>
+    <script src="js/exchange-utils.js"></script>
 </head>
 <body>
     <nav class="top-nav">
@@ -872,6 +873,18 @@
                                id="stockSearchBox"
                                placeholder="🔍 Search stocks..."
                                oninput="filterStocks()">
+
+                        <div style="margin: 12px 0; display: flex; gap: 10px; align-items: center;">
+                            <label style="margin: 0; font-weight: 600; color: #475569; flex-shrink: 0;">Filter by Exchange:</label>
+                            <select id="chartsExchangeFilter" style="padding: 8px 12px; border: 2px solid #e5e7eb; border-radius: 6px; font-size: 0.95em; cursor: pointer; flex: 1;"
+                                    onchange="filterStocks()">
+                                <option value="">All Exchanges</option>
+                                <option value="HOSE">🏛️ HOSE</option>
+                                <option value="HNX">📍 HNX</option>
+                                <option value="UPCOM">⭐ UPCOM</option>
+                            </select>
+                        </div>
+
                         <div class="checkbox-controls">
                             <button class="btn-small" onclick="selectAllStocks()">✓ Select All</button>
                             <button class="btn-small" onclick="clearAllStocks()">✗ Clear All</button>
@@ -1023,6 +1036,22 @@
                     stockNames = {};
                 }
 
+                // Load exchange data
+                try {
+                    const exchangeResponse = await fetch(`${window.API_BASE_URL || ''}/api/stocks`);
+                    const data = await exchangeResponse.json();
+                    if (data.success && data.stocks) {
+                        data.stocks.forEach(stock => {
+                            window.stocksWithExchange = window.stocksWithExchange || {};
+                            window.stocksWithExchange[stock.symbol] = stock;
+                        });
+                        console.log(`✓ Loaded exchange data for ${Object.keys(window.stocksWithExchange || {}).length} stocks`);
+                    }
+                } catch (e) {
+                    console.log('Exchange data not available');
+                    window.stocksWithExchange = {};
+                }
+
                 // Wait for stock categories to load
                 let retries = 0;
                 while (!window.categoriesLoaded && retries < 50) {
@@ -1066,12 +1095,17 @@
                 select.innerHTML = options;
 
                 // Populate checkbox grid for comparison
-                const checkboxes = allStocks.map(symbol => `
-                    <div class="checkbox-item">
-                        <input type="checkbox" id="chk_${symbol}" value="${symbol}" onchange="updateSelectionCount()">
-                        <label for="chk_${symbol}" title="${getStockDisplayName(symbol)}">${getStockDisplayName(symbol)}</label>
-                    </div>
-                `).join('');
+                const checkboxes = allStocks.map(symbol => {
+                    const stockData = (window.stocksWithExchange || {})[symbol];
+                    const exchangeBadge = stockData ? getExchangeBadge(stockData.exchange) : '';
+                    return `
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="chk_${symbol}" value="${symbol}" onchange="updateSelectionCount()">
+                            <label for="chk_${symbol}" title="${getStockDisplayName(symbol)}">${getStockDisplayName(symbol)}</label>
+                            ${exchangeBadge ? `<div style="margin-top: 4px; font-size: 0.8em;">${exchangeBadge}</div>` : ''}
+                        </div>
+                    `;
+                }).join('');
                 compareStocks.innerHTML = checkboxes;
 
                 // Check if stock symbol is provided in URL parameter
@@ -1119,11 +1153,20 @@
 
         function filterStocks() {
             const searchTerm = document.getElementById('stockSearchBox').value.toLowerCase();
+            const exchangeFilter = document.getElementById('chartsExchangeFilter').value;
             const items = document.querySelectorAll('#compareStocks .checkbox-item');
 
             items.forEach(item => {
                 const label = item.querySelector('label').textContent.toLowerCase();
-                if (label.includes(searchTerm)) {
+                const checkbox = item.querySelector('input[type="checkbox"]');
+                const symbol = checkbox.value;
+                const stockData = (window.stocksWithExchange || {})[symbol];
+                const exchange = stockData ? stockData.exchange : '';
+
+                const matchesSearch = label.includes(searchTerm);
+                const matchesExchange = !exchangeFilter || exchange === exchangeFilter;
+
+                if (matchesSearch && matchesExchange) {
                     item.classList.remove('hidden');
                 } else {
                     item.classList.add('hidden');
