@@ -1131,6 +1131,43 @@
                                     </div>
                                     <div class="strategy-checkmark">✓</div>
                                 </label>
+                                <label class="strategy-checkbox-label" data-strategy="risky" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+                                    <input type="checkbox" class="strategy-checkbox" name="strategyChoice" value="risky" onchange="selectSmartStrategy(this)">
+                                    <div class="strategy-content">
+                                        <div class="strategy-title">🚀 Risky</div>
+                                        <div class="strategy-desc">Highest potential</div>
+                                    </div>
+                                    <div class="strategy-checkmark">✓</div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Risky Strategy Configuration -->
+                        <div id="riskyStrategyConfig" style="display: none; margin-top: 25px; padding: 20px; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-radius: 10px; border: 2px solid #ef4444;">
+                            <h4 style="color: #7f1d1d; margin-bottom: 15px; margin-top: 0;">⚙️ Risky Strategy Configuration</h4>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                <div>
+                                    <label style="display: block; color: #1f2937; font-weight: 600; margin-bottom: 8px; font-size: 0.95em;">
+                                        📊 Maximum Stock Price (VND)
+                                    </label>
+                                    <input type="number" id="riskyMaxPrice" placeholder="e.g., 500000" style="width: 100%; padding: 12px; border: 2px solid #fca5a5; border-radius: 6px; font-size: 1em;" min="0" step="1000">
+                                    <p style="margin: 8px 0 0 0; color: #64748b; font-size: 0.85em;">Only include stocks below this price</p>
+                                </div>
+
+                                <div>
+                                    <label style="display: block; color: #1f2937; font-weight: 600; margin-bottom: 8px; font-size: 0.95em;">
+                                        🎯 Target Return Potential (%)
+                                    </label>
+                                    <input type="number" id="riskyTargetReturn" placeholder="e.g., 50" style="width: 100%; padding: 12px; border: 2px solid #fca5a5; border-radius: 6px; font-size: 1em;" min="0" max="500" step="5">
+                                    <p style="margin: 8px 0 0 0; color: #64748b; font-size: 0.85em;">Expected return potential (higher risk for higher returns)</p>
+                                </div>
+                            </div>
+
+                            <div style="margin-top: 15px; padding: 12px; background: #fee2e2; border-radius: 6px; border-left: 4px solid #ef4444;">
+                                <p style="margin: 0; color: #7f1d1d; font-size: 0.9em;">
+                                    <strong>⚠️ Risk Warning:</strong> The risky strategy focuses on high-growth small-cap stocks. This is suitable for aggressive investors with high risk tolerance. Potential for high returns comes with higher volatility.
+                                </p>
                             </div>
                         </div>
                         </div>
@@ -1926,10 +1963,22 @@
                 currentSmartStrategy = checkbox.value;
                 checkbox.parentElement.style.opacity = '1';
                 checkbox.parentElement.style.transform = 'scale(1.05)';
+
+                // Show risky strategy config if risky is selected
+                const riskyConfig = document.getElementById('riskyStrategyConfig');
+                if (currentSmartStrategy === 'risky' && riskyConfig) {
+                    riskyConfig.style.display = 'block';
+                }
             } else {
                 currentSmartStrategy = null;
                 checkbox.parentElement.style.opacity = '0.7';
                 checkbox.parentElement.style.transform = 'scale(1)';
+
+                // Hide risky strategy config
+                const riskyConfig = document.getElementById('riskyStrategyConfig');
+                if (riskyConfig) {
+                    riskyConfig.style.display = 'none';
+                }
             }
         }
 
@@ -3285,9 +3334,25 @@
                 } else {
                     // Auto-select stocks based on smart strategy type
                     let numStocks = 10;
+                    let candidateStocks = allStocks;
 
-                    // Adjust number of stocks based on strategy
-                    if (currentSmartStrategy === 'conservative') {
+                    // Handle risky strategy with price filtering
+                    if (currentSmartStrategy === 'risky') {
+                        const maxPrice = parseFloat(document.getElementById('riskyMaxPrice').value);
+                        if (!maxPrice || maxPrice <= 0) {
+                            showAlert('⚠️ Please enter a valid maximum stock price for Risky strategy (Step 1)');
+                            return;
+                        }
+
+                        // Filter stocks by maximum price
+                        candidateStocks = allStocks.filter(stock => {
+                            // We'll do price filtering after loading current data
+                            return stock;
+                        });
+
+                        numStocks = 8; // Fewer, focused picks for high-risk strategy
+                        console.log(`🚀 Risky strategy: Max price = ${maxPrice} VND, searching from ${candidateStocks.length} stocks`);
+                    } else if (currentSmartStrategy === 'conservative') {
                         numStocks = 15; // More diversification for conservative
                     } else if (currentSmartStrategy === 'growth') {
                         numStocks = 8; // Fewer, focused picks for growth
@@ -3297,7 +3362,7 @@
                         numStocks = 10;
                     }
 
-                    const topStocks = allStocks.slice(0, Math.min(numStocks, allStocks.length));
+                    const topStocks = candidateStocks.slice(0, Math.min(numStocks, candidateStocks.length));
                     finalSelectedStocks = topStocks;
 
                     console.log(`🎯 Auto-selected ${finalSelectedStocks.length} stocks for ${currentSmartStrategy} strategy`);
@@ -3318,12 +3383,19 @@
 
             // Load REAL data for each stock
             const stocksData = [];
+            const maxRiskyPrice = currentSmartStrategy === 'risky' ? parseFloat(document.getElementById('riskyMaxPrice').value) : null;
+
             for (const symbol of finalSelectedStocks) {
                 try {
                     const currentData = await DataAPI.getCurrentPrice(symbol);
                     const historicalData = await DataAPI.getHistoricalData(symbol);
 
                     if (currentData && historicalData && historicalData.length > 0) {
+                        // For risky strategy, filter by max price
+                        if (maxRiskyPrice && currentData.price > maxRiskyPrice) {
+                            console.log(`⏭️ Skipping ${symbol} (price ${currentData.price} > max ${maxRiskyPrice})`);
+                            continue;
+                        }
                         // Calculate real metrics from historical data
                         const closes = historicalData.map(d => d.close);
                         const returns = [];
@@ -3389,7 +3461,11 @@
 
             // Sort stocks based on strategy
             if (currentStrategy === 'smart' && currentSmartStrategy) {
-                if (currentSmartStrategy === 'growth') {
+                if (currentSmartStrategy === 'risky') {
+                    // Sort by highest expected return for risky strategy (high risk = high reward)
+                    stocksData.sort((a, b) => b.expectedReturn - a.expectedReturn);
+                    console.log('🚀 Sorted by expected return (risky strategy)');
+                } else if (currentSmartStrategy === 'growth') {
                     // Sort by performance for growth strategy
                     stocksData.sort((a, b) => b.performance3M - a.performance3M);
                     console.log('📈 Sorted by performance (growth strategy)');
@@ -3441,7 +3517,8 @@
                     'Risk-Adjusted (Recommended)': calculateRiskAdjustedAllocation(stocksData),
                     'Equal Weight': calculateEqualWeightAllocation(stocksData),
                     'Performance-Based': calculatePerformanceBasedAllocation(stocksData),
-                    'Low Risk': calculateLowRiskAllocation(stocksData)
+                    'Low Risk': calculateLowRiskAllocation(stocksData),
+                    'Risky (Highest Return)': calculateRiskyAllocation(stocksData)
                 };
 
                 // Map smart strategy to allocation method
@@ -3452,7 +3529,8 @@
                         'balanced': 'Risk-Adjusted (Recommended)',
                         'growth': 'Performance-Based',
                         'conservative': 'Low Risk',
-                        'bluechip': 'Equal Weight'
+                        'bluechip': 'Equal Weight',
+                        'risky': 'Risky (Highest Return)'
                     };
                     allocationMethod = strategyMapping[currentSmartStrategy] || 'Risk-Adjusted (Recommended)';
                     console.log(`📊 Using ${allocationMethod} allocation for ${currentSmartStrategy} strategy`);
@@ -3564,6 +3642,22 @@
             return riskScores.map(s => (s / totalScore) * 100);
         }
 
+        function calculateRiskyAllocation(stocks) {
+            // Allocate based on expected return (highest return first)
+            // Normalize expected returns to positive scale for allocation
+            const minReturn = Math.min(...stocks.map(s => s.expectedReturn));
+            const maxReturn = Math.max(...stocks.map(s => s.expectedReturn));
+            const returnRange = maxReturn - minReturn || 1;
+
+            const returnScores = stocks.map(s => (s.expectedReturn - minReturn) / returnRange + 0.1); // Add 0.1 minimum
+            const totalScore = returnScores.reduce((sum, s) => sum + s, 0);
+
+            if (totalScore === 0) {
+                return calculateEqualWeightAllocation(stocks);
+            }
+            return returnScores.map(s => (s / totalScore) * 100);
+        }
+
         function displayInvestmentPlan(allocations, budget, strategies, portfolioType = 'new', existingHoldings = [], preferredStocks = []) {
             // Show results section
             const resultsWrapper = document.getElementById('investmentPlanResultsWrapper');
@@ -3582,7 +3676,8 @@
                 'balanced': '⚖️ Balanced Strategy',
                 'growth': '📈 High Growth Strategy',
                 'conservative': '🛡️ Conservative Strategy',
-                'bluechip': '⭐ Blue Chip Strategy'
+                'bluechip': '⭐ Blue Chip Strategy',
+                'risky': '🚀 Risky Strategy (Highest Potential)'
             };
 
             const strategyText = currentStrategy === 'smart'

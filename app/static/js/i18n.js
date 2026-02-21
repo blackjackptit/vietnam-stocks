@@ -649,6 +649,13 @@ const translations = {
         'strategy.conservative_desc': 'Lowest risk, stable stocks',
         'strategy.blue_chip': 'Blue Chip',
         'strategy.blue_chip_desc': 'Market leaders only',
+        'strategy.risky': 'Risky',
+        'strategy.risky_desc': 'Highest potential returns',
+        'strategy.risky_config_max_price': 'Maximum Stock Price (VND)',
+        'strategy.risky_config_max_price_hint': 'Only include stocks below this price',
+        'strategy.risky_config_target_return': 'Target Return Potential (%)',
+        'strategy.risky_config_target_return_hint': 'Expected return potential (higher risk for higher returns)',
+        'strategy.risky_config_warning': 'Risk Warning: The risky strategy focuses on high-growth small-cap stocks. This is suitable for aggressive investors with high risk tolerance.',
         'strategy.select': 'Strategy:',
 
         // Backtest
@@ -2225,6 +2232,13 @@ const translations = {
         'strategy.conservative_desc': 'Rủi ro thấp nhất, cổ phiếu ổn định',
         'strategy.blue_chip': 'Blue Chip',
         'strategy.blue_chip_desc': 'Chỉ các công ty hàng đầu',
+        'strategy.risky': 'Rủi Ro Cao',
+        'strategy.risky_desc': 'Lợi nhuận tiềm năng cao nhất',
+        'strategy.risky_config_max_price': 'Giá Cổ Phiếu Tối Đa (VND)',
+        'strategy.risky_config_max_price_hint': 'Chỉ bao gồm cổ phiếu dưới giá này',
+        'strategy.risky_config_target_return': 'Tiềm Năng Lợi Nhuận Mục Tiêu (%)',
+        'strategy.risky_config_target_return_hint': 'Tiềm năng lợi nhuận kỳ vọng (rủi ro cao hơn = lợi nhuận cao hơn)',
+        'strategy.risky_config_warning': 'Cảnh Báo Rủi Ro: Chiến lược rủi ro cao tập trung vào cổ phiếu vốn hóa nhỏ tăng trưởng cao. Phù hợp cho nhà đầu tư tích cực với mức độ chịu rủi ro cao.',
         'strategy.select': 'Chiến Lược:',
 
         // Backtest
