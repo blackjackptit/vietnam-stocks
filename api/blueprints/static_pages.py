@@ -31,6 +31,13 @@ def index():
 @static_pages_bp.route('/<path:filename>')
 def serve_static(filename):
     """Serve static files (HTML, CSS, JS, images)"""
+    # Don't serve /api/ routes - they should be handled by API blueprints
+    if filename.startswith('api/'):
+        return jsonify({
+            "error": f"API endpoint not found: {filename}",
+            "message": "This API route is not implemented or the service may be down"
+        }), 404
+
     # Security check - prevent directory traversal
     if '..' in filename or filename.startswith('/'):
         return jsonify({"error": "Invalid file path"}), 400
