@@ -1140,36 +1140,35 @@
                                     <div class="strategy-checkmark">✓</div>
                                 </label>
                             </div>
-                        </div>
 
-                        <!-- Risky Strategy Configuration -->
-                        <div id="riskyStrategyConfig" style="display: none; margin-top: 25px; padding: 20px; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-radius: 10px; border: 2px solid #ef4444;">
-                            <h4 style="color: #7f1d1d; margin-bottom: 15px; margin-top: 0;">⚙️ Risky Strategy Configuration</h4>
+                            <!-- Risky Strategy Configuration -->
+                            <div id="riskyStrategyConfig" style="display: none; margin-top: 25px; padding: 20px; background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-radius: 10px; border: 2px solid #ef4444;">
+                                <h4 style="color: #7f1d1d; margin-bottom: 15px; margin-top: 0;">⚙️ Risky Strategy Configuration</h4>
 
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                                <div>
-                                    <label style="display: block; color: #1f2937; font-weight: 600; margin-bottom: 8px; font-size: 0.95em;">
-                                        📊 Maximum Stock Price (VND)
-                                    </label>
-                                    <input type="number" id="riskyMaxPrice" placeholder="e.g., 500000" style="width: 100%; padding: 12px; border: 2px solid #fca5a5; border-radius: 6px; font-size: 1em;" min="0" step="1000">
-                                    <p style="margin: 8px 0 0 0; color: #64748b; font-size: 0.85em;">Only include stocks below this price</p>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                    <div>
+                                        <label style="display: block; color: #1f2937; font-weight: 600; margin-bottom: 8px; font-size: 0.95em;">
+                                            📊 Maximum Stock Price (VND)
+                                        </label>
+                                        <input type="number" id="riskyMaxPrice" placeholder="e.g., 500000" style="width: 100%; padding: 12px; border: 2px solid #fca5a5; border-radius: 6px; font-size: 1em;" min="0" step="1000">
+                                        <p style="margin: 8px 0 0 0; color: #64748b; font-size: 0.85em;">Only include stocks below this price</p>
+                                    </div>
+
+                                    <div>
+                                        <label style="display: block; color: #1f2937; font-weight: 600; margin-bottom: 8px; font-size: 0.95em;">
+                                            🎯 Target Return Potential (%)
+                                        </label>
+                                        <input type="number" id="riskyTargetReturn" placeholder="e.g., 50" style="width: 100%; padding: 12px; border: 2px solid #fca5a5; border-radius: 6px; font-size: 1em;" min="0" max="500" step="5">
+                                        <p style="margin: 8px 0 0 0; color: #64748b; font-size: 0.85em;">Expected return potential (higher risk for higher returns)</p>
+                                    </div>
                                 </div>
 
-                                <div>
-                                    <label style="display: block; color: #1f2937; font-weight: 600; margin-bottom: 8px; font-size: 0.95em;">
-                                        🎯 Target Return Potential (%)
-                                    </label>
-                                    <input type="number" id="riskyTargetReturn" placeholder="e.g., 50" style="width: 100%; padding: 12px; border: 2px solid #fca5a5; border-radius: 6px; font-size: 1em;" min="0" max="500" step="5">
-                                    <p style="margin: 8px 0 0 0; color: #64748b; font-size: 0.85em;">Expected return potential (higher risk for higher returns)</p>
+                                <div style="margin-top: 15px; padding: 12px; background: #fee2e2; border-radius: 6px; border-left: 4px solid #ef4444;">
+                                    <p style="margin: 0; color: #7f1d1d; font-size: 0.9em;">
+                                        <strong>⚠️ Risk Warning:</strong> The risky strategy focuses on high-growth small-cap stocks. This is suitable for aggressive investors with high risk tolerance. Potential for high returns comes with higher volatility.
+                                    </p>
                                 </div>
                             </div>
-
-                            <div style="margin-top: 15px; padding: 12px; background: #fee2e2; border-radius: 6px; border-left: 4px solid #ef4444;">
-                                <p style="margin: 0; color: #7f1d1d; font-size: 0.9em;">
-                                    <strong>⚠️ Risk Warning:</strong> The risky strategy focuses on high-growth small-cap stocks. This is suitable for aggressive investors with high risk tolerance. Potential for high returns comes with higher volatility.
-                                </p>
-                            </div>
-                        </div>
                         </div>
                         </div>
                     </div>
@@ -1951,6 +1950,8 @@
         // Handle strategy checkbox selection (only one can be selected)
         function selectSmartStrategy(checkbox) {
             const allCheckboxes = document.querySelectorAll('.strategy-checkbox');
+            const riskyConfig = document.getElementById('riskyStrategyConfig');
+
             allCheckboxes.forEach(cb => {
                 if (cb !== checkbox) {
                     cb.checked = false;
@@ -1965,9 +1966,11 @@
                 checkbox.parentElement.style.transform = 'scale(1.05)';
 
                 // Show risky strategy config if risky is selected
-                const riskyConfig = document.getElementById('riskyStrategyConfig');
                 if (currentSmartStrategy === 'risky' && riskyConfig) {
                     riskyConfig.style.display = 'block';
+                } else if (riskyConfig) {
+                    // Hide config for other strategies
+                    riskyConfig.style.display = 'none';
                 }
             } else {
                 currentSmartStrategy = null;
@@ -1975,7 +1978,6 @@
                 checkbox.parentElement.style.transform = 'scale(1)';
 
                 // Hide risky strategy config
-                const riskyConfig = document.getElementById('riskyStrategyConfig');
                 if (riskyConfig) {
                     riskyConfig.style.display = 'none';
                 }
