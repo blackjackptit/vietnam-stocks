@@ -1071,6 +1071,8 @@
         async function init() {
             try {
                 await loadStockNames();
+                // Exchange data is now loaded in loadStocksWithExchangeData()
+                // which is called from loadStockNames()
 
                 // Function to update monitoring description with stock count
                 function updateMonitoringDescription() {
@@ -1091,6 +1093,9 @@
                         console.log(`📊 Categories loaded with ${window.TOTAL_STOCKS_COUNT} total stocks`);
                         updateMonitoringDescription();
                         clearInterval(checkCategories);
+                        // Render grid AFTER categories and exchange data are loaded
+                        renderStockGrid();
+                        updateSelectedCount();
                     }
                 }, 100);
 
@@ -1102,9 +1107,6 @@
                     // Refresh the grid to show new data
                     renderStockGrid();
                 });
-
-                renderStockGrid();
-                updateSelectedCount();
 
                 // Initialize status badge as LIVE (waiting for first data)
                 updateStatusBadge(true);

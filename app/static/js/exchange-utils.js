@@ -234,15 +234,4 @@ function filterStocksByExchange(containerId, callbackFn = null) {
     }
 }
 
-export {
-    EXCHANGES,
-    getExchangeDisplay,
-    getExchangeColor,
-    getExchangeBadge,
-    createExchangeFilter,
-    filterByExchange,
-    addExchangeColumnToTable,
-    updateCheckboxWithExchange,
-    getStocksWithExchange,
-    filterCheckboxesByExchange
-};
+// Functions are globally available - no export needed for inline script includes
