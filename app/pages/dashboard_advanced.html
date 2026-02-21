@@ -3290,9 +3290,41 @@
                     return;
                 }
 
-                // For blue chip strategy, filter to blue chip stocks only
-                if (strategy === 'bluechip' && window.STOCK_CATEGORIES && window.STOCK_CATEGORIES.blue_chips) {
-                    stocksToAnalyze = window.STOCK_CATEGORIES.blue_chips;
+                // Filter stocks by strategy
+                if (window.STOCK_CATEGORIES) {
+                    switch (strategy) {
+                        case 'balanced':
+                            // Balanced: Use all stocks (no filter)
+                            break;
+                        case 'growth':
+                            // Growth: Tech, consumer goods, and banking stocks
+                            const growthStocks = [
+                                ...(window.STOCK_CATEGORIES.tech || []),
+                                ...(window.STOCK_CATEGORIES.consumer || []),
+                                ...(window.STOCK_CATEGORIES.banks || [])
+                            ];
+                            stocksToAnalyze = [...new Set(growthStocks)]; // Remove duplicates
+                            break;
+                        case 'conservative':
+                            // Conservative: Blue chips and banks (stable, large-cap)
+                            const conservativeStocks = [
+                                ...(window.STOCK_CATEGORIES.blue_chips || []),
+                                ...(window.STOCK_CATEGORIES.banks || [])
+                            ];
+                            stocksToAnalyze = [...new Set(conservativeStocks)]; // Remove duplicates
+                            break;
+                        case 'bluechip':
+                            // Blue chip: Only blue chip stocks
+                            stocksToAnalyze = window.STOCK_CATEGORIES.blue_chips || [];
+                            break;
+                        case 'risky':
+                            // Risky: Exclude blue chips and banks, focus on smaller companies
+                            const allStocksSet = new Set(stocksToAnalyze);
+                            const blueChipsSet = new Set(window.STOCK_CATEGORIES.blue_chips || []);
+                            const banksSet = new Set(window.STOCK_CATEGORIES.banks || []);
+                            stocksToAnalyze = [...allStocksSet].filter(s => !blueChipsSet.has(s) && !banksSet.has(s));
+                            break;
+                    }
                 }
 
                 // Analyze each stock
