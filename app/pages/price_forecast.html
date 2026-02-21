@@ -1575,12 +1575,19 @@
             forecastData = allForecasts;
 
             // Display all results
+            console.log('🎯 Starting display functions with data:', {
+                historicalStocks: Object.keys(allHistoricals),
+                forecastStocks: Object.keys(allForecasts)
+            });
             displayForecastChart(allHistoricals, allForecasts);
             displayForecastMetrics(allForecasts);
             displayModelComparison(Object.values(allForecasts)[0].models); // Show models from first stock
             displayPredictionsTable(allForecasts);
+            console.log('📊 About to call displayIndicators...');
             displayIndicators(allHistoricals);
+            console.log('📈 About to call displayControlChart...');
             displayControlChart(allHistoricals, allForecasts);
+            console.log('✅ All display functions completed');
 
             // Sync evaluation model selector with main model selector
             const mainModel = document.getElementById('modelSelect').value;
@@ -2646,7 +2653,29 @@
         }
 
         function displayIndicators(allHistoricals) {
+            console.log('displayIndicators called with:', Object.keys(allHistoricals));
+
+            if (!allHistoricals || Object.keys(allHistoricals).length === 0) {
+                console.warn('⚠️ No historical data available for indicators chart');
+                return;
+            }
+
             const canvas = document.getElementById('indicatorsChart');
+            if (!canvas) {
+                console.error('❌ Canvas element #indicatorsChart not found');
+                return;
+            }
+
+            // Check canvas dimensions
+            const rect = canvas.getBoundingClientRect();
+            const parentRect = canvas.parentElement.getBoundingClientRect();
+            console.log('🎨 indicatorsChart dimensions:', {
+                canvasWidth: canvas.width,
+                canvasHeight: canvas.height,
+                boundingRect: { width: rect.width, height: rect.height },
+                parentRect: { width: parentRect.width, height: parentRect.height }
+            });
+
             const ctx = canvas.getContext('2d');
 
             if (charts.indicatorsChart) {
@@ -2661,6 +2690,7 @@
             // Use first stock's dates for labels
             const firstSymbol = Object.keys(allHistoricals)[0];
             const dates = allHistoricals[firstSymbol].map(h => h.date.toLocaleDateString());
+            console.log(`📊 Creating indicators chart for ${Object.keys(allHistoricals).join(', ')} with ${dates.length} dates`);
 
             // Create datasets for each stock
             Object.keys(allHistoricals).forEach((symbol, index) => {
@@ -2700,6 +2730,7 @@
                 });
             });
 
+            console.log(`🔧 Creating chart with ${datasets.length} datasets and ${dates.length} labels`);
             charts.indicatorsChart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -2722,6 +2753,7 @@
                     }
                 }
             });
+            console.log('✅ Indicators chart created:', charts.indicatorsChart);
         }
 
         function detectAnomalies(prices, mean, stdDev, ucl, lcl) {
@@ -2913,7 +2945,37 @@
         }
 
         function displayControlChart(allHistoricals, allForecasts) {
+            console.log('displayControlChart called with:', {
+                historicalSymbols: Object.keys(allHistoricals),
+                forecastSymbols: Object.keys(allForecasts)
+            });
+
+            if (!allHistoricals || Object.keys(allHistoricals).length === 0) {
+                console.warn('⚠️ No historical data available for control chart');
+                return;
+            }
+
+            if (!allForecasts || Object.keys(allForecasts).length === 0) {
+                console.warn('⚠️ No forecast data available for control chart');
+                return;
+            }
+
             const canvas = document.getElementById('controlChart');
+            if (!canvas) {
+                console.error('❌ Canvas element #controlChart not found');
+                return;
+            }
+
+            // Check canvas dimensions
+            const rect = canvas.getBoundingClientRect();
+            const parentRect = canvas.parentElement.getBoundingClientRect();
+            console.log('🎨 controlChart dimensions:', {
+                canvasWidth: canvas.width,
+                canvasHeight: canvas.height,
+                boundingRect: { width: rect.width, height: rect.height },
+                parentRect: { width: parentRect.width, height: parentRect.height }
+            });
+
             const ctx = canvas.getContext('2d');
 
             if (charts.controlChart) {
@@ -3151,6 +3213,13 @@
 
             document.getElementById('controlMetrics').innerHTML = metricsHtml;
 
+            console.log(`📈 Creating control chart with:`, {
+                datasetsCount: datasets.length,
+                datesCount: allDates.length,
+                stocksCount: Object.keys(allHistoricals).length,
+                recommendationsCount: allRecommendations.length
+            });
+
             charts.controlChart = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -3201,6 +3270,8 @@
                     }
                 }
             });
+
+            console.log('✅ Control chart created successfully');
         }
 
         function displayPredictionEvaluation(allHistoricals, allForecasts, modelType = null) {
