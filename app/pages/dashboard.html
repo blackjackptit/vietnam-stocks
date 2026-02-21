@@ -1060,14 +1060,24 @@
             try {
                 await loadStockNames();
 
+                // Function to update monitoring description with stock count
+                function updateMonitoringDescription() {
+                    const descEl = document.querySelector('[data-i18n="dashboard.monitoring_desc"]');
+                    if (!descEl) return;
+
+                    // Replace {count} placeholder with actual stock count
+                    if (descEl.textContent.includes('{count}')) {
+                        const text = descEl.textContent.replace('{count}', window.TOTAL_STOCKS_COUNT);
+                        descEl.innerHTML = text;
+                        console.log(`📊 Updated monitoring description: "${text}"`);
+                    }
+                }
+
                 // Wait for categories to load and update count dynamically
                 const checkCategories = setInterval(() => {
                     if (window.categoriesLoaded && window.TOTAL_STOCKS_COUNT > 0) {
-                        // Update the monitoring description with actual stock count
-                        const descEl = document.querySelector('[data-i18n="dashboard.monitoring_desc"]');
-                        if (descEl && descEl.textContent.includes('{count}')) {
-                            descEl.innerHTML = descEl.textContent.replace('{count}', `<span style="font-weight: 700; color: #c41c16;">${window.TOTAL_STOCKS_COUNT}</span>`);
-                        }
+                        console.log(`📊 Categories loaded with ${window.TOTAL_STOCKS_COUNT} total stocks`);
+                        updateMonitoringDescription();
                         clearInterval(checkCategories);
                     }
                 }, 100);
@@ -1075,20 +1085,19 @@
                 // Listen for categories update from API (in case it loads later than fallback)
                 window.addEventListener('categoriesUpdated', () => {
                     console.log(`📊 Stock categories updated from API: ${window.TOTAL_STOCKS_COUNT} total stocks`);
+                    // Update the monitoring description
+                    updateMonitoringDescription();
                     // Refresh the grid to show new data
                     renderStockGrid();
-                    // Update the monitoring description with new count
-                    const descEl = document.querySelector('[data-i18n="dashboard.monitoring_desc"]');
-                    if (descEl) {
-                        const countSpan = descEl.querySelector('span');
-                        if (countSpan) {
-                            countSpan.textContent = window.TOTAL_STOCKS_COUNT;
-                        }
-                    }
                 });
 
                 renderStockGrid();
                 updateSelectedCount();
+
+                // Initialize status badge as LIVE (waiting for first data)
+                updateStatusBadge(true);
+                console.log('✅ Dashboard initialized with real-time monitoring');
+
                 startPolling();
             } catch (error) {
                 console.error('Initialization error:', error);
@@ -1256,20 +1265,49 @@
 
                 if (data.error) {
                     console.log('No data yet');
+                    updateStatusBadge(false);
                     return;
                 }
 
                 // Check if data actually changed
                 const dataHash = JSON.stringify(data.timestamp);
                 if (dataHash === lastDataHash) {
+                    updateStatusBadge(true); // Still online but no new data
                     return; // No changes, skip update
                 }
                 lastDataHash = dataHash;
+
+                // Update status badge to show we're receiving fresh data
+                updateStatusBadge(true);
 
                 latestData = data;
                 await displayData(data);
             } catch (error) {
                 console.error('Error fetching data:', error);
+                updateStatusBadge(false);
+            }
+        }
+
+        // Update the LIVE status badge
+        function updateStatusBadge(isLive) {
+            const statusBadge = document.getElementById('statusBadge');
+            if (!statusBadge) return;
+
+            const statusDot = statusBadge.querySelector('.status-dot');
+            const statusText = statusBadge.querySelector('[data-i18n="dashboard.live"]');
+
+            if (isLive) {
+                statusBadge.style.background = '#f0fdf4';
+                statusBadge.style.color = '#16a34a';
+                if (statusDot) statusDot.style.background = '#16a34a';
+                if (statusText) statusText.textContent = t('dashboard.live') || 'LIVE';
+                statusBadge.title = 'Real-time data is updating...';
+            } else {
+                statusBadge.style.background = '#fef2f2';
+                statusBadge.style.color = '#dc2626';
+                if (statusDot) statusDot.style.background = '#dc2626';
+                if (statusText) statusText.textContent = 'OFFLINE';
+                statusBadge.title = 'Waiting for data updates...';
             }
         }
 
