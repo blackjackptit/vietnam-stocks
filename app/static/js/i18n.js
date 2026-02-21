@@ -353,6 +353,7 @@ const translations = {
         'charts.fibonacci': '🎯 Fibonacci Retracement',
         'charts.pivot_points': '📍 Pivot Points',
         'charts.elder_ray': '🌊 Elder Ray Index',
+        'charts.timeframe': 'Timeframe',
 
         // Filters and Sections
         'filter.by_category': 'Filter by Category',
@@ -1928,6 +1929,7 @@ const translations = {
         'charts.fibonacci': '🎯 Fibonacci Retracement',
         'charts.pivot_points': '📍 Điểm Pivot',
         'charts.elder_ray': '🌊 Chỉ Số Elder Ray',
+        'charts.timeframe': 'Khung Thời Gian',
 
         // Filters and Sections
         'filter.by_category': 'Lọc Theo Danh Mục',
