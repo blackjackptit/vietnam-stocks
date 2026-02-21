@@ -1008,6 +1008,8 @@
 
         async function init() {
             try {
+                console.log('🚀 Advanced Charts init() starting...');
+
                 // Update timestamp
                 updateAnalysisTimestamp();
 
@@ -1015,6 +1017,7 @@
                 try {
                     const namesResponse = await fetch(`${window.API_BASE_URL || ''}/api/stock-names`);
                     stockNames = await namesResponse.json();
+                    console.log(`✓ Loaded ${Object.keys(stockNames).length} stock names`);
                 } catch (e) {
                     console.log('Stock names not available');
                     stockNames = {};
@@ -1026,11 +1029,14 @@
                     await new Promise(resolve => setTimeout(resolve, 100));
                     retries++;
                 }
+                console.log(`⏱️ Stock categories ready (retries: ${retries})`);
 
                 // Get all stocks from categories
                 if (typeof window.STOCK_CATEGORIES !== 'undefined' && window.STOCK_CATEGORIES && window.STOCK_CATEGORIES.all) {
                     allStocks = window.STOCK_CATEGORIES.all;
+                    console.log(`✓ Loaded ${allStocks.length} stocks from window.STOCK_CATEGORIES`);
                 } else {
+                    console.log('STOCK_CATEGORIES not in window, fetching from API...');
                     // Fallback: try to load from API
                     const response = await fetch(`${window.API_BASE_URL || ''}/api/stock-categories`);
                     const data = await response.json();
@@ -1039,6 +1045,7 @@
                             .filter(([key]) => key !== 'commodities' && key !== 'all')
                             .flatMap(([_, symbols]) => symbols))];
                         allStocks = allStockSymbols.sort();
+                        console.log(`✓ Loaded ${allStocks.length} stocks from API fallback`);
                     }
                 }
 
@@ -1046,8 +1053,9 @@
                 const compareStocks = document.getElementById('compareStocks');
 
                 if (allStocks.length === 0) {
-                    select.innerHTML = '<option value="">No stocks available</option>';
-                    compareStocks.innerHTML = '<div style="grid-column: 1/-1; text-align: center; color: #e74c3c;">No stocks available</div>';
+                    console.warn('⚠️ No stocks available yet, retrying...');
+                    // Retry loading in 500ms
+                    setTimeout(() => init(), 500);
                     return;
                 }
 
@@ -2668,19 +2676,19 @@
                     header.onclick = function() { toggleSection(this); };
                 }
             });
-
-            // Initialize collapsible sections
-            setTimeout(initializeCollapsibleSections, 100);
         }
 
-        // Initialize
-        init();
-
-        // Make cards collapsible after page load
+        // Initialize after DOM is ready
         if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', makeCardsCollapsible);
+            document.addEventListener('DOMContentLoaded', async () => {
+                await init();
+                makeCardsCollapsible();
+                setTimeout(initializeCollapsibleSections, 100);
+            });
         } else {
+            init();
             makeCardsCollapsible();
+            setTimeout(initializeCollapsibleSections, 100);
         }
     </script>
     <script>
