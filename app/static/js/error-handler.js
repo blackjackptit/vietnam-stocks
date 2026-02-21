@@ -111,15 +111,29 @@ async function withRetry(apiFn, options = {}) {
 
 /**
  * Global unhandled promise rejection handler
+ * Catches unhandled promise rejections and handles them gracefully
  */
 window.addEventListener('unhandledrejection', function(event) {
-    console.error('Unhandled promise rejection:', event.reason);
+    const reason = event.reason;
+    const reasonStr = reason ? String(reason) : 'Unknown error';
 
-    // Prevent default behavior (logging to console) in production
-    if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-        event.preventDefault();
+    // Check if this is from browser extensions or onMessage listeners
+    // These errors are safe to ignore as they're from external sources
+    if (reasonStr.includes('onMessage') || reasonStr.includes('extension') ||
+        reasonStr.includes('chrome') || reasonStr.includes('browser')) {
+        console.debug('🔍 Browser extension/message listener error (safe to ignore):', reason);
+        event.preventDefault(); // Prevent error logging
+        return;
+    }
 
-        // Show user-friendly error notification
+    // Log the error for debugging
+    console.error('⚠️ Unhandled promise rejection:', reason);
+
+    // Always prevent default behavior to avoid console spam
+    event.preventDefault();
+
+    // For application-level errors, show user-friendly notification
+    if (reasonStr && !reasonStr.includes('Network') && !reasonStr.includes('Abort')) {
         if (typeof showNotification === 'function') {
             showNotification('An unexpected error occurred. Please refresh the page.', 'error');
         }
