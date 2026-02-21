@@ -2747,7 +2747,8 @@
                         x: {
                             ticks: {
                                 maxRotation: 45,
-                                minRotation: 45
+                                minRotation: 45,
+                                maxTicksLimit: 10
                             }
                         }
                     }
@@ -2993,9 +2994,23 @@
             const firstHistorical = allHistoricals[firstSymbol];
             const firstForecast = allForecasts[firstSymbol];
 
+            console.log('Control chart data check:', {
+                firstSymbol,
+                historicalCount: firstHistorical ? firstHistorical.length : 0,
+                forecastCount: firstForecast && firstForecast.predictions ? firstForecast.predictions.length : 0,
+                forecastStructure: firstForecast
+            });
+
             const historicalDates = firstHistorical.map(h => h.date.toLocaleDateString());
             const forecastDates = firstForecast.predictions.map(p => p.date.toLocaleDateString());
             const allDates = [...historicalDates, ...forecastDates];
+
+            console.log('Dates array created:', {
+                historicalDatesCount: historicalDates.length,
+                forecastDatesCount: forecastDates.length,
+                totalDatesCount: allDates.length,
+                sampleDates: allDates.slice(0, 3)
+            });
 
             let metricsHtml = '';
 
@@ -3007,6 +3022,12 @@
 
                 const historicalPrices = historical.map(h => h.close);
                 const forecastPrices = forecast.predictions.map(p => p.price);
+
+                console.log(`Processing stock ${symbol}:`, {
+                    historicalPricesCount: historicalPrices.length,
+                    forecastPricesCount: forecastPrices.length,
+                    dataReady: historicalPrices.length > 0 && forecastPrices.length > 0
+                });
 
                 // Calculate control limits based on historical data
                 const mean = historicalPrices.reduce((sum, p) => sum + p, 0) / historicalPrices.length;
@@ -3130,6 +3151,13 @@
                         </div>
                     </div>
                 `;
+            });
+
+            console.log('📊 Datasets after processing:', {
+                totalDatasets: datasets.length,
+                datasetsPerStock: Math.ceil(datasets.length / Object.keys(allHistoricals).length),
+                datasetLabels: datasets.map(d => d.label),
+                firstDatasetSampleData: datasets[0] ? datasets[0].data.slice(0, 5) : 'N/A'
             });
 
             // Display investment recommendations
@@ -3257,7 +3285,8 @@
                         x: {
                             ticks: {
                                 maxRotation: 45,
-                                minRotation: 45
+                                minRotation: 45,
+                                maxTicksLimit: 15
                             }
                         },
                         y: {
