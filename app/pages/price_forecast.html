@@ -1153,36 +1153,46 @@
                 const symbol = symbolParam.toUpperCase();
                 console.log(`📌 Auto-selecting stock from URL parameter: ${symbol}`);
 
-                // Wait a bit for DOM and stock data to be ready
+                // Wait longer for full initialization including loadStockNames and loadStockList
                 setTimeout(async () => {
-                    const checkbox = document.getElementById(`fcast_${symbol}`);
-                    if (checkbox) {
-                        checkbox.checked = true;
-                        updateForecastSelectionCount();
-                        updateSelection();
-                        console.log(`✅ Stock ${symbol} auto-selected`);
+                    try {
+                        const checkbox = document.getElementById(`fcast_${symbol}`);
+                        if (checkbox) {
+                            checkbox.checked = true;
 
-                        // Wait for stock data to load, then generate forecast
-                        // Check every 100ms up to 5 times (500ms total)
-                        let dataReady = false;
-                        for (let i = 0; i < 5; i++) {
-                            if (Object.keys(historicalStockData).length > 0 && historicalStockData[symbol]) {
-                                dataReady = true;
-                                break;
+                            // Check if functions are ready
+                            if (typeof updateForecastSelectionCount === 'function') {
+                                updateForecastSelectionCount();
                             }
-                            await new Promise(resolve => setTimeout(resolve, 100));
-                        }
+                            if (typeof updateSelection === 'function') {
+                                updateSelection();
+                            }
+                            console.log(`✅ Stock ${symbol} auto-selected`);
 
-                        if (dataReady) {
-                            console.log(`🔄 Auto-generating forecast for ${symbol}`);
-                            generateForecast();
+                            // Wait for stock data to load, then generate forecast
+                            // Check every 200ms up to 10 times (2000ms total)
+                            let dataReady = false;
+                            for (let i = 0; i < 10; i++) {
+                                if (Object.keys(historicalStockData).length > 0 && historicalStockData[symbol]) {
+                                    dataReady = true;
+                                    break;
+                                }
+                                await new Promise(resolve => setTimeout(resolve, 200));
+                            }
+
+                            if (dataReady && typeof generateForecast === 'function') {
+                                console.log(`🔄 Auto-generating forecast for ${symbol}`);
+                                generateForecast();
+                            } else {
+                                console.warn(`⚠️ Stock data not ready for ${symbol}. User can click Generate to start.`);
+                            }
                         } else {
-                            console.warn(`⚠️ Stock data not ready for ${symbol}. User can click Generate to start.`);
+                            console.warn(`⚠️ Stock ${symbol} not found in list`);
                         }
-                    } else {
-                        console.warn(`⚠️ Stock ${symbol} not found in list`);
+                    } catch (error) {
+                        console.error('Error during auto-selection:', error);
                     }
-                }, 1000);
+                }, 2000);
             }
         }
 
@@ -3257,8 +3267,7 @@
             evaluationHistoricals = allHistoricals;
             console.log('Stored evaluationHistoricals with keys:', Object.keys(evaluationHistoricals));
 
-            // Use provided model or get from evaluation selector, fallback to main selector
-            const evaluationModel = modelType || document.getElementById('evaluationModelSelect')?.value || document.getElementById('modelSelect').value;
+            // evaluationModel already defined above at line 3199
             console.log('Using evaluation model:', evaluationModel);
 
             // Adaptive evaluation days based on available data
