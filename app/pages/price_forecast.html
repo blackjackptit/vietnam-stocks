@@ -1153,18 +1153,36 @@
                 const symbol = symbolParam.toUpperCase();
                 console.log(`📌 Auto-selecting stock from URL parameter: ${symbol}`);
 
-                // Wait a bit for DOM to be ready
-                setTimeout(() => {
+                // Wait a bit for DOM and stock data to be ready
+                setTimeout(async () => {
                     const checkbox = document.getElementById(`fcast_${symbol}`);
                     if (checkbox) {
                         checkbox.checked = true;
                         updateForecastSelectionCount();
                         updateSelection();
                         console.log(`✅ Stock ${symbol} auto-selected`);
+
+                        // Wait for stock data to load, then generate forecast
+                        // Check every 100ms up to 5 times (500ms total)
+                        let dataReady = false;
+                        for (let i = 0; i < 5; i++) {
+                            if (Object.keys(historicalStockData).length > 0 && historicalStockData[symbol]) {
+                                dataReady = true;
+                                break;
+                            }
+                            await new Promise(resolve => setTimeout(resolve, 100));
+                        }
+
+                        if (dataReady) {
+                            console.log(`🔄 Auto-generating forecast for ${symbol}`);
+                            generateForecast();
+                        } else {
+                            console.warn(`⚠️ Stock data not ready for ${symbol}. User can click Generate to start.`);
+                        }
                     } else {
                         console.warn(`⚠️ Stock ${symbol} not found in list`);
                     }
-                }, 500);
+                }, 1000);
             }
         }
 
