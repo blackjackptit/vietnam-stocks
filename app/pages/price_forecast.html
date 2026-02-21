@@ -1031,12 +1031,17 @@
                     <canvas id="controlChart"></canvas>
                 </div>
 
-                <!-- Investment Recommendations -->
-                <div id="investmentRecommendations" style="margin-top: 25px;">
-                </div>
-
                 <!-- Control Metrics -->
                 <div id="controlMetrics" style="margin-top: 20px; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Investment Recommendations -->
+        <div class="card collapsible" id="recommendationsCard" style="display: none;">
+            <h2 data-i18n="section.ai_recommendations" onclick="toggleSection(this)">🤖 AI Investment Recommendations</h2>
+            <div class="card-content">
+                <div id="investmentRecommendations" style="">
                 </div>
             </div>
         </div>
@@ -1418,6 +1423,7 @@
             document.getElementById('predictionsCard').style.display = 'none';
             document.getElementById('analysisCard').style.display = 'none';
             document.getElementById('controlCard').style.display = 'none';
+            document.getElementById('recommendationsCard').style.display = 'none';
             document.getElementById('evaluationCard').style.display = 'none';
         }
 
@@ -1590,6 +1596,7 @@
             document.getElementById('predictionsCard').style.display = 'block';
             document.getElementById('analysisCard').style.display = 'block';
             document.getElementById('controlCard').style.display = 'block';
+            document.getElementById('recommendationsCard').style.display = 'block';
             document.getElementById('evaluationCard').style.display = 'block';
 
             // Initialize collapsible sections after a brief delay to ensure content is rendered
@@ -3064,8 +3071,7 @@
             });
 
             // Display investment recommendations
-            let recommendationsHtml = '<h3 style="margin-bottom: 15px; color: #1e293b; font-size: 1.3em;" data-i18n="section.ai_recommendations">🤖 AI Investment Recommendations</h3>';
-            recommendationsHtml += '<div style="display: grid; gap: 20px;">';
+            let recommendationsHtml = '<div style="display: grid; gap: 20px;">';
 
             allRecommendations.forEach((rec, index) => {
                 const color = stockColors[index % stockColors.length];
