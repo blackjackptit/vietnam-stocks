@@ -3317,15 +3317,16 @@
                             break;
                         case 'bluechip':
                             // Blue chip: Only blue chip stocks
-                            stocksToAnalyze = window.STOCK_CATEGORIES.blue_chips || [];
+                            const rawBluechips = window.STOCK_CATEGORIES.blue_chips;
+                            console.log(`DEBUG: Raw blue_chips from STOCK_CATEGORIES:`, rawBluechips);
+                            console.log(`DEBUG: Type of blue_chips:`, typeof rawBluechips);
+                            console.log(`DEBUG: Is array?`, Array.isArray(rawBluechips));
+
+                            stocksToAnalyze = rawBluechips || [];
                             console.log(`⭐ Blue chip strategy: ${stocksToAnalyze.length} stocks`);
                             console.log(`📋 Blue chip stocks being analyzed:`, stocksToAnalyze);
                             console.log(`🔍 Is AAV in blue_chips? ${stocksToAnalyze.includes('AAV')}`);
-                            console.log(`DEBUG: Checking window.STOCK_CATEGORIES:`, {
-                                hasBlueChips: !!window.STOCK_CATEGORIES.blue_chips,
-                                blueChipsLength: window.STOCK_CATEGORIES.blue_chips ? window.STOCK_CATEGORIES.blue_chips.length : 0,
-                                blueChipsArray: window.STOCK_CATEGORIES.blue_chips
-                            });
+                            console.log(`🔍 Is AAH in blue_chips? ${stocksToAnalyze.includes('AAH')}`);
                             break;
                         case 'risky':
                             // Risky: Exclude blue chips and banks, focus on smaller companies
