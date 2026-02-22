@@ -3338,6 +3338,7 @@
                 let processedCount = 0;
                 const totalStocks = stocksToAnalyze.length;
                 console.log(`📊 Analyzing ${totalStocks} stocks...`);
+                console.log(`📋 Stocks to analyze:`, stocksToAnalyze);
 
                 for (const symbol of stocksToAnalyze) {
                     processedCount++;
@@ -3345,6 +3346,11 @@
                     if (processedCount % 10 === 0) {
                         console.log(`Progress: ${processedCount}/${totalStocks} stocks processed`);
                         detailsDiv.innerHTML = `⏳ Analyzing stocks... ${processedCount}/${totalStocks} processed`;
+                    }
+
+                    // Log if we're analyzing AAV
+                    if (symbol === 'AAV') {
+                        console.log(`⚠️ ANALYZING AAV! This should not happen in bluechip strategy`);
                     }
 
                     try {
@@ -3399,6 +3405,8 @@
                 }
 
                 console.log(`✓ Analyzed ${stockAnalysis.length} stocks successfully`);
+                console.log(`📋 Stocks found with valid data:`, stockAnalysis.map(s => s.symbol));
+                console.log(`🔍 Is AAV in analyzed results? ${stockAnalysis.some(s => s.symbol === 'AAV')}`);
 
                 if (stockAnalysis.length < 5) {
                     clearTimeout(timeoutId); // Clear timeout
