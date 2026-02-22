@@ -3343,8 +3343,11 @@
                 const stockAnalysis = [];
                 let processedCount = 0;
                 const totalStocks = stocksToAnalyze.length;
-                console.log(`📊 Analyzing ${totalStocks} stocks...`);
-                console.log(`📋 Stocks to analyze:`, stocksToAnalyze);
+                console.log(`📊 Analyzing ${totalStocks} stocks for strategy: ${strategy}`);
+                console.log(`📋 Stocks to analyze (first 10):`, stocksToAnalyze.slice(0, 10));
+                console.log(`🔍 CRITICAL CHECK - Is AAV in analysis list? ${stocksToAnalyze.includes('AAV')}`);
+                console.log(`🔍 CRITICAL CHECK - Is AAH in analysis list? ${stocksToAnalyze.includes('AAH')}`);
+                console.log(`📋 Full stocks list:`, stocksToAnalyze);
 
                 for (const symbol of stocksToAnalyze) {
                     processedCount++;
@@ -4113,9 +4116,10 @@
             let finalSelectedStocks = [];
             let preferredStocks = [];
 
-            // Get preferred stocks (Step 3 - optional)
-            const preferredCheckboxes = document.querySelectorAll('#portfolioStocks input[type="checkbox"]:checked');
+            // Get preferred stocks (Step 3 - smart recommendations get checked here)
+            const preferredCheckboxes = document.querySelectorAll('#preferredStocks input[type="checkbox"]:checked');
             preferredStocks = Array.from(preferredCheckboxes).map(cb => cb.value);
+            console.log(`✅ Found ${preferredStocks.length} preferred stocks from #preferredStocks`);
 
             if (currentStrategy === 'smart') {
                 // Smart strategy mode: auto-select stocks based on strategy
